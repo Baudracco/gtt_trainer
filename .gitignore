@@ -7,3 +7,10 @@ vendor/
 .DS_Store
 coverage/
 *.log
+*.tsbuildinfo
+.phpunit.cache/
+__pycache__/
+*.pyc
+server/var/
+tmp/
+test-results/

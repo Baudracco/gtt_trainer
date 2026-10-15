@@ -1,0 +1,1214 @@
+{
+  "title": "DAPER linee urbane e suburbane",
+  "version": "05/26",
+  "effectiveFrom": "2026-09-11",
+  "source": "DaperBus333_Versione 5-26_ (11092026).pdf",
+  "sha256": "d1190230e1033bd24ae60e4219e4d06b1deba1cc4beb0d35663328fc3e3be66b",
+  "geometryStatus": "not_georeferenced",
+  "references": [
+    {
+      "id": "daper-05-26-p2-1",
+      "line": "CP1",
+      "pages": [
+        2
+      ],
+      "uscita": "Dep. Gerbido-V.De Amicis/V.Fermi (Collegno)\nV. Gorini - Str. Del Portone – V. della Libertà\n(Grugliasco) – V. Nuccio Bertone - C. Allamano\n– V. Leonardo da Vinci. - C. Torino - V.le\nEchirolles – V. Roma – V. Fiume (Collegno) - C.\nFrancia – V. Manzoni – V. de Amicis.\nDep. Gerbido- V.Musinè (Pianezza)\nV. Gorini (Grugliasco) - Str. Del Portone – V.\ndella Libertà – V.le Nuccio Bertone – C.\nAllamano – V. Leonardo Da Vinci – C. Torino –\nV. La Marmora – V. F.lli Villani (Collegno) – V.\nCattaneo – C. Francia (controV.le) – V. XX\nSettembre – V. San Massimo – C. Pastrengo – V.\nTampellini – V. del Brucco – V. San Lorenzo –\nV. Sebusto – V. Venaria – Str. Torino–Pianezza –\nV. Torino (Pianezza) – V. Piave - V. Susa - V.\nSan Giovanni Bosco – V. Musinè.\nDep. Gerbido - Fermata n.839\nV. Gorini (Grugliasco) - Str. Del Portone – V.\ndella Libertà – V.le Nuccio Bertone – C.\nAllamano – V. Leonardo Da Vinci – C. Torino –\nV. La Marmora – V. F.lli Villani (Collegno) – V.\nCattaneo – C. Francia (controV.le) – V. XX\nSettembre – V. San Massimo – C. Pastrengo\n(Fermata n.839).",
+      "rientro": "V. De Amicis (Collegno) - Dep. Gerbido\nV. De Amicis (ultima fermata utile per la discesa\npassegeri N.2699 FERMI SUD) – V. De Amicis -\nMagenta – C. Francia – V.le Gramsci – V.le\nGramsci (Grugliasco) – C. Torino - V. Leonardo\nda Vinci - C. Allamano - V. Nuccio Bertone – V.\ndella Libertà – Str. Del Portone - V. Gorini\nV.Musinè (Pianezza) - Dep. Gerbido\nV. Musinè (Pianezza) – V. San Pancrazio – V.\nPiave – V. Torino – Str. Torino–Pianezza\n(Collegno) – V. Venaria – V. Sebusto – V. San\nLorenzo – V. del Brucco – V. Tampellini – C.\nPastrengo – V. San Massimo – V.le Gramsci –\nV.le Gramsci (Grugliasco) – C. Torino – V.\nLeonardo da Vinci – C. Allamano – – V.le\nNuccio Bertone – V. della Libertà – Str. Del\nPortone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p2-2",
+      "line": "B1",
+      "pages": [
+        2
+      ],
+      "uscita": "Dep. Venaria – C.so Venezia\nV. Amati – Str. della Venaria – P.za Stampalia –\nV. Venaria – V. Stampini – L.go Grosseto – V.\nStradella – P.za Baldissera – C.so Venezia.\nDep. Venaria – V. Scialoja\nV. Amati – Str. della Venaria – P.za Stampalia –\nV. Veronese – V. Reiss Romoli – V. Scialoja.",
+      "rientro": "C.so Venezia - Dep. Venaria\nC.so Venezia – P.za Baldissera – V. Stradella –\nL.go Grosseto – V. Stampini – V. Lanzo – P.za\nStampalia – Str. della Venaria - V. Amati.\nV. Scialoja – Dep. Venaria\nV. Scailoja – V. Reiss Romoli – V. Veronese –\nP.za Stampalia – Str. della Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p3-3",
+      "line": "M1S",
+      "pages": [
+        3
+      ],
+      "uscita": "Dep. Nizza – P. Carducci\nP. Carducci.\nDep. Nizza – V. De Amicis/V. Fermi (Collegno)\nP. Carducci – V. Nizza – C. Sommeiller – C.\nEinaudi – C. Peschiera – C. Francia – P. Massaua\n– C. Francia – V. De Amicis – inversione\nrotatoria con C. Pastrengo – V. De Amicis.\nDep. Nizza – C. Maroncelli (P. Bengasi)\nP. Carducci – V. Nizza – C. Maroncelli (P.\nBengasi).\nDep. San Paolo - C. Maroncelli (P. Bengasi)\nC. Trapani - C. Siracusa - C. Tazzoli - C. Agnelli\n– C. Traiano - C. Maroncelli.\nDep. S. Paolo – V. De Amicis/V. Fermi\n(Collegno)\nC. Trapani – C. Peschiera – C. Francia – P.\nMassaua – C. Francia - V. De Amicis - inversione\nrotatoria con C. Pastrengo – V. De Amicis.\nDep. S. Paolo - P. Statuto\nC. Trapani – P. Rivoli – C. Francia\nDep. Gerbido-V.De Amicis/V.Fermi (Collegno)\nV. Gorini - Str. Del Portone – V. della Libertà\n(Grugliasco) – V. Nuccio Bertone - C. Allamano\n– V. Leonardo da Vinci. - C. Torino - V.le\nEchirolles – V. Roma – V. Fiume (Collegno) - C.\nFrancia – V. Manzoni – V. De Amicis.\nDep. Gerbido – C. Maroncelli\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini – P. Caio Mario - V. Onorato\nVigliani – P. Bengasi – V. Nizza.\nDep. Gerbido – Stazione (Porta Nuova)\nV. Gorini - Str. del Portone – C. Orbassano - C.\nTazzoli – C. Agnelli – C. IV Novembre – C.\nDuca degli Abruzzi – C. Vittorio Emanuele II\n(carreggiata centrale sino all’altezza di V. Nizza,\nquindi prosegue per carreggiata laterale sud) –\ninversione di marcia all’altezza di V. Goito –\nC.so Vittorio Emanuele II (carreggiata laterale\nNord) – C.so Vittorio Emanuele II (carreggiata\ncentrale all’altezza di V. Lagrange).",
+      "rientro": "P. Carducci - Dep. Nizza\nP. Carducci.\nV. De Amicis/V. Fermi (Collegno) - Dep. Nizza\nV. Magenta - C. Francia – P. Massaua – C.\nFrancia – C. Peschiera – C. Einaudi – C.\nSommeiller - V. Nizza – P. Carducci.\nC. Maroncelli (P. Bengasi) - Dep. Nizza\nC. Maroncelli (P. Bengasi) – V. Genova- C.\nBramante – P. Carducci.\nC. Maroncelli (P. Bengasi) - Dep. San Paolo\nInversione di marcia all’altezza di V. Genova - C.\nMaroncelli – C. Traiano - C. Agnelli - C. Tazzoli\n- C. Siracusa - C. Trapani.\nV. De Amicis/V. Fermi (Collegno) - Dep. S.\nPaolo\nV. Magenta - C. Francia - P. Massaua – C.\nFrancia – C. Peschiera – C. Trapani.\nP. Statuto - Dep. S. Paolo\nC. Francia – P. Rivoli – C. Trapani\nV. De Amicis (Collegno) - Dep. Gerbido\nV. De Amicis - Magenta – C. Francia – V.le\nGramsci – V.le Gramsci (Grugliasco) – C. Torino\n- V. Leonardo da Vinci - C. Allamano - V.\nNuccio Bertone – V. della Libertà – Str. Del\nPortone - V. Gorini\nC. Maroncelli - Dep. Gerbido\nV. Ventimiglia – V. Corradino – P. Bengasi - V.\nOnorato Vigliani – P. Caio Mario - C.\nSettembrini - C. Orbassano - Str. del Portone - V.\nGorini\nStazione (Porta Nuova) – Dep. Gerbido\nC. Vittorio Emanuele II (carreggiata centrale sino\nall’altezza di V. Nizza, quindi prosegue per\ncarreggiata laterale sud) –inversione di marcia\nall’altezza di V. Goito – C.so Vittorio Emanuele\nII (carreggiata laterale Nord) – C.so Vittorio\nEmanuele II (carreggiata centrale all’altezza di V.\nLagrange) – C. Galileo Ferraris – C. Rosselli –\nL.go Orbassano – C.so Orbassano – Str. del\nPortone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p4-4",
+      "line": "M1S",
+      "pages": [
+        4
+      ],
+      "uscita": "Dep. S. Paolo – Stazione (Porta Nuova)\nC. Trapani – P. Rivoli – C. Vittorio Emanuele II\n(carreggiata centrale sino all’altezza di V. Nizza,\nquindi prosegue per carreggiata laterale sud) –\ninversione di marcia all’altezza di V. Goito –\nC.so Vittorio Emanuele II (carreggiata laterale\nNord) – C.so Vittorio Emanuele II (carreggiata\ncentrale all’altezza di V. Lagrange).",
+      "rientro": "Stazione (Porta Nuova) – Dep. S. Paolo\nC. Vittorio Emanuele II (carreggiata centrale sino\nall’altezza di V. Nizza, quindi prosegue per\ncarreggiata laterale sud) – inversione di marcia\nall’altezza di V. Goito – C.so Vittorio Emanuele\nII (carreggiata laterale Nord) – C.so Vittorio\nEmanuele II (carreggiata centrale all’altezza di V.\nLagrange) – P. Rivoli – C. Trapani."
+    },
+    {
+      "id": "daper-05-26-p4-5",
+      "line": "OB1",
+      "pages": [
+        4
+      ],
+      "uscita": "Dep. Gerbido – Ospedale San Luigi\n(Orbassano)\nV. Gorini – Str. del Portone – Scalo Ferroviario\n(Str. Del Portone - V. Bellezia - V. San Luigi) –\nV. San Luigi (Orbassano) – Ospedale San Luigi.\nDep. Gerbido – V. Volturno (Orbassano)\nV. Gorini – Str. del Portone – Scalo Ferroviario\n(Str. Del Portone - V. Bellezia - V. San Luigi) –\nV. San Luigi (Orbassano) –V. Case Sparse – Str.\nRivalta – V. Volturno.",
+      "rientro": "Ospedale San Luigi (Orbassano) - Dep.\nGerbido\nOspedale San Luigi (Orbassano) – V. San Luigi –\nScalo Ferroviario (V. San Luigi – V. Bellezia -\nStr. Del Portone) – Str. del Portone – V.Gorini.\nV. Volturno (Orbassano) - Dep. Gerbido\nV.Volturno – Str. Rivalta – V. Case Sparse – V.\nSan Luigi – Scalo Ferroviario (V. San Luigi – V.\nBellezia - Str. Del Portone) – Str. del Portone –\nV.Gorini."
+    },
+    {
+      "id": "daper-05-26-p5-6",
+      "line": "SE1 SE2 Fer.",
+      "pages": [
+        5
+      ],
+      "uscita": "Dep. Venaria - Parcheggio Stura\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli.\nDep. Venaria – C. Lombardia Settimo\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli –P.le\nAutostrade – C. Romania – (SETTIMO)-V.\nTorino – C. Piemonte – V. Lombardia.\nPer Cap. SE2 (ex 51):\n– inversione alla rotonda dopo il Cap. della linea\nSE1 – V. Lombardia – Cap. SE 2\nDep. Tortona - V. Lombardia (Settimo)\nC. Tortona – C. Novara - C. Regio Parco – P.\nSofia – Str. Settimo – V. Regio Parco - C. IV\nNovembre - V. Torino - C. Piemonte – V.\nLombardia.\nPer Cap. SE2 (ex 51):\n– inversione alla rotonda dopo il Cap. della linea\nSE1 – V. Lombardia – Cap. SE 2\nDep. Tortona - Parcheggio Stura\nC. Tortona – C. Novara - C. Regio Parco – P.\nSofia – Str. Settimo – L.go Strura Lazio – P.le\nRomolo e Remo – C. Giulio Cesare – Park Stura.",
+      "rientro": "Parcheggio Stura - Dep. Venaria\nC. Vercelli - V. Reiss Romoli - V. Veronese - P.\nStampalia - V. Venaria - V. Amati.\nC. Lombardia Settimo - Dep. Venaria\nSE1: inversione alla rotonda dopo il Cap. – V.\nLombardia (CAP. SE2) - C. Piemonte – V.\nTorino – C. Romania – P.le Autostrade - C.\nVercelli - V. Reiss Romoli - V. Veronese - P.\nStampalia - V. Venaria - V. Amati\nV. Lombardia (Settimo) - Dep. Tortona\nV. Lombardia – inversione di marcia alla\nrotatoria V.bile di V. Lombardia / V. Rio San\nGallo – V. Lombardia - (CAP. SE2) - V. Milano\n- V. Vivaldi - V. Verdi - V. Cavour - V. Rosselli\n- V. della Repubblica - V. Torino – C. IV\nNovembre – V. Regio Parco – Str. Settimo – P.\nSofia – C. Regio Parco – C. Novara - C. Tortona.\nParcheggio Stura - Dep. Tortona\nC. Giulio Cesare – P.le Romolo e Remo - L.go\nStura Lazio – Str. Settimo – P. Sofia - C. Regio\nParco – C. Novara - C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p5-7",
+      "line": "STAR 1",
+      "pages": [
+        5
+      ],
+      "uscita": "Dep. Tortona – V. Bixio\nC.so Tortona – C.so Belgio – C.so Regina\nMargherita (carreggiata laterale dopo Rondò\nForca) – C.so Principe Oddone (carreggiata\ncentrale) – C.so Inghilterra – C.so Vittorio\nEmanuele II – V. Borsellino – V. Bixio\nDep. Tortona – C. Farini\nC.so Tortona – C.so Belgio – C.so Farini\nDep. Tortona – V. Accademia Albertina / V.\nGiolitti\nC.so Tortona – C.so Belgio – C.so Regina\nMargherita - V. Rossini - V. Accademia\nAlbertina.",
+      "rientro": "V. Bixio - Dep. Tortona\nC.so Ferrucci – P.za Bernini – C.so Francia –\nP.za Statuto – C.so Principe Eugneio – C.so\nRegina Margherita – V. Rossini – L.go Dora\nSiena – C.so Tortona.\nC. Farini - Dep. Tortona\nC.so Farini – C.so Belgio – C.so Tortona.\nV. Maria Vittoria / V. Accademia Albertina -\nDep. Tortona\nV. Accademia Albertina - V. Rossini - L.go Dora\nSiena - C.so Tortona"
+    },
+    {
+      "id": "daper-05-26-p6-8",
+      "line": "STAR 2",
+      "pages": [
+        6
+      ],
+      "uscita": "Dep. Tortona – C.so Massimo d’Azeglio\nC.so Tortona – C.so Belgio – V. Vanchiglia –\nP.za Vittorio Veneto – V. Bonafous – C.so\nCairoli – C.so Vittorio Emanuele II – C.so\nMassimo d’Azeglio.\nDep. Tortona – C. Bolzano\nC.so Tortona – C.so Belgio – C.so Regina\nMargherita - Rondò Forca (carreggiata laterale) –\nC.so Principe Eugenio (carreggiata centrale) –\nC.so Beccaria – C.so San Martino – P.za XVIII\nDicembre – C.so Bolzano.\nDep. Tortona – P.za Vittorio Veneto:\nC. Tortona – C. Belgio – L.go Berardi – V.\nVanchiglia – P.za Vittorio Veneto.",
+      "rientro": "C.so Massimo d’Azeglio – Dep. Tortona\nC.so Massimo d’Azeglio – C.so Raffaello – V.\nMadama Cristina – V. Accademia Albertina – V.\nRossini – L.go Dora Siena – C.so Tortona.\nC. Bolzano - Dep. Tortona\nC.so Bolzano – Dep. Tortona\nC.so Bolzano – P.za XVIII Dicembre – C.so San\nMartino – C.so Beccaria - C.so Principe Eugenio\n– C.so Regina Margherita – V. Rossini – L.go\nDora Siena – C.so Tortona.\nP.za Vittorio Veneto - Dep. Tortona:\nP.za Vittorio Veneto – Lungo Po Cadorna - V.\nNapione – V. Fontanesi – C. Belgio – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p6-9",
+      "line": "VE1 VE1",
+      "pages": [
+        6
+      ],
+      "uscita": "Dep.Venaria – V. Monte Ortigara\nV. Amati - V. Venaria – V. Sansovino – V. P.\nCossa – V. De Sanctis - V. Chambery – C.so\nBrnelleschi – V. Stelvio – V. Marsigli – V. Monte\nOrtigara.\nDep. Venaria – V.le G. Bruno (Venaria)\nV. Amati – V. Venaria – V. Druento – C.\nGaribaldi – C. Palestro – V. N. Sauro – V. Don\nSapino – V.le Giordano Bruno.\nDep. Gerbido - V. Monte Ortigara\nV. Gorini - Str. Del Portone - V. della Libertà –\nV. Bertone - C. Allamano - V. Guido Reni - V. S.\nMaria Mazzarello - V. Monginevro – V. Marsigli\n(inizio servizio alla fermata n. 216 denominata\n“Martini”) – V. Monte Ortigara.\nDep. Gerbido - V. De Sanctis / P. Massaua\nV. Gorini - Str. Del Portone - V. della Libertà –\nV. Bertone - C. Allamano - V. Guido Reni - V. S.\nMaria Mazzarello - V. De Sanctis.\nDep. Gerbido – V. G. Bruno (Venaria)\nV. Gorini - Str. Del Portone - V. della Libertà –\nV. Bertone - C. Allamano - V. Guido Reni - V. S.\nMaria Mazzarello - V. De Sanctis – V. Pietro\nCossa – V. Sansovino – C. Molise – C. Scirea –\nV. Druento - segue percorso di linea.",
+      "rientro": "V. Monte Ortigara – Dep. Venaria\nV. Monte Ortigara – V. Chambery – V. De\nSanctis – P. Massaua – V. Pietro Cossa – V.\nSansovino – V. Venaria – V. Amati.\nV.le G. Bruno (Venaria) - Dep. Venaria\nV.le Giordano Bruno – C. Matteotti – C. Papa\nGiovanni XXIII – C. Garibaldi – V. Druento – V.\nVenaria – V. Amati.\nV. Monte Ortigara - Dep. Gerbido\nV. Monte Ortigara – V. Chambery - V. De\nSanctis - V. Santa Maria Mazzarello - V. G. Reni\n- C. Allamano – V. Bertone - V. della Libertà -\nStr. del Portone - V. Gorini.\nV. De Sanctis / P. Massaua - Dep. Gerbido\nV. De Sanctis - V. Santa Maria Mazzarello - V.\nG. Reni - C. Allamano – V. Bertone - V. della\nLibertà - Str. del Portone - V. Gorini.\nV. G. Bruno (Venaria) - Dep. Gerbido\nSegue percorso di linea fino a V. Druento\n(Torino) – C. Scirea – C. Molise – V. Sansovino\n– V. Pietro Cossa - P. Massaua - V. De Sanctis -\nV. Santa Maria Mazzarello - V. G. Reni - C.\nAllamano – V. Bertone - V. della Libertà - Str.\ndel Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p7-10",
+      "line": "VE2",
+      "pages": [
+        7
+      ],
+      "uscita": "Dep. Tortona – Ospedale Nuovo (Venaria)\nC. Tortona – C. Belgio – L.go Berardi – C.\nRegina Margherita – svincolo per V. Pietro Cossa\n– V. Pietro Cossa – P. Cirene – V. Pianezza – V.\ndelle Primule – C. Ferrara – V. Traves – V.\nDruento – Str. Torino-Druento (Venaria) – V.\nSapino.\nDep. Tortona – V. Iseppon (Venaria)\nC. Tortona – C. Belgio – L.go Berardi – C.\nRegina Margherita – svincolo per V. Pietro Cossa\n– V. Pietro Cossa – P. Cirene – V. Sansovino –\nStr. Altessano – C. Garibaldi (Venaria) – C. Papa\nGiovanni XXIII – V. Iseppon.",
+      "rientro": "Ospedale Nuovo (Venaria) - Dep. Tortona\nV. Sapino (Venaria) - Str. Torino-Druento – V.\nDruento (Torino) – V. Traves – C. Ferrara – V.\ndelle Primule – V. Pianezza – P. Cirene – V.\nPietro Cossa – svincolo per C. Regina Margherita\n– C. Regina Margherita – V. Fontanesi – C.\nBelgio – C. Tortona.\nV. Iseppon (Venaria) - Dep. Tortona\nV. Iseppon (Venaria) – C. Garibaldi – Str.\nAltessano (Torino) – V. Sansovino – P. Cirene –\nV. Pietro Cossa – svincolo per C. Regina\nMargherita – C. Regina Margherita – V.\nFontanesi – C. Belgio – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p7-11",
+      "line": "LS1",
+      "pages": [
+        7
+      ],
+      "uscita": "Dep. Venaria – V.Lombardore (Leinì)\nStr. della Venaria – V. Venaria – P.za Stamapalia\n– V. Veronese – V. Reiss Romoli – C.so Vercelli\n– Str. Courgnè – V. Rivarolo (Borgaro Torinese) -\nV. Rivarolo (Mappano) – Str. Courgnè\n(Mappano) - Str. Courgnè (Caselle Torinese) – V.\nTorino (Leinì) – V.le Europa (Leinì).\nDep. Venaria – V.Brunelleschi (Settimo)\nStr. della Venaria – V. Venaria – P.za Stamapalia\n– V. Veronese – V. Reiss Romoli – C.so Vercelli\n– C.so Romania – V. Torino (Settimo Torinese) –\nC.so Piemonte (Settimo Torinese – inversione alla\nrotatoria C.so Piemonte / Cavalcavia 8 Agosto\n1944 – V. San Benigno – V. Don C. Gnocchi – V.\nBrunelleschi.",
+      "rientro": "V.Lombardore (Leinì) - Dep. Venaria\nV.le Europa - V. Torino (Leinì) - Str. Courgnè\n(Caselle Torinese) – Str. Courgnè (Mappano) -\nV. Rivarolo (Mappano) – V. Rivarolo (Borgaro\nTorinese) - Str. Courgnè – C.so Vercelli – V.\nReiss Romoli – P.za Stampalia – V. Venaria – V.\nAmati."
+    },
+    {
+      "id": "daper-05-26-p7-12",
+      "line": "VENARIA EXPRESS",
+      "pages": [
+        7
+      ],
+      "uscita": "Dep. Novara– Dep. Dora\nC.so Novara – V. Catania – C.so Verona –\nL.go Dora Firenze – P.te Regio Parco – L.go\nDora Savona.",
+      "rientro": "Dep. Dora – Dep. Novara\nL.go Dora Savona – P.te Bologna – V. Bologna –\nC.so Novara."
+    },
+    {
+      "id": "daper-05-26-p7-13",
+      "line": "SUPERGA EXPRESS",
+      "pages": [
+        7
+      ],
+      "uscita": "Dep. Tortona – P.za Vittorio Veneto\nC.so Tortona - C.so Belgio - V. Vanchiglia -\nP.za Vittorio Veneto.",
+      "rientro": "P.za Vittorio Veneto - Dep. Tortona\nP.za Vittorio Veneto - L.go Po Cadorna - V.\nNapione - V. Fontanesi - C.so Belgio - C.so\nTortona."
+    },
+    {
+      "id": "daper-05-26-p8-14",
+      "line": "2",
+      "pages": [
+        8
+      ],
+      "uscita": "Dep Gerbido - V. Corradino\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - V. Onorato Vigliani – P. Bengasi -\nC. Maroncelli - V. Ventimiglia - V. Corradino.\nDep. Gerbido - P. Pitagora (dir.Ponchielli)\nV. Gorini - Str. del Portone - C. Orbassano - P.\nCattaneo – C. Orbassano - P. Omero – C.\nOrbassano - P. Pitagora.\nDep Tortona - V. Corradino\nC. Tortona – Ponte Regina Margherita – C.\nCasale – C. Moncalieri – P. Zara – C.\nMonterotondo – P. Muzio Scevola – Ponte Balbis\n– C. Dogliotti – C. Unità d’Italia – C. Maroncelli\n– V. Ventimiglia – V. Corradino.\nDep Novara - V. Corradino\nC. Novara – C. Tortona – Ponte Regina\nMargherita – C. Casale – C. Moncalieri – P. Zara\n– C. Monterotondo – P. Muzio Scevola – Ponte\nBalbis – C. Dogliotti – C. Unità d’Italia – C.\nMaroncelli – V. Ventimiglia – V. Corradino.\nDep Gerbido - V. Ponchielli\nV. Gorini - Str. del Portone – C. Orbassano – L.go\nOrbassano – C. Duca degli Abruzzi – C.\nVinzaglio – V. Cernaia – V. Pietro Micca – V.\nXX Settembre - C. XI Febbraio - V. Bologna - V.\nCimarosa - V. Monteverdi - V. Ponchielli.\nDep Tortona - V. Ponchielli\nC. Tortona – C. Novara – V. Bologna – V.\nCimarosa – V. Monteverdi – V. Ponchielli.\nDep Novara - V. Ponchielli\nC. Novara – V. Bologna – V. Cimarosa – V.\nMonteverdi – V. Ponchielli.\nDep San Paolo - V. Ponchielli\nC. Trapani – C. Lecce – C. Regina Margherita –\nC. XI Febbraio – V. Bologna – V. Cimarosa – V.\nMonteverdi – V. Ponchielli.\nDep San Paolo - V. Corradino\nC. Trapani – segue percorso di linea in fuori\nservizio fino in V. Corradino.",
+      "rientro": "V. Corradino - Dep Gerbido\nV. Onorato Vigliani - C. Settembrini - C.\nOrbassano - Str. del Portone - V. Gorini.\nP. Pitagora (da Ponchielli)- Dep. Gerbido\nC. Orbassano - Str. del Portone - V. Gorini.\nV. Corradino - Dep Tortona\nV. Genova – C. Maroncelli – C. Unità d’Italia –\nC. Dogliotti – Ponte Balbis – P. Muzio Scevola –\nC. Monterotondo – P. Zara – C. Moncalieri – C.\nCasale – Ponte Regina Margherita – C. Tortona.\nV. Corradino – Dep Novara\nV. Genova – C. Maroncelli – C. Unità d’Italia –\nC. Dogliotti – Ponte Balbis – P. Muzio Scevola –\nC. Monterotondo – P. Zara – C. Moncalieri – C.\nCasale – Ponte Regina Margherita – C. Tortona –\nC. Novara.\nV. Ponchielli - Dep Gerbido\nV. Bologna – C. XI Febbraio – C. Regina\nMargerita – P. Repubblica – C. Regina\nMargherita - V. Milano – V. San Francesco\nd’Assisi – V. Pietro Micca – V. Cernaia – C.\nVinzaglio – C. Duca degli Abruzzi - L.go\nOrbassano – C. Orbassano – Str. del Portone – V.\nGorini.\nV. Ponchielli - Dep Tortona\nV. Bologna – C. Novara – C. Tortona.\nV. Ponchielli – Dep Novara\nV. Bologna – C. Novara.\nV. Ponchielli - Dep San Paolo\nV. Bologna – C. XI Febbraio – C. Regina\nMargherita – C. Lecce – C. Trapani.\nV. Corradino - Dep San Paolo\nsegue percorso di linea in fuori servizio fino in C.\nTrapani / V. Monginevro."
+    },
+    {
+      "id": "daper-05-26-p9-15",
+      "line": "2",
+      "pages": [
+        9
+      ],
+      "uscita": "Dep San Paolo - C. Trapani (dir. Ponchielli)\nV. Monginevro - C. Trapani.\nDep San Paolo - C. Trapani (dir. Corradino)\nV. Monginevro - C. Trapani – inizio servizio dalla\nfermata n. 124 denominata LANCIA).\nDep Venaria - C. Potenza\nV. Amati – Str. della Venaria – P.za Stampalia –\nV. Venaria – V. Stampini – L.go Grosseto - C.so\nPotenza.\nDep Venaria - V. Corradino\nV. Amati - V. Venaria - L.go Grosseto – C.\nPotenza – C. Lecce – sottopasso P. Rivoli - C.\nTrapani – C. Siracusa – P. Pitagora – C. Siracusa\n– C. Tazzoli – C. Agnelli – C.so Traiano - C.so\nMaroncelli - V. Ventimiglia - V. Corradino.\nDep Venaria - P.za Sofia\nV. Amati - V. Venaria - L.go Grosseto - C.\nGrosseto - P. Rebaudengo - V. Botticelli - C.\nRegio Parco - P.za Sofia",
+      "rientro": "(Da Ponchielli) C. Trapani - Dep San Paolo\nC. Trapani – V. Monginevro.\n(Da Corradino) C. Trapani - Dep San Paolo\nDalla fermata n. 125 denominata LANCIA\nprosegue fuori servizio per C. Trapani – V.\nMonginevro.\nC.so Potenza - Dep. Venaria\nC.so Potenza - L.go Grosseto – V. Stampini – V.\nLanzo – P.za Stampalia – Str. della Venaria - V.\nAmati.\nV. Corradino - Dep. Venaria\nV. Corradino - V. Genova - C.so Maroncelli -\nC.so Traiano - C. Agnelli – C. Tazzoli – C.\nSiracusa – P. Pitagora – C. Siracusa – C. Trapani\n– sottopasso P. Rivoli - C. Lecce – C. Potenza -\nL.go Grosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati.\nP.za Sofia - Dep. Venaria\nP.za Sofia - Str. di Settimo - V. Botticelli - P.\nRebaudengo - C. Grosseto - L.go Grosseto - V.\nLanzo - P. Stampalia - V. Venaria - V. Amati"
+    },
+    {
+      "id": "daper-05-26-p9-16",
+      "line": "3 BUS",
+      "pages": [
+        9,
+        10
+      ],
+      "uscita": "Dep. Venaria - L.go Toscana\nV. Amati - V. Venaria - L.go Grosseto - C.\nPotenza – L.go Toscana.\nDep. Venaria - P.le Vallette\nV. Amati - V. Venaria – V. Sansovino - C.\nGrosseto - C. Ferrara - V.delle Primule.\nDep. Venaria - C. Tortona / C.Belgio\nV. Amati – V. Venaria – L.go Grosseto – V.\nStradella – V. Giachino – P. Baldissera – C.\nVigevano – C. Novara – C. Tortona – C. Belgio -\nL.go Berardi - C. Regina Margherita – L.go\nRegina Margherita – C. Tortona.\nDep. Tortona - C. Tortona/C. Belgio\nC. Tortona – C. Belgio - L.go Berardi - C. Regina\nMargherita – L.go Regina Margherita – C.\nTortona.\n",
+      "rientro": "L.go Toscana - Dep Venaria\nC. Potenza - L.go Grosseto - V. Lanzo - P.zza\nStampalia - V. Venaria - V. Amati.\nP.le Vallette - Dep. Venaria\nV.delle Primule - C. Ferrara - C. Grosseto - V.\nSansovino - V. Venaria - V. Amati.\nC. Tortona / C.Belgio - Dep. Venaria\nC. Tortona - C. Novara – C. Vigevano – P.\nBaldissera – V. Giachino – V. Stradella - L.go\nGrosseto - V. Lanzo - P. Stampalia - V. Venaria -\nV. Amati.\nC. Tortona/C. Belgio - Dep. Tortona\nC. Tortona.\nP.le Vallette - Dep. Tortona\nV.le Mughetti – C. Molise - V. Sansovino –\nV.Pietro Cossa – C. Regina Margherita – V.\nFontanesi – C. Belgio – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p10-17",
+      "line": "4N P.le Caio Mario – Porta Nuova 4N P.le Caio Mario – Porta Nuova",
+      "pages": [
+        10
+      ],
+      "uscita": "Dep. Gerbido – C. Unione Sovietica / Drosso\nV. Gorini - Str. del Portone - C. Orbassano – V.\nLa Manta – V. Anselmetti – Str. del Drosso – C.\nUnione Sovietica.\nDep. Gerbido - P.le Caio Mario\nV. Gorini – Str. del Portone – C. Orbassano - C.\nSettembrini – P.le Caio Mario – C.so Agnelli –\nTerminal GTT.",
+      "rientro": "C. Unione Sovietica / Drosso - Dep. Gerbido\nStr. del Drosso – V. Anselmetti – C. Orbassano -\nStr. del Portone - V. Gorini.\nP.le Caio Mario - Dep. Gerbido\nC. Unione Sovietica – P.le Caio Mario - C.\nSettembrini – C. Orbassano – Str. del Portone –\nV. Gorini."
+    },
+    {
+      "id": "daper-05-26-p10-18",
+      "line": "4N BUS Falchera – P.za Derna 4N BUS Falchera – P.za Derna",
+      "pages": [
+        10
+      ],
+      "uscita": "Dep. Venaria – P.za Derna\nV. Amati – Str. della Venaria – V. Venaria – V.\nStampini – L.go Grosseto – C.so Grosseto – V.\nBotticelli - P.za Derna\nDep. Venaria – L.go Donatori di Sangue\nV. Amati – Str. della Venaria – V. Venaria –V.\nStampini – L.go Grosseto – C.so Grosseto – V.\nBotticelli – P.za Derna – segue percorso di linea\nsino al capolinea\nDep. Venaria – Falchera\nV. Amati – Str. della Venaria – P.za Stampalia –\nV. Veronese – V. Reiss Romoli – C.so Vercelli –\nStr. Cuorgnè – V. delle Querce",
+      "rientro": "P.za Derna – Deposito Venaria\nP.za Derna – V. Botticelli – C.so Grosseto –\nL.go Grosseto – V. Stampini – V. Lanzo – P.za\nStampalia – Str. della Venaria – V. Amati\nL.go Donatori di Sangue – P.za Derna\nSegue percorso di linea sino in P.za Derna - V.\nBotticelli – C.so Grosseto– L.go Grosseto– V.\nStampini – V. Lanzo – P.za Stampalia – Str.\ndella Venaria – V. Amati.\nFalchera – P.za Derna\nSegue percorso di linea sino in Str. Quorgnè –\nC.so Vercelli – V. Reiss Romoli – V. Veronese\n– P.za Stampalia – Str. della Venaria – V.\nAmati."
+    },
+    {
+      "id": "daper-05-26-p10-19",
+      "line": "5 E 5B",
+      "pages": [
+        10
+      ],
+      "uscita": "Dep. Gerbido - C. Orbassano / C. Settembrini\nV. Gorini - Str. del Portone – C. Orbassano.\nDep. Gerbido - P. Cattaneo\nV. Gorini - Str. del Portone - C. Orbassano.\nDep. Gerbido – C. Siccardi\nV. Gorini – Str. Del Portone - V. della Libertà –\nV. Bertone - C. Allamano - C. Sebastopoli - C. IV\nNovembre – L.go Orbassano – C. Duca degli\nAbruzzi – C. Vinzaglio – C. Matteotti - C.\nGalileo Ferraris – C. Siccardi",
+      "rientro": "C. Orbassano / C. Settembrini - Dep. Gerbido\nC. Orbassano - Str. del Portone - V. Gorini.\nP. Cattaneo - Dep. Gerbido\nC. Orbassano - Str. del Portone - V. Gorini.\nC. Siccardi - Dep. Gerbido\nC. Galileo Ferraris – C. Matteotti – C. Vinzaglio\n– C. Duca degli Abruzzi – L.go Orbassano - C.\nOrbassano - C. Sebastopoli - C. Allamano – V.\nBertone - V. della Libertà – Str. del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p11-20",
+      "line": "5 E 5B",
+      "pages": [
+        11
+      ],
+      "uscita": "Dep. Gerbido – V. Bertani\nV. Gorini – Str. Del Portone - V. Bertani.\nDep. Gerbido – P. Carlo Alberto dalla Chiesa\n(Orbassano)\nV. Gorini – Str. Del Portone – V. Bertani - C.\nOrbassano - Str. Torino (Beinasco) – Str.\nOrbassano – Str. Torino (Orbassano) – Str. Prov.\nOrbassano–Torino (Rivalta) – Str. Torino\n(Orbassano) – V. Di Nanni – inversione di marcia\nalla rotatoria di V. Di Nanni / V. Cavour – V. Di\nNanni - V. De Gasperi – Str. Torino - P. Carlo\nAlberto dalla Chiesa.",
+      "rientro": "V. Bertani - Dep. Gerbido\nV. Bertani – inversione di marcia alla rotatoria\nV.bile prima di V. Ingria – V. Bertani - Str. Del\nPortone - V. Gorini.\nP. Carlo Alberto dalla Chiesa (Orbassano) -\nDep. Gerbido\nStr. Torino - Str. Prov. Orbassano–Torino\n(Rivalta) – Str. Torino (Orbassano) - Str. Torino\n(Beinasco) C. Orbasano (Torino) - Str. Del\nPortone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p11-21",
+      "line": "6",
+      "pages": [
+        11
+      ],
+      "uscita": "Dep. Tortona - C. Gabetti / C. Quintino Sella\nC. Tortona - Ponte Regina Margherita - C.\nGabetti.\nDep. Tortona - P. Carlo Felice\nC. Tortona – C. Belgio – L.go Berardi – V.\nVanchiglia – P. Vittorio Veneto – V. Po – V.\nAccademia Albertina – C. Vittorio Emanuele II –\nP. Carlo Felice.",
+      "rientro": "C. Gabetti / C. Quintino Sella - Dep. Tortona\nC. Tortona - Ponte Regina Margherita - C.\nGabetti.\nP. Carlo Felice - Dep. Tortona\nC. Vittorio Emanuele II – V. Accademia\nAlbertina – V. Po – P. Vittorio Veneto – L.go Po\nCadorna – V. Napione – V. Fontanesi – C. Belgio\n– C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p11-22",
+      "line": "8",
+      "pages": [
+        11
+      ],
+      "uscita": "Dep. Venaria – V. Mezzaluna (San Mauro)\nV. Amati – Str. della Venaria – P.za Stampalia –\nV. Veronese – V. Reiss Romoli - C.so Vercelli –\nV. Botticelli – Str. di Settimo – Ponte Amedeo\nVIII – Str. di Settimo –\nStr. di S. Mauro – V. Roma (San Mauro) – P.za\nMochino – Ponte XI Settembre – V. Ponte Nuovo\n– V. Casale – Via della Costituzione – V. XXV\nAprile – V. Mezzaluna.\nDep. Venaria – C.so Bolzano\nV. Amati – V. Venaria – L.go Grosseto – V.\nStradella – V. Orvieto – V. Livorno – C.so\nUmbria - C. Principe Oddone – P.za Statuto –\nC.so San Martino – P.za XVIII Dicembre – C.so\nBolzano.\nDep. Venaria – Str. di Settimo (P.za Sofia)\nV. Amati – Str. della Venaria – P.za Stampalia –\nV. Veronese – V. Reiss Romoli - C.so Vercelli –\nV. Botticelli – Str. di Settimo",
+      "rientro": "V. Mezzaluna (San Mauro) – Dep. Venaria\nV. Mezzaluna – V. Casale – V. Ponte Nuovo –\nPonte XI Settembre – V. Roma – Str. di San\nMauro – Str. di Settimo – Ponte Amedeo VIII –\nStr. di Settimo – P.za Sofia – V. Botticelli – C.so\nVercelli – V. Reiss Romoli – V. Veronese – P.za\nStampalia – Str. della Venaria – V. Amati.\nC.so Bolzano – Dep. Venaria\nC. Bolzano – C.so Vittorio Emanuele II – C.so\nInghilterra – P.za Statuto - C. Principe Oddone –\nC. Umbria - V. Livorno – V. Orvieto – V.\nStradella - L.go Grosseto – V. Stampini – V.\nLanzo - P.za Stampalia - V. Venaria - V. Amati.\nStr. Settimo (P.za Sofia) – Dep. Venaria\nStr. di Settimo – P.za Sofia – V. Botticelli – C.so\nVercelli – V. Reiss Romoli – V. Veronese – P.za\nStampalia – Str. della Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p12-23",
+      "line": "8",
+      "pages": [
+        12
+      ],
+      "uscita": "Dep. Venaria – C.so XI Febbraio (direzione\nC.so Bolzano)\nV. Amati – V. Venaria – L.go Grosseto – V.\nStradella – P.za Baldissera – C.so Novara – V.\nBologna – Ponte Bologna – C.so XI Febbraio.\nDep. Venaria – C.so XI Febbraio (direzione V.\nMezzaluna)\nV. Amati – V. Venaria – L.go Grosseto – V.\nStradella – V. Orvieto – V. Livorno – C.so Regina\nMargherita – C.so XI Febbraio.\nDep. Tortona – C. Novara/V. Bologna\nC. Tortona - C. Novara\nDep. Novara – V. Bologna/C. Novara\nC. Novara\nDep Novara - V. Mezzaluna\nC.so Novara - V. Bologna - Str. di Settimo - Ponte\nAmedeo VIII - Str. di San Mauro - V. Roma -\nPonte XI Settembre - V. Ponte Nuovo - V. Casale\n- V. della Costituzione - V. XXV Aprile - V.\nMezzaluna.\nDep Novara - C.so Bolzano\nC.so Novara - V. Bologna - C.so XI Febbraio -\nC.so Regina Margherita - Rondò Forca - C.so\nPrincipe Eugenio – C.so Beccaria - C.so San\nMartino - P.za XVIII Dicembre - C.so Bolzano.",
+      "rientro": "C.so XI Febbraio (direzione C.so Bolzano) –\nDep. Venaria\nC.so XI Febbraio – C.so Regina Margherita –\nRondò Forca – C.so Regina Margherita – V.\nLivorno – V. Orvieto – V. Stradella – L.go\nGrosseto – V. Stampini – V. Lanzo - P.za\nStampalia – Str. della Venaria – V. Amati.\nC.so XI Febbraio (direzione V. Mezzaluna) –\nDep. Venaria\nC.so XI Febbraio – V. Bologna – C.so Novara –\nC.so Vigevano – V. Stradella – L.go Grosseto –\nV. Stampini – V. Lanzo – P.za Stmapalia – Str.\ndella Venaria – V. Amati.\nV. Bologna/C. Novara – Dep. Novara\nC. Novara\nV. Mezzaluna – Dep Novara\nVia Mezzaluna - V. Casale - V. Ponte Nuovo -\nPonte XI Settembre - V. Roma - Str. di San\nMauro - Ponte Amedeo VIII - Str. di Settimo -\nV. Bologna - C.so Novara.\nC.so Bolzano - Dep Novara\nC.so Bolzano - Ponte Unione Europea - C.so\nInghilterra - P.za Statuto - C.so Principe Eugenio\n- Rondò Forca - C.so Regina Margherita – C.so\nXI Febbraio - V. Bologna - C.so Novara."
+    },
+    {
+      "id": "daper-05-26-p12-24",
+      "line": "9 BUS",
+      "pages": [
+        12
+      ],
+      "uscita": "Dep. Venaria – P.za Stampalia\nV. Amati – V. Venaria.\nDep. Venaria – C. Massimo D’Azeglio\nV. Amati – V. Venaria – segue percorso di linea\nDep. Nizza – P.ta Nuova\nP.za Carducci – V. Nizza – C.so Vittorio\nEmanuele II.\nDep. Nizza – C. Massimo D’Azeglio\nP.za Carducci – C.so Bramante – C.so Massimo\nd’Azeglio.",
+      "rientro": "P.za Stampalia - Dep. Venaria\nV. Venaria – V. Amati\nC. Massimo D’Azeglio - Dep. Venaria\npercorso di linea – V. Venaria – V. Amati.\nP.ta Nuova - Dep. Nizza\nC.so Vittorio Emanuele II. – V. Nizza – P.za\nCarducci.\nC. Massimo D’Azeglio - Dep. Nizza\nC.so Massimo d’Azeglio – V.le Boiardo – C.so\nMassimo d’Azeglio – C. Bramante – P.za\nCarducci"
+    },
+    {
+      "id": "daper-05-26-p13-25",
+      "line": "9 BUS",
+      "pages": [
+        13
+      ],
+      "uscita": "Dep. Nizza – P. Stampalia P\nP.za Carducci – C.so Bramante – C.so Lepanto – P\nP.le Costantino il Grande – C. Galileo Ferraris – L\nC. Vittorio Emanuele II – C. Inghilterra – C. I\nUmbria – V. Borgaro – V. Lucento – L.go F\nGrosseto – V. Lanzo – P. Stampalia. L",
+      "rientro": "P. Stampalia - Dep. Nizza\nP. Stampalia – V. Venaria – L.go Grosseto – V.\nLucento – V. Borgaro – C. Umbria – C.\nInghilterra – C. Vittorio Emanuele II – C. Galileo\nFerraris – P.le Costantino il Grande – C.so\nLepanto – C.so Bramante – P.za Carducci."
+    },
+    {
+      "id": "daper-05-26-p13-26",
+      "line": "10 BUS Fest. 10N Fer. 10 BUS Festivo 10 BUS Festivo 10 BUS Sostit. Tram",
+      "pages": [
+        13
+      ],
+      "uscita": "Dep. Venaria – V. Massari\nV. Amati - V. Venaria - P. Stampalia – V.\nVeronese – V. Reiss Romoli – V. Paolo della\nCella – V. Paolo Veronese – V. Ala di Stura – V.\nMassari.\nDep. Venaria – P. XVIII Dicembre\nV. Amati - V. Venaria - L.go Grosseto – C.\nPotenza – V. Lucento – V. Borgaro – C. Umbria -\nC. Principe Oddone – P. Statuto – C. San Martino.\nDep. Venaria – V. Stradella\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella\nDep. Venaria – P.le Caio Mario\nV. Amati - V. Venaria - L.go Grosseto – C.\nPotenza – C. Lecce – sottopasso P. Rivoli - C.\nTrapani – C. Siracusa – P. Pitagora – C. Siracusa\n– C. Tazzoli – C. Agnelli – inversione di marcia\nin P.le Caio Mario - C. Agnelli.\nDep. Nizza – C. Duca degli Abruzzi\nP. Carducci – V. Nizza – C. Sommeiller – C.\nEinaudi – Rotonda Einaudi.\nDep. Nizza – P.le Caio Mario\nP. Carducci – V. Nizza – V. Passo Buole – C.\nUnione Sovietica – P.le Caio Mario – C. Agnelli.\nDep. Nizza – V. Massari\nP. Carducci – V. Nizza – P. Nuova – C. Vittorio\nEmanuele II – C. Inghilterra – P. Statuto – C.\nPrincipe Oddone - P. Baldissera – V. Giachino –\nV. Stradella – V. Chiesa della Salute – V.\nMassari.\nDep. Venaria – C. Settembrini\nV. Amati - V. Venaria – V. Sansovino – V. Pietro\nCossa – P. Massaua – V. De Sanctis – V. Santa\nMaria Mazzarello – V. Guido Reni – P. Omero –\nC. Orbassano – C. Settembrini – inversione di\nmarcia al secondo varco ivi presente – capolinea.",
+      "rientro": "V. Massari - Dep. Venaria\nV. Massari – V. Paolo della Cella – C. Grosseto -\nV. Lanzo - P. Stampalia - V. Venaria - V. Amati.\nP. XVIII Dicembre - Dep. Venaria\nC. San Martino – P. Statuto - C. Principe Oddone\n– C. Umbria - V. Borgaro – V. Lucento - C.\nPotenza – L.go Grosseto - V. Lanzo - P.\nStampalia - V. Venaria - V. Amati.\nStazione Dora - Dep. Venaria\nV. Stradella - L.go Grosseto - V. Lanzo - P.za\nStampalia - V. Venaria - V. Amati.\nP.le Caio Mario - Dep. Venaria\nC. Agnelli – C. Tazzoli – C. Siracusa – P.\nPitagora – C. Siracusa – C. Trapani – sottopasso\nP. Rivoli - C. Lecce – C. Potenza - L.go Grosseto\n- V. Lanzo - P. Stampalia - V. Venaria - V.\nAmati.\nC. Duca degli Abruzzi – Dep. Nizza\nRotonda Einaudi – C. Einaudi – C. Sommeiller –\nV. Nizza – P. Carducci.\nP.le Caio Mario – Dep. Nizza\nC. Unione Sovietica – V. Passo Buole – V.\nVinovo – V. Genova – P. Carducci.\nV. Massari - Dep. Nizza\nV. Massari - V. Paolo della Cella – V. Bibiana –\nV. Stradella – V. Giachino – P. Baldissera – C.\nPrinicpe Oddone – P. Statuto – C. Inghilterra – C.\nVittorio Emanuele II – P.ta Nuova – V. Nizza –\nP. Craducci.\nC. Settembrini – Dep. Venaria\nC. Settembrini – C. Orbassano – P. Omero – V.\nGuido Reni – V. Santa Maria Mazzarello – V. De\nSanctis – P. Massaua – V. Pietro Cossa – V.\nSansovino – V. Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p14-27",
+      "line": "10 BUS Sostit. Tram 10 BUS Festivo 10 BUS Festivo",
+      "pages": [
+        14
+      ],
+      "uscita": "Dep. San Paolo – C. Settembrini\nC. Trapani – C. Siracusa – P. Pitagora – C.\nOrbassano – C. Settembrini – inversione di\nmarcia al primo varco utile – C. Settembrini\nCapolinea.\nDep. San Paolo – V. Massari\nC.Trapani – C. Lecce – C. Potenza – C. Grosseto\n– V. Ala di Stura – V. Massari.\nDep. Gerbido – C.so Settembrini\nV. Gorini - Str. del Portone - C.so Orbassano -\nC.so Settembrini - inversione di marcia in P.le\nCaio Mario - C.so Settembrini.\nDep. Gerbido – L.go Orbassano\nV. Gorini - Str. del Portone - C.so Orbassano -\nL.go Orbassano - C.so Duca degli Abruzzi.\nDep. San Paolo – P. Caio Mario\nC. Trapani – C. Siracusa – P. Pitagora – C.\nSiracusa – C. Tazzoli – C. Agnelli – inversione di\nmarcia in P.le Caio Mario – C. Agnelli.\nDep. Novara – V. Massari\nC. Novara - C. Vercelli – C. Grosseto – V. Ala di\nStura (svolta a destra dal controviale di C.\nGrosseto) – V. Massari.",
+      "rientro": "C. Settembrini – Dep. San Paolo\nC. Orbassano – P. Pitagora – C. Siracusa – C.\nTrapani.\nV. Massari – Dep. San Paolo\nV. Paolo della Cella – C. Grosseto – C. Potenza –\nC. Lecce – C. Trapani.\nC.so Settembrini – Dep. Gerbido\nC.so Settembrini - C.so Orbassano - Str. del\nPortone - V. Gorini.\nL.go Orbassano – Dep. Gerbido\nC.so Duca Abruzzi - L.go Orbassano - C.so\nOrbassano - Str. del Portone - V. Gorini.\nP. Caio Mario – Dep. San Paolo\nC. Agnelli – C. Tazzoli – C. Siracusa – P.\nPitagora – C. Siracusa – C. Trapani.\nV. Massari - Dep. Novara\nV. Massari – V. Paolo della Cella – C. Grosseto -\nC. Vercelli – C. Novara."
+    },
+    {
+      "id": "daper-05-26-p14-28",
+      "line": "11",
+      "pages": [
+        14
+      ],
+      "uscita": "Dep. Venaria – V. Leopardi/P. De Gasperi\n(Venaria)\nV. Amati - V. Venaria – P. Stampalia- V. Lanzo –\nV. San Marchese – segue percorso linea.\nDep. Venaria - C. Stati Uniti\nV. Amati - V. Venaria - L.go Grosseto - C.\nPotenza – C. Lecce – P. Rivoli – C. Vittorio E. II°\n- C. Re Umberto - C. Stati Uniti.\nDep. Venaria – V. Amati\nUscita da P.le lato Torino del dep. Venaria – V.\nAmati",
+      "rientro": "V. Leopardi/P. De Gasperi (Venaria) - Dep.\nVenaria\nC. Giovanni XXIII – C. Garibaldi – V. Druento -\nV. Venaria - V. Amati.\nC. Stati Uniti - Dep. Venaria\nC. Galileo Ferraris – C. Vittorio E. II° - P. Rivoli\n– C. Lecce - C. Potenza - L.go Grosseto - V.\nLanzo - P. Stampalia - V. Venaria - V. Amati.\nV. Amati – Dep. Venaria\nV. Amati - Dep. Venaria"
+    },
+    {
+      "id": "daper-05-26-p15-29",
+      "line": "12",
+      "pages": [
+        15
+      ],
+      "uscita": "Dep. Gerbido - V. Allason/C. Tazzoli\nV. Gorini - Str. Portone - C. Orbassano - P.\nCattaneo - C. Tazzoli.\nDep. Gerbido – P. Cattaneo\nV. Gorini - Str. Portone - C. Orbassano.\nDep. Gerbido - C. Vittorio Emanuele II / V.\nVolta\nV. Gorini – Str. del Portone – V. della Libertà –\nV. Bertone – C. Allamano – C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Rosselli – C.\nGalileo Ferraris – C. Stati Uniti – V. Sacchi – C.\nVittorio Emanuele II / V. Volta (controV.le\nnord).\nDep Gerbido – C. Orbassano / C. Sebastopoli\nV. Gorini - Str. del Portone – V. Della Libertà –\nV. Bertone - C. Allamano - C. Sebastopoli.\nDep. Gerbido - V. Allason/C. Tazzoli\nV. Gorini - Str. Portone - C. Orbassano - P.\nCattaneo - C. Tazzoli.\nDep. Gerbido – P.za Omero\nV. Gorini - Str. Portone - C. Orbassano –\nP. Cattaneo - C. Orbassano – P.za Omero.",
+      "rientro": "V. Allason/C. Tazzoli - Dep. Gerbido\nC. Tazzoli - P. Cattaneo - C. Orbassano - Str.\nPortone - V. Gorini.\nP. Cattaneo - Dep. Gerbido\nC. Orbassano - Str. Portone - V. Gorini.\nC. Vittorio Emanuele II / V. Volta - Dep.\nGerbido\nC. Vittorio Emanuele II (carreggiata laterale) –\nC. Vittorio Emanuele II / V.Arsenale (carreggiata\ncentrale) – L.go Galileo Ferraris – C. Galileo\nFerraris – C. Einaudi – C. Duca degli Abruzzi –\nL.go Orbassano – C. Orbassano – C. Sebastopoli\n– C. Allamano – V. Bertone – V. della Libertà –\nStr. del Portone – V. Gorini.\nC. Orbassano / C. Sebastopoli - Dep Gerbido\nC. Sebastopoli - C. Allamano – V. Bertone - V.\ndella Libertà - Str. del Portone - V. Gorini.\nV. Allason/C. Tazzoli - Dep. Gerbido\nC. Tazzoli - P. Cattaneo - C. Orbassano - Str.\nPortone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p15-30",
+      "line": "13 BUS",
+      "pages": [
+        15
+      ],
+      "uscita": "Dep. Novara – P.za Vittorio Veneto\nC.so Novara - C.so Belgio - V. Vanchiglia - P.za\nVittorio Veneto.\nDep. Novara – P.za Gran Madre\nC.so Novara - C.so Tortona - Ponte Regina\nMargherita - C.so Casale - P.za Gran Madre.\nDep. Novara – P.za Campanella\nC.so Novara - V. Bologna - C.so XI Febbraio -\nC.so Regina Margherita - C:so Lecce - V. Nicola\nFabrizi - V. Bianchi - percorso normale.\nDep. Novara – P.za Statuto\nv. Bologna, Ponte Bologna – C.so XI Febbraio,\nC.so Regina Margherita, Rondò Forca\n(carreggiata laterale), C.so P. Eugenio, C.so G.\nBeccaria, P.za Statuto",
+      "rientro": "P.za Vittorio Veneto - Dep. Novara\nP.za Vittorio Veneto - L.go Po Cadorna - V.\nNapione - V. Fontanesi - C.so Belgio - C.so\nTortona - C.so Novara.\nP.za Gran Madre - Dep. Novara\nP.za Gran Madre - C.so Casale - Ponte Regina\nMargherita - C.so Tortona - C.so Novara.\nP.za Campanella - Dep. Novara\nV. Bianchi - V. Nicola Fabrizi - C.so Tassoni -\nC.so Regina Margherita - C.so XI Febbraio - V.\nBologna - C.so Novara\nP.za Statuto - Dep. Novara\nP.za Statuto (corsia veicolare)– C.so Beccaria –\nC.so Principe Eugenio – Rondò Forca – C.so\nRegina Margherita – C.so XI Febbraio – Ponte\nBologna – V. Bologna – C.so Novara."
+    },
+    {
+      "id": "daper-05-26-p16-31",
+      "line": "13 BUS",
+      "pages": [
+        16
+      ],
+      "uscita": "Dep. Venaria – V. Cibrario\nV. Amati – V. Venaria – L.go Grosseto – C.\nPotenza – V. Lucento – V. Borgaro – C. Svizzera\n– C. Tassoni.\nDep. Venaria – P.za Campanella\nV. Amati – Str. della Venaria - V. Stampini -\nL.go Grosseto - C.so Potenza - C.so Lecce - V.\nFabrizi.\nDep. Venaria – P.za Gran Madre\nV. Amati – Str. della Venaria - V. Stampini -\nL.go Grosseto – V. Stradella – V. Orvieto – V.\nLivorno – C.so Regina Margherita – Rondò\nRivella – C.so San Maurizio – V. Bava – P.za\nVittorio Veneto – Ponte Vittorio Emanuele I –\nP.za Gran Madre\nDep. San Paolo - V. Cibrario\nC. Trapani – P. Rivoli – C.so Francia – P.za\nBernini – C.so Tassoni.\nDep. San Paolo – P.za Campanella\nC. Trapani – C. Peschiera – C. Telesio – V.\nServais – P.za Campanella",
+      "rientro": "V. Cibrario – Dep. Venaria\nC. Tassoni – C. Svizzera – V. Borgaro – V.\nLucento – C. Potenza – L.go Grosseto – V. Lanzo\n– P. Stampalia – V. Venaria – V. Amati.\nP.za Campanella - Dep. Venaria\nV. Bianchi - V. Nicola Fabrizi - C.so Lecce - C.so\nPotenza - L.go Grosseto - Via Stampini - V. Lanzo\n- P.za Stampalia - Str. della Venaria - V. Amati.\nP.za Gran Madre – Dep. Venaria\nP.za Gran Madre – V. Bava – C.so San Maurizio –\nRondò Rivella – C.so Regina Margherita - .\nLivorno – V. Stradella – L.go Grosseto – V. Lanzo\n– P. Stampalia – V. Venaria – V. Amati.\nV. Cibrario – Dep. San Paolo\nC. Tassoni – P. Bernini – C. Francia – P. Rivoli –\nC.so Trapani.\nP.za Campanella - Dep. San Paolo\nV. Bianchi – V. Nicola Fabrizi – C. Lecce – C.\nTrapani"
+    },
+    {
+      "id": "daper-05-26-p16-32",
+      "line": "14",
+      "pages": [
+        16
+      ],
+      "uscita": "Dep. Gerbido- V. Amendola (Nichelino)\nV. Gorini - Str. del Portone – C. Orbassano -\nSvincolo Drosso - V. Torino (Beinasco) - V.\nFalcone - Str. del Drosso - C. Unione Sovietica\n(V.le centrale) - V. Cacciatori (Nichelino) -\nRotonda delle Alpi - V. Debouchè - V. Nenni - V.\nAmendola.\nDep. Gerbido – C. Unione Sovietica/C.\nSebastopoli\nV. Gorini - Str. del Portone – C. Orbassano – P.\nCattaneo – C. Orbassano – P. Omero – C.\nOrbassano – P. Pitagora – C. Cosenza – C.\nUnione Sovietica\nDep. Gerbido - P. Solferino\nV. Gorini – Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Duca degli\nAbruzzi – C. Vinzaglio - C. Matteotti - C. Re\nUmberto.",
+      "rientro": "V. Amendola (Nichelino) - Dep. Gerbido\nV. Amendola - inversione alla rotonda di C.\nMatteotti - V. Amendola - V. Nenni - V.\nDebouchè - Rotonda delle Alpi – V. Cacciatori –\nC. Unione Sovietica (Torino) - Str. del Drosso -\nV. Falcone (Beinasco) - V. Torino - C.\nOrbassano (Torino) - Str. del Portone - V. Gorini.\nP. Solferino - Dep. Gerbido\nC. Re Umberto -C. Matteotti - C. Vinzaglio – C.\nDuca degli Abruzzi – L.go Orbassano – C.\nOrbassano - C. Sebastopoli - C. Allamano – V.\nBertone - V. della Libertà – Str. del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p17-33",
+      "line": "14",
+      "pages": [
+        17
+      ],
+      "uscita": "Dep. Gerbido – V. Pannunzio (dir Nichelino)\nV. Gorini - Str. Del Portone – C. Orbassano – C.\nSettembrini – P.le Caio Mario – V. Onorato\nVigliani – V. Pio VII – V. Bossoli – V.\nPannunzio.\nDep. Gerbido – V. Pannunzio (dir Solferino)\nV. Gorini - Str. Del Portone – C. Orbassano – C.\nSettembrini – P.le Caio Mario – V. Onorato\nVigliani – V. Pio VII – V. Casorati – V.\nPannunzio.",
+      "rientro": "V. Pannunzio (dir Nichelino) - Dep. Gerbido\nV. Pannunzio – V. Casorati – V. Pio VII – V.\nOnorato Vigliani – P.le Caio Mario – C.\nSettembrini – C. Orbassano - Str. Del Portone -\nV. Gorini.\nV. Pannunzio (dir Solferino) - Dep. Gerbido\nV. Pannunzio – V. Bossoli – V. Pio VII – V.\nOnorato Vigliani – P.le Caio Mario – C.\nSettembrini – C. Orbassano - Str. Del Portone -\nV. Gorini."
+    },
+    {
+      "id": "daper-05-26-p17-34",
+      "line": "16CS BUS 16CD BUS 16CS BUS",
+      "pages": [
+        17
+      ],
+      "uscita": "Dep. San Paolo – P. Sabotino\nC. Trapani – C. Peschiera – P. Sabotino.\nDep. San Paolo – P. Sabotino\nC. Trapani – V. Lancia – P. Robilant – V.\nBraccini – rotatoria V.bile di C. Mediterraneo –\nC. Ferrucci – C. Peschiera – P. Sabotino.\nDep. Novara – P. Della Repubblica\nC. Novara – V. Bologna – C. XI Febbraio – P.\ndella Repubblica.",
+      "rientro": "V. Di Nanni / P. Sabotino - Dep. San Paolo\nC. Peschiera – C. Trapani.\nP. Sabotino - Dep. San Paolo\nC. Peschiera – C. Trapani.\nP. Vittorio Veneto - Dep. Novara\nP. Vittorio Veneto – Lungo Po Cadorna - V.\nNapione – V. Fontanesi – C. Belgio – C. Tortona\n– C. Novara."
+    },
+    {
+      "id": "daper-05-26-p17-35",
+      "line": "17-17B",
+      "pages": [
+        17
+      ],
+      "uscita": "Dep. Gerbido – Osp. Rivoli\nV. Gorini – Str. del Portone – C. Allamano – V.\nPrimo Levi (Rivoli)\nDep. Gerbido – V. Crea (Barocchio)\nV. Gorini – Str. del Portone – Str. della Libertà –\nV. Bertone – C. Allamano – Str. del Gerbido – V.\nCrea.\nDep. Gerbido - V. Ventimiglia\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - P.le Caio Mario - V. Onorato\nVigliani - V. Corradino – V. Ventimiglia.\nDep. Nizza – P. Carducci\nP. Carducci\nDep. Nizza – V. Ventimiglia\nP. Carducci – V. Nizza – V. Biglieri – V.\nVentimiglia.",
+      "rientro": "Osp. Rivoli - Dep. Gerbido\nV. Rivalta (Rivoli) – V. Primo Levi – C.\nAllamano – Str. del Portone.\nV. Crea (Barocchio)- Dep. Gerbido\nC. Allamano – V. Bertone - Str. della Libertà –\nStr. del Portone – V. Gorini.\nV. Ventimiglia - Dep. Gerbido\nV. Ventimiglia – C. Spezia – P.za Bozzolo – V.\nGenova – V. Abegg – V. Nizza – P. Bengasi - V.\nOnorato Vigliani - P.le Caio Mario - C.\nSettembrini – C. Orbassano - Str. del Portone - V.\nGorini\nP. Carducci – Dep. Nizza\nP. Carducci.\nV. Ventimiglia - Dep. Nizza\nV. Ventimiglia – C. Spezia – P.za Bozzolo – V.\nGenova – P. Carducci."
+    },
+    {
+      "id": "daper-05-26-p18-36",
+      "line": "17-17B",
+      "pages": [
+        18
+      ],
+      "uscita": "Dep. Nizza – C. Sebasopoli / C. Orbassano\nP. Carducci – C. Bramante – C. Lepanto – P.\nCostantino Il Grande – C. Monte Lungo – C. IV\nNovembre – C. Sebastopoli.",
+      "rientro": "C. Sebasopoli / C. Orbassano – Dep. Nizza\nC. Sebastopoli – C. IV Novembre – C. Monte\nLungo – P. Costantino Il Grande – C. Lepanto –\nC. Bramante – P. Carducci."
+    },
+    {
+      "id": "daper-05-26-p18-37",
+      "line": "18",
+      "pages": [
+        18
+      ],
+      "uscita": "Dep. Nizza – P.za Sofia\nP.za Carducci – C. Bramante – P.za Zara – C.\nMoncalieri – C. Casale – P.te Regina Margherita\n– C. Tortona – C. Novara – C. Regio Parco – P.za\nSofia.\nDep. Nizza – P.le Caio Mario\nP.za Carducci – V. Nizza – P.za Bengasi - V.\nOnorato Vigliani – P.le Caio Mario – C. Agnelli.\nDep. Nizza – P.za Carducci\nDIREZIONE P.ZA SOFIA: prima fermata utile\nper la salita passeggeri n. 791 denominata “Graf”,\ndi V. Madama Crsitina / P.za Graf.\nDIREZIONE P.LE CAIO MARIO: prima fermata\nutile per la salita passeggeri n. 739 denominata\n“Carducci”, di P.za Carducci n. 128.",
+      "rientro": "P.za Sofia – Dep. Nizza\nP.za Sofia – C. Regio Parco – C. Novara – C.\nTortona – P.te Regina Margherita – C. Casale –\nC. Moncalieri – P.za Zara – C. Bramante – P.za\nCarducci.\nP.le Caio Mario - Dep. Nizza\nP.le Caio Mario – C. Unione Sovietica – C.\nTraiano – C. Maroncelli – V. Genova – P.za\nCarducci.\nP.za Carducci – Dep. Nizza\nIN ARRIVO DA P.ZA SOFIA: come da O.d.S.\nN.720 del 25-07-2014, dovranno effettuare la\nlimitazione alla fermata sita nella sede tranviaria\ndi C.so Bramante nel tratto tra V. Madama\nCristina e V. Nizza (lato chiosco GTT).\nIN ARRIVO DA P.LE CAIO MARIO: ultima\nfermata utile per la discesa passeggeri n. 68\ndenominata “Molinette Ovest”, di V. Genova\nfronte n. 4."
+    },
+    {
+      "id": "daper-05-26-p18-38",
+      "line": "19",
+      "pages": [
+        18
+      ],
+      "uscita": "Dep. Tortona – C. Bolzano\nC. Tortona – C. Belgio – V. Vanchiglia – P.\nVittorio Veneto – V. Po – P. Castello – V. Pietro\nMicca – V. Cernaia – C. Bolzano.\nDep. Tortona – C. Cadore\nC. Tortona - Lungodora Voghera - C. Cadore.",
+      "rientro": "C. Bolzano – Dep. Tortona\nC. Bolzano – C.so Matteotti – C.so Vinzaglio –\nV. Cernaia – V. Pietro Micca – P. Castello – V.\nPo – V. Napione – V. Fontanesi – C. Belgio - C.\nTortona.\nC. Cadore - Dep. Tortona\nC. Belgio - C. Brianza - Lungodora Voghera - C.\nTortona."
+    },
+    {
+      "id": "daper-05-26-p18-39",
+      "line": "19N",
+      "pages": [
+        18
+      ],
+      "uscita": "Dep. Tortona – P. Sofia\nC. Tortona – C. Novara – C. Regio Parco – P.\nSofia.\nDep. Tortona – P. Donatore Sangue\nC. Tortona – C. Novara – V. Bologna – V.\nGottardo.",
+      "rientro": "P. Sofia – Dep. Tortona\nP. Sofia – C. Regio Parco - C. Novara – C.\nTortona.\nP. Donatore Sangue – Dep. Tortona\nV. Gottardo – V. Monterosa – V. Sempione – V.\nBologna – C. Novara – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p19-40",
+      "line": "19N",
+      "pages": [
+        19
+      ],
+      "uscita": "Dep. Novara - P. Sofia\nC. Novara – C. Regio Parco – P. Sofia\nDep. Novara - P. Donatore Sangue\nC. Novara – V. Bologna – V. Gottardo.",
+      "rientro": "P. Sofia – Dep. Novara\nP. Sofia – C. Regio Parco - C. Novara.\nP. Donatore Sangue – Dep. Novara\nV. Gottardo – V. Monterosa – V. Sempione – V.\nBologna – C. Novara."
+    },
+    {
+      "id": "daper-05-26-p19-41",
+      "line": "20 – 20 Fest",
+      "pages": [
+        19
+      ],
+      "uscita": "Dep. Tortona - Parcheggio Stura\nC. Tortona – C. Novara – V. Bologna – P. Sofia –\nStr. Settimo – Ponte Amedeo VIII – L.go Stura\nLazio – P.le Romolo e Remo – C. Giulio Cesare –\nPark Stura\nDep. Tortona - V. Paganini (Settimo)\nC. Tortona – C. Novara – V. Bologna – P. Sofia –\nStr. Settimo – Ponte Amedeo VIII – Str. Settimo –\nStr. Della Cebrosa – V. Torino (Settimo T.se) –\nStr. Della Cebrosa (SP3) – V. Leinì – V. Paganini.\nDep. Novara – V. Paganini (Settimo T.se)\nC. Novara – V. Bologna – P. Sofia – Str. Settimo\n– Ponte Amedeo VIII – Str. Settimo – Str. Della\nCebrosa – V. Torino (Settimo T.se) – Str. Della\nCebrosa (SP3) – V. Leinì – V. Paganini –\ninversione di marcia alla prima rotatoria esistente\nprima di V. Della Merla – V. Paganini.\nDep. Novara - Parcheggio Stura\nC. Novara – V. Bologna – P. Sofia – Str. Settimo\n– Ponte Amedeo VIII – L.go Stura Lazio – P.le\nRomolo e Remo – C. Giulio Cesare – Park Stura\nDep. Novara - Via Piave (Settimo- Fornacino):\nC. Novara - C.so Palermo - C.so Giulio Cesare -\nC.so Romania - Str. della Cebrosa (Villaggio\nOlimpia - Settimo) - Str. della Cebreosa (SP3) -\nV. Leinì - V. Piave.\nDep. Venaria - V. Paganini (Settimo)\nV. Amati – Str. della Venaria – P.za Stamaplia –\nV. Veronese – V. Reiss Romoli – C.so Vercelli –\nC.so Romania – Str. Della Cebrosa (SP3) – V.\nLeinì – V. Paganini.\nDep. Venaria - V. Piave (Settimo - Fornacino)\nV. Amati – Str. della Venaria – P.za Stamaplia –\nV. Veronese – V. Reiss Romoli – C.so Vercelli –\nC.so Romania – Str. Della Cebrosa (SP3) – V.\nLeinì – V. Piave.",
+      "rientro": "Parcheggio Stura - Dep. Tortona\nC. Giulio Cesare – P.le Romolo e Remo – L.go\nStura Lazio – Ponte Amedeo VIII – Str. Settimo–\nP. Sofia – V. Bologna – C. Novara - C. Tortona.\nV. Paganini (Settimo) – Dep. Tortona\nV. Paganini – V- Leinì – Str. Della Cebrosa\n(SP3) – V. Torino – Str. Della Cebrosa (Torino)\n– Str. Settimo – Ponte Amedeo VIII – Str.\nSettimo – P. Sofia – V. Bologna – C. Novara – C.\nTortona.\nV. Paganini (Settimo T.se) - Dep. Novara\nV. Paganini – V- Leinì – Str. Della Cebrosa\n(SP3) – V. Torino – Str. Della Cebrosa (Torino)\n– Str. Settimo – Ponte Amedeo VIII – Str.\nSettimo – P. Sofia – V. Bologna – C. Novara.\nParcheggio Stura - Dep. Novara\nC. Giulio Cesare – P.le Romolo e Remo – L.go\nStura Lazio – Ponte Amedeo VIII – Str. Settimo\n– P. Sofia – V. Bologna – C.so Novara.\nVia Piave (Settimo- Fornacino) - Dep. Novara:\nVia Piave - V. Leinì - Str. della Cebrosa - Str.\ndella Cebrosa (Villaggio Olimpia - Settimo) -\nC.so Romania - C.so Giulio Cesare (corsia\nveicolare) - C.so Palermo - C.so Novara.\nV. Paganini (Settimo) – Dep. Venaria\nV. Paganini – V. Leinì – Str. Della Cebrosa\n(SP3) – C.so Romania – C.so Vercelli – V. Reiss\nRomoli – V. Veronese – P.za Stamaplia – Str.\ndella Venaria – V. Amati.\nV. Piave (Settimo - Fornacino) - Dep. Venaria\nV. Piave – V. Leinì – Str. Della Cebrosa (SP3) –\nC.so Romania – C.so Vercelli – V. Reiss Romoli\n– V. Veronese – P.za Stamaplia – Str. della\nVenaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p20-42",
+      "line": "20 – 20 Fest",
+      "pages": [
+        20
+      ],
+      "uscita": "Dep. Venaria – P.za Mochino (San Mauro)\nDep. Venaria - P.za Mochino (San Mauro)\nV. Amati – Str. della Venaria – V. Stampini -\nL.go Grosseto - C.so Grosseto - V. Botticelli -\nP.za Derna - V. Botticelli - P.za Sofia - Str. di\nSettimo - Ponte Amedeo VIII - Str. San Mauro -\nV. Roma (San Mauro) - P.za Mochino.\nPark Stura - Dep. Venaria\nPark Stura - C.so Vercelli - V. Reiss Romoli - V.\nVeronese - P.za Stampalia - Str. della Venaria -\nV. Amati.",
+      "rientro": "P.za Mochino (San Mauro) - Dep. Venaria\nP.za Mochino (San Mauro) - Dep. Venaria\nP.za Mochino - V. Roma - Str. San Mauro -\nPonte Amedeo VIII - Str. di Settimo - P.za Sofia\n- V. Botticelli - P.za Derna - V. Botticelli - C.so\nGrosseto - L.go Grosseto - V.Stampini - V.\nLanzo - P.za Stampalia - Str. della Venaria – V.\nAmati.\nDep. Venaria - Park Stura\nV. Amati - Str. della Venaria - P.za Stamapalia -\nV. Veronese - V. Reiss Romoli - C.so Vercelli."
+    },
+    {
+      "id": "daper-05-26-p20-43",
+      "line": "26",
+      "pages": [
+        20
+      ],
+      "uscita": "Dep. Venaria - Str. Villaretto\nV. Amati - Str. della Venaria - P.za Stampalia - V.\nVeronese - Str. Aeroporto - Str. del Francese - Str.\nComunale di Villaretto\nDep. Venaria - V. Italia (Borgaro)\nV. Amati - V. Venaria – P.za Stampalia- V.\nVeronese – Str. dell’Aeroporto – V. Lanzo -\nsegue il percorso di linea.",
+      "rientro": "Str. Villaretto - Dep Venaria\nStr. Comunale di Villaretto - inversione alla\nprima rotonda - Str. Comunale di Villaretto - Str.\ndel Francese - Str. Aeroporto - V. Veronese -\nP.za Stampalia - Str. della Venaria - V. Amati\nV. Italia (Borgaro) – Dep. Venaria\nSegue il percorso di linea sino a V. Ligura / Str\ndel Francese – Str. del Francese - Str. Aeroporto -\nV. Veronese - P.za Stampalia - Str. della Venaria\n- V. Amati"
+    },
+    {
+      "id": "daper-05-26-p20-44",
+      "line": "27 27 Fest. 27 27 Fest.",
+      "pages": [
+        20
+      ],
+      "uscita": "Dep. Novara – V. Bertola\nC. Novara – V. Bologna - P.te Bologna – C. XI\nFebbraio - C. Regina Margherita – P.za della\nRepubblica – V. Milano – V. San Francesco\nd’Assisi – V. Bertola.\nDep. Novara – V. Anglesio\nC. Novara – C. Regio Parco – P. Sofia – Str. Di\nSettimo – Str. della Magra – V. Anglesio.\nDep. Novara – C. Novara / C. Palermo\nC. Novara.",
+      "rientro": "V. Bertola – Dep. Novara\nV. XX Settembre - C. XI Febbraio – P.te\nBologna – V. Bologna – C. Novara.\nV. Anglesio – Dep. Novara\nV. Anglesio – Str.della Magra – Str. Di Settimo –\nP. Sofia – C. Regio Parco – C. Novara.\nC. Novara / C. Palermo – Dep. Novara\nC. Novara."
+    },
+    {
+      "id": "daper-05-26-p20-45",
+      "line": "29",
+      "pages": [
+        20
+      ],
+      "uscita": "Dep. Venaria – P.le Vallette\nV. Amati - V. Venaria – V. Sansovino - C.\nGrosseto - C. Ferrara - V. delle Primule.\nDep. Venaria – V. Val della Torre\nV. Amati - V. Venaria – Largo Grosseto – C.\nPotenza – V. Val della Torre.",
+      "rientro": "P.le Vallette - Dep. Venaria\nV. delle Primule - C. Ferrara - C. Grosseto - V.\nSansovino - Str. della Venaria – V. Amati.\nV. Val della Torre – Dep. Venaria\nV. Val della Torre – C.so Potenza – L.go\nGrosseto – V. Stampini – V. Lanzo – P.za\nStampalia – Str. della Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p21-46",
+      "line": "29",
+      "pages": [
+        21
+      ],
+      "uscita": "Dep. Venaria – P. Solferino\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto - V. Livorno - C. Regina\nMargherita – Rondò Forca – C. Palestro – V.\nGiulio – V. Bligny – P. Arbarello – C. Siccardi –\nV. Cernaia – P. Solferino.",
+      "rientro": "P.za Solferino - Dep. Venaria\nV. Cernaia – C. Siccardi - P.za Arbarello – V.\nDella Consolata - C. Regina Margherita - V.\nLivorno - V. Orvieto – V. Stradella - L.go\nGrosseto – V. Stampini – V. Lanzo - P.za\nStampalia – Str. della Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p21-47",
+      "line": "30",
+      "pages": [
+        21
+      ],
+      "uscita": "Dep. Tortona – C. San Maurizio\nC. Tortona - C. Belgio - V. Vanchiglia – C. San\nMaurizio.\nDep. Tortona - Pino T.se\nC. Tortona - C. Belgio - V. Augudio - V. Traforo\ndel Pino - SR 10.\nDep. Tortona - P. Borromini\nC. Tortona - L.go Regina Margherita - P.te\nRegina Margherita.\nDep. Tortona - V. Gozzano (Chieri)\nC. Tortona - C. Belgio - V. Augudio - V. Traforo\ndel Pino - SR 10 e segue il percorso di linea.",
+      "rientro": "C. San Maurizio - Dep. Tortona\nV. Napione - V. Fontanesi - C. Belgio - C.\nTortona.\nPino T.se - Dep. Tortona\nSR 10 - V. Traforo del Pino - V. Agudio - C.\nBelgio - C. Tortona.\nP. Borromini - Dep. Tortona\nP.te Regina Margherita - L.go Regina Margherita.\n– C. Tortona.\nV. Gozzano (Chieri) - Dep. Tortona\nSegue il percorso di linea sino alla SR 10 - V.\nTraforo del Pino - V. Agudio - C. Belgio - C.\nTortona."
+    },
+    {
+      "id": "daper-05-26-p21-48",
+      "line": "32",
+      "pages": [
+        21
+      ],
+      "uscita": "Dep. Venaria - P. Robotti (Alpignano)\nV. Amati - V. Venaria – V. Druento – V. Traves -\nC. Ferrara - V. delle Primule -Str. Pianezza – V.\nTorino/Pianezza - V. Piave - V. Susa - V. Venaria\n- V. Cavour - P. zza Vittorio Veneto - V. Mazzini.\nDep. Venaria - P. Cirene\nV. Amati - V. Venaria - P. Stampalia - V.\nSansovino – perimetrale nord/ovest di P. Cirene –\nV. Pietro Cossa (carreggiata centrale) – V.\nPianezza.\nDep. Venaria - C. Tassoni\nV. Amati - V. Venaria – C. Potenza - V. Pianezza\n- C. Tassoni.",
+      "rientro": "P. Robotti (Alpignano) - Dep. Venaria\nV. Mazzini - V. Cavour - V. Venaria - V. Susa -\nV. Piave - V. Torino/Pianezza - Str. Pianezza - V.\ndelle Primule - C. Ferrara – V. Traves – V.\nDruento - V. Venaria - V. Amati.\nP. zza Cirene - Dep. Venaria\nV. Sansovino - P. Stampalia - V. Venaria - V.\nAmati.\nC. Tassoni - Dep. Venaria\nC. Appio Claudio – C. Lecce – C. Potenza – V.\nLanzo – P. Stampalia - V. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p22-49",
+      "line": "33 Fer. 33 Fest. 33 Fer. 33 Fest.",
+      "pages": [
+        22
+      ],
+      "uscita": "Dep. Gerbido - C. Papa Giovanni XXIII\n(Collegno)\nV. Gorini - Str. del Portone - V. Rivalta - C. F.lli\nCervi - P. Papa Giovanni XXIII - V. Leon Tron -\nV. Costa - C. Francia - V. Roma (Collegno) - C.\nPapa Giovanni XXIII.\nDep. Gerbido – C. Vittorio E. II/V.Rattazzi\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Rosselli - C.\nGalileo Ferraris – L.go Vittorio Emanuele II - C.\nVittorio Emanuele II – inversione di marcia in C.\nVittorio Emanuele II/V. Goito.\nDep. Gerbido – P.le Adua\nV. Gorini - Str. del Portone - C. Orbassano – C.\nTazzoli - C. Unione Sovietica - C. Bramante –\nPonte Balbis - P. Muzio Scevola – C.\nMonterotondo – P. Zara - C. Moncalieri – C.\nGiovanni Lanza – V.le Thovez – P.le Adua.\nDep. S. Paolo - C. Peschiera\nC. Trapani.\nDep. S. Paolo - C. Francia/V. Macedonia\nC. Trapani – C. Peschiera – C. Francia – P.\nMassaua – C. Francia.\nDep. S. Paolo - C. Papa Giovanni XXIII\n(Collegno)\nC. Trapani – C. Peschiera – C. Francia – P.\nMassaua – C. Francia – C. Togliatti – C. Papa\nGiovanni XXIII.\nDep. S. Paolo – C. Vittorio E. II/V.Rattazzi\nC. Trapani – P. Rivoli - C. Vittorio Emanuele II -\ninversione di marcia in C. Vittorio Emanuele II/V.\nGoito.\nDep. S. Paolo – P.le Adua\nC. Trapani – C. Peschiera – C. Einaudi – C.\nSommeiller – V. Valperga Caluso – C. Massimo\nd’Azeglio - C. Vittorio Emanuele II – Ponte\nUmberto I – C. Fiume – P. Crimea – V. Crimea –\nV.le Thovez – P.le Adua.",
+      "rientro": "C. Papa Giovanni XXIII (Collegno) - Dep.\nGerbido\nC. Papa Giovanni XXIII - V. Minghetti - V.\nCosta (Grugliasco) - V. Leon Tron - P. Papa\nGiovanni XXIII - C. F.lli Cervi - V. Rivalta - Str.\ndel Portone - V. Gorini.\nC.Vittorio E. II/V.Rattazzi - Dep. Gerbido\nC. Vittorio Emanuele II – L.go Vittorio\nEmanuele II - C. Galileo Ferraris - C. Einaudi -\nC. Duca degli Abruzzi – L.go Orbassano - C.\nOrbassano - Str. del Portone - V. Gorini.\nP.le Adua - Dep. Gerbido\nP.le Adua – V.le Thovez – C. Giovanni Lanza –\nC. Moncalieri – P. Zara – C. Monterotondo – P.\nMuzio Scevola – Ponte Balbis – C. Bramante –\nC. Unione Sovietica – C. Tazzoli - C. Orbassano\n- Str. del Portone - V. Gorini.\nC. Peschiera - Dep. S. Paolo\nC. Trapani.\nC. Francia/V. Macedonia - Dep. S. Paolo\nC. Francia – P. Massaua – C. Francia – C.\nPeschiera – C. Trapani.\nC. Papa Giovanni XXIII (Collegno) - Dep. S.\nPaolo\nC. Papa Giovanni XXIII – C. Togliatti – C.\nFrancia – P. Massaua – C. Francia – C. Peschiera\n– C. Trapani.\nC. Vittorio E. II/V.Rattazzi - Dep. S. Paolo\nC. Vittorio Emanuele II – P. Rivoli - C. Trapani.\nP.le Adua - Dep. S. Paolo\nP.le Adua – V.le Thovez – V. Crimea – P.\nCrimea – C. Fiume – Ponte Umberto I - C.\nVittorio Emanuele II (controV.le nord) – C.\nMassimo d’Azeglio – V. Valperga Caluso – C.\nSommeiller – C. Einaudi – C. Peschiera - C.\nTrapani."
+    },
+    {
+      "id": "daper-05-26-p23-50",
+      "line": "33 Fest.",
+      "pages": [
+        23
+      ],
+      "uscita": "Dep. Gerbido – C. Vittorio Emanuele II (Porta\nNuova)\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Rosselli - C.\nGalileo Ferraris – L.go Vittorio Emanuele II - C.\nVittorio Emanuele II – Porta Nuova.\nDep. S. Paolo – C. Vittorio Emanuele II (Porta\nNuova)\nC. Trapani - C. Peschiera - C. Einaudi – C. Re\nUmberto – C. Vittorio Emanuele II – P. Nuova.",
+      "rientro": ""
+    },
+    {
+      "id": "daper-05-26-p23-51",
+      "line": "34",
+      "pages": [
+        23
+      ],
+      "uscita": "Dep. Gerbido - V. Ventimiglia\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - P.le Caio Mario - V. O. Vigliani - P.\nBengasi - V. Corradino - V. Genova – P. Bozzolo\n– C. Spezia.\nDep. Gerbido – V. Bertani\nV. Gorini – Str. Del Portone – V. Bertani.\nDep. Gerbido – Str. Torino (Beinasco)\nV. Gorini – Str. Del Portone – V. Bertani - C.\nOrbassano - Str. Torino (Beinasco).\nDep. Nizza – V. Ventimiglia\nP. Carducci – V. Nizza – V. Biglieri – P.\nGiacomini – V. Genova – P. Bozzolo – C. Spezia.\nDep. Nizza – V. Bertani\nC. Bramante – inversione di marcia all’altezza di\nP. Carducci-V.Nizza – C. Bramante – . Lepanto –\nC. Montelungo – V. Gessi – C. Orbassano –\nbretella di collegamento tra C. Orbassano e V.\nBertani (svincolo C. Orbassano) – V. Bertani.\nDep. Nizza – Str. Torino (Beinasco)\nC. Bramante – inversione di marcia all’altezza di\nP. Carducci-V.Nizza – C. Bramante – . Lepanto –\nC. Montelungo – V. Gessi – C. Orbassano – Str.\nTorino (Beinasco).",
+      "rientro": "V. Ventimiglia - Dep. Gerbido\nV. Ventimiglia – V. Corradino - P. Bengasi - V.\nO. Vigliani - P.le Caio Mario - C. Settembrini –\nC. Orbassano - Str. del Portone - V. Gorini.\nV. Bertani - Dep. Gerbido\nV. Bertani – inversione di marcia alla prima\nrotatoria viabile (svincolo C. Orbassano) – V.\nBertani - Str. Del Portone – V. Gorini.\nStr. Torino (Beinasco) - Dep. Gerbido\nStr. Torino (Beinasco – Ultima fermata utile per\ndescesa passeggeri N. 292 VIII MARZO) – Str.\nTorino – C. Orbassano (Torino) - Str del Portone\n– V. Gorini.\nV. Ventimiglia - Dep. Nizza\nV. Ventimiglia – V. Biglieri – P. Giacomini – V.\nGenova – C. Bramante – P. Carducci.\nV. Bertani - Dep. Nizza\nV. Bertani – bretella di collegamento tra V.\nBertani e C. Orbassano (svincolo C. Orbassano) –\nC. Orbassano – V. Gessi – C. Montelungo – C.\nLepanto – C. Bramante.\nStr. Torino (Beinasco) - Dep. Nizza\nStr. Torino (Beinasco) – inversione di marcia alla\nrotatoria viabile posta all’angolo con V.le\nRisorgimento e V. Falcone – Str. Torino – C.\nOrbassano (Torino) – V. Gessi – C. Montelungo\n– C. Lepanto – C. Bramante."
+    },
+    {
+      "id": "daper-05-26-p24-52",
+      "line": "35",
+      "pages": [
+        24
+      ],
+      "uscita": "Dep. Nizza - V. Amendola\nP. Carducci - V. Nizza - P. Bengasi - V. Onorato\nVigliani - V. Artom - P.te Europa - V. Torricelli -\nV. Berruti - V. Stupinigi - V. Del Pascolo - V.\nTrento - V. Nenni\nDep. Nizza - V. Artom\nP. Carducci - V. Nizza - P. Bengasi - V. Onorato\nVigliani - V. Artom.\nDep. San Paolo - V. Artom\nC. Trapani - C. Siracusa - C. Tazzoli - C. Agnelli\n- P.le Caio Mario - V. Onorato Vigliani.\nDep. San Paolo - V. Amendola\nC. Trapani - C. Siracusa - C. Tazzoli - C. Agnelli\n- P.le Caio Mario – C. Unione Sovietica – V. dei\nCacciatori (Nichelino) – L.go delle Alpi – V.\nDebouchè – V. Nenni – V. Amendola.\nDep. Gerbido- V. Amendola (Nichelino)\nV. Gorini - Str. del Portone – C. Orbassano -\nSvincolo Drosso - V. Torino (Beinasco) - V.\nFalcone - Str. del Drosso - C. Unione Sovietica\n(V.le centrale) - V. Cacciatori (Nichelino) -\nRotonda delle Alpi - V. Debouchè - V. Nenni - V.\nAmendola.\nDep. Gerbido- V. Artom\nV. Gorini - Str. del Portone – C. Orbassano –\nC.so Settembrini – P.le Caio Mario – V. Onorato\nVigliani – V. Artom.",
+      "rientro": "V. Amendola - Dep. Nizza\nV. Amendola - inversione alla rotonda di C.\nMatteotti - V. Amendola - V. Nenni - V.\nDebouchè - Rotonda delle Alpi - V. XXV Aprile\n- V. Berruti - V. Torricelli - P.te Europa - V.\nArtom - V. Onorato Vigliani - P. Bengasi - C.\nMaroncelli - V. Genova - P. Carducci.\nV. Artom - Dep. Nizza\nV. Artom – inversione di marcia alla rotonda\nangolo Str. Castello di Mirafiori – V. Artom - V.\nOnorato Vigliani - P. Bengasi - C. Maroncelli -\nV. Genova - P. Carducci.\nV. Artom - Dep. San Paolo\nV. Artom – inversione di marcia alla rotonda\nangolo Str. Castello di Mirafiori – V. Artom - V.\nOnorato Vigliani - P.le Caio Mario - C. Agnelli -\nC. Tazzoli - C. Siracusa - C. Trapani.\nV. Amendola - Dep. San Paolo\nV. Amendola - inversione alla rotonda di C.\nMatteotti - V. Amendola - V. Nenni - V.\nDebouchè - Rotonda delle Alpi - V. dei\nCacciatori – C. Unione Sovietica – P.le Caio\nMario – C. Agnelli – C. Tazzoli – C. Siracusa –\nC. Trapani.\nV. Amendola (Nichelino) - Dep. Gerbido\nV. Amendola - inversione alla rotonda di C.\nMatteotti - V. Amendola - V. Nenni - V.\nDebouchè - Rotonda delle Alpi – V. Cacciatori –\nC. Unione Sovietica (Torino) - Str. del Drosso -\nV. Falcone (Beinasco) - V. Torino - C. Orbassano\n(Torino) - Str. del Portone - V. Gorini.\nV. Artom - Dep. Gerbido\nV. Artom – inversione di marcia alla rotatoria di\nV. Artom / Str. Castello di Mirafioiri – V. Artom\n– V. Onorato Vigliani – P.le Caio Mario – C.so\nSettembrini – C.so Orbassano – Str. del Portone –\nV. Gorini."
+    },
+    {
+      "id": "daper-05-26-p25-53",
+      "line": "35 Navetta",
+      "pages": [
+        25
+      ],
+      "uscita": "Dep. Nizza - V. Trento (Nichelino)\nP. Carducci – V. Nizza – P. Bengasi – V.\nSestriere (Moncalieri) – V. Torino (Nichelino) –\nV. Trento – inversione di marcia alla rotatoria\nviabile angolo V. San Matteo – V. Trento.\nDep. Gerbido- V. Trento (Nichelino)\nV. Gorini - Str. del Portone – C. Orbassano -\nSvincolo Drosso - V. Torino (Beinasco) - V.\nFalcone - Str. del Drosso - C. Unione Sovietica\n(V.le centrale) - V. Cacciatori (Nichelino) -\nRotonda delle Alpi - V. Debouchè - V. Nenni – V.\nTrento.",
+      "rientro": "V. Trento (Nichelino) - Dep. Nizza\nV.Trento (Nichelino) – V. Torino – V. Sestriere\n(Moncalieri) – P. Bengasi (Torino) – Maroncelli\n– V. Genova – C. Bramante.\nV. Trento (Nichelino) - Dep. Gerbido\nV. Trento – V. Torino – V. XXV Aprile -\nRotonda delle Alpi – V. Cacciatori – C. Unione\nSovietica (Torino) - Str. del Drosso - V. Falcone\n(Beinasco) - V. Torino - C. Orbassano (Torino) -\nStr. del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p25-54",
+      "line": "36",
+      "pages": [
+        25
+      ],
+      "uscita": "Dep.. Gerbido – C. Francia/V. Don Murialdo\n(Rivoli)\nV. Gorini - Str. del Portone - C. Allamano - C.\nEinaudi - C. Francia – P. Martiri della Libertà –\ninversione – C. Francia.\nDep. Gerbido - C. Francia/V. Fiume\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - V. L. da Vinci - C.\nTorino - V.le Echirolles – V. Roma – V. Fiume.\nDep. Gerbido – P. Massaua\nV. Gorini - Str. Del Portone - V. della Libertà –\nV. Bertone - C. Allamano - V. Guido Reni - V. S.\nMaria Mazzarello - V. De Sanctis – P. Massaua.",
+      "rientro": "C. Francia/V. Don Murialdo (Rivoli)- Dep.\nGerbido\nC. Francia - C. Einaudi - C. Allamano - Str. del\nPortone - V. Gorini.\nC. Francia/V. Costa - Dep. Gerbido\nV. Costa - V.le Echirolles - C. Torino - V. L. da\nVinci - C. Allamano - V. della Libertà - Str. Del\nPortone - V. Gorini.\nC. Francia/V.le Gramsci - Dep. Gerbido\nV.le Gramsci - C. Torino - V. L. da Vinci - C.\nAllamano - V. della Libertà - Str. Del Portone -\nV. Gorini.\nP. Massaua - Dep. Gerbido\nC. Francia – inversione di marcia in C. Francia\nangolo Corsi Brunelleschi-Peschiera - P.\nMassaua - V. De Sanctis – V. S. Maria\nMazzarello – V. Guido Reni - C. Allamano – V.\nBertone - V. della Libertà - Str. Del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p25-55",
+      "line": "36 N",
+      "pages": [
+        25
+      ],
+      "uscita": "Dep. San Paolo – Ospedale (Rivoli)\nC. Trapani – V. Tirreno – Str. Antica di Collegno\n– V. Crea - C. Allamano (Grugliasco) – C.\nAllamano (Rivoli) – C.so Primo Levi – inversione\nalla rotatoria C. Primo Levi / V. Rivalta – C.\nPrimo Levi – Ospedale.",
+      "rientro": "Rivoli Castello – Dep. San Paolo\nC. al Castello – V. Rosta – C. De Gasperi –\nC. Susa – C. Torino – C. Francia (Rivoli) –\nC. Francia (Collegno) – C. Francia (Grugliasco)\n– P.za Massaua – C. Francia – P.za Rivoli –\nC. Trapani."
+    },
+    {
+      "id": "daper-05-26-p26-56",
+      "line": "36 N",
+      "pages": [
+        26
+      ],
+      "uscita": "Dep. San Paolo – P.za Martiri (Rivoli)\nC. Trapani – V. Tirreno – Str. Antica di Collegno\n– V. Crea - C. Allamano (Grugliasco) –\nC. Allamano (Rivoli) – C. Einaudi – C. Francia –\nP.za Martiri della Libertà (Rivoli).\nDep. San Paolo – P.za Robotti (Alpignano)\nC. Trapani – V. Tirreno – Str. Antica di Collegno\n– Str. Antica di Collegno – V. Crea - C. Allamano\n(Grugliasco) – C. Allamano (Rivoli) – C.so\nEinaudi – C. Torino (Rivoli) – C. Susa – V.\nAlpignano – Sottopassaggio F.S. – V. Garibaldi –\nV. Mazzini – P.za Robotti.\nDep. San Paolo – Tetti Neirotti\nC. Trapani - Via Tirreno – Str. Antica di Collegno\n– V. Crea – C. Allamano - C. Allamano\n(Grugliasco) - C. Allamano (Rivoli) – C. IV\nNovembre – V. Rossano – V. Alle Scuole.\nDep. San Paolo – Bruere\nC. Trapani – C. Peschiera – C. Francia (Torino) –\nP.za Massaua – C. Francia (Collegno) - C.so\nFrancia (Grugliasco) - C. Francia (Rivoli) – Via\nBruere.\nDep. Gerbido – Bruere\nV. Gorini – Str. del Portone – C. Allamano –\nC. IV Novembre – C. Francia – V. Bruere.\nDep. Gerbido – Castello di Rivoli\nV. Gorini – Str. del Portone – C. Allamano –\nC. Einaudi – C. Torino – C. Susa – C. De Gasperi\n– V. Rosta – C. al Castello.\nDep. Gerbido – Tetti Neirotti\nV. Gorini – Str. del Portone – C. Allamano –\nC. IV Novembre – V. Rossano – V. Alle Scuole\nDep. San Paolo – Istituto Natta (Rivoli)\nC. Trapani - Via Tirreno – Str. Antica di Collegno\n– V. Crea – C. Allamano (Torino) - C. Allamano\n(Grugliasco) - C. Allamano (Rivoli) –\nC. Einaudi – V. XX Settembre.",
+      "rientro": "P.za Martiri (Rivoli) – Dep. San Paolo\nInversione in P.za Martiri della Libertà (Rivoli) -\nC. Francia (Rivoli) – C. Einaudi – C. Primo Levi\n– C.so Allamano (Rivoli) – C. Allamano\n(Grugliasco) – V. Crea – Str. Antica di Collegno\n– V. Tirreno – C. Trapani.\nP.za Robotti (Alpignano) – Dep. San Paolo\nV.le Vittoria – V. Garibaldi – Sottopassaggio\nF.S. - V. Alpignano - C. Susa - C. Torino (Rivoli)\n– C. Einaudi – C. Allamano (Rivoli) –\nC. Allamano (Grugliasco) – V. Crea – Str. Antica\ndi Collegno – V. Tirreno – C. Trapani.\nTetti Neirotti - Dep. San Paolo\nV.le ai Caduti - V. Alla Chiesa – Str. Moncalileri\n– C. IV Novembre - C. Allamano (Rivoli) – C.\nAllamano (Grugliasco) – C. Allamano (Torino) –\nV. Crea – Str. Antica di Collegno – V. Tirreno –\nC. Trapani.\nBruere – Dep. San Paolo\nV. Bruere - C. Francia (Rivoli) – C.so Francia\n(Grugliasco) – C. Francia (Collegno) – P.za\nMassaua – C. Francia (Torino) – C . Peschiera C.\nTrapani."
+    },
+    {
+      "id": "daper-05-26-p27-57",
+      "line": "38fer. 38fest. 38fest.",
+      "pages": [
+        27
+      ],
+      "uscita": "Dep. Gerbido – P. Caio Mario\nV. Gorini – Str. del Portone - segue percorso linea\n38\nDep. Gerbido – C. Maroncelli\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini – P. Caio Mario - V. Onorato Vigliani\n– P. Bengasi – V. Nizza.\nDep. Gerbido - V. Minghetti(Collegno)\nV. Gorini – Str. del Portone - segue percorso linea\n38 festivo\nDep. Gerbido - V. Costa / C. Francia\n(Collegno) in direzione Torino\nV. Gorini – Str. del Portone – V. Libertà – V.\nBertone – C. Allamano – V. Leonardo Da Vinci\n(Grugliasco) – C. Torino – V.le Echirolles – V.\nRoma – V. Fiume (Collegno) – C. Francia – V.\nCosta.",
+      "rientro": "P. Caio Mario - Dep. Gerbido\nsu percorso linea 38 - Str. del Portone – V.Gorini\nC. Maroncelli - Dep. Gerbido\nV. Ventimiglia – V. Corradino – P. Bengasi - V.\nOnorato Vigliani – P. Caio Mario - C.\nSettembrini - C. Orbassano - Str. del Portone - V.\nGorini\nV. Minghetti(Collegno) - Dep. Gerbido\nsu percorso linea 38festivo - Str. del Portone –\nV.Gorini."
+    },
+    {
+      "id": "daper-05-26-p27-58",
+      "line": "39",
+      "pages": [
+        27
+      ],
+      "uscita": "Dep. Gerbido – P. Caio Mario\nV. Gorini – Str. del Portone – C. Orbassano – C.\nSettembrini – P. Caio Mario – C. Agnelli – P.\nCaio Mario (area capilinea GTT).\nDep Gerbido - P. Baden Baden (Moncalieri)\nV. Gorini – Str. del Portone – C. Orbassano – C.\nSettembrini – P. Caio Mario – V. Vigliani – P.\nBengasi – C. Roma (Moncalieri) – C. Trieste –\nPonte dei Cavalieri Templari – V. Bogino – Str.\nTorino – V.le del Castello – P. Baden Baden.",
+      "rientro": "P. Caio Mario - Dep. Gerbido\nBretella di collegamento tra i corsi Unione\nSovietica e Agnelli – C. Unione Sovietica – C.\nSettembrini – C. Orbassano – Str. del Portone –\nV.Gorini.\nP. Baden Baden (Moncalieri) - Dep Gerbido\nP. Baden Baden (inversione di marcia) – V.le del\nCastello – Str. Torino – V. Bogino – Ponte dei\nCavalieri Templari – C. Trieste – C. Roma – P.\nBengasi (Torino) – V. Vigliani – P. Caio Mario –\nC. Settembrini – C. Orbassano – Str. del Portone\n- V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p27-59",
+      "line": "40",
+      "pages": [
+        27
+      ],
+      "uscita": "Dep. Gerbido - P. Cattaneo\nV. Gorini - Str. Portone - C. Orbassano.\nDep. Gerbido – P. Massaua\nV. Gorini - Str. Del Portone - V. della Libertà –\nV. Bertone - C. Allamano - V. Guido Reni - V. S.\nMaria Mazzarello - V. De Sanctis – P. Massaua.",
+      "rientro": "P. Cataneo - Dep. Gerbido\nC. Orbassano - Str. Portone - V. Gorini.\nP. Massaua - Dep. Gerbido\nC. Francia – inversione di marcia in C. Francia\nangolo Corsi Brunelleschi-Peschiera - P.\nMassaua - V. De Sanctis – V. S. Maria\nMazzarello – V. Guido Reni - C. Allamano – V.\nBertone - V. della Libertà - Str. Del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p28-60",
+      "line": "40",
+      "pages": [
+        28
+      ],
+      "uscita": "Dep. Gerbido – P. Caio Mario\nV. Gorini – Str. del Portone – C. Orbassano – C.\nSettembrini – P. Caio Mario – C. Agnelli – P.\nCaio Mario (area capilinea GTT).",
+      "rientro": "P. Caio Mario - Dep. Gerbido\nBretella di collegamento tra i corsi Unione\nSovietica e Agnelli – C. Unione Sovietica – C.\nSettembrini – C. Orbassano – Str. del Portone –\nV.Gorini."
+    },
+    {
+      "id": "daper-05-26-p28-61",
+      "line": "41",
+      "pages": [
+        28
+      ],
+      "uscita": "Dep. Gerbido – V. Orbassano (Borgaretto)\nV. Gorini – Str. del Portone – C. Orbassano – Str.\nTorino (Beinasco) – Str. Borgaretto – V. Aldo\nMoro (Borgaretto) – V. Orbassano.\nDep. Gerbido – Lingotto F.S.\nV. Gorini - Str. Del Portone – C. Orbassano – C.\nSettembrini – P.le Caio Mario – V. Onorato\nVigliani – V. Pio VII – V. Bossoli – V.\nPannunzio.\nDep. Gerbido – P.le Caio Mario\nV. Gorini – Str. del Portone – C. Orbassano – C.\nSettembrini – P.le Caio Mario.",
+      "rientro": "V. Orbassano (Borgaretto) – Dep. Gerbido\nV. Orbassano (Borgaretto) – V. Togliatti – V.\nAldo Moro – V.le Papa Giovanni XXIII – V.\nGorizia – V. Rondò Bernardo – V.le Torino –\nC.so Unione Sovietica – Str. del Drosso – V.\nAnselmetti – V. Abarth – C.so Orbassano – Str.\ndel Portone – V. Gorini.\nLingotto F.S - Dep. Gerbido\nV. Pannunzio – V. Casorati – V. Pio VII – V.\nOnorato Vigliani – P.le Caio Mario – C.\nSettembrini – C. Orbassano - Str. Del Portone -\nV. Gorini.\nP.le Caio Mario - Dep. Gerbido\nC. Settembrini – C. Orbassano – Str. del Portone\n– V.Gorini."
+    },
+    {
+      "id": "daper-05-26-p28-62",
+      "line": "42",
+      "pages": [
+        28
+      ],
+      "uscita": "Dep. S. Paolo - C. Peschiera\nC. Trapani.\nDep. San Paolo - V. Marsigli\nC. Trapani - V. Lancia - C. Brunelleschi - V.\nMarsigli.\nDep. San Paolo – V. Ventimiglia\nC. Trapani - C. Rosselli - L.go Orbassano - C.\nRosselli - C. Re Umberto – P. Costantino il\nGrande – C. Lepanto - C. Bramante - P. Carducci\n- C. Bramante – C. Dogliotti – C. Spezia – V.\nVentimiglia.\nDep. Nizza - V. Marsigli\nC. Bramante - P. Carducci - C. Bramante - C.\nLepanto – P. Costantino il Grande - C. Monte\nLungo – C. IV Novembre – L.go Orbassano - C.\nRosselli - C. Trapani – C. Trattati di Roma – C.\nBrunelleschi – V. Marsigli.\nDep. Nizza – V. Ventimiglia\nC. Bramante - P. Carducci - C. Bramante – C.\nDogliotti – C. Spezia – V. Ventimiglia.",
+      "rientro": "C. Peschiera - Dep. S. Paolo\nC. Trapani.\nV. Marsigli - Dep. S. Paolo\nV. Monte Ortigara - C. Brunelleschi - V.\nMonginevro - C.Monte Cucco - V. Lancia - C.\nTrapani.\nV. Ventimiglia - Dep. San Paolo\nV. Ventimiglia – V. Biglieri - V. Genova - P.\nCarducci - C. Bramante - C. Lepanto – P.\nCostantino il Grande - C. Re Umberto - C.\nRosselli - L.go Orbassano - C. Rosselli - C.\nTrapani.\nV. Marsigli - Dep. Nizza\nV. Monte Ortigara - C. Brunelleschi - C. Trattati\ndi Roma - V. San Paolo - C. Rosselli - L.go\nOrbassano - C. Rosselli - C. Galileo Ferraris – P.\nCostantino il Grande – C. Lepanto - C. Bramante\n- P. Carducci - C. Bramante.\nV. Ventimiglia - Dep. Nizza\nV. Ventimiglia – V. Biglieri - V. Genova - P.\nCarducci - C. Bramante -"
+    },
+    {
+      "id": "daper-05-26-p29-63",
+      "line": "43",
+      "pages": [
+        29
+      ],
+      "uscita": "Dep. Gerbido – V. Goito (Moncalieri)\nV. Gorini – Str. del Portone – C. Orbassano – C.\nSettembrini – P. Caio Mario – V. Vigliani – P.\nBengasi – C. Maroncelli – C. Trieste – C. Trieste\n(Moncalieri) – Ponte dei Cavalieri Templari – V.\nGoito.\nDep. Gerbido – L.go Torino (Beinasco)\nV. Gorini – Str. del Portone – C. Orbassano – Str.\nTorino (Beinasco).\nDep. Gerbido – C.so Settembrini (Fermata\n2962 – direzione Moncalieri)\nV. Gorini – Str. del Portone – C. Orbassano – C.\nSettembrini.\nDep. Gerbido – P. Gerbidi (Rivalta)\nV. Gorini – Str. del Portone – Scalo ferroviario –\nStr. San Luigi (Orbassano) – V. San Luigi\n(Rivalta) – V. del Gerbido.\nDep. Gerbido – V. Gorizia (Rivalta)\nV. Gorini – Str. del Portone – Scalo ferroviario –\nStr. San Luigi (Orbassano) – V. San Luigi\n(Rivalta) – V. Luigi Einaudi – V. Dante Alighieri\n– V. Boccaccio – V. Chiomonte – V. Gorizia.\nDep. Gerbido - C.so Orbassano / C.so\nSettembrini (Fermata 300 – direzione Rivalta)\nV. Gorini – Str. del Portone – C. Orbassano.",
+      "rientro": "V. Goito (Moncalieri) - Dep. Gerbido\nPonte Caduti di Timisoara – V. Pastrengo – V.\nCustoza - C. Trieste - C. Trieste (Torino) – C.\nMaroncelli – P. Bengasi – V. Vigliani – P. Caio\nMario – C. Settembrini – C. Orbassano –– Str.\ndel Portone – V.Gorini.\nL.go Torino (Beinasco) - Dep. Gerbido\nStr. Torino (Beinasco) – C. Orbassano (Torino) -\nStr. del Portone – V.Gorini.\nC.so Orbassano / C.so Settembrini (Fermata\n299) - Dep. Gerbido\nC. Orbassano – Str. del Portone – V.Gorini.\nP. Gerbidi (Rivalta) - Dep. Gerbido\nSegue percorso di linea fino a Str. San Luigi\n(Orbassano) – Scalo ferroviario – Str. del Portone\n– V.Gorini.\nV. Gorizia (Rivalta) - Dep. Gerbido\nSegue percorso di linea fino a Str. San Luigi\n(Orbassano) – Scalo ferroviario – Str. del Portone\n– V.Gorini.\nC.so Orbassano / C.so Settembrini (Fermata\n300) - Dep. Gerbido\nC. Orbassano – svincolo per Str. del Portone –\nStr. del Portone – V.Gorini."
+    },
+    {
+      "id": "daper-05-26-p29-64",
+      "line": "44",
+      "pages": [
+        29
+      ],
+      "uscita": "Dep. Gerbido - V. Don Borio (Grugliasco)\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - Str. del Gerbido - V.\nMoncalieri - V. Crea – C. Salvemini – V. Don\nBorio.\nDep. Gerbido - V.le Partigiani (Collegno)\nV. Gorini – Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano – V. Rivalta - C. F.lli\nCervi – V. Perotti – V. Spanna – V. Lupo - V.le\nEchirolles – V. Roma – V. Fiume - C. Francia -\nV. XX Settembre – V. San Massimo (sottopasso)\n– C. Pastrengo – V. Tampellini – V. del Brucco –\nV. San Lorenzo – V. Sebusto – V. Venaria – V.le\nPartigiani.",
+      "rientro": "V. Don Borio (Grugliasco) - Dep. Gerbido\nV. Moncalieri - Str. del Gerbido - C. Allamano –\nV. Bertone - V. della Libertà - Str. del Portone -\nV. Gorini.\nV.le Partigiani (Collegno) - Dep. Gerbido\nV.le Partigiani – V. Allegri - V. Sebusto – V. San\nLorenzo – V. del Brucco – V. Tampellini – C.\nPastrengo – V. San Massimo (sottopasso) – V.le\nGramsci – V. Lupo – V.Spanna – V. Perotti - C.\nF.lli Cervi – V. Rivalta - C. Allamano – V.\nBertone - V. della Libertà - Str. del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p30-65",
+      "line": "44",
+      "pages": [
+        30
+      ],
+      "uscita": "Dep. Gerbido - V.Echirolles/V.Roma\n(Grugliasco):\nV. Gorini – Str. del Portone – V. Rivalta - C. F.lli\nCervi – V. Perotti – V. Spanna – V. Lupo - V.le\nEchirolles.\nDep. Gerbido - P. Omero.\nV. Gorini - Str. del Portone - C.Orbassano.",
+      "rientro": "P. Omero - Dep. Gerbido\nC. Orbassano - Str. del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p30-66",
+      "line": "45 45B",
+      "pages": [
+        30
+      ],
+      "uscita": "Dep. Nizza – P. Carducci (Torino)\nP. Carducci",
+      "rientro": "P. Carducci (Torino)– Dep. Nizza\nP. Carducci."
+    },
+    {
+      "id": "daper-05-26-p30-67",
+      "line": "46",
+      "pages": [
+        30
+      ],
+      "uscita": "Dep.Venaria - C. Bolzano (Porta Susa)\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto - V. Livorno - C. Umbria -\nC. Principe Oddone – P. Statuto - C. San\nMartino.\nDep. Venaria - Str. Cuorgnè/ C. Vercelli\nV. Amati – V. Venaria – P. Stampalia – V.\nVeronese – V. Reiss Romoli – C. Vercelli.\nDep. Venaria – V. Oxilia\nV. Amati – V. Venaria – P. Stampalia – V.\nVeronese – V. Reiss Romoli.",
+      "rientro": "C. Bolzano (Porta Susa) - Dep. Venaria\nC. San Martino - P.za Statuto - C. Principe\nOddone – C. Umbria - V. Livorno – V. Orvieto –\nV. Stradella - L.go Grosseto - V. Lanzo - P.za\nStampalia - V. Venaria - V. Amati.\nStr. Cuorgnè/C. Vercelli - Dep. Venaria\nC. Vercelli – V. Reiss Romoli – V. Veronese – P.\nStampalia – V. Venaria – V. Amati.\nV. Oxilia - Dep. Venaria\nV. Reiss Romoli – V. Veronese – P. Stampalia –\nV. Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p30-68",
+      "line": "47",
+      "pages": [
+        30
+      ],
+      "uscita": "Dep. Nizza – P. Carducci\nP. Carducci",
+      "rientro": "P. Carducci – Dep. Nizza\nP. Carducci."
+    },
+    {
+      "id": "daper-05-26-p30-69",
+      "line": "48",
+      "pages": [
+        30
+      ],
+      "uscita": "Dep. Gerbido – Ospedale San Luigi\n(Orbassano)\nV. Gorini – Str. del Portone – Scalo Ferroviario\n(Str. Del Portone - V. Bellezia - V. San Luigi) –\nV. San Luigi (Orbassano) – Ospedale San Luigi.\nDep. Gerbido – V.le del Risorgimento/Str.\nTorino (Beinasco)\nV. Gorini – Str. del Portone – Scalo Ferroviario\n(Str. Del Portone – V. Bellezia – V. San Luigi) –\nV. San Luigi (Beinasco) – V.le del Risorgimento.",
+      "rientro": "Ospedale San Luigi (Orbassano) - Dep.\nGerbido\nOspedale San Luigi (Orbassano) – V. San Luigi –\nScalo Ferroviario (V. San Luigi – V. Bellezia -\nStr. Del Portone) – Str. del Portone – V.Gorini.\nV.le del Risorgimento/Str. Torino (Beinasco) -\nDep. Gerbido\nV.le del Risorgimento (Beinasco) – V. San Luigi\n– Scalo Ferroviario (V. San Luigi – V. Bellezia –\nStr. Del Portone) – Str. del Portone – V.Gorini."
+    },
+    {
+      "id": "daper-05-26-p31-70",
+      "line": "49",
+      "pages": [
+        31
+      ],
+      "uscita": "Dep.Venaria - C. Bolzano (Porta Susa)\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto - V. Livorno - C. Umbria -\nC. Principe Oddone – P. Statuto - C. San\nMartino.\nDep. Venaria – C. Lombardia (Settimo)\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli –P.le\nAutostrade – C. Romania – (SETTIMO)-V.\nTorino – C. Piemonte – C. Lombardia –\nInversione Alla Rotonda – C. Lombardia.\nDep. Tortona – C. Bolzano\nC. Tortona – C. Novara – C. Regio Parco - Rondò\nRivella - C. Regina Margherita - C. Principe\nEugenio – C. Beccaria - P. Statuto - C. San\nMartino.\nDep. Tortona - V. Lombardia (Settimo)\nC. Tortona – C. Novara - C. Regio Parco – P.\nSofia – Str. Settimo – V. Regio Parco - C. IV\nNovembre - V. Torino - V. Italia – V. Chiomo -\nV.le Piave – P. Vittorio Veneto - V. Castiglione -\nV. Galileo Ferraris - V. Lombardia.\nDep. Tortona – C. Novara/V. Bologna\nC. Tortona - C. Novara\nDep. Novara – C. Bolzano\nC. Novara - Regio Parco - Rondò Rivella - C.\nRegina Margherita. – C. Principe Eugenio – C.\nBeccaria - P. Statuto - C. San Martino.\nDep. Novara - V. Lombardia (Settimo)\nC. Novara – C. Regio Parco – P. Sofia – Str.\nSettimo – V. Regio Parco - C. IV Novembre - V.\nTorino - V. Italia – V. Chiomo - V.le Piave – P.\nVittorio Veneto - V. Castiglione - V. Galileo\nFerraris - V. Lombardia.\nDep. Novara – C. Novara/V. Bologna\nC. Novara",
+      "rientro": "C. Bolzano (Porta Susa) - Dep. Venaria\nC. San Martino - P.za Statuto - C. Principe\nOddone – C. Umbria - V. Livorno – V. Orvieto –\nV. Stradella - L.go Grosseto - V. Lanzo - P.za\nStampalia - V. Venaria - V. Amati.\nC. Lombardia (Settimo) - Dep. Venaria\nC.Piemonte – V. Torino – C. Romania – P.le\nAutostrade - C. Vercelli - V. Reiss Romoli - V.\nVeronese - P. Stampalia - V. Venaria - V. Amati\nC. Bolzano - Dep. Tortona\nC. San Martino - P. Statuto – C. Beccaria - C.\nPrincipe Eugenio - C. Regina Margherita – C. XI\nFebbraio - P.te Bologna - V. Bologna - C. Novara\n– C. Tortona.\nV. Lombardia (Settimo) - Dep. Tortona\nV. Milano - V. Vivaldi - V. Verdi - V. Cavour -\nV. Rosselli - V. della Repubblica - V. Torino – C.\nIV Novembre – V. Regio Parco – Str. Settimo –\nP. Sofia – C. Regio Parco – C. Novara - C.\nTortona.\nV. Bologna/C. Novara – Dep. Tortona\nC. Novara – C. Tortona\nC. Bolzano - Dep. Novara\nC. San Martino - P. - Statuto – C. Beccaria - C.\nPrincipe Eugenio - C. Regina Margherita – C. XI\nFebbraio - P.te Bologna - V. Bologna - C.\nNovara.\nV. Lombardia (Settimo) - Dep. Novara\nV. Milano - V. Vivaldi - V. Verdi - V. Cavour -\nV. Rosselli - V. della Repubblica - V. Torino – C.\nIV Novembre – V. Regio Parco – Str. Settimo –\nP. Sofia – C. Regio Parco – C. Novara.\nV. Bologna/C. Novara – Dep. Novara\nC. Novara"
+    },
+    {
+      "id": "daper-05-26-p32-71",
+      "line": "51 Fer. DEP. VE 51 Fer. DEP. NOV. DEP. TO",
+      "pages": [
+        32
+      ],
+      "uscita": "Dep. Venaria-C.Vercelli/V. Reiss Romoli\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli.\nDep.Venaria - C. Bolzano\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto - V. Livorno - C. Umbria -\nC. Principe Oddone – P. Statuto - C. San\nMartino.\nDep. Venaria - Parcheggio Stura\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli.\nDep. Novara - C.Vercelli / C. Novara in\ndirezione C. Bolzano.\nC. Novara – a sinistra per C. Vercelli.\nDep. Novara - C.Vercelli/V. Reiss Romoli\nC. Novara – C. Regio Parco – P. Sofia - V.\nBotticelli – C. Vercelli.\nDep. Novara - C. Bolzano\nC. Novara - Regio Parco - Rondò Rivella - C.\nRegina Margherita. – C. Principe Eugenio – C.\nBeccaria - P. Statuto - C. San Martino.\nDep. Novara - Parcheggio Stura\nC. Novara - C. Regio Parco – P. Sofia – Str.\nSettimo – L.go Stura Lazio – P.le Romolo e Remo\n– C. Giulio Cesare – Park Stura.\nDep. Tortona - C.Vercelli / C. Novara in\ndirezione C. Bolzano.\nC. Tortona - C. Novara – a sinistra per C.\nVercelli.\nDep. Tortona-C.Vercelli/V. Reiss Romoli\nC. Tortona – C. Novara – C. Regio Parco – P.\nSofia - V. Botticelli – C. Vercelli.\nDep.Tortona - C. Bolzano\nC. Tortona – C. Belgio – V. Vanchiglia – P.\nVittorio Veneto – V. Po – P. Castello – V. Pietro\nMicca – V. Cernaia – C. Bolzano.",
+      "rientro": "C. Vercelli/V. Reiss Romoli - Dep. Venaria\nV. Reiss Romoli - V. Veronese - P. Stampalia -\nV. Venaria - V. Amati.\nC. Bolzano - Dep. Venaria\nC. San Martino - P.za Statuto - C. Principe\nOddone – C. Umbria - V. Livorno – V. Orvieto –\nV. Stradella - L.go Grosseto - V. Lanzo - P.za\nStampalia - V. Venaria - V. Amati.\nParcheggio Stura - Dep. Venaria\nC. Vercelli - V. Reiss Romoli - V. Veronese - P.\nStampalia - V. Venaria - V. Amati.\nC. Vercelli / C. Novara (da P.ta Susa) - Dep.\nNovara\nC. Vercelli – C. Novara.\nC. Vercelli/V. Reiss Romoli - Dep. Novara\nC. Vercelli - V. Botticelli - P. Sofia – C. Regio\nParco - C. Novara.\nC. Bolzano - Dep. Novara\nC. San Martino - P. - Statuto – C. Beccaria - C.\nPrincipe Eugenio - C. Regina Margherita – C. XI\nFebbraio - P.te Bologna - V. Bologna - C.\nNovara.\nParcheggio Stura - Dep. Novara\nC. Giulio Cesare – P.le Romolo e Remo - L.go\nStura Lazio – Str. Settimo – P. Sofia - C. Regio\nParco – C. Novara.\nC. Vercelli / C. Novara (da P.ta Susa) - Dep.\nTortona\nC. Vercelli – C. Novara – C. Tortona.\nC. Vercelli/V. Reiss Romoli - Dep. Tortona\nC. Vercelli - V. Botticelli - P. Sofia – C. Regio\nParco - C. Novara – C. Tortona.\nC. Bolzano - Dep. Tortona\nC. Bolzano (inversione di marcia alla rotatoria ivi\nesistente) – P. XVIII Dicembre – V. Cernaia – V.\nPietro Micca – P. Castello – V. Po – V. Napione\n– V. Fontanesi – C. Belgio - C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p33-72",
+      "line": "51 Fer.",
+      "pages": [
+        33
+      ],
+      "uscita": "Dep. Tortona - Parcheggio Stura\nC. Tortona – C. Novara - C. Regio Parco – P.\nSofia – Str. Settimo – L.go Stura Lazio – P.le\nRomolo e Remo – C. Giulio Cesare – Park Stura.",
+      "rientro": "Parcheggio Stura - Dep. Tortona\nC. Giulio Cesare – P.le Romolo e Remo - L.go\nStura Lazio – Str. Settimo – P. Sofia - C. Regio\nParco – C. Novara - C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p33-73",
+      "line": "52 Fer.",
+      "pages": [
+        33
+      ],
+      "uscita": "Dep.Venaria-P. Baldissera\nV. Amati - V. Venaria – L.go Grosseto - V.\nStradella - V. Giachino.\nDep. Venaria - P.le Adua:\nV. Amati - Str. della Venaria - V. Venaria - V.\nStampini - L.go Grosseto - C.so Potenza - C.so\nLecce - C.so Vittorio Emanuele II - Ponte\nUmberto I - C.so Fiume - P.za Crimea - V.\nCrimea - V.le Thovez - P.le Adua\nDep. Venaria - V. Scialoja\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli.\nDep. Nizza - P.le Adua\nP. Carducci – C. Bramante – Ponte Balbis - P.\nMuzio Scevola – C. Monterotondo – P. Zara – C.\nMoncalieri – C. Fiume - P. Crimea – V. Crimea -\nV.le Thovez.\nDep. Nizza – P.ta Nuova (dir.V. Scialoja)\nP. Carducci – V. Nizza – C. Vittorio Emanuele II\n– segue percorso linea 52.\nDep. Nizza – V. Scialoja\nP. Carducci – V. Madama Cristina – V.\nAccademia Albertina – V. Rossini – C. San\nMaurizio – Rondò Rivella – C. Regio Parco – C.\nPalermo – C. Novara – C. Vercelli – V. Reiss\nRomoli.",
+      "rientro": "P. Baldissera - Dep. Venaria\nV. Giachino - V. Stradella - L.go Grosseto - V.\nLanzo - P. Stampalia - V. Venaria - V. Amati.\nP.le Adua - dep. Venaria:\nStr. Val Salice - V.le Thovez - V. Crimea - P.za\nCrimea - C.so Fiume - Ponte Umberto I - C.so\nVittorio Emanuele II - C.so Lecce - C.so Potenza\n- L.go Grosseto - V. Stampini - V. Lanzo - P.za\nStampalia - Str. della Venaria - V. Amati.\nV. Scialoja - Dep. Venaria\nV. Reiss Romoli - V. Veronese - P. Stampalia -\nV. Venaria - V. Amati.\nP.le Adua - Dep. Nizza\nV.le Thovez – V. Crimea – P. Crimea – C. Fiume\n– C. Moncalieri – P. Zara – C. Monterotondo – P.\nMuzio Scevola – Ponte Balbis – C. Bramante –\nP. Carducci.\nP.ta Nuova - Dep. Nizza\nV. Nizza - P. Carducci.\nV. Scialoja - Dep. Nizza\nV. Reiss Romoli - C. Vercelli - C. Novara - C.\nPalermo - C. Regio Parco - Rondò Rivella - C.\nSan Maurizio - V. Rossini - V. Accademia\nAlbertina - V. Madama Cristina - P. Carducci."
+    },
+    {
+      "id": "daper-05-26-p34-74",
+      "line": "53",
+      "pages": [
+        34
+      ],
+      "uscita": "Dep. Tortona – C. San Maurizio\nC. Tortona - C. Belgio - V. Vanchiglia – P.\nVittorio Veneto – L.go Po Cadorna - C. San\nMaurizio.\nDep. Tortona – P. Failla\nC. Tortona – Ponte Regina Margherita – C.\nCasale – C. Moncalieri – Str. Torino (Moncalieri)\n– V. Bogino – P. Caduti per la Libertà - V.\nCavour - P. Failla.",
+      "rientro": "C. San Maurizio - Dep. Tortona\nL.go Po Cadorna (ultima fermata N. 3383\nPESCATORE per la discesa passeggeri) - V.\nNapione - V. Fontanesi - C. Belgio - C. Tortona.\nP. Failla - Dep. Tortona\nV. Cavour - P. Caduti per la Libertà - V. Bogino\n- Str. Torino – C. Moncalieri (Torino) – C.\nCasale – Ponte Regina Margherita – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p34-75",
+      "line": "54",
+      "pages": [
+        34
+      ],
+      "uscita": "Dep. Tortona – C. Gabetti\nC. Tortona – Ponte Regina margherita - C.\nGabetti.",
+      "rientro": "C. Gabetti - Dep. Tortona\nC. Gabetti – inversione di marcia in P. Hermada\n– C. Gabetti – Ponte Regina Margherita – C.\nTortona."
+    },
+    {
+      "id": "daper-05-26-p34-76",
+      "line": "55",
+      "pages": [
+        34
+      ],
+      "uscita": "Dep. Gerbido - V. Moncalieri / V. Don Borio\n(Grugliasco)\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - Str. del Gerbido - V.\nMoncalieri - V. Crea – C. Salvemini – V. Don\nBorio – V. Moncalieri.\nDep. Gerbido - C. Farini\nV. Gorini - Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano - V. Guido Reni - V. Santa\nMaria Mazzarello - V. De Sanctis - P. Massaua -\nV. Pietro Cossa - C. Regina Margherita - C.\nFarini.\nDep. Gerbido - C. Orbassano / C. Sebastopoli\nV. Gorini - Str. del Portone - C. Orbassano.\nDep. Tortona - V. Moncalieri / V. Don Borio\n(Grugliasco)\nC. Tortona – C. Belgio - C. Regina Margherita -\nV. Pietro Cossa - P. Massaua - V. De Sanctis - V.\nSanta Maria Mazzarello - V. Guido Reni – C.\nSalvemini – V. Don Borio (Grugliasco)– V.\nMoncalieri.\nDep. Tortona - C. Farini\nC. Tortona – P.te Regina - C. Regina Margherita.",
+      "rientro": "V. Moncalieri / V. Don Borio (Grugliasco) -\nDep. Gerbido\nV. Moncalieri - Str. del Gerbido - C. Allamano –\nV. Bertone - V. della Libertà - Str. del Portone -\nV. Gorini.\nC. Farini - Dep. Gerbido\nC. Belgio – L.go Berardi - C. Regina Margherita\n- V. Pietro Cossa - P. zza Massaua - V. De\nSanctis - V. Santa Maria Mazzarello - V. Guido\nReni - C. Allamano – V. Bertone - V. della\nLibertà - Str. del Portone - V. Gorini.\nC. Orbassano / C. Sebastopoli - Dep. Gerbido\nC. Orbassano - Str. del Portone - V. Gorini.\nV. Moncalieri / V. Don Borio (Grugliasco) -\nDep. Tortona\nV. Moncalieri (inversione di marcia alla prima\nrotatoria viabile) – V. Moncalieri - V. Gaidano\n(Torino) – P. Omero – V. Guido Reni – V. Santa\nMaria Mazzarello – V. De Sanctis - P. Massaua -\nV. Pietro Cossa - C. Regina Margherita - V.\nFontanesi – C. Belgio - C. Tortona\nC. Farini - Dep. Tortona\nC. Belgio – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p35-77",
+      "line": "55",
+      "pages": [
+        35
+      ],
+      "uscita": "Dep. Tortona - P. Castello\nC. Tortona – L.go Dora Firenze – Ponte Rossini –\nV. Rossini – C. San Maurizio – V.le Partigiani –\nV.le Primo Maggio – P. Castello.\nDep. Novara - V. Moncalieri / V. Don Borio\n(Grugliasco)\nC. Novara – V. Bologna – P.te Bologna – C. XI\nFebbraio - C. Regina Margherita - V. Pietro\nCossa - P. Massaua - V. De Sanctis - V. Santa\nMaria Mazzarello - V. Guido Reni – C. Salvemini\n– V. Don Borio (Grugliasco)– V. Moncalieri.\nDep. Novara - C. Farini\nC. Novara - C. Tortona – P.te Regina - C. Regina\nMargherita.\nDep. Novara - P. Castello\nC. Novara – L.go Dora Firenze – Ponte Rossini –\nV. Rossini – C. San Maurizio – V.le Partigiani –\nV.le Primo Maggio – P. Castello.",
+      "rientro": "V. Moncalieri / V. Don Borio (Grugliasco) -\nDep. Novara\nV. Moncalieri (inversione di marcia alla prima\nrotatoria viabile) – V. Moncalieri - V. Gaidano –\nP. Omero – V. Guido Reni – V. Santa Maria\nMazzarello – V. De Sanctis - P. Massaua - V.\nPietro Cossa - C. Regina Margherita - C. XI\nFebbraio – P.te Bologna - V. Bologna – C.\nNovara.\nC. Farini - Dep. Novara\nC. Belgio – C. Tortona – C. Novara."
+    },
+    {
+      "id": "daper-05-26-p35-78",
+      "line": "56",
+      "pages": [
+        35
+      ],
+      "uscita": "Dep. S.Paolo - B.ta Quaglia (Grugliasco)\nC. Trapani - V. Tirreno – C. Tirreno – Str.Antica\ndi Grugliasco – V. Quarto dei Mille – C.Tirreno.\nDep. S. Paolo - L.go Tabacchi\nC. Trapani – C. Peschiera – P. Sabotino – C.\nPeschiera – C. Einaudi – C. Galileo Ferraris - C.\nVittorio E. II - C. Moncalieri - C. Casale - C.\nGabetti - C. Quintino Sella - L.go Tabacchi.\nDep. S. Paolo – C. Trapani (dir.Grugliasco)\nC. Trapani.\nDep. S. Paolo – P. Sabotino\nC. Trapani – C. Peschiera.\nDep. Tortona - B.ta Quaglia (Grugliasco)\nC. Tortona - C. Novara - C. Regio Parco – Rondò\nRivella – C. Regina Margherita - C. Lecce –\nsottopasso P. Rivoli - C. Trapani – V. Tirreno –\nC. Tirreno – Str.Antica di Grugliasco – V. Quarto\ndei Mille – C.Tirreno.",
+      "rientro": "B.ta Quaglia (Grugliasco ) - Dep. S. Paolo\nC. Tirreno - inversione di marcia in C.Tirreno /\nStr.dell’Arco – C. Tirreno – V. Quarto dei Mille\n– Str. Antica di Grugliasco – C. Tirreno – V.\nTirreno – C. Trapani.\nL.go Tabacchi - Dep. S. Paolo\nC. Quintino Sella - C. Gabetti - C. Casale - C.\nMoncalieri - C. Vittorio Emanuele II - P. Adriano\n- V. Di Nanni - P. Sabotino - C. Peschiera - C.\nTrapani.\nC. Trapani (in arrivo da Grugliasco) – Dep. S.\nPaolo\nV. San Paolo - C. Rosselli – C. Trapani.\nP. Sabotino - Dep. S. Paolo\nC. Peschiera - C. Trapani.\nB.ta Quaglia (Grugliasco) - Dep. Tortona\nC. Tirreno - inversione di marcia in C.Tirreno /\nStr.dell’Arco – C. Tirreno – V. Quarto dei Mille\n– Str. Antica di Grugliasco – C. Tirreno – V.\nTirreno – C. Trapani – sottopasso P. Rivoli - C.\nLecce - C. Regina Margherita - V. Fontanesi –\nC. Belgio - C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p36-79",
+      "line": "56",
+      "pages": [
+        36
+      ],
+      "uscita": "Dep. Tortona - L.go Tabacchi\nC. Tortona - P.te Regina Margherita - C. Gabetti -\nC. Quintino Sella.\nDep. Tortona - P. Statuto\nC. Tortona – C. Belgio – L.go Berardi – C.\nRegina Margherita – C. P. Eugenio – C. Beccaria\n– P. Statuto.\nDep. Gerbido - B.ta Quaglia (Grugliasco)\nV. Gorini – Str. del Portone – V. Della Libertà –\nV. Bertone – C. Allamano – V. Crea – Str.Antica\ndi Grugliasco – V. Quarto dei Mille – C.Tirreno.\nDep. Gerbido - L.go Tabacchi\nV. Gorini - Str. del Portone – C. Orbassano – L.go\nOrbassano – C. Duca degli Abruzzi – C. Vittorio\nEmanuele II – Ponte Umberto I – C. Moncalieri –\nC. Casale – C. Gabetti – C. Quintino Sella – L.go\nTabacchi.\nDep. Gerbido – C.so Siracusa\nV. Gorini - Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano - V. Guido Reni – V. Arbe\n– V. Tirreno – C. Siracusa.\nDep. Gerbido – V. Monfalcone\nV. Gorini - Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano - V. Guido Reni – V. Arbe\n– V. Tirreno – C. Siracusa.",
+      "rientro": "L.go Tabacch i- Dep. Tortona\nC. Quintino Sella - C. Gabetti – P.te Regina\nMargherita – C. Tortona.\nP. Statuto - Dep. Tortona\nP. Statuto – C. Beccaria – C. P. Eugenio - C.\nRegina Margherita – V. Fontanesi – C. Belgio –\nC. Tortona.\nB.ta Quaglia (Grugliasco) - Dep. Gerbido\nC. Tirreno - inversione di marcia in C.Tirreno /\nStr.dell’Arco – C. Tirreno – V. Quarto dei Mille\n– Str. Antica di Grugliasco – V. Crea – C.\nAllamano – V. Bertone – V. della Libertà – Str.\ndel Portone – V. Gorini.\nL.go Tabacchi - Dep. Gerbido\nC. Quintino Sella – C. Gabetti – C. Casale – C.\nMoncalieri – Ponte Umberto I – C. Vittorio\nEmanuele II – C. Duca degli Abruzzi – L.go\nOrbassano – C. Orbassano – Str. del Portone – V.\nGorini.\nC.Siracusa - Dep. Gerbido\nC. Siracusa – P.za Pitagora – C.so Orbassano –\nStr. del Portone – V. Gorini.\nV. Monfalcone - Dep. Gerbido\nV. Monfalcone - C. Siracusa – P.za Pitagora –\nC.so Orbassano – Str. del Portone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p37-80",
+      "line": "58 Fer. 58B 58-58B",
+      "pages": [
+        37
+      ],
+      "uscita": "Dep. Gerbido - C.Tazzoli n.228\nV. Gorini – Str. Del Portone – C. Orbassano – P.\nCattaneo – C. Tazzoli.\nDep. Gerbido - P. Omero\nV. Gorini - Str. del Portone - C. Orbassano\nDep. Gerbido - V. Grosso\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - V. Grosso.\nDep. Gerbido - V. Bertola\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Rosselli - C.\nGalileo Ferraris - C. Matteotti - V. XX Settembre\n- V. Bertola.",
+      "rientro": "C. Tazzoli n.228 - Dep. Gerbido\nC. Tazzoli – P. Cattaneo – C. Orbassano – Str.\nDel Portone – V. Gorini.\nP. Omero - Dep. Gerbido\nC. Orbassano - Str. del Portone - V. Gorini.\nV. Grosso - Dep. Gerbido\nV. Grosso – C. Salvemini – V. Palatucci – C.\nSalvemini – V. Crea - V. Moncalieri - Str. del\nGerbido - C. Allamano – V. Bertone - V. della\nLibertà - Str. del Portone - V. Gorini.\nV. Bertola - Dep. Gerbido\nV. San Tommaso - V. Arsenale - C. Matteotti -\nC. Galileo Ferraris - C. Einaudi - C. Duca degli\nAbruzzi – L.go Orbassano - C. Orbassano - C.\nSebastopoli - C. Allamano – V. Bertone - V.\ndella Libertà - Str. del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p37-81",
+      "line": "59 59B",
+      "pages": [
+        37
+      ],
+      "uscita": "Dep. Venaria - Druento\nV. Amati - V. Venaria - V. Druento - segue\npercorso di linea.\nDep. Venaria – V. delle Primule\nV. Amati - Str. della Venaria - V. Sansovino -\nC.so Toscana - V.le dei Mughetti - V. delle\nPrimule\nDep. Venaria – P. Solferino\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto - V. Livorno - C. Regina\nMargherita – Rondò Forca – C. Palestro – V.\nGiulio – V. Bligny – P. Arbarello – C. Siccardi –\nV. Cernaia – P. Solferino.\nDep. Venaria - P.le Vallette\nV. Amati - V. Venaria – V. Sansovino - C.\nGrosseto - C. Ferrara - V.delle Primule.",
+      "rientro": "Druento - Dep. Venaria\nPercorso di linea sino in V. Druento - V. Venaria\n- V. Amati.\nV. delle Primule - Dep. Venaria\nV. delle Primule - V.le dei Mughetti - C.so\nToscana - V. Sansovino - Str. della Venaria - V.\nAmati.\nP. Solferino – Dep. Venaria\nV. Cernaia – C. Siccardi - P. Arbarello – V. Della\nConsolata - C. Regina Margherita - V. Livorno -\nV. Orvieto - V. Stradella - L.go Grosseto - V.\nLanzo - P. Stampalia - V. Venaria – V. Amati.\nP.le Vallette - Dep. Venaria\nV.delle Primule - C. Ferrara - C. Grosseto - V.\nSansovino - V. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p38-82",
+      "line": "60",
+      "pages": [
+        38
+      ],
+      "uscita": "Dep. Venaria – V. Paris\nV. Amati – V. Venaria- P. Stampalia - V.\nLanzo - V. Pepe - V. Paris.\nDep. Venaria - C. Inghilterra\nV. Amati - V. Venaria - L.go Grosseto - C.\nPotenza - C. Lecce - P. Rivoli - C. Vittorio\nEmanuele II. – C. Inghilterra.\nDep. Venaria – V. Lanzo fermata n. 1742\nV. Amati – Str. della Venaria – V. Druento –\nV. Lanzo",
+      "rientro": "V. Paris - Dep. Venaria\nV. Macherione - V. Lanzo - P. Stampalia - V.\nVenaria – V. Amati.\nC. Inghilterra - Dep. Venaria\nC. Inghilterra – P. Statuto - C. Principe\nOddone – C. Regina Margherita – C. Potenza -\nL.go Grosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati.\nV. Lanzo fermata n. 411 – Dep Venaria\nV. Lanzo – P.za Stampalia – Str. della Venaria\n– V. Amati."
+    },
+    {
+      "id": "daper-05-26-p38-83",
+      "line": "61",
+      "pages": [
+        38
+      ],
+      "uscita": "Dep. Tortona - P. Coriolano\nC. Tortona - C. Belgio – P.te Sassi -V. Agudio.\nDep. Tortona - P. Borromini\nC. Tortona - L.go Regina M. - P.te Regina M.\nDep. Tortona - C. Vittorio Emanuele II\nC. Tortona - V. Catania - V. Reggio – V.\nRossini - V. Accademia Albertina – C.\nVittorio Emanuele II P. Carlo Felice - C.\nVittorio Emanuele II.\nDep. Novara - P. Coriolano\nC. Novara - C. Tortona - C. Belgio – P.te Sassi\n-V. Agudio.\nDep. Novara - P. Borromini\nC. Novara - C. Tortona - L.go Regina M. - P.te\nRegina M.\nDep. Novara – C. Vittorio Emanuele II\nC. Novara - C. Tortona - V. Catania - V.\nReggio – V. Rossini - V. Accademia Albertina\n– C. Vittorio Emanuele II - P. Carlo Felice - C.\nVittorio Emanuele II.",
+      "rientro": "P. za Modena - Dep. Tortona\nV. Solaroli - V. Agudio - C. Belgio - C.\nTortona\nP. Borromini (solo provenendo da San\nMauro) - Dep. Tortona\nP.te Regina M. - L.go Regina M. - C. Tortona.\nC. Vittorio Emanuele II - Dep. Tortona\nC. Vittorio Emanuele II – V. Accademia\nAlbertina – V. Rossini – V. Reggio – V.\nCatania - C. Tortona.\nP. za Modena - Dep. Novara\nV. Solaroli - V. Agudio - C. Belgio - C.\nTortona – C. Novara.\nP. Borromini (solo provenendo da San\nMauro) - Dep. Novara\nP.te Regina M. - L.go Regina M. - C. Tortona\n– C. Novara.\nC. Vittorio Emanuele II - Dep. Novara\nC. Vittorio Emanuele II – V. Accademia\nAlbertina – V. Rossini – V. Reggio – V.\nCatania - C. Tortona – C. Novara.\nP.za Vittorio Veneto - Dep. Novara\nP.za Vittorio Veneto – L.go Po Cadorna – V.\nNapione – V. Fontanesi – C. Belgio –\nC. Totona – C. Novara."
+    },
+    {
+      "id": "daper-05-26-p39-84",
+      "line": "62 Fer. 62 Fest.",
+      "pages": [
+        39
+      ],
+      "uscita": "Dep.Venaria - P. Stampalia (direz. Caio Mario)\nV. Amati – V. Venaria - V. Druento - V. Lanzo.\nDep.Venaria - P. Stampalia (direz. P. sofia)\nV. Amati – V. Venaria – P. Stampalia.\nDep.Venaria-P. Sofia\nV. Amati - V. Venaria - L.go Grosseto - C.\nGrosseto - P. Rebaudengo - V. Botticelli.\nDep. Venaria - P.le Caio Mario\nV. Amati - V. Venaria - L.go Grosseto - C.\nPotenza - C. Lecce – sottopasso P. Rivoli - C.\nTrapani - C. Siracusa - C. Tazzoli - C. Agnelli -\nC. Traiano - C. Unione Sovietica.\nDep. Gerbido – P. Caio Mario\nV. Gorini – Str. del Portone – C. Orbassano – C.\nTazzoli – C. Agnelli – C. Traiano – C. Unione\nSovietica – bretella di collegamento tra i corsi\nUnione Sovietica e Agnelli.\nDep Gerbido - C. Sebastopoli\nV. Gorini - Str. del Portone – V. Della Libertà –\nV. Bertone - C. Allamano - C. Sebastopoli.\nDep Gerbido - P. Sofia\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - V. Guido Reni - V. Santa\nMaria Mazzarello - V. De Sanctis - P. Massaua -\nV. Pietro Cossa - C. Regina Margherita – C. XI\nFebbraio – V. Bologna – P. Sofia.",
+      "rientro": "P. Stampalia - Dep. Venaria\nV. Venaria - V. Amati.\nP. Sofia - Dep. Venaria\nV. Botticelli - P. Rebaudengo - C. Grosseto -\nL.go Grosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati\nP.le Caio Mario - Dep. Venaria\nC. Agnelli - C. Tazzoli - C. Siracusa - C. Trapani\n– sottopasso P. Rivoli - C. Lecce - C. Potenza -\nL.go Grosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati.\nP. Caio Mario - Dep. Gerbido\nBretella di collegamento tra i corsi Unione\nSovietica e Agnelli – C. Agnelli – C. Tazzoli – C.\nOrbassano – Str. del Portone – V.Gorini.\nV Guido Reni/C.Sebastopoli - Dep Gerbido\nC. Sebastopoli - C. Allamano – V. Bertone - V.\ndella Libertà - Str. del Portone - V. Gorini.\nP. Sofia - Dep Gerbido\nV. Bologna – L.go Brescia – V. Bologna - C. XI\nFebbraio – C. Regina Margherita - V. Pietro\nCossa - P. Massaua - V. De Sanctis - V. Santa\nMaria Mazzarello - V. Guido Reni - C. Allamano\n– V. Bertone - V. della Libertà - Str. del Portone -\nV. Gorini."
+    },
+    {
+      "id": "daper-05-26-p40-85",
+      "line": "63",
+      "pages": [
+        40
+      ],
+      "uscita": "Dep. Gerbido – V. Negarville\nV. Gorini – Str. del Portone – C. Orbassano – V.\nLa Manta – V. Anselmetti – V. Plava.\nDep. Gerbido – C. Unione Sovietica/C.\nSebastopoli\nV. Gorini - Str. del Portone – C. Orbassano – P.za\nCattaneo – C. Orbassano – P.za Omero – C.\nOrbassano – P.za Pitagora – C. Cosenza – C.\nGiambone – C. Corsica . V. Tunisi – C.\nSebastopoli.\nDep. Gerbido - P.za Solferino\nV. Gorini – Str. del Portone – V. della Libertà –\nV. Bertone – C. Allamano – C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Duca degli\nAbruzzi – C. Vinzaglio – C. Matteotti – C. Re\nUmberto.",
+      "rientro": "V. Negarville - Dep. Gerbido\nStr. del Drosso – V. Anselmetti – C. Orbassano –\nStr. del Portone – V. Gorini.\nP.za Solferino - Dep. Gerbido\nC. Re Umberto – C. Matteotti – C. Vinzaglio – C.\nDuca degli Abruzzi – L.go Orbassano – C.\nOrbassano – C. Sebastopoli – C. Allamano – V.\nBertone – V. della Libertà – Str. del Portone – V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p40-86",
+      "line": "63B",
+      "pages": [
+        40
+      ],
+      "uscita": "Dep. Gerbido – V. Anselmetti\nV. Gorini – Str. del Portone – C. Orbassano – V.\nLa Manta – V. Carlo Abarth – V. Anselmetti.\nDep. Gerbido – P.le Caio Mario\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini – P. Caio Mario – C. Agnelli – P.le\nCaio Mario.\nDep.Nizza- P.le Caio Mario\nP. Carducci – C. Bramante – C. Unione Sovietica\n– P. Caio Mario – C. Agnelli – P.le Caio Mario\n(area capilinea GTT).\nDep.Nizza - V. Pannunzio (Lingotto FS).\nP. Carducci – V. Nizza – V. Passo Buole – V.\nPannunzio.",
+      "rientro": "V. Anselmetti - Dep. Gerbido\nV. Anselmetti – inversione di marcia ala rotonda\nangolo Str. Del Drosso – V. Anselmetti – V.\nCarlo Abarth – C. Orbassano – Str. del Portone –\nV. Gorini.\nP.le Caio Mario - Dep. Gerbido\nP.le Caio Mario – C. Unione Sovietica - C.\nSettembrini - C. Orbassano - Str. del Portone - V.\nGorini.\nP.le Caio Mario - Dep. Nizza\nC. Unione Sovietica – C. Bramante – P.\nCarducci.\nV. Pannunzio(Lingotto FS) - Dep. Nizza\nV. Bossoli – V. Pio VII – V. Passo Buole – V.\nVinovo – V. Genova - C. Bramante – P.\nCarducci."
+    },
+    {
+      "id": "daper-05-26-p41-87",
+      "line": "64",
+      "pages": [
+        41
+      ],
+      "uscita": "Dep. S. Paolo - V. Monginevro\n(direzione Grugliasco)\nC. Trapani - V. Lancia - C. Monte Cucco - V.\nMonginevro.\nDep. S. Paolo - V. Napoli\nC. Trapani – V. Lancia – C. Monte Cucco – V.\nMonginevro – Str. Della Pronda – V. Rieti – V.\nRadich – V. Napoli.\nDep. S. Paolo – C. Vittorio Emanuele II / V.\nRattazzi.\nC. Trapani - C. Peschiera - C. Einaudi – C. Re\nUmberto – C. Vittorio Emanuele II – inversione\ndi marcia all’altezza di V. Goito.\nDep. S. Paolo - C. Trapani\n(direzione C. Vittorio Emanuele II)\nC. Trapani.",
+      "rientro": "V. Monginevro - Dep. S. Paolo\n(in arrivo da Grugliasco)\nC. Monte Cucco - V. Lancia - C. Trapani.\nV. Napoli - Dep. S. Paolo\nV. Napoli – V. San Gregorio Magno – V.\nVandalino – V. Riesi – V. Napoli – V.le Radich –\nV. Rieti – Str. Della Pronda – V. Monginevro –\nC. Monte Cucco – V. Lancia - C. Trapani.\nC. Vittorio Emanuele II / V. Rattazzi - Dep. S.\nPaolo\nC. Vittorio Emanuele II - C. Re Umberto - C.\nStati Uniti - C. Duca degli Abruzzi - C. Einaudi -\nC. Peschiera - C. Trapani.\nC. Trapani - Dep. S. Paolo\n(in arrivo da C. Vittorio Emanuele II)\nC. Trapani."
+    },
+    {
+      "id": "daper-05-26-p41-88",
+      "line": "65",
+      "pages": [
+        41
+      ],
+      "uscita": "Dep. San Paolo – V. Lessona\n(direzione P.za XVIII Dicembre)\nC. Trapani – C. Lecce – V. Lessona.\nDep. San Paolo – P.za XVIII Dicembre\nC. Trapani – P. Rivoli – C. Vittorio Emanuele II –\nC. Bolzano – inversione di marcia alla rotatoria di\nC. Bolzano / V. Cernaia – C. Bolzano.\nDep. San Paolo – V. Servais\nC. Trapani – C. Peschiera – C. Francia – P.\nMassaua – C. Francia (carreggiata laterale Nord)\n– C. Marche – C. Sacco e Vanzetti – V. Servais",
+      "rientro": "V. Lessona (direzione P.za XVIII Dicembre)\n– Dep. San Paolo\nV. Lessona – C. Lecce – C. Trapani.\nP.za XVIII Dicembre – Dep. San Paolo\nC. Bolzano – C. Vittorio Emanuele II –\nP. Rivoli – C. Trapani.\nV. Servais – Dep. San Paolo\nV. Servais – V. Bianco – Str. Antica di Collegno\n– C. Marche – C. Francia – P.za Massaua – C.so\nFrancia – C. Peschiera – C. Trapani."
+    },
+    {
+      "id": "daper-05-26-p42-89",
+      "line": "67 Fer. Solo Martedì Iniz.serv. Fino ore 16.00 67 Fer. 67 Fer. e Fest. 67 Fest.",
+      "pages": [
+        42
+      ],
+      "uscita": "Dep. Nizza – V. Negri (Moncalieri)\nP. Carducci - C. Bramante - C. Unità d’Italia -\nC. Trieste – V. Custoza – V. Pastrengo(ponte\nnuovo) – V. Martiri della Libertà – Rotonda\nBoffa - V. Cavour – V. Tenivelli – Str. Genova\n– Str. Vivero – V. Negri.\nDep. Nizza - P. Arbarello\nP. Carducci - C. Bramante - C. Lepanto - C. G.\nFerraris - C. Siccardi.\nDep. Nizza – P. Marconi (Moncalieri)\nP. Carducci - C. Bramante - C. Unità d’Italia -\nC. Trieste – V. Custoza – V. Pastrengo (ponte\nnuovo) – V. Martiri della Libertà – Rotonda\nBoffa - V. Cavour – V. Tenivelli – Str. Genova\n– V. Boccardo – P. Marconi.\nDep. Nizza - C. M. D’Azeglio/C. Bramante\nP. Carducci - C. Bramante\nDep. Nizza - V. Scialoja\nP. Carducci - V. Madama Cristina - V.\nAccademia Albertina - V. Rossini - C. San\nMaurizio - C. Regio Parco - P. Sofia - V.\nBotticelli - P. Rebaudengo - C. Vercelli - V.\nReiss Romoli.\nDep. Venaria - V. Scialoja\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli.",
+      "rientro": "V. Negri (Moncalieri) - Dep. Nizza\nV. Negri – V. Turati – Str. Genova – V. Tenivelli\n- V. Cavour - P. Caduti per la Libertà - C. Trieste\n- C. Unità d’Italia - C. Bramante - P. Carducci.\nP. Arbarello - Dep. Nizza\nC. Siccardi - C. G. Ferraris - C. Lepanto - C.\nBramante - P. Carducci.\nP. Marconi (Moncalieri) - Dep. Nizza\nP. Marconi – V. Boccardo – Str. Genova – V.\nTenivelli - V. Cavour - P. Caduti per la Libertà -\nC. Trieste - C. Unità d’Italia - C. Bramante - P.\nCarducci.\nC. M. D’Azeglio/C. Bramante - Dep. Nizza\nC. Bramante - P. Carducci\nV. Scialoja - Dep. Nizza\nV. Reiss Romoli - C. Vercelli - V. Botticelli - P.\nSofia - C. Regio Parco - C. San Maurizio - V.\nRossini - V. Accademia Albertina - V. Madama\nCristina - P. Carducci.\nV. Scialoja - Dep. Venaria\nV. Reiss Romoli - V. Veronese - P. Stampalia -\nV. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p43-90",
+      "line": "68 68B",
+      "pages": [
+        43
+      ],
+      "uscita": "Dep. Tortona - V. Cafasso\nC. Tortona - L.go Dora Voghera - L.go Po\nAntonelli - C. Belgio - V. Agudio - C. Casale\nDep. Tortona - V. Catania\nC. Tortona - C. Novara\nDep. Tortona - V. Frejus\nC. Tortona - C. Novara - C. Regio Parco – Rondò\nRivella – C. Regina Margherita - C. Lecce - P.\nRivoli - C. Trapani - C. Peschiera - V. Frejus.\nDep. Tortona - V. Ravina\nC. Tortona – V. Varano – V. Carcano – V. Ravina\nDep. Novara - V. Cafasso\nC. Novara - C. Tortona - L.go Dora Voghera -\nL.go Po Antonelli - C. Belgio - V. Agudio - C.\nCasale\nDep. Novara - V. Catania\nC. Novara\nDep. Novara - V. Frejus\nC. Novara -C. Regio Parco – Rondò Rivella – C.\nRegina Margherita - C. Lecce - P. Rivoli - C.\nTrapani - C. Peschiera - V. Frejus.\nDep. Novara - V. Ravina\nC. Novara – V. Varano – V. Carcano – V. Ravina\nDep. San Paolo - V. Frejus\nC. Trapani - C. Peschiera - V. Frejus.\nDep. San Paolo - V. Cafasso\nC. Trapani – P. Rivoli – C. Francia – P. Statuto –\nC. Principe Eugenio – C. Regina Margherita – C.\nRegio Parco – L.go Dora Siena – L.go Dora\nVoghera – L.go Po Antonelli – C. Belgio - V.\nAgudio - C. Casale.\nDep. San Paolo - P. Adriano\nC. Trapani – V. Frejus - P. Adriano.",
+      "rientro": "V. Cafasso - Dep. Tortona\nC. Casale – P. Modena – V. Solaroli - V. Agudio\n- C. Belgio - L.go Po Antonelli - L.go Dora\nVoghera - C. Tortona.\nV. Catania - Dep. Tortona\nC. Novara - C. Tortona.\nV. Frejus - Dep. Tortona\nC. Trapani - P. Rivoli - C. Lecce - C. Regina\nMargherita – C. XI Febbraio – P.te Bologna – V.\nBologna – C. Novara - C. Tortona.\nV. Cafasso - Dep. Novara\nC. Casale – P. Modena – V. Solaroli - V. Agudio\n- C. Belgio - L.go Po Antonelli - L.go Dora\nVoghera - C. Novara.\nV. Catania - Dep. Novara\nC. Novara.\nV. Frejus - Dep. Novara\nC. Trapani - P. Rivoli - C. Lecce - C. Regina\nMargherita – C. XI Febbraio – P.te Bologna – V.\nBologna – C. Novara.\nV. Frejus - Dep. San Paolo\nC. Trapani.\nV. Cafasso - Dep. San Paolo\nC. Casale – P. Modena – V. Solaroli - V. Agudio\n- C. Belgio - L.go Po Antonelli - L.go Dora\nVoghera – C. Novara – L.go Dora Firenze – C.\nRegio Parco – C. Regina Margherita – C.\nPrincipe Eugenio – P. Statuto – C. Francia – P.\nRivoli – C. Trapani.\nP. Adriano - Dep. San Paolo\nP. Adriano - V. Frejus - C. Trapani."
+    },
+    {
+      "id": "daper-05-26-p44-91",
+      "line": "71",
+      "pages": [
+        44
+      ],
+      "uscita": "Dep. Gerbido - V. Farinelli\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - P.le Caio Mario - C. Unione\nSovietica.\nDep. Gerbido – P. Cattaneo\nV. Gorini – Str. Del Portone – C. Orbassano.\nDep. Gerbido – V. Servais\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – V.\nGuido Reni – V. S. Maria Mazzarello – V. De\nSanctis – V. Pietro Cossa – V. Servais.",
+      "rientro": "V. Farinelli - Dep. Gerbido\nC. Unione Sovietica - P.le Caio Mario - C.\nSettembrini – C. Orbassano - Str. del Portone - V.\nGorini.\nP. Cattaneo – Dep. Gerbido\nC. Orbassano – Str. Del Portone – V. Gorini.\nV. Servais - Dep. Gerbido\nV. Servais – V. Pietro Cossa – V. De Sanctis – V.\nS. Maria Mazzarello – V. Guido Reni - C.\nAllamano – V. Bertone - V. della Libertà - Str.\ndel Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p44-92",
+      "line": "72 72B",
+      "pages": [
+        44
+      ],
+      "uscita": "Dep.Venaria - V. Bertola\nV. Amati – V. Venaria – V. Sansovino – V. Pietro\nCossa – C. Regina Margherita – Rondò Forca – C.\nPrincipe Eugenio – C. Beccaria – C. San Martino\n– P.za XVIII Dicembre – C. Vinzaglio – C.\nMatteotti – C. Bolzano.\nDep. Venaria – C.Machiavelli (Venaria)\nV. Amati- V. Venaria – V. Druento – Str. Druento\n– V. Petrarca (Venaria) – C. Machiavelli.\nDep. Venaria – C. Garibaldi (Venaria) / Str.\nAltessano\nV. Amati- V. Venaria – V. Druento – C.\nGaribaldi/Str. Altessano.",
+      "rientro": "V. Bertola - Dep. Venaria\nC.so Bolzano – P.za XVIII Dicembre – C. San\nMartino - C. Beccaria – C. Principe Eugenio –\nRondò Forca – C. Regina Margherita – V. Pietro\nCossa - V. Sansovino – V. Venaria - V. Amati.\nC.Machiavelli (Venaria) - Dep. Venaria\nC. Machiavelli – C. Puccini – V. Petrarca – Str.\nDruento (Torino) – V. Druento - V. Venaria - V.\nAmati.\nC. Garibaldi (Venaria) / Str. Altessano - Dep.\nVenaria\nC. Garibaldi/Str. Altessano – V. Druento\n(Torino) – V. Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p45-93",
+      "line": "74",
+      "pages": [
+        45
+      ],
+      "uscita": "Dep. Gerbido - V. Gorini\nV. Gorini\nDep. Gerbido – V. Ventimiglia\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - P.le Caio Mario - V. O. Vigliani - P.\nBengasi - V. Corradino - V. Genova – P. Bozzolo\n– C. Spezia",
+      "rientro": "V. Gorini - Dep. Gerbido\nV. Gorini\nV. Ventimiglia - Dep. Gerbido\nV. Ventimiglia – V. Corradino - P. Bengasi - V.\nO. Vigliani - P.le Caio Mario - C. Settembrini –\nC. Orbassano - Str. del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p45-94",
+      "line": "75",
+      "pages": [
+        45
+      ],
+      "uscita": "Dep. Tortona - C. Tortona\nC. Tortona.\nDep. Tortona – L.go Tabacchi\nC. Tortona - P.te Regina - C. Gabetti - C.\nQuintino Sella.\nDep. Tortona - Vallette\nC. Tortona - C. Belgio – L.go Berardi – C. Regina\nMargherita – V. Pietro Cossa – P. Cirene - V.\nPianezza – V. delle Primule.\nDep. Novara - C. Tortona\nC. Novara – Tortona.\nDep. Novara – L.go Tabacchi\nC. Novara - C. Tortona - P.te Regina - C. Gabetti\n- C. Quintino Sella.\nDep. Novara - Vallette\nC. Novara – V. Bologna – C. XI Febbraio – C.\nRegina Margherita – V. Pietro Cossa – P. Cirene -\nV. Pianezza – V. delle Primule.\nDep. Venaria - P.le Vallette\nV. Amati - V. Venaria – V. Sansovino - C.\nGrosseto - C. Ferrara - V. delle Primule.\nDep. Venaria – L.go Grosseto (direzione L.go\nTabacchi)\nV. Amati – V. Venaria – L.go Grosseto.\nDep. Venaria - L.go Tabacchi\nV. Amati – V. Venaria – L.go Grosseto – V.\nStradella – V. Giachino – P. Baldissera – C.\nVigevano – C. Novara – C. Tortona – Ponte\nRegina Margherita – C. Gabetti – C. Quintino\nSella.",
+      "rientro": "C. Tortona - Dep. Tortona\nC. Tortona.\nL.go Tabacchi - Dep. Tortona\nC. Quintino Sella - C. Gabetti - P.te Regina - C.\nTortona.\nVallette - Dep. Tortona\nV. delle Primule – V. Pianezza – P. Cirene - V.\nPietro Cossa – C. Regina Margherita – V.\nFontanesi – C. Belgio - C. Tortona.\nC. Tortona - Dep. Novara\nC. Tortona – C. Novara.\nL.go Tabacchi - Dep. Novara\nC. Quintino Sella - C. Gabetti - P.te Regina - C.\nTortona – C. Novara.\nVallette - Dep. Novara\nV. delle Primule – V. Pianezza – P. Cirene - V.\nPietro Cossa – C. Regina Margherita – C. XI\nFebbraio – V. Bologna - C. Novara.\nP.le Vallette - Dep. Venaria\nV. delle Primule - C. Ferrara - C. Grosseto - V.\nSansovino - V. Venaria - V. Amati.\nL.go Grosseto (in arrivo da L.go Tabacchi) -\nDep. Venaria\nV. Stampini – V. Lanzo – P. Stampalia – Str.\nDella Venaria – V. Amati.\nL.go Tabacchi - Dep. Venaria\nC. Quintino Sella – C. Gabetti – Ponte Regina\nMargherita – C. Tortona - C. Novara – C.\nVigevano – P. Baldissera – V. Giachino – V.\nStradella – L.go Grosseto - V. Lanzo - P.\nStampalia - V. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p46-95",
+      "line": "76",
+      "pages": [
+        46
+      ],
+      "uscita": "Dep. Gerbido – V. Olevano (Grugliasco)\nV. Gorini – Str. del Portone – V. Rivalta – C. F.lli\nCervi – V. Galimberti – C.so Martin Luther King\n– V. Olevano.\nDep. Gerbido – V.le Partigiani (Collegno)\nV. Gorini – Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano – V. Rivalta - C. F.lli\nCervi – V. Perotti – V. Spanna – V. Lupo - V.le\nEchirolles – V. Roma – V. Fiume - C. Francia -\nV. XX Settembre – V. San Massimo (sottopasso)\n– C. Pastrengo – V. Tampellini – V. del Brucco –\nV. San Lorenzo – V. Sebusto – V. Venaria – V.le\nPartigiani.",
+      "rientro": "V. Olevano (Grugliasco) – Dep. Gerbido\nV. Olevano – C. F.lli Cervi – V. Rivalta – Str. del\nPortone – V. Gorini.\nV.le Partigiani (Collegno) - Dep. Gerbido\nV.le Partigiani – V. Allegri - V. Sebusto – V. San\nLorenzo – V. del Brucco – V. Tampellini – C.\nPastrengo – V. San Massimo (sottopasso) – V.le\nGramsci – V. Lupo – V.Spanna – V. Perotti - C.\nF.lli Cervi – V. Rivalta - C. Allamano – V.\nBertone - V. della Libertà - Str. del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p46-96",
+      "line": "84",
+      "pages": [
+        46
+      ],
+      "uscita": "Dep Gerbido - V. Corradino\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - V. Onorato Vigliani - V. Corradino\n- V. Genova (inversione di marcia) - V.\nCorradino.",
+      "rientro": "V. Corradino - Dep Gerbido\nV. Onorato Vigliani - C. Settembrini - C.\nOrbassano - Str. del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p46-97",
+      "line": "132",
+      "pages": [
+        46
+      ],
+      "uscita": "Dep. Gerbido – V.De Amicis / V.Fermi\n(Collegno)\nV. Gorini - Str. Del Portone – V. della Libertà\n(Grugliasco) – V. Nuccio Bertone - C. Allamano\n– V. Leonardo da Vinci. - C. Torino - V.le\nEchirolles – V. Roma – V. Fiume (Collegno) - C.\nFrancia – V. Manzoni – V. de Amicis.\nDep. Gerbido – P.za Robotti (Alpignano)\nV. Gorini - Str. del Portone - C. Allamano - C.\nAllamano (Rivoli) - C. Einaudi - C. Torino – C.so\nSusa – V. Alpignano – Sottopassaggio F.S.\n(Alpignano) – V. Garibaldi – V. Mazzini – P.za\nRobotti (Alpignano).",
+      "rientro": "V. De Amicis / V. Fermi – Dep. Gerbido\nV. De Amicis (ultima fermata utile per la discesa\npassegeri N.2699 FERMI SUD) – V. De Amicis -\nMagenta – C. Francia – V.le Gramsci – V.le\nGramsci (Grugliasco) – C. Torino - V. Leonardo\nda Vinci - C. Allamano - V. Nuccio Bertone – V.\ndella Libertà – Str. Del Portone - V. Gorini\nP.za Robotti – Dep. Gerbido\nP.za Robotti – V.le Vittoria – Sottopassaggio F.S.\n– V. Alpignano – C. Susa – C. Torino – C.\nEinaudi – V. N. Bruno – C. Primo Levi – C.so\nAllamano – Str. del Portone – V. Gorini"
+    },
+    {
+      "id": "daper-05-26-p46-98",
+      "line": "159",
+      "pages": [
+        46,
+        47
+      ],
+      "uscita": "Dep. Venaria – V. Gramsci (Pianezza)\nV. Amati – Str. della Venaria – V. Druento – V.\nTorino-Druento (Collegno) – V. Cassagna\n(Collegno) – V. Cassagna (Pianezza) – Via Piave.\nDep. Venaria – P.za Stampalia\nV. Amati – Str. della Venaria – sinistra V.\nDruento – V. Lanzo – P.za Stampalia.\nDAPER LI\nSPECIALI E RET",
+      "rientro": "V. Gramsci (Pianezza) - Dep. Venaria\nVia Piave – V. Cassagna (Pianezza) – V.\nCassagna (Collegno) – V. Torino Druento\n(Collegno) – V. Druento – Str. della Venaria – V.\nAmati.\nP.za Stampalia – Dep Venaria\nV. Venaria – S.da della Venaria – V. Amati.\nINEE\nTE NOTTE\n47"
+    },
+    {
+      "id": "daper-05-26-p48-99",
+      "line": "62 Spec. Barocchio",
+      "pages": [
+        48
+      ],
+      "uscita": "Dep.Venaria-P. Stampalia\nV. Amati – V. Venaria - V. Druento - V. Lanzo.\nDep.Venaria-V. Crea (Barocchio-Grugliasco)\nV. Amati – V. Venaria – P. Stampalia – V.\nSansovino - P. Cirene - V. Pietro Cossa - P.\nMassaua - V. De Sanctis - V. Santa Maria\nMazzarello - V. Guido Reni – C. Allamano – V.\nCrea (Grugliasco).",
+      "rientro": "P. Stampalia - Dep. Venaria\nV. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p48-100",
+      "line": "32 ITAS",
+      "pages": [
+        48
+      ],
+      "uscita": "Dep. Venaria – V. Claviere (Pianezza)\nV. Amati - V. Venaria - V. Sansovino - C. Grosseto -\nC. Ferrara - V. delle Primule -Str. Pianezza – V.\nTorino/Pianezza – segue percorso di linea.\nDep. Venaria - P. Cirene\nV. Amati - V. Venaria - P. Stampalia - V. Sansovino.\nDep. Venaria - C. Tassoni\nV. Amati - V. Venaria – C. Potenza - V. Pianezza -\nC. Tassoni",
+      "rientro": "V. Claviere (Pianezza) - Dep. Venaria\npercorso di linea - V. Torino/Pianezza - Str.\nPianezza - V. delle Primule - C. Ferrara - C.\nGrosseto - V. Sansovino - V. Venaria - V.\nAmati.\nP. zza Cirene - Dep. Venaria\nV. Sansovino - P. Stampalia - V. Venaria - V.\nAmati.\nC. Tassoni - Dep. Venaria\nC. Appio Claudio – C. Lecce – C. Potenza –\nV. Lanzo – P. Stampalia - V. Venaria - V.\nAmati."
+    },
+    {
+      "id": "daper-05-26-p48-101",
+      "line": "38 SCOL.",
+      "pages": [
+        48
+      ],
+      "uscita": "Dep. Gerbido-V.De Amicis/V.Fermi (Collegno)\nV. Gorini - Str. Del Portone – V. della Libertà\n(Grugliasco) – V. Nuccio Bertone - C. Allamano –\nV. Leonardo da Vinci. - C. Torino - V.le Echirolles\n– V. Roma – V. Fiume (Collegno) - C. Francia – V.\nManzoni – V. de Amicis.\nDep. Gerbido – V. Crea (Barocchio)\nV. Gorini – Str. del Portone – Str. della Libertà – V.\nBertone – C. Allamano – Str. del Gerbido – V. Crea.",
+      "rientro": "V. De Amicis (Collegno) - Dep. Gerbido\nV. De Amicis (ultima fermata utile per la\ndiscesa passegeri N.2699 FERMI SUD) – V.\nDe Amicis - Magenta – C. Francia – V.le\nGramsci – V.le Gramsci (Grugliasco) – C.\nTorino - V. Leonardo da Vinci - C. Allamano -\nV. Nuccio Bertone – V. della Libertà – Str.\nDel Portone - V. Gorini.\nV. Crea (Barocchio)- Dep. Gerbido\nC. Allamano – V. Bertone - Str. della Libertà –\nStr. del Portone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p49-102",
+      "line": "44 SCOL.",
+      "pages": [
+        49
+      ],
+      "uscita": "Dep. Gerbido – V. Crea (Barocchio)\nV. Gorini – Str. del Portone – Str. della Libertà –\nV. Bertone – C. Allamano – Str. del Gerbido – V.\nCrea.\nDep. Gerbido - V. Portalupi (Collegno)\nV. Gorini – Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano – V. Rivalta - C. F.lli\nCervi – V. Perotti – V. Spanna – V. Lupo - V.le\nEchirolles – V. Roma – V. Fiume - C. Francia -\nV. XX Settembre – V. San Massimo (sottopasso)\n– C. Pastrengo – V. Tampellini – V. del Brucco –\nV. San Lorenzo – V. Sebusto – V. Allegri – V.le\nPartigiani - V. Pianezza – V. Portalupi.\nDep. Gerbido – P. Omero\nV. Gorini - Str. Portone - C. Orbassano",
+      "rientro": "V. Crea (Barocchio)- Dep. Gerbido\nC. Allamano – V. Bertone - Str. della Libertà –\nStr. del Portone – V. Gorini.\nV. Portalupi (Collegno) - Dep. Gerbido\nStr. Torino-Pianezza – V. Venaria - V. Sebusto –\nV. San Lorenzo – V. del Brucco – V. Tampellini\n– C. Pastrengo – V. San Massimo (sottopasso) –\nV.le Gramsci – V. Lupo – V.Spanna – V. Perotti\n- C. F.lli Cervi – V. Rivalta - C. Allamano – V.\nBertone - V. della Libertà - Str. del Portone - V.\nGorini.\nP. Omero – Dep. Gerbido\nC. Orbassano - Str. Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p49-103",
+      "line": "86",
+      "pages": [
+        49
+      ],
+      "uscita": "Dep. Venaria – V. Di Vittorio (Venaria)\nV. Amati – V. Di Vittorio.\nDep. Venaria – P. Oropa (Druento)\nV. Amati - V. Venaria - V. Druento – V. Torino–\nDruento (Collegno) – Str. Prov. Druento–Torino\n(Druento) – V. Torino – V. Puccini – V.\nDonizetti – V. Peynetti – P. Oropa",
+      "rientro": "V. Di Vittorio (Venaria) - Dep. Venaria\nV. Di Vittorio – V. San Marchese (inversione di\nmarcia) - V. Di Vittorio - V. Amati.\nP. Oropa (Druento) - Dep. Venaria\nP. Oropa (Druento) – V. Nuova Morandi – V.\nMorandi – V. Velasco – V. Torino – Str. Prov.\nDruento–Torino – V. Torino–Druento (Collegno)\n– V. Druento (Torino) – V. Venaria – V. Amati."
+    },
+    {
+      "id": "daper-05-26-p49-104",
+      "line": "86B ITAS",
+      "pages": [
+        49
+      ],
+      "uscita": "Dep. Venaria – V. Claviere (Pianezza)\nV. Amati - V. Venaria - V. Sansovino - C. Grosseto -\nC. Ferrara - V. delle Primule -Str. Pianezza – V.\nTorino/Pianezza – segue percorso di linea.\nDep. Venaria – V. Di Vittorio (Venaria)\nV. Amati – V. Di Vittorio.",
+      "rientro": "V. Claviere (Pianezza) - Dep. Venaria\npercorso di linea - V. Torino/Pianezza - Str.\nPianezza - V. delle Primule - C. Ferrara - C.\nGrosseto - V. Sansovino - V. Venaria - V.\nAmati.\nV. Di Vittorio (Venaria) - Dep. Venaria\nV. Di Vittorio – V. San Marchese (inversione\ndi marcia) - V. Di Vittorio - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p49-105",
+      "line": "88",
+      "pages": [
+        49
+      ],
+      "uscita": "Dep. Gerbido – V. Crea (Barocchio)\nV. Gorini – Str. del Portone – Str. della Libertà –\nV. Bertone – C. Allamano – Str. del Gerbido – V.\nCrea.\nDep. Gerbido – P. Cattaneo\nV. Gorini - Str. Portone - C. Orbassano.",
+      "rientro": "V. Crea (Barocchio)- Dep. Gerbido\nC. Allamano – V. Bertone - Str. della Libertà –\nStr. del Portone – V. Gorini.\nP. Cattaneo - Dep. Gerbido\nC. Orbassano - Str. Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p50-106",
+      "line": "89",
+      "pages": [
+        50
+      ],
+      "uscita": "Dep. Gerbido – V. Crea (Barocchio)\nV. Gorini – Str. del Portone – Str. della Libertà –\nV. Bertone – C. Allamano – Str. del Gerbido – V.\nCrea.\nDep. Gerbido - V. Moriondo (Rivalta)\nV. Gorini – Str. del Portone – Scalo ferroviario –\nStr. San Luigi (Orbassano) – V. San Luigi\n(Rivalta) – V. Luigi Einaudi – V. San Massimo –\nV. Moriondo.",
+      "rientro": "V. Crea (Barocchio)- Dep. Gerbido\nC. Allamano – V. Bertone - Str. della Libertà –\nStr. del Portone – V. Gorini.\nV.San Massimo (Rivalta) - Dep. Gerbido\nV. San Masimo (Ultima fermata utile per la\ndiscesa passeggeri N. 14039 SAN\nFRANCESCO) – V. Luigi Einaudi – V. San\nLuigi (Rivalta) – Str. San Luigi (Orbassano) –\nScalo ferroviario – Str. del Portone – V.Gorini."
+    },
+    {
+      "id": "daper-05-26-p50-107",
+      "line": "89B",
+      "pages": [
+        50
+      ],
+      "uscita": "Dep. Gerbido – V. Crea (Barocchio)\nV. Gorini – Str. del Portone – Str. della Libertà –\nV. Bertone – C. Allamano – Str. del Gerbido – V.\nCrea.\nDep. Gerbido - V. Portalupi (Collegno)\nV. Gorini – Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano – V. Rivalta - C. F.lli\nCervi – V. Perotti – V. Spanna – V. Lupo - V.le\nEchirolles – V. Roma – V. Fiume - C. Francia -\nV. XX Settembre – V. San Massimo (sottopasso)\n– C. Pastrengo – V. Tampellini – V. del Brucco –\nV. San Lorenzo – V. Sebusto – V. Allegri – V.le\nPartigiani - V. Pianezza – V. Portalupi.",
+      "rientro": "V. Crea (Barocchio)- Dep. Gerbido\nC. Allamano – V. Bertone - Str. della Libertà –\nStr. del Portone – V. Gorini.\nV. Portalupi (Collegno) - Dep. Gerbido\nStr. Torino-Pianezza – V. Venaria - V. Sebusto –\nV. San Lorenzo – V. del Brucco – V. Tampellini\n– C. Pastrengo – V. San Massimo (sottopasso) –\nV.le Gramsci – V. Lupo – V.Spanna – V. Perotti\n- C. F.lli Cervi – V. Rivalta - C. Allamano – V.\nBertone - V. della Libertà - Str. del Portone - V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p50-108",
+      "line": "CP1 SCOL.",
+      "pages": [
+        50
+      ],
+      "uscita": "Dep. Gerbido-V.De Amicis/V.Fermi (Collegno)\nV. Gorini - Str. Del Portone – V. della Libertà\n(Grugliasco) – V. Nuccio Bertone - C. Allamano\n– V. Leonardo da Vinci. - C. Torino - V.le\nEchirolles – V. Roma – V. Fiume (Collegno) - C.\nFrancia – V. Manzoni – V. de Amicis.",
+      "rientro": "V. De Amicis (Collegno) - Dep. Gerbido\nV. De Amicis (ultima fermata utile per la discesa\npassegeri N.2699 FERMI SUD) – V. De Amicis -\nMagenta – C. Francia – V.le Gramsci – V.le\nGramsci (Grugliasco) – C. Torino - V. Leonardo\nda Vinci - C. Allamano - V. Nuccio Bertone – V.\ndella Libertà – Str. Del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p51-109",
+      "line": "22",
+      "pages": [
+        51
+      ],
+      "uscita": "Dep. Gerbido – Str. Cascinette\nV. Gorini - Str. del Portone – C. Orbassano – L.go\nOrbassano - C. Duca degli Abruzzi – C. Vinzaglio\n– V. Cernaia – V. Pietro Micca - V. XX\nSettembre – C. XI Febbraio – Ponte Bologna – V.\nBologna- C. Palermo – C. Giulio Cesare - Str.\nCascinette.\nDep. Gerbido – C. Sebastopoli\nV. Gorini - Str. del Portone – C. Orbassano – C.\nSebastopoli.\nDep. Venaria – C. Sebastopoli\nV. Amati - V. Venaria – L.go Grosseto – Via\nBorgaro – C. Umbria – C. Principe Oddone – C.\nInghilterra – C. Castelfidardo – C. Mediterraneo –\nL.go Orbassano – C. Orbassano - Sebastopoli.\nDep. Venaria – Str. Cascinette\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - V. Oixilia - C.\nGiulio Cesare – P.le Romolo e Remo – Str.\nCascinette.\nDep. San Paolo – Str. Cascinette\nC. Trapani - C. Lecce – C. Potenza – C. Grosseto\n– V. Botticelli – C. Giulio Cesare – Str.\nCascinette.\nDep. San Paolo – C. Sebastopoli\nC. Trapani – C. Rosselli – C. Racconigi – V.\nTripoli – C. Orbassano – C. Sebastopoli.",
+      "rientro": "Str. Cascinette - Dep. Gerbido\nC. Giulio Cesare – C. Palermo – V. Bologna –\nPonte Bologna – C. XI Febbraio – P. della\nRepubblica – V. Milano – V. San Francesco\nd’Assisi – V. Pietro Micca – V. Cernaia – C.\nVinzaglio – C. Duca degli Abruzzi – L.go\nOrbassano – C. Orbassano – Str. Del Portone –\nV. Gorini.\nC. Sebastopoli - Dep. Gerbido\nC. Sebastopoli – C. Allamano – V. Bertone – V.\nLibertà – Str. Del Portone – V. Gorini.\nC. Sebastopoli - Dep. Venaria\nC. Sebastopoli – C. Siracusa – C. Trapani – C.\nLecce – C. Potenza – L.go Grosseto – V.\nStampini – V. Lanzo – P. Stampalia – V. Venaria\n– V. Amati.\nStr. Cascinette - Dep. Venaria\nStr. Cascinette (ultima fermata utile per la discesa\npasseggeri N. 1978 CASCINETTE) – Str. Casci\nnette - C. Giulio Cesare – V. Oxilia – V. Reiss\nRomoli – V. Veronese – P. Stampalia – V.\nVenaria – V. Amati.\nStr. Cascinette - Dep. San Paolo\nC. Giulio Cesare – V. Botticelli – C. Grosseto –\nC. Potenza – C. Lecce – C. Trapani.\nC. Sebastopoli - Dep. San Paolo\nC. Sebastopoli – C. Siracusa – C. Trapani."
+    },
+    {
+      "id": "daper-05-26-p51-110",
+      "line": "24",
+      "pages": [
+        51
+      ],
+      "uscita": "Dep. Nizza – Str. Cascinette\nP. Carducci – V. Nizza – C. Sommeiller – V.\nSacchi – V. XX Settembre – C. XI Febbraio –\nPonte Bologna – V. Bologna- C. Palermo – C.\nGiulio Cesare - Str. Cascinette.\nDep. Nizza – V. Onorato Viglliani\nP. Carducci – V. Nizza – P. Bengasi – V. Onorato\nVigliani.",
+      "rientro": "Str. Cascinette - Dep. Nizza\nC. Giulio Cesare – C. Palermo – V. Bologna –\nPonte Bologna – C. XI Febbraio – P. della\nRepubblica – V. Milano – V. San Francesco\nd’Assisi – V. Bertola – V. San Tommaso – V.\nArsenale – C. Vittorio Emanuele II – V. Sacchi –\nC. Sommeiller – V. Nizza – P. Carducci.\nV. Onorato Vigliani - Dep. Nizza\nV. Palma di Cesnola – C. Traiano – C.\nMaroncelli – V. Genova – P. Carducci."
+    },
+    {
+      "id": "daper-05-26-p52-111",
+      "line": "25",
+      "pages": [
+        52
+      ],
+      "uscita": "Dep. Venaria – C. Lombardia (Settimo)\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli –P.le\nAutostrade – C. Romania (SETTIMO) - V. Torino\n– C. Piemonte – C. Lombardia – Inversione alla\nRotatoria viabile – C. Lombardia.\nDep. Venaria – L.go Stura Lazio\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - V. Oixilia - C.\nGiulio Cesare – P.le Romolo e Remo – L.go Stura\nLazio.\nDep. Tortona – C. Lombardia (Settimo)\nC. Tortona – C. Novara – C. Regio Parco – Str.\nSettimo – Ponte Amedeo VIII – Str. di Settimo –\nV. Regio Parco – C. IV Novembre – V. Torino –\nC. Piemonte – V. Lombardia – inversione di\nmarcia alla prima rotonda dopo V.Milano – V.\nLombardia.\nDep. Tortona – L.go Stura Lazio\nC. Tortona – C. Novara – C. Regio Parco – V.\nBotticelli – C. Giulio Cesare – L.go Stura Lazio.",
+      "rientro": "C. Lombardia (Settimo) - Dep. Venaria\nC.Piemonte – V. Torino – C. Romania – P.le\nAutostrade (Torino) - C. Vercelli - V. Reiss\nRomoli - V. Veronese - P. Stampalia - V. Venaria\n- V. Amati\nL.go Stura Lazio - Dep. Venaria –\nL.go Stura Lazio – Ponte Amedeo VIII – P. Sofia\n– V. Botticelli – C. Vercelli – V. Reiss Romoli -\nV. Veronese - P. Stampalia - V. Venaria - V.\nAmati.\nC. Lombardia (Settimo) - Dep. Tortona\nV. Lombardia – C. Piemonte – V. Torino – C. IV\nNovembre – V. Regio Parco – Str. di Settimo –\nC. Regio Parco – C. Novara – C. Tortona.\nL.go Stura Lazio - Dep. Tortona\nL.go Stura Lazio – Ponte Amedeo VIII – Str. di\nSettimo – C. Regio Parco – C. Novara – C.\nTortona."
+    },
+    {
+      "id": "daper-05-26-p52-112",
+      "line": "90",
+      "pages": [
+        52
+      ],
+      "uscita": "Dep. Venaria – V. Delle Querce (Falchera)\nV. Amati – V. Venaria – P. Stampalia – V.\nVeronese – V. Reiss Romoli – C. Vercelli – Str.\nCuorgnè - V.le Falchera – V. Dei Faggi – V.\nDelle Querce – Degli Abeti – V. Degli Ulivi – V.\nDelle Querce.\nDep. Venaria – V. Biscaretti / V. Faccioli\nV. Amati - V. Venaria - L.go Grosseto - C.\nPotenza - C. Lecce – sottopasso P. Rivoli - C.\nTrapani - C. Siracusa - C. Tazzoli - C. Agnelli –\nP.le Caio Mario - C. Unione Sovietica – V.\nBiscaretti.",
+      "rientro": "V. Delle Querce (Falchera) - Dep. Venaria\nV. Delle Querce – V. Delle Robinie – P. Astengo\n– V. Dei Frassini – V.le Falchera – Str. Torino\nCuorgnè – C. Vercelli – V. Reiss Romoli – V.\nVeronese – P. Stampalia – V. Venaria – V.\nAmati.\nV. Biscaretti / V. Faccioli - Dep. Venaria\nV. Faccioli – V.Plava . V. Anselmetti – C.\nOrbassano – P. Pitagora - C. Siracusa - C.\nTrapani – sottopasso P. Rivoli - C. Lecce - C.\nPotenza - L.go Grosseto - V. Lanzo - P.\nStampalia - V. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p53-113",
+      "line": "91",
+      "pages": [
+        53
+      ],
+      "uscita": "Dep. Tortona – V. Paolo della Cella\nC. Tortona – C. Novara – C. Vercelli – C.\nGrosseto – V. Chiesa della Salute – V. Gandino –\nV. Veronese – V. Paolo della Cella (prima\nfermata di salita).\nDep. Tortona - P.le Caio Mario\nC. Tortona – P.le Regina Margherita – Ponte\nRegina Margherita - C. Casale – C. Moncalieri –\nP. Zara – C. Monterotondo – P. Muzio Scevola –\nPonte Balbis – C. Bramante – C. Unione\nSovietica – P.le Caio Mario – C. Agnelli – Area\ncapilinea GTT.",
+      "rientro": "V. Gandino - Dep. Tortona\nV. Gandino (ultima fermata di discesa) – V.\nVeronese – V. Ala di Stura – C. Grosseto - C.\nVercelli – C. Novara – C. Tortona.\nP.le Caio Mario - Dep. Tortona\nC. Unione Sovietica – C. Bramante – Ponte\nBalbis – P. Muzio Scevola – C. Monterotondo –\nP.ra – C. Moncalieri – C. Casale – Ponte Regina\nMargherita - P.le Regina Margherita – C.\nTortona."
+    },
+    {
+      "id": "daper-05-26-p53-114",
+      "line": "92",
+      "pages": [
+        53
+      ],
+      "uscita": "Dep. Tortona - P. Donatore di Sangue\nC. Tortona – C. Novara – V. Bologna - V.\nGottardo.\nDep. Tortona - P. le Caio Mario\nC. Tortona – P.le Regina Margherita – Ponte\nRegina Margherita - C. Casale – C. Moncalieri –\nP. Zara – C. Monterotondo – P. Muzio Scevola –\nPonte Balbis – C. Bramante – C. Unione\nSovietica – P.le Caio Mario – C. Agnelli – Area\ncapilinea GTT.",
+      "rientro": "P. Donatore di Sangue - Dep. Tortona\nV. Gottardo – V. Monte Rosa – V. Sempione –\nV. Bologna – C. Novara – C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p53-115",
+      "line": "93B",
+      "pages": [
+        53
+      ],
+      "uscita": "Dep. Tortona - P. Mochino\nC. Tortona – C. Belgio – Ponte Sassi – V. Agudio\n– C. Casale – V. Torino (San Mauro) – V. Martiri\ndella Libertà – P. Alpini – V. XXV Aprile – Ponte\nXI Settembre (Ponte Nuovo) – P. Mochino.\nDep. Tortona - C. Tazzoli / P. Cattaneo\nC. Tortona – P.le Regina Margherita – Ponte\nRegina Margherita - C. Casale – C. Moncalieri –\nC. Monterotondo – P. Muzio Scevola – Ponte\nBalbis – C. Bramante – C. Unione Sovietica – C.\nTazzoli – P. Cattaneo (inversione di marcia) – C.\nTazzoli.",
+      "rientro": "P. Mochino - Dep. Tortona\nP. Mochino – Ponte XI Settembre (Ponte Nuovo)\n– V. XXV Aprile – P. Alpini – V. Martiri della\nLibertà – V. Torino – C. Casale (Torino) – P.\nCoriolano – V. Agudio – Ponte Sassi – C. Belgio\n– C. Tortona."
+    },
+    {
+      "id": "daper-05-26-p53-116",
+      "line": "94",
+      "pages": [
+        53,
+        54
+      ],
+      "uscita": "Dep. San Paolo – P. Statuto\nC. Trapani – P. Rivoli - C. Francia – P. Statuto.\nDep. San Paolo – V. Biscaretti / V. Faccioli\nC. Trapani – C. Siracusa – C. Cosenza – C.\nAgnelli – P.le Caio Mario – C. Unione Sovietica –\nV. Biscaretti.",
+      "rientro": "P. Statuto - Dep. San Paolo\nC. Francia – P. Rivoli – C. Trapani.\nV. Biscaretti / V. Faccioli - Dep. San Paolo\nV. Faccioli – V.Plava . V. Anselmetti – C.\nOrbassano - C. Siracusa - C. Trapani."
+    },
+    {
+      "id": "daper-05-26-p55-117",
+      "line": "95 – 95B",
+      "pages": [
+        55
+      ],
+      "uscita": "Dep. Nizza - V. Pannunzio\nP. Carduci – V. Nizza – V. Passo Buole – C.\nCaio Plinio.\nDep. Nizza - C. Tazzoli / P. Cattaneo\nC. Bramante – C. Unione Sovietica – C. Tazzoli-\nP. Cattaneo (Inverisone di marcia) – C. Tazzoli.\nDep. Nizza - V. Rivalta (COMAU)\nC. Bramante – C. Unione Sovietica – C. Tazzoli -\nP. Cattaneo – C. Orbassano – Str. Del Portone –\n– Str. Del Portone (Grugliasco) - V. Rivalta.\nDep. Nizza - C. Settembrini Canc.20\nC. Bramante – C. Unione Sovietica – P. Caio\nMario – C. Settembrini - Inverisone di marcia\nutilizzando la bretella prima di C. Orbassano – C.\nSettembrini.\nDep. Nizza - V. Faccioli Cap..\nC. Bramante – C. Unione Sovietica – P. Caio\nMario – C. Unione Sovietica – V. Biscaretti di\nRuffia.\nDep. Nizza - V. Biscaretti di Ruffia\nC. Bramante – C. Unione Sovietica – P. Caio\nMario – C. Unione Sovietica – V. Plava – V.\nFaccioli – V. Biscaretti di Ruffia.\nDep. Gerbido - V. Pannunzio\nV. Gorini - Str. del Portone – C. Orbassano – C.\nSettembrini – P.le Caio Mario - C. Unione\nSovietica – V. Passo Buole - V. Pio VII – V.\nCasorati – V. Pannunzio.\nDep.Gerbido- C. Tazzoli / P. Cattaneo\nV. Gorini - Str. del Portone – C. Orbassano – P.\nCattaneo.",
+      "rientro": "V. Pannunzio - Dep. Nizza\nV. Bossoli – V. Pio VII – V. Paso Buole – V.\nVinovo – V. Genova – C. Bramante – P.\nCarducci.\nC. Tazzoli / P. Cattaneo - Dep. Nizza\nC. Tazzoli – C. Unione Sovietica - C. Bramante.\nV. Rivalta (COMAU) - Dep. Nizza\nV. Rivalta – Str. Del Portone (Grugliasco) – Str.\nDel Portone – C. Orbassano - P. Cattaneo - C.\nTazzoli – C. Unione Sovietica - C. Bramante.\nC. Settembrini Canc.20 - Dep. Nizza -\nC. Settembrini – P. Caio Mario – C. Unione\nSovietica – C. Bramante.\nV. Faccioli Cap. - Dep. Nizza -\nV. Faccioli – V. Plava – C. Unione Sovietica – P.\nCaio Mario – C. Unione Sovietica – C.\nBramante.\nV. Biscaretti di Ruffia - Dep. Nizza -\nV. Biscareti di Ruffia – C. Unione Sovietica – P.\nCaio Mario – C. Unione Sovietica – C.\nBramante.\nV. Pannunzio- Dep. Gerbido\nV.Pannunzio – V. Bossoli – V. Pio VII – V.\nPasso Buole – C. Unione Sovietica – P.le Caio\nMario – C. Settembrini – C. Orbassano - Str. del\nPortone – V. Gorini.\nC. Tazzoli / P. Cattaneo - Dep. Gerbido\nC. Tazzoli (inversione di marcia al primo varco\nutile) – C. Tazzoli - C. Orbassano – Str. del\nPortone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p56-118",
+      "line": "96",
+      "pages": [
+        56
+      ],
+      "uscita": "Dep. Nizza - V. Amendola\nP. Carducci - V. Nizza - P. Bengasi - V. Onorato\nVigliani - V. Artom - P.te Europa - V. Torricelli -\nV. Berruti - V. Stupinigi - V. Del Pascolo - V.\nTrento - V. Nenni\nDep.Nizza- C. Tazzoli / P. Cattaneo\nP. Carducci – C. Bramante – C. Unione Sovietica\n– C. Tazzoli – P. Cattaneo (inversione di marcia)\n– C. Tazzoli.",
+      "rientro": "V. Amendola - Dep. Nizza\nV. Amendola - inversione alla rotonda di C.\nMatteotti - V. Amendola - V. Nenni - V.\nDebouchè - Rotonda delle Alpi - V. XXV Aprile\n- V. Berruti - V. Torricelli - P.te Europa - V.\nArtom - V. Onorato Vigliani - P. Bengasi - C.\nMaroncelli - V. Genova - P. Carducci.\nC. Tazzoli / P. Cattaneo - Dep. Nizza\nC. Tazzoli – C. Unione Sovietica – C. Bramante\n– P. Carducci."
+    },
+    {
+      "id": "daper-05-26-p56-119",
+      "line": "97",
+      "pages": [
+        56
+      ],
+      "uscita": "Dep. Nizza - V. Biscaretti /V. Faccioli\nP.za Carducci – V. Nizza – V. Onorato Vigliani –\nP.le Caio Mario – C. Unione Sovietica – V.\nBiscaretti.\nDep. Nizza – C. Francia/V. Don Murialdo\n(Rivoli)\nC. Bramante – C. Lepanto – C. Monte Lungo – C.\nIV Novembre – C. Sebastopoli – C. Allamano –\nC. Allamano (Grugliasco) – C. Allamano (Rivoli)\n– C. Einaudi – C. Francia – P.za Martiri della\nLibertà – inversione di marcia – C. Francia.\nDep. Gerbido - V. Biscaretti /V. Faccioli\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - P.le Caio Mario - C. Unione\nSovietica – V. Biscaretti.\nDep.. Gerbido – C. Francia/V. Don Murialdo\n(Rivoli)\nV. Gorini - Str. del Portone - C. Allamano - C.\nEinaudi - C. Francia – P. Martiri della Libertà –\ninversione di marcia – C. Francia.",
+      "rientro": "V. Biscaretti /V. Faccioli - Dep. Nizza\nV. Faccioli – V.Plava - C. Unione Sovietica –\nP.le Caio Mario – V. Onorato Vigliani – V.\nCorradino – V. Genova – P. Carducci.\nC. Francia/V. Don Murialdo (Rivoli)- Dep.\nNizza\nC. Francia (Rivoli) – C. Einaudi – C. Allamano –\nC. Allamano (Grugliasco) – C. Allamano\n(Torino) – C. Sebastopoli – C. IV Novembre – C.\nMontelungo – C. Lepanto – C. Bramante – P.\nCarducci.\nV. Biscaretti /V. Faccioli - Dep. Gerbido\nV. Faccioli – V.Plava - V. Anselmetti – C.\nOrbassano - Str. del Portone – V. Gorini.\nC. Francia/V. Don Murialdo (Rivoli)- Dep.\nGerbido\nC. Francia - C. Einaudi - C. Allamano - Str. del\nPortone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p57-120",
+      "line": "98",
+      "pages": [
+        57
+      ],
+      "uscita": "Dep. Nizza – V. Portalupi (Collegno)\nC. Bramante – C. Lepanto – C. Galileo Ferraris –\nC. Rosselli – C. Trapani – V. Tirreno – C.\nTirrreno (Grugliasco) – Str.Antica di Grugliasco –\nV. Quarto dei Mille – Str. Della Pronda – C.\nTorino – V.le Radich – V. Napoli – V. San\nGregorio Magno – V. Vandalino – V.\nCastagnevizza – V. Castagnevizza (Collegno) –\nV. Manzoni – V. De Amicis – C. Pastrengo – V.\nTampellini – V. del Brucco – Str. San Lorenzo –\n- V. Sebusto – V. Allegri – V.le Partigiani – V.\nPianezza – V. Portalupi\nDep. Gerbido - V. Portalupi (Collegno)\nV. Gorini – Str. del Portone - V. della Libertà - V.\nBertone - C. Allamano – V. Rivalta - C. F.lli\nCervi – V. Perotti – V. Spanna – V. Lupo - V.le\nEchirolles – V. Roma – V. Fiume - C. Francia -\nV. XX Settembre – V. San Massimo (sottopasso)\n– C. Pastrengo – V. Tampellini – V. del Brucco –\nV. San Lorenzo – V. Sebusto – V. Allegri – V.le\nPartigiani - V. Pianezza – V. Portalupi.\nDep. Gerbido - V. Biscaretti /V. Faccioli\nV. Gorini – Str. del Portone – C. Orbassano - C.\nSettembrini – P.le Caio Mario - C. Unione\nSovietica – V. Biscaretti.",
+      "rientro": "V. Portalupi (Collegno) - Dep. Nizza\nStr. Torino-Pianezza – V. Venaria - V. Sebusto –\nV. San Lorenzo – V. del Brucco – V. Tampellini\n– C. Pastrengo – V. De Amicis – V. Magenta –\nV. Bligny – V. Bligny (Grugliasco) – V.\nVandalino – V. Riesi – V. Napoli – V.le Radich –\nC. Torino – Str. Della Pronda – V. Quarto dei\nMille – Str. Antica di Grugliasco – C. Tirreno –\nV. Tirreno (Torino) – C. Trapani – V. San Paolo\n– C. Rosselli – C. Galileo Ferraris – C. Lepanto –\nC. Bramante – P. Carducci.\nV. Portalupi (Collegno) - Dep. Gerbido\nStr. Torino-Pianezza – V. Venaria - V. Sebusto –\nV. San Lorenzo – V. del Brucco – V. Tampellini\n– C. Pastrengo – V. San Massimo (sottopasso) –\nV.le Gramsci – V. Lupo – V.Spanna – V. Perotti\n- C. F.lli Cervi – V. Rivalta - C. Allamano – V.\nBertone - V. della Libertà - Str. del Portone - V.\nGorini.\nV. Biscaretti /V. Faccioli - Dep. Gerbido\nV. Faccioli – V.Plava – V. Anselmetti – C.\nOrbassano - Str. del Portone – V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p57-121",
+      "line": "99",
+      "pages": [
+        57,
+        58
+      ],
+      "uscita": "Dep. Nizza – P. Carducci (Santena)\nP. Carducci - V. Nizza - P. Bengasi - C. Roma\n(Moncalieri) - C. Trieste (sotto impalcato\ntangenziale) - Ponte dei Cavalieri Templari\n(ponte vecchio) - V. Cavour - V. Tenivelli - Str.\nGenova - V. Torino (Trofarello) - V. Nazionale\n(Cambiano) - V. Torino (Santena) - V. Cavour –\nV. Trinità.\nDep. Nizza – V. Plava\nP. Carducci – V. Nizza – V. Onorato Vigliani –\nP.le Caio Mario – C. Settembrini – V. La Manta –\nV. Anselmetti – V. Plava.\n",
+      "rientro": "P. Carducci (Santena) – Dep. Nizza\nV. Trinità - V. Cavour - V. Sambuy - V. Asti - V.\nNazionale (Cambiano) - V. Torino (Trofarello) -\nStr. Genova (Moncalieri) - V. Tenivelli - V.\nCavour - P. Caduti per la Libertà - C. Trieste - C.\nRoma - V. Tiepolo - V. Genova (Torino) - P.\nCarducci\n58"
+    },
+    {
+      "id": "daper-05-26-p59-122",
+      "line": "W 1 ARANCIONE",
+      "pages": [
+        59
+      ],
+      "uscita": "Dep. S. Paolo – P. Vittorio Veneto\nC. Trapani – C. Peschiera – P. Sabotino – C.\nPeschiera – C. Einaudi – C. Galileo Ferraris - C.\nVittorio Emanuele II – V. Accademia Albertina –\nV. Rossini – C. San Maurizio – V. Bava – P.\nVittorio Veneto.\nDep. S. Paolo – P. Massaua\nC. Trapani - C. Peschiera - C. Francia – P.\nMassaua.\nDep. S. Paolo – P. Robotti (Alpignano)\nC. Trapani - C. Peschiera - C. Francia – P.\nMassaua - C. Francia - C. Francia (Collegno) - C.\nFrancia (Rivoli) – P. Martiri della Libertà – C.so\nSusa – V. Alpignano – Sottopassaggio F.S. – V.\nGaribaldi – V. Mazzini – P.za Robotti\n(Alpignano).\nDep. Nizza – P. Robotti (Alpignano)\nP. Carducci – C. Bramante – C. Lepanto – P.\nCostantino Il Grande – C. Monte Lungo – C. IV\nNovembre – C. Sebastopoli – C. Allamano - C.\nAllamano (Grugliasco) – C. Allamano (Rivoli) –\nC. Luigi Einaudi – C. Francia - P. Martiri della\nLibertà – C.so Susa – V. Alpignano –\nSottopassaggio F.S. – V. Garibaldi – V. Mazzini\n– P.za Robotti (Alpignano).\nDep. Nizza – P. Vittorio Veneto\nP. Carducci – V. Madama Crsitina – V.\nAccademia Albertina – V. Rossini – C. San\nMaurizio – V. Bava – P. Vittorio Veneto.\nDep.. Gerbido – P. Robotti (Alpignano)\nV. Gorini - Str. del Portone - C. Allamano - C.\nEinaudi (Rivoli) - C. Francia – P. Martiri della\nLibertà – C.so Susa – V. Alpignano –\nSottopassaggio F.S. – V. Garibaldi – V. Mazzini\n– P.za Robotti (Alpignano).\nDep. Gerbido – P. Vittorio Veneto\nV. Gorini - Str. del Portone – C. Orbassano – L.go\nOrbassano – C. Duca degli Abruzzi – C. Vinzaglio –\nV. Cernaia – V. Pietro Micca – P. Castello – V. Po.",
+      "rientro": "P. Vittorio Veneto - Dep. S. Paolo\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II - C. Galileo Ferraris\n- C. Einaudi – C. Peschiera – C. Trapani.\nP. zza Massaua - Dep. S. Paolo\nP. Massaua - C. Francia – C. Peschiera – C.\nTrapani.\nP. Robotti (Alpignano) - Dep. S. Paolo)\nV.le Vittoria –Sottopassaggio F.S. – V.\nAlpignano – C.so Susa (Rivoli) – P.za Martiri\n- C. Francia - C. Francia (Collegno) - C.\nFrancia (Torino) - P. Massaua - C. Francia - C.\nPeschiera - C. Trapani.\nP. Robotti (Alpignano) - Dep. Nizza\nV.le Vittoria –Sottopassaggio F.S. – V.\nAlpignano – C.so Susa (Rivoli) – P.za Martiri\n- C. Francia - C. Luigi Einaudi – C. Allamano\n– C. Allamano (Grugliasco) - C. Allamano\n(Torino) – C. Sebastopoli – C. IV Novembre –\nC. Monte Lungo – P. Costantino Il Grande –\nC. Lepanto – C. Bramante – P. Carducci.\nP. Vittorio Veneto - Dep. Nizza\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II – C. Massimo\nd’Azeglio – C. Bramante – P. Carducci.\nP. Robotti (Alpignano) - Dep. Gerbido\nV.le Vittoria –Sottopassaggio F.S. – V.\nAlpignano – C.so Susa (Rivoli) – P.za Martiri\n- C. Francia - C. Einaudi - C. Allamano - Str.\ndel Portone - V. Gorini.\nP. Vittorio Veneto - Dep. Gerbido\nV. Po – P. Castello - V. Pietro Micca – V. Cernaia\n– C. Vinzaglio – C. Duca degli Abruzzi - L.go\nOrbassano – C. Orbassano – Str. del Portone – V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p60-123",
+      "line": "S 4 AZZURRA",
+      "pages": [
+        60
+      ],
+      "uscita": "Dep. Gerbido – P. Vittorio Veneto\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Rosselli - C.\nGalileo Ferraris - C. Vittorio Emanuele II – V.\nAccademia Albertina – V. Rossini – C. San\nMaurizio – V. Bava – P. Vittorio Veneto.\nDep. Gerbido – P.le Caio Mario\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini – P. Caio Mario – C. Agnelli – P.le\nCaio Mario.\nDep. Gerbido – V. Amendola (Nichelino)\nV. Gorini - Str. del Portone – C. Orbassano -\nSvincolo Drosso - V. Torino (Beinasco) - V.\nFalcone - Str. del Drosso - C. Unione Sovietica\n(V.le centrale) - V. Cacciatori(Nichelino) -\nRotonda delle Alpi - V. Debouchè - V. Nenni –\nV. Amendola.\nDep. Nizza – P.le Caio Mario\nP. Carducci – V. Nizza – P. Bengasi - V. Onorato\nVigliani – P.le Caio Mario – C. Agnelli.\nDep. Nizza – P. Vittorio Veneto\nP. Carducci – V. Madama Cristina – V.\nAccademia Albertina – V. Rossini – C. San\nMaurizio – V. Bava – P. Vittorio Veneto.",
+      "rientro": "P. Vittorio Veneto - Dep. Gerbido\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II - C. Galileo Ferraris\n- C. Einaudi - C. Duca degli Abruzzi – L.go\nOrbassano - C. Orbassano - C. Sebastopoli - C.\nAllamano – V. Bertone - V. della Libertà - Str.\ndel Portone - V. Gorini.\nP.le Caio Mario - Dep. Gerbido\nP.le Caio Mario – C. Unione Sovietica - C.\nSettembrini - C. Orbassano - Str. del Portone -\nV. Gorini.\nV. Amendola (Nichelino) - Dep. Gerbido\nPercorso di linea 14 sino a V. Artom/V.\nVigliani – V. Vigliani – P.le Caio Mario – C.\nSettembrini - C. Orbassano - Str. del Portone -\nV. Gorini.\nP.le Caio Mario - Dep. Nizza\nP.le Caio Mario – C. Unione Sovietica – C.\nTraiano – C. Maroncelli – V. Genova – P.\nCarducci.\nP. Vittorio Veneto - Dep. Nizza\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II – C. Massimo\nd’Azeglio – C. Bramante – P. Carducci."
+    },
+    {
+      "id": "daper-05-26-p61-124",
+      "line": "N 4 N4 B ROSSA",
+      "pages": [
+        61
+      ],
+      "uscita": "Dep. Venaria – P. Vittorio Veneto\nV. Amati - V. Venaria - L.go Grosseto - C.\nPotenza – C. Lecce – P. Rivoli – C. Vittorio\nEmanuele II – V. Accademia Albertina – V.\nRossini – C. San Maurizio – V. Bava – P. Vittorio\nVeneto.\nDep. Venaria Venaria – V. Delle Querce\n(Falchera)\nV. Amati – V. Venaria – P. Stampalia – V.\nVeronese – V. Reiss Romoli – C. Vercelli – Str.\nProv. Torino–Courgnè – V.le Falchera – V. Dei\nFaggi – V. Delle Querce – V. Degli Abeti – V.\nDegli Ulivi – V. Delle Querce.\nDep. Venaria Venaria – C. Regina Margherita\n(Volpiano)\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli – Str.\nProvinciale di Cuorgnè – segue percorso di linea.",
+      "rientro": "P. Vittorio Veneto - Dep. Venaria\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II - P. Rivoli – C.\nLecce - C. Potenza - L.go Grosseto - V. Lanzo\n- P. Stampalia - V. Venaria - V. Amati.\nV. Delle Querce (Falchera) - Dep. Venaria\nV. Delle Querce – V. Delle Robinie – V. dei\nPioppi – P. Astengo – V. Dei Frassini – V.le\nFalchera – Str. Torino Courgnè – C. Vercelli –\nV. Reiss Romoli – V. Veronese – P. Stampalia\n– V. Venaria – V. Amati.\nC. Regina Margherita (Volpiano) - Dep.\nVenaria\nSegue percorso di linea sino a Str. Provinciale\ndi Cuorgnè / C. Vercelli - C. Vercelli - V.\nReiss Romoli - V. Veronese - P. Stampalia -\nV. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p61-125",
+      "line": "S 5 S 5B VIOLA",
+      "pages": [
+        61
+      ],
+      "uscita": "Dep. Gerbido – P. Vittorio Veneto\nV. Gorini - Str. del Portone - V. della Libertà – V.\nBertone - C. Allamano - C. Sebastopoli – C.\nOrbassano – L.go Orbassano – C. Rosselli - C.\nGalileo Ferraris - C. Vittorio E. II – V.\nAccademia Albertina – V. Rossini – C. San\nMaurizio – V. Bava – P. Vittorio Veneto.\nDep. Gerbido – P. Cattaneo\nV. Gorini - Str. del Portone – C. Orbassano - P.\nCattaneo.\nDep. Gerbido – Str.Torino/P.Dalla Chiesa\n(Orbassano)\nV. Gorini - Str. del Portone – C. Orbassano -\nsegue percorso di linea.\nDep. Gerbido – P. F.lli Cervi (Rivalta)\nV. Gorini - Str. del Portone – C. Orbassano -\nsegue percorso di linea.",
+      "rientro": "P. Vittorio Veneto - Dep. Gerbido\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II - C. Galileo Ferraris\n- C. Einaudi - C. Duca degli Abruzzi – L.go\nOrbassano - C. Orbassano - C. Sebastopoli -\nC. Allamano – V. Bertone - V. della Libertà -\nStr. del Portone - V. Gorini\nP. Cattaneo - Dep. Gerbido\nP. Cattaneo - C. Orbassano - Str. del Portone -\nV. Gorini.\nStr.Torino/P.Dalla Chiesa (Orbassano) -\nDep. Gerbido\nSegue percorso di linea sino a C. Orbassano /\nStr. del Portone - Str. del Portone - V. Gorini.\nP. F.lli Cervi (Rivalta) - Dep. Gerbido\nSegue percorso di linea sino a C. Orbassano /\nStr. del Portone - Str. del Portone - V. Gorini."
+    },
+    {
+      "id": "daper-05-26-p62-126",
+      "line": "N 10 GIALLA",
+      "pages": [
+        62
+      ],
+      "uscita": "Dep. Venaria – P. Vittorio Veneto\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto – V. Livorno – C. Regina\nMargherita – C. San Maurizio – V. Bava – P.\nVittorio Veneto.\nDep. Venaria Venaria – V. Massari\nV. Amati - V. Venaria - P. Stampalia – V.\nVeronese – V. Reiss Romoli – V. Ala di Stura –\nV. Massari.\nDep. Venaria Venaria – V. Circonvallazione\n(Caselle)\nV. Amati - V. Venaria - P. Stampalia – V.\nVeronese – Str. dell’Aeroporto – segue percorso\ndi linea.",
+      "rientro": "P. Vittorio Veneto - Dep. Venaria\nP. Vittorio Veneto – V. Bava – C. San\nMaurizio – C. Regina Margherita - P. della\nRepubblica – C. Regina Margherita – V.\nLivorno – V. Orvieto - V. Stradella – L.go\nGrosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati.\nV. Massari - Dep. Venaria\nV. Massari – V. Paolo della Cella – C.\nGrosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati.\nV. Circonvallazione (Caselle) - Dep.\nVenaria\nSegue percorso di linea sino a Str.\ndell’Aeroporto / V. Veronese - V. Veronese -\nP. Stampalia - V. Venaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p62-127",
+      "line": "W 15 W15b ROSA",
+      "pages": [
+        62
+      ],
+      "uscita": "Dep. S. Paolo – P. Vittorio Veneto\nC. Trapani – C. Peschiera – P. Sabotino – C.\nPeschiera – C. Einaudi – C. Galileo Ferraris - C.\nVittorio E. II – V. Accademia Albertina – V.\nRossini – C. San Maurizio – V. Bava – P. Vittorio\nVeneto.\nDep. S. Paolo – V. Brissogne\nC. Trapani - V. Lancia - C. Monte Cucco - V.\nMonginevro – V. Bionaz – V. Brissogne..\nDep. S. Paolo – V. Minghetti (Collegno)\nC. Trapani - C. Peschiera - C. Francia – P.\nMassaua - C. Francia - C. Francia (Collegno) – V.\nRoma. - V. San Francesco d'Assisi – V. Minghetti",
+      "rientro": "P. Vittorio Veneto - Dep. S. Paolo\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II - C. Galileo Ferraris\n- C. Einaudi – C. Peschiera – C. Trapani.\nV. Brissogne - Dep. S. Paolo\nV. Brissogne – V. Monginevro – C. Monte\nCucco – V. Lancia – C. Trapani.\nV. Minghetti (Collegno)- Dep. S. Paolo\nV. Minghetti (Collegno) V. Costa - C. Francia\n- C. Francia (Torino) - P. Massaua - C. Francia\n- C. Peschiera - C. Trapani"
+    },
+    {
+      "id": "daper-05-26-p63-128",
+      "line": "S 18 S 18B BLU",
+      "pages": [
+        63,
+        64
+      ],
+      "uscita": "Dep. Nizza – P. Vittorio Veneto\nP. Carducci – V. Madama Cristina – V. Accademia\nAlbertina – V. Rossini – C. San Maurizio – V.\nBava – P. Vittorio Veneto.\nDep. Nizza – V. Artom\nP. Carducci – V. Nizza – P. Bengasi – V. Onorato\nVigliani – V. Artom.\nDep. Nizza – V. Verdi (Candiolo)\nP. Carducci - V. Nizza - P. Bengasi - V. Sestriere\n(Moncalieri) - V. Torino – V. Sestriere (Vinovo) – Str.\nProv. 140 Di None – V. Torino (Candiolo) – V. Verdi.\nDep. Nizza – V. Circonvallazione (Vinovo)\nP. Carducci - V. Nizza - P. Bengasi - V. Sestriere\n(Moncalieri) - V. Torino – V. Sestriere (Vinovo) – Str.\nProv. 140 Di None) – V. Stupinigi (SP 143) – V.\nCirconvallazione – V. Circonvallazione civico 44\n(Vinovo - presso l’area di fermata del vettore Sadem)\n– capolinea.\nDep. Gerbido – V. Artom\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini - V. Onorato Vigliani – V. Artom.\nDep. Gerbido – V. Verdi (Candiolo)\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini – P.le Caio Mario - C. Unione Sovietica -\nV. dei Cacciatori (Nichelino) - P.le delle Alpi - V.\nDebouchè - V. Nenni – V. Trento – - V. Torino – V.\nSestriere (Vinovo) – Str. Prov. 140 Di None – V.\nTorino (Candiolo) – V. Verdi.\nDep. Gerbido – V. Circonvallazione (Vinovo)\nV. Gorini - Str. del Portone – C. Orbassano - C.\nSettembrini – P.le Caio Mario - C. Unione Sovietica -\nV. dei Cacciatori (Nichelino) - P.le delle Alpi - V.\nDebouchè - V. Nenni – V. Trento – - V. Torino – V.\nTorino (SP 140) – V. Stupinigi (SP 143) – V.\nCirconvallazione – V. Circonvallazione civico 44\n(Vinovo - presso l’area di fermata del vettore Sadem)\n– capolinea.\nDep. Gerbido – P. Vittorio Veneto\nV. Gorini - Str. del Portone – C. Orbassano – L.go\nOrbassano – C. Duca degli Abruzzi – C. Vinzaglio –\nV. Cernaia – V. Pietro Micca – P. Castello – V. Po.",
+      "rientro": "P. Vittorio Veneto - Dep. Nizza\nP. Vittorio Veneto – V. Bonafous – C. Cairoli – C.\nVittorio Emanuele II – C. Massimo d’Azeglio – C.\nBramante – P. Carducci.\nV. Artom - Dep. Nizza\nV. Artom (inverione di marcia alla rotatoria\nangolo V. Candiolo) – V. Artom - V. Onorato\nVigliani – P. Bengasi – V. Corradino - V. Genova\n– P. Carducci.\nV. Verdi (Candiolo) - Dep. Nizza\nV. Verdi (Candiolo) – V. Kennedy – V. Pinerolo –\nV. Torino – Str. Prov. 140 di None. - V. Stupinigi\n(Vinovo) – V. Sestriere – V. Torino (Nichelino) –\nV. Sestriere (Moncalieri) - P. Bengasi - C.\nMaroncelli - V. Genova - P. Carducci.\nV. Circonvallazione (Vinovo) - Dep. Nizza\nInversione di marcia alla prima rotatoria posta tra\nV. Circonvallazione e V. Nessa – V.\nCirconvallazione – V. Stupinigi (SP 143) – Str.\nProv. 140 di None. - V. Stupinigi (Vinovo) – V.\nSestriere – V. Torino (Nichelino) – V. Sestriere\n(Moncalieri) - P. Bengasi - C. Maroncelli - V.\nGenova - P. Carducci.\nV. Artom - Dep. Gerbido\nV. Artom (inverione di marcia alla rotatoria\nangolo V. Candiolo) – V. Artom - V. Onorato\nVigliani - C. Settembrini - C. Orbassano - Str. del\nPortone - V. Gorini.\nV. Verdi (Candiolo) - Dep. Gerbido\nV. Verdi (Candiolo) – V. Kennedy – V. Pinerolo –\nV. Torino – Str. Prov. 140 di None - V. Stupinigi\n(Vinovo) – V. Sestriere – V. Torino (Nichelino) –\nV. Trento - V. Nenni - V. Debouchè - P.le delle\nAlpi - V. dei Cacciatori - C. Unione Sovietica\n(Torino) - P.le Caio Mario – C. Settembrini – C.\nOrbassano – Str. del Portone – V. Gorini.\nV. Circonvallazione (Vinovo)- Dep. Gerbido\nInversione di marcia alla prima rotatoria posta tra\nV. Circonvallazione e V. Nessa – V.\nCirconvallazione – V. Stupinigi (SP 143) – V.\nTorino (SP 140) – V. Torino (Nichelino) – V.\nTrento - V. Nenni - V. Debouchè - P.le delle Alpi -\nV. dei Cacciatori - C. Unione Sovietica (Torino) -\nP.le Caio Mario – C. Settembrini – C. Orbassano –\nStr. del Portone – V. Gorini.\nP. Vittorio Veneto - Dep. Gerbido\nV. Po – P. Castello - V. Pietro Micca – V. Cernaia\n– C. Vinzaglio – C. Duca degli Abruzzi - L.go\nOrbassano – C. Orbassano – Str. del Portone – V.\nGorini."
+    },
+    {
+      "id": "daper-05-26-p64-129",
+      "line": "N 8 ORO",
+      "pages": [
+        64
+      ],
+      "uscita": "Dep. Tortona – P. Vittorio Veneto\nC. Tortona – C. Belgio – V. Vanchiglia - P.\nVittorio Veneto.\nDep. Novara – P. Vittorio Veneto\nC. Novara – C.Tortona – C. Belgio – V.\nVanchiglia - P. Vittorio Veneto.\nDep. Tortona – P. Sofia\nC. Tortona – C. Novara - C. Regio Parco – P.\nSofia.\nDep. Novara – P. Sofia\nC. Novara - C. Regio Parco – P. Sofia.\nDep. Tortona – V. Lombardia (Settimo)\nC. Tortona – C. Novara - C. Regio Parco – P.\nSofia e segue percorso di linea.\nDep. Novara – V. Lombardia (Settimo)\nC. Novara - C. Regio Parco – P. Sofia e segue\npercorso di linea.\nDep. Venaria – V. Lombardia (Settimo)\nV. Amati - V. Venaria - P. Stampalia - V.\nVeronese - V. Reiss Romoli - C. Vercelli – P.le\nAutostrade – C. Romania – V. Torino (Settimo) –\nC. Piemonte – C. Lombardia – Inversione Alla\nRotonda Dopo Il Cap. Della Linea 51B – C.\nLombardia – Cap. 49-49B.\nDep. Venaria – P. Vittorio Veneto\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto – V. Livorno – C. Regina\nMargherita – C. San Maurizio – V. Bava – P.\nVittorio Veneto.",
+      "rientro": "P. Vittorio Veneto - Dep. Tortona\nP. Vittorio Veneto – V. Po – P. Castello – V.le\nPartigiani – V. Denina – V. Ricotti – L.go\nDora Siena – C. Tortona.\nP. Vittorio Veneto - Dep. Novara\nP. Vittorio Veneto – V. Po – P. Castello – V.le\nPartigiani – V. Denina – V. Ricotti – L.go\nDora Siena – C. Tortona – C. Novara.\nP. Sofia - Dep. Tortona\nP. Sofia - C. Regio Parco – C. Novara - C.\nTortona.\nP. Sofia - Dep. Novara\nP. Sofia - C. Regio Parco – C. Novara.\nV. Lombardia (Settimo) - Dep. Tortona\nSegue il percorso di linea sino a P. Sofia - P.\nSofia - C. Regio Parco – C. Novara - C.\nTortona.\nV. Lombardia (Settimo) - Dep. Novara\nSegue il percorso di linea sino a P. Sofia - P.\nSofia - C. Regio Parco – C. Novara.\nV. Lombardia (Settimo) - Dep. Venaria\nC.Piemonte – V. Torino – C. Romania – P.le\nAutostrade - C. Vercelli - V. Reiss Romoli -\nV. Veronese - P. Stampalia - V. Venaria - V.\nAmati\nP. Vittorio Veneto - Dep. Venaria\nP. Vittorio Veneto – V. Bava – C. San\nMaurizio – C. Regina Margherita - P. della\nRepubblica – C. Regina Margherita – V.\nLivorno – V. Orvieto - V. Stradella – L.go\nGrosseto - V. Lanzo - P. Stampalia - V.\nVenaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p65-130",
+      "line": "N 8 ORO",
+      "pages": [
+        65
+      ],
+      "uscita": "Dep. Gerbido – P.za Vittorio Veneto\nVia Gorini - Str. del Portone - C.so Orbassano -\nL.go Orbassano - C.so Duca degli Abruzzi - C.so\nVinzaglio - C.so Vittorio Emanuele II - V.\nAccademia Albertina - V. Po - P.za Vittorio\nVeneto\nV. Lombardia (Settimo) - Dep. Gerbido\nV. Lombardia - C.so Piemonte - V. Torino - C.so\nRomania -C.so Vercelli - C.so Grosseto - C.so\nVenezia - C.so Castelfidardo - C.so Mediterraneo\nL.go Orbassano - C.so Orbassano - Str. del\nPortone - V. Gorini.",
+      "rientro": "P.za Vittorio Veneto - Dep. Gerbido\nP.za Vittorio Veneto - V .Po - V. Accademia\nAlbertina - C.so Vittorio Emanuele II - C.so\nVinzaglio - C.so Duca delgi Abruzzi - C.so\nOrbassano - Str. del Portone - V. Gorini.\nDep. Gerbido - V. Lombardia (Settimo)\nV. Gorini - Str. del Portone - C.so Orbassano -\nL.go Orbassano - C.so Mediterraneo - C.so\nCastelfidardo - C.so Inghilterra - C.so Venezia\n- C.so Grosseto - C.so Vercelli - C.so\nRomania - V. Torino - C.so Piemonte - V.\nLombardia."
+    },
+    {
+      "id": "daper-05-26-p65-131",
+      "line": "W 60 ARGENTO",
+      "pages": [
+        65
+      ],
+      "uscita": "Dep. Venaria – P. Vittorio Veneto\nV. Amati - V. Venaria - L.go Grosseto – V.\nStradella – V. Orvieto – V. Livorno – C. Regina\nMargherita – C. San Maurizio – V. Bava – P.\nVittorio Veneto.\nDep. Venaria Venaria – Str. Druento/V.\nTraves\nV. Amati - V. Venaria - V. Druento\nDep. Venaria Venaria – P. Manno\nV. Amati - V. Venaria - L.go Grosseto – C.\nGrosseto.\nDep. Venaria – C. Machiavelli (Venaria)\nV. Amati- V. Venaria – V. Druento – Str. Druento\n– V. Petrarca (Venaria) – C. Machiavelli.\nDep. Venaria – V. Claviere (Pianezza)\nV. Amati - V. Venaria - V. Sansovino - C.\nGrosseto - C. Ferrara - V. delle Primule -Str.\nPianezza – V. Torino / Pianezza (Collegno) - V.\nTorino (Pianezza) - V. Piave - V. Susa - V. San G.\nBosco – V. Claviere.",
+      "rientro": "P. Vittorio Veneto - Dep. Venaria\nP. Vittorio Veneto – V. Bava – C. San\nMaurizio – C. Regina Margherita – V.\nLivorno – V. Stradella – L.go Grosseto - V.\nLanzo - P. Stampalia - V. Venaria - V. Amati.\nStr. Druento/V. Traves- Dep. Venaria\nV. Druento - V. Venaria - V. Amati.\nP. Manno - Dep. Venaria\nP. Manno – V. Isernia – V. Segantini – C.\nGrosseto - L.go Grosseto - V. Lanzo - P.\nStampalia - V. Venaria - V. Amati.\nC. Machiavelli (Venaria) - Dep. Venaria\nC. Machiavelli – C. Puccini – V. Petrarca –\nStr. Druento (Torino) – V. Druento - V.\nVenaria - V. Amati.\nV. Claviere (Pianezza) - Dep. Venaria\nV. Claviere (Pianezza) - V. Benefica - V. Susa\n- V. Piave - V. Torino - V. Torino-Pianezza\n(Collegno)- Str. Pianezza - V. delle Primule -\nC. Ferrara - C. Grosseto - V. Sansovino - V.\nVenaria - V. Amati."
+    },
+    {
+      "id": "daper-05-26-p66-132",
+      "line": "E 68 E 68B VERDE E 68 E 68B VERDE",
+      "pages": [
+        66,
+        67
+      ],
+      "uscita": "Dep. Tortona – P. Vittorio Veneto\nC. Tortona – C. Belgio – V. Vanchiglia - P.\nVittorio Veneto.\nDep. Novara – P. Vittorio Veneto\nC. Novara - C. Tortona – C. Belgio – V.\nVanchiglia - P. Vittorio Veneto.\nDep. Tortona – V. Cafasso\nC. Tortona - L.go Dora Voghera - L.go Po\nAntonelli - C. Belgio - V. Agudio - C. Casale.\nDep. Novara – V. Cafasso\nC. Novara - C. Tortona - L.go Dora Voghera -\nL.go Po Antonelli - C. Belgio - V. Agudio - C.\nCasale.\nDep. Tortona – Gassino\nC. Tortona - L.go Dora Voghera - L.go Po\nAntonelli - C. Belgio - V. Agudio - C. Casale da\ndove segue il percorso di linea.\nDep. Novara – Gassino\nC. Novara - C. Tortona - L.go Dora Voghera -\nL.go Po Antonelli - C. Belgio - V. Agudio - C.\nCasale da dove segue il percorso di linea.\nDep. Tortona -P. Gialdo (Chieri)\nC. Tortona - L.go Regina Margherita - P.te\nRegina Margherita - C. Casale – P.le Marco\nAurelio - segue il percorso di linea E68B.\nDep. Novara -P. Gialdo (Chieri)\nC. Novara - C. Tortona - L.go Regina Margherita\n- P.te Regina Margherita - C. Casale – P.le Marco\nAurelio - segue il percorso di linea E68B.\nDep. Tortona – Castiglione Torinese\nC. Tortona - L.go Dora Voghera - L.go Po\nAntonelli - C. Belgio - V. Agudio - C. Casale da\ndove segue il percorso di linea.\nDep. Novara – Castiglione Torinese\nC. Novara - C. Tortona - L.go Dora Voghera -\nL.go Po Antonelli - C. Belgio - V. Agudio - C.\nCasale da dove segue il percorso di linea.\nDep. San Paolo - V. Cafasso\nC. Trapani – P. Rivoli – C. Francia – P. Statuto –\nC. Principe Eugenio – C. Regina Margherita – C.\nRegio Parco – L.go Dora Siena – L.go Dora\nVoghera – L.go Po Antonelli – C. Belgio - V.\nAgudio - C. Casale.\nDep. San Paolo - P. Vittorio Veneto\nC. Trapani – C. Peschiera – P. Sabotino – C.\nPeschiera – C. Einaudi – C. Galileo Ferraris - C.\nVittorio E. II – V. Accademia Albertina – V.\nRossini – C. San Maurizio – V. Bava – P. Vittorio\nVeneto.",
+      "rientro": "P. Vittorio Veneto - Dep. Tortona\nP. Vittorio Veneto – V. Po – P. Castello – V.le\nPartigiani – V. Denina – V. Ricotti – L.go\nDora Siena – C. Tortona.\nP. Vittorio Veneto - Dep. Novara\nP. Vittorio Veneto – V. Po – P. Castello – V.le\nPartigiani – V. Denina – V. Ricotti – L.go\nDora Siena – C. Novara.\nV. Cafasso - Dep. Tortona\nC. Casale - V. Agudio - C. Belgio - L.go Po\nAntonelli - L.go Dora Voghera - C. Tortona.\nV. Cafasso - Dep. Novara\nC. Casale - V. Agudio - C. Belgio - L.go Po\nAntonelli - L.go Dora Voghera - C. Tortona –\nC. Novara.\nGassino - Dep. Tortona\nSegue il percorso di linea sino a C. Casale – C.\nCasale - V. Agudio - C. Belgio - L.go Po\nAntonelli - L.go Dora Voghera - C. Tortona.\nGassino - Dep. Novara\nSegue il percorso di linea sino a C. Casale – C.\nCasale - V. Agudio - C. Belgio - L.go Po\nAntonelli - L.go Dora Voghera - C. Tortona –\nC. Novara.\nP. Gialdo (Chieri) - Dep. Tortona\nSegue il percorso di linea E68B sino P.le\nMarco Aurelio – C. Casale - P.te Regina\nMargherita - L.go Regina Margherita. – C.\nTortona.\nP. Gialdo (Chieri) - Dep. Novara\nSegue il percorso di linea E68B sino P.le\nMarco Aurelio – C. Casale - P.te Regina\nMargherita - L.go Regina Margherita. – C.\nTortona – C. Novara.\nCastiglione Torinese - Dep. Tortona\nSegue il percorso di linea sino a C. Casale – C.\nCasale - V. Agudio - C. Belgio - L.go Po\nAntonelli - L.go Dora Voghera - C. Tortona.\nCastiglione Torinese - Dep. Novara\nSegue il percorso di linea sino a C. Casale – C.\nCasale - V. Agudio - C. Belgio - L.go Po\nAntonelli - L.go Dora Voghera - C. Tortona –\nC. Novara.\nV. Cafasso - Dep. San Paolo\nC. Casale – P. Modena – V. Solaroli - V.\nAgudio - C. Belgio - L.go Po Antonelli - L.go\nDora Voghera - L.go Dora Siena – C. Regio\nParco – C. Regina Margherita – C. Principe\nEugenio – P. Statuto – C. Francia – P. Rivoli –\nC. Trapani.\nP. Vittorio Veneto - Dep. San Paolo\nP. Vittorio Veneto – V. Bonafous – C. Cairoli\n– C. Vittorio Emanuele II - C. Galileo Ferraris\n- C. Einaudi – C. Peschiera – C. Trapani."
+    },
+    {
+      "id": "daper-05-26-p67-133",
+      "line": "S45 S45B",
+      "pages": [
+        67,
+        68
+      ],
+      "uscita": "Dep. Nizza – P. ta Gialdo (Chieri)\nP. Carducci - V. Nizza - P. Bengasi - C. Roma\n(Moncalieri) - C. Trieste (sotto impalcato\ntangenziale) - Ponte dei Cavalieri Templari\n(ponte vecchio) - V. Cavour - V. Tenivelli -\nStr. Genova - V. Torino (Trofarello) - V.\nNazionale (Cambiano) - V. Torino – C. Lisa –\nV. Roma – V. Lagrange – V. Martini – V.\nGaude – Str. Cambiano SP. 122 – Str.\nCambiano (Chieri) – V. Bonello – Str.\nCambiano – V. Roma – P. Europa – P. Gialdo\n/ V. Vittorio Emanuele II\nDep. Nizza – P. Carducci (Santena)\nP. Carducci - V. Nizza - P. Bengasi - C. Roma\n(Moncalieri) - C. Trieste (sotto impalcato\ntangenziale) - Ponte dei Cavalieri Templari\n(ponte vecchio) - V. Cavour - V. Tenivelli -\nStr. Genova - V. Torino (Trofarello) - V.\nNazionale (Cambiano) - V. Torino (Santena) -\nV. Cavour – V. Trinità.",
+      "rientro": "P. ta Gialdo (Chieri) – Dep. Nizza\nV. Vittorio Emanuele II (Chieri) – V. Roma – Str.\nCambiano – V. Bonello – Str. Cambiano – Str.\nCambiano SP. 122 (Cambiano) – V. Gaude – V.\nMartini – V. Cavour – C. Lisa – V. Torino – V.\nNazionale - V. Torino (Trofarello) - Str. Genova\n(Moncalieri) - V. Tenivelli - V. Cavour - P.\nCaduti per la Libertà - C. Trieste - C. Roma - V.\nTiepolo - V. Genova (Torino) - P. Carducci\nP. Carducci (Santena) – Dep. Nizza\nV. Trinità - V. Cavour - V. Sambuy - V. Asti - V.\nNazionale (Cambiano) - V. Torino (Trofarello) -\nStr. Genova (Moncalieri) - V. Tenivelli - V.\nCavour - P. Caduti per la Libertà - C. Trieste - C.\nRoma - V. Tiepolo - V. Genova (Torino) - P.\nCarducci"
+    }
+  ]
+}

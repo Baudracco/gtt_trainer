@@ -1,0 +1,63 @@
+{
+  "source": "gtt_gtfs.zip",
+  "sha256": "be2f65b864ebf52a4a56b0ba99a570c5bf199d7f7226ab36aaeeb6c222072384",
+  "routes": 139,
+  "skipped": [
+    {
+      "route": "2U",
+      "shape": "2UDi02R05",
+      "reason": "Stop 292 m from shape; manual validation required"
+    },
+    {
+      "route": "2U",
+      "shape": "2UDi73282",
+      "reason": "Stop 292 m from shape; manual validation required"
+    },
+    {
+      "route": "35U",
+      "shape": "35UAs35AAP5",
+      "reason": "Stop 791 m from shape; manual validation required"
+    },
+    {
+      "route": "44U",
+      "shape": "44UDi44R044",
+      "reason": "Stop 390 m from shape; manual validation required"
+    },
+    {
+      "route": "5U",
+      "shape": "5UDi05FRA2",
+      "reason": "Stop 405 m from shape; manual validation required"
+    },
+    {
+      "route": "5U",
+      "shape": "5UDi05RA2",
+      "reason": "Stop 405 m from shape; manual validation required"
+    },
+    {
+      "route": "5U",
+      "shape": "5UDi05RL2",
+      "reason": "Stop 405 m from shape; manual validation required"
+    },
+    {
+      "route": "5U",
+      "shape": "5UDi73288",
+      "reason": "Stop 405 m from shape; manual validation required"
+    },
+    {
+      "route": "63BU",
+      "shape": "63BUDi63BR8",
+      "reason": "Stop 527 m from shape; manual validation required"
+    },
+    {
+      "route": "74U",
+      "shape": "74UDi74RC2",
+      "reason": "Stop 377 m from shape; manual validation required"
+    },
+    {
+      "route": "74U",
+      "shape": "74UDi74RC6",
+      "reason": "Stop 377 m from shape; manual validation required"
+    }
+  ],
+  "status": "draft_only"
+}
