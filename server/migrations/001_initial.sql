@@ -1,0 +1,18 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE TABLE lines (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), code text NOT NULL UNIQUE, name text NOT NULL, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TYPE route_kind AS ENUM ('service','depot_out','depot_in','deadhead','partial','circular');
+CREATE TYPE route_direction AS ENUM ('andata','ritorno','circular','none');
+CREATE TABLE route_variants (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), line_id uuid NOT NULL REFERENCES lines(id), name text NOT NULL, kind route_kind NOT NULL, direction route_direction NOT NULL, deleted_at timestamptz, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE route_revisions (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), variant_id uuid NOT NULL REFERENCES route_variants(id), revision integer NOT NULL CHECK(revision > 0), shape geometry(LineString,4326) NOT NULL, status text NOT NULL CHECK (status IN ('draft','published','archived')), created_at timestamptz NOT NULL DEFAULT now(), UNIQUE(variant_id,revision), CHECK (ST_NPoints(shape) >= 2), UNIQUE(id,variant_id));
+ALTER TABLE route_variants ADD COLUMN published_revision_id uuid;
+ALTER TABLE route_variants ADD CONSTRAINT fk_published_revision FOREIGN KEY(published_revision_id,id) REFERENCES route_revisions(id,variant_id) DEFERRABLE INITIALLY DEFERRED;
+CREATE INDEX route_revisions_shape_gix ON route_revisions USING gist(shape);
+CREATE TABLE stops (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), external_code text UNIQUE, name text NOT NULL, position geometry(Point,4326) NOT NULL, deleted_at timestamptz, created_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX stops_position_gix ON stops USING gist(position);
+CREATE TABLE route_stops (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), revision_id uuid NOT NULL REFERENCES route_revisions(id) ON DELETE CASCADE, stop_id uuid NOT NULL REFERENCES stops(id), sequence integer NOT NULL CHECK(sequence>=0), is_exchange_post boolean NOT NULL DEFAULT false, exchange_direction route_direction, notes text, UNIQUE(revision_id, sequence), CHECK (NOT is_exchange_post OR exchange_direction IS NOT NULL));
+CREATE INDEX route_stops_stop_idx ON route_stops(stop_id);
+CREATE TABLE route_instructions (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), revision_id uuid NOT NULL REFERENCES route_revisions(id) ON DELETE CASCADE, sequence integer NOT NULL, offset_m numeric NOT NULL CHECK(offset_m>=0), maneuver text NOT NULL, landmark_notes text, UNIQUE(revision_id,sequence));
+CREATE TABLE users (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), email text NOT NULL UNIQUE, password_hash text NOT NULL, role text NOT NULL CHECK(role IN ('viewer','editor','admin')), enabled boolean NOT NULL DEFAULT true, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE audit_events (id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY, actor_id uuid REFERENCES users(id), event text NOT NULL, target_type text, target_id uuid, details jsonb NOT NULL DEFAULT '{}'::jsonb, created_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX audit_created_idx ON audit_events(created_at);

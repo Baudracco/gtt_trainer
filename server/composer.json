@@ -1,0 +1,6 @@
+{
+  "name": "baudracco/gtt-trainer-server",
+  "type": "project",
+  "require": {"php": "^8.3", "ext-pdo": "*", "ext-pdo_pgsql": "*"},
+  "autoload": {"psr-4": {"GttTrainer\\": "src/"}}
+}
