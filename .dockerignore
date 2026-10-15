@@ -1,0 +1,12 @@
+.git
+**/node_modules
+**/dist
+**/vendor
+**/var
+**/coverage
+.env
+.env.*
+!**/.env.example
+**/*.tsbuildinfo
+**/__pycache__
+**/*.log

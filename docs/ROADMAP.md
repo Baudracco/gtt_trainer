@@ -1,33 +1,53 @@
-# Roadmap
+# State and roadmap
 
-## Milestone 0 — Foundation (current PR)
-- Repository conventions, architecture, PostGIS schema, local development.
-- React PWA shell with overlay of fixed GeoJSON shapes and visibility controls.
-- Data model for route variants, stop reuse, exchange posts and instructions.
+Last updated 2026-10-15. Work is traced through PRs and CI; the user authorized autonomous PRs
+and merges after verification. All route geometry remains fixed and versioned.
 
-## Milestone 1 — Study MVP
-- PHP 8.3 OOP REST API, migrations and seed importer.
-- Login, role-based editing, audit, rate limiting, session security.
-- Published route browsing, directional selection, multiple overlays, stop filters, common stops and change posts.
-- Instruction/observation editing; printable trip reports and PDF.
-- Multilingual Italian/Spanish/English translations, theme preference.
+## Implemented in the study/navigation MVP
 
-## Milestone 2 — Route authoring and imports
-- Map geometry editor with explicit vertices and no auto-routing.
-- Route revisions, publish/revert, approval and conflicts.
-- Text/CSV/GPX/XLSX/GTFS intake, coordinate reference validation, import preview and rollback.
-- Full CRUD for routes, stops and cross-route stop memberships.
+- React/TypeScript responsive UI, ES/IT/EN, saved theme/language, installable shell.
+- MapLibre fixed route overlays; all/none/selected visibility; one active navigation variant.
+- Stop display/filtering, shared line membership, directional change posts, per-membership notes.
+- PHP REST API with OpenAPI/error catalogue, Argon2id accounts and sessions, enabled-user roles,
+  rotating CSRF tokens, login/request/report limits, opaque error traces and audit logging.
+- PostGIS immutable publication, complete snapshots for every save, optimistic version conflicts,
+  review/admin publication, history, revert to new draft, soft delete/restore.
+- Map vertex authoring, stop reuse/editing, instruction and observation editing.
+- Geometry-based turn suggestions for review, printable server reports and downloadable real PDFs.
+- GeoJSON/GPX browser preview and atomic draft import; CLI conversion for CSV/XLSX/GTFS.
+- Local foreground GPS matching with progress/heading checks, ambiguity handling, off-route and
+  wrong-direction warnings, optional voice, explicit start stop. No routing/recalculation API.
+- Published route cache in IndexedDB, app shell/reference cache; no unlicensed offline tile cache.
+- Docker API/web/database deployment and checksum-based, repeatable migrations.
+- Automated React/geometry/import/contract checks and real PostGIS/HTTP CI verification.
 
-## Milestone 3 — Navigation (immediately after MVP)
-- Mobile geolocation, route-specific map matching, heading and direction inference.
-- Circular routes and repeated geometry disambiguated by ordered progress and travel bearing.
-- Fixed-shape turn announcements and off-route warning (never silently reroute).
-- Stop/change-post proximity and safety-friendly interface.
+## Data incorporated
 
-## Milestone 4 — Production/offline and learning
-- Licensed offline tiles, caching, background GPS feasibility review, installability.
-- Driver lessons, quizzes, progress, validated official GTT data ingestion.
-- CI security tests, deployment, observability, backups, GDPR retention.
+- 139 fixed bus variant candidates from the official GTT GTFS snapshot, with ordered shared stops.
+- 11 discrepant GTFS stop/shape patterns retained in the manifest for manual review.
+- 133 source-reference blocks from DAPER 05/26 (pages 2–68), separating USCITA and RIENTRO.
+- 30 Gerbido line/change-place/access combinations from the supplied photograph.
 
-## Acceptance criteria
-Routes and variants are separate. Each published variant has an immutable ordered LineString with version, geometry and direction. A stop has one identity and memberships for many variants. Exchange posts are contextual to variant/direction. Multiple variants can overlay while only one is active. A map import never changes a published variant until reviewed. No external provider is allowed to recompute stored official paths.
+## Next data work
+
+- Digitize each individual DAPER depot movement against street geometry and travel restrictions,
+  preserving stated streets, order, continuation and turns. Text blocks are not navigable shapes.
+- Verify detailed maneuvers/street names and operational direction for each GTFS candidate.
+- Resolve exact stop/platform and andata/ritorno for Gerbido change posts; the photo omits them.
+- Cross-check service routes against the forthcoming user PDF and current official evidence.
+- Ingest tram routes and the consolidated duties/timetable PDF when provided.
+
+## Later production/learning work
+
+- Real-device foreground GPS/voice field validation; native/background feasibility and battery tests.
+- Licensed offline basemap areas with provider-specific download limits.
+- Expanded editorial workflows, source discrepancy resolution and route comparison tools.
+- Driver lessons/quizzes/progress, production backup/restore automation and retention policy.
+
+## Acceptance invariants
+
+Variants are separate from lines. Published snapshots and their ordered geometry/stops/instructions
+cannot be rewritten. Shared stops have one canonical identity, but exchange status/direction and
+notes belong to ordered variant membership. Multiple overlays never cause multiple active GPS
+routes. Imports create drafts only. No time, traffic, shortest-path engine or live feed changes a
+stored route. Source facts without confirmed geometry remain references, visibly marked as such.
