@@ -78,7 +78,7 @@ php tests/run.php
 
 `TEST_DATABASE_DSN` enables the real PostGIS checks in `server/tests/run.php`. CI provisions a
 fresh `gtt_test` database, runs migrations twice, verifies immutable publication and ordered
-shared stops, then `python3 server/tests/http.py` verifies CSRF, roles, session rotation,
+shared stops, then `python3 server/tests/test_http.py` verifies CSRF, roles, session rotation,
 HTTP PDF download, draft visibility, conflicts and rate limits. Frontend tests exercise actual
 React controls with a map mock; they are not a WebGL/device field test.
 

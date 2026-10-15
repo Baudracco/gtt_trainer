@@ -26,7 +26,7 @@ export function App() {
   const [imports,setImports] = useState<RouteDocument[] | null>(null), [busy,setBusy] = useState(false), [trash,setTrash] = useState(false), [history,setHistory] = useState<{id:string;revision:number;status:string;created_at:string}[] | null>(null), [verified,setVerified] = useState(false);
   const [nav,setNav] = useState(false), [startOffset,setStartOffset] = useState(0), [progress,setProgress] = useState<Progress | null>(null), [position,setPosition] = useState<Coordinate | null>(null), [follow,setFollow] = useState(true), [voice,setVoice] = useState(false);
   const [tab,setTab] = useState<'routes' | 'references'>('routes');
-  const progressRef = useRef<Progress | null>(null), spoken = useRef('');
+  const progressRef = useRef<Progress | null>(null), spoken = useRef(''), initialized = useRef(false);
   const active = routes.find(r => r.revisionId === activeId) ?? null;
   const editor = user?.role === 'editor' || user?.role === 'admin';
   const visibleRoutes = useMemo(() => routes.filter(r => visible.includes(r.revisionId)),[routes,visible]);
@@ -40,14 +40,15 @@ export function App() {
   const refresh = useCallback(async (trashView = false, preferred?: string) => {
     const list = await api.request<RouteSnapshot[]>(`/routes${trashView ? '?trash=1' : ''}`);
     setRoutes(list);
-    setVisible(old => old.length ? old.filter(id => list.some(r => r.revisionId === id)) : list.map(r => r.revisionId));
+    const firstLoad = !initialized.current; initialized.current = true;
+    setVisible(old => firstLoad ? list.map(r => r.revisionId) : old.filter(id => list.some(r => r.revisionId === id)));
     setActive(old => preferred && list.some(r => r.revisionId === preferred) ? preferred : list.some(r => r.revisionId === old) ? old : list[0]?.revisionId ?? '');
     setOffline(false);
     if (!trashView) void cachePublished(list).catch(() => {});
   },[]);
   useEffect(() => {void (async () => {
     try {setUser(await api.session()); await refresh();}
-    catch {const cached = await readPublished().catch(() => []); setRoutes(cached); setVisible(cached.map(r => r.revisionId)); setActive(cached[0]?.revisionId ?? ''); setOffline(true);}
+    catch {const cached = await readPublished().catch(() => []); initialized.current=true; setRoutes(cached); setVisible(cached.map(r => r.revisionId)); setActive(cached[0]?.revisionId ?? ''); setOffline(true);}
     finally {setLoading(false);}
   })();},[refresh]);
   useEffect(() => {document.documentElement.lang = lang; document.documentElement.dataset.theme = theme; try {localStorage.setItem('gtt-language',lang); localStorage.setItem('gtt-theme',theme);} catch {}},[lang,theme]);
@@ -96,13 +97,13 @@ export function App() {
     await refresh(trash,result.revisionId);setVisible(old => [...new Set([...old,result.revisionId])]);setHistory(null);setNotice(t('changed'));
   }
   return <div className="app">
-    <header className="topbar"><a className="brand" href="#"><span className="brand-symbol">G</span><span>GTT <b>TRAINER</b><small>{t('study')}</small></span></a><div className="header-tools"><select aria-label="Language" value={lang} onChange={e => setLang(e.target.value as Language)}><option value="es">ES</option><option value="it">IT</option><option value="en">EN</option></select><button className="icon-button" aria-label={theme === 'light' ? 'Dark theme' : 'Light theme'} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>◐</button>{user ? <button disabled={busy} onClick={() => void run(async () => {await api.logout();setUser(null);setEditing(null);setImports(null);setTrash(false);await refresh();})}>{t('logout')}</button> : <button disabled={offline} onClick={() => setLoginOpen(true)}>{t('login')}</button>}</div></header>
+    <header className="topbar"><a className="brand" href="#"><span className="brand-symbol">G</span><span>GTT <b>TRAINER</b><small>{t('study')}</small></span></a><div className="header-tools"><select aria-label="Language" value={lang} onChange={e => setLang(e.target.value as Language)}><option value="es">ES</option><option value="it">IT</option><option value="en">EN</option></select><button className="icon-button" aria-label={theme === 'light' ? 'Dark theme' : 'Light theme'} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>◐</button>{user ? <button disabled={busy} onClick={() => void run(async () => {setNav(false);setPosition(null);await api.logout();setUser(null);setEditing(null);setImports(null);setTrash(false);await refresh();})}>{t('logout')}</button> : <button disabled={offline} onClick={() => setLoginOpen(true)}>{t('login')}</button>}</div></header>
     <div className="workspace"><aside className="sidebar">
       <nav className="tabs"><button className={tab === 'routes' ? 'selected' : ''} onClick={() => setTab('routes')}>{t('routes')}</button><button className={tab === 'references' ? 'selected' : ''} onClick={() => setTab('references')}>{t('references')}</button></nav>
       {offline && <div className="alert">{t('offline')}<p className="muted">{t('offlineHelp')}</p></div>}
       {error && <div className="alert error" role="alert">{error}<button aria-label={t('close')} onClick={() => setError('')}>×</button></div>}
       {notice && <p className="alert success" role="status">{notice}</p>}
-      {editing ? <Editor document={editing} setDocument={setEditing} previous={previous} knownStops={allGroups.map(g => g.stop)} mode={mode} setMode={setMode} save={save} close={() => {setEditing(null);setMode(null);}} t={t}/> : tab === 'references' ? <References t={t} onAuthor={editor && !offline ? (doc => {setPrevious(null);setEditing(doc);setTab('routes');}) : undefined}/> : <>
+      {editing ? <Editor document={editing} setDocument={setEditing} previous={previous} knownStops={allGroups.map(g => g.stop)} mode={mode} setMode={setMode} save={save} close={() => {setEditing(null);setMode(null);}} t={t}/> : tab === 'references' ? <References t={t} onAuthor={editor && !offline && !nav ? (doc => {setPrevious(null);setEditing(doc);setTab('routes');}) : undefined}/> : <>
         <section className="route-browser"><div className="eyebrow">TORINO · GTT</div><h1>{t('heading')}</h1><div className="search"><span>⌕</span><input type="search" aria-label={t('search')} placeholder={t('search')} value={search} onChange={e => setSearch(e.target.value)}/></div>
           <div className="field-grid filters"><select aria-label={t('direction')} value={direction} onChange={e => setDirection(e.target.value as Direction | '')}><option value="">{t('any')}</option>{['andata','ritorno','circular'].map(v => <option key={v} value={v}>{t(v as TextKey)}</option>)}</select><button disabled={loading || busy || nav} onClick={() => void run(async () => {setUser(await api.session());await refresh(trash);})}>{t('reload')}</button></div>
           <div className="button-row visibility"><button onClick={() => setVisible(routes.map(r => r.revisionId))}>{t('all')}</button><button onClick={() => setVisible([])}>{t('none')}</button><button onClick={() => setVisible(selected)}>{t('selected')}</button></div>

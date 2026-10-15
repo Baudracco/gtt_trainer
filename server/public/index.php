@@ -31,7 +31,7 @@ function body(): array
     if (strlen($raw) > 4194304) throw new ApiError(413, 'payload_too_large', 'Request exceeds 4 MiB.');
     try { $data = json_decode($raw, true, 128, JSON_THROW_ON_ERROR); }
     catch (JsonException) { throw new ApiError(400, 'invalid_json', 'Invalid JSON.'); }
-    if (!is_array($data) || array_is_list($data) && $data !== []) throw new ApiError(400, 'invalid_json', 'Expected a JSON object.');
+    if (!is_array($data) || !str_starts_with(ltrim($raw), '{')) throw new ApiError(400, 'invalid_json', 'Expected a JSON object.');
     return $data;
 }
 
@@ -58,7 +58,7 @@ try {
     if ($path === '/api/v1/stops' && $method === 'GET') { $auth->requireRole(); respond($repo->stops()); }
     if ($path === '/api/v1/imports' && $method === 'POST') {
         $actor = $auth->requireRole(); $data = body();
-        if (!is_array($data['documents'] ?? null) || !array_is_list($data['documents']) || count($data['documents']) < 1 || count($data['documents']) > 100) throw new ApiError(422, 'validation_failed', 'Import requires 1–100 documents.');
+        if (!is_array($data['documents'] ?? null) || !array_is_list($data['documents']) || count($data['documents']) < 1 || count($data['documents']) > 200) throw new ApiError(422, 'validation_failed', 'Import requires 1–200 documents.');
         $documents = array_map(static function ($document) { if (!is_array($document)) throw new ApiError(422, 'validation_failed', 'Invalid route document.'); return RouteValidator::document($document); }, $data['documents']);
         respond($repo->createMany($documents, $actor['id']), 201);
     }
@@ -122,7 +122,7 @@ try {
     $message = $error instanceof ApiError ? $error->getMessage() : 'Internal server error.';
     if ($status >= 500) {
         // Do not log request bodies, passwords, cookies, location or SQL parameter values.
-        $entry = json_encode(['trace_id' => $trace, 'type' => $error::class, 'file' => basename($error->getFile()), 'line' => $error->getLine()]);
+        $entry = json_encode(['trace_id' => $trace, 'type' => $error::class, 'state' => $error instanceof PDOException ? $error->getCode() : 'unexpected', 'file' => basename($error->getFile()), 'line' => $error->getLine()]);
         error_log($entry);
         $fallback = getenv('AUDIT_FALLBACK_LOG');
         if ($fallback) file_put_contents($fallback, $entry.PHP_EOL, FILE_APPEND | LOCK_EX);

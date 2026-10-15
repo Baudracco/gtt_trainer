@@ -35,6 +35,10 @@ export function parseGeoJSON(json: unknown, filename: string): RouteDocument[] {
   if (obj?.geometry?.type === 'LineString' && obj.stops) return [validateDocument(obj)];
   const features = obj?.type === 'FeatureCollection' ? obj.features : obj?.type === 'Feature' ? [obj] : [{type: 'Feature', geometry: obj, properties: {}}];
   if (!Array.isArray(features) || features.length > 60000) throw Error('Invalid feature collection.');
+  const shapes = features.filter((f: any) => f?.geometry?.type === 'LineString');
+  const points = features.filter((f: any) => f?.geometry?.type === 'Point');
+  if (shapes.length > 1 && points.length && (shapes.some((f: any) => !f.properties?.route_id) || points.some((f: any) => !f.properties?.route_id))) throw Error('Multiple routes with stops require explicit route_id on each LineString and Point.');
+  if (shapes.length > 1 && new Set(shapes.map((f: any) => f.properties?.route_id).filter(Boolean)).size !== shapes.filter((f: any) => f.properties?.route_id).length) throw Error('Route variant identifiers must be unique.');
   const routes: RouteDocument[] = [];
   const identities = new Map<string, string>();
   for (const f of features) if (f?.geometry?.type === 'LineString') {

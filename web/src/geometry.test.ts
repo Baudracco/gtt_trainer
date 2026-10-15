@@ -57,6 +57,11 @@ describe('imports and memberships',()=>{
   it('rejects MultiLineString rather than joining disconnected geometry',()=>{
     expect(()=>parseGeoJSON({type:'MultiLineString',coordinates:[[[7,45],[8,45]],[[9,45],[10,45]]]},'test')).toThrow();
   });
+  it('rejects ambiguous stop membership in multi-route GeoJSON',()=>{
+    const line={type:'Feature',properties:{line:'T',name:'Test'},geometry:{type:'LineString',coordinates:[[7.6,45],[7.61,45]]}};
+    const stop={type:'Feature',properties:{name:'Stop'},geometry:{type:'Point',coordinates:[7.6,45]}};
+    expect(()=>parseGeoJSON({type:'FeatureCollection',features:[line,line,stop]},'test')).toThrow(/route_id/);
+  });
   it('rejects coordinates outside WGS84 and unsorted instructions',()=>{
     const d=emptyRoute();d.line='T';d.name='Test';d.geometry.coordinates=[[181,45],[7,45]];
     expect(()=>validateDocument(d)).toThrow();d.geometry.coordinates=[[7.6,45],[7.61,45]];

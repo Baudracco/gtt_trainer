@@ -27,10 +27,10 @@ final class Database
 
     public static function migrate(PDO $db, string $directory): void
     {
-        $db->exec('CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, checksum text NOT NULL, applied_at timestamptz NOT NULL DEFAULT now())');
         $db->beginTransaction();
         try {
             $db->exec("SELECT pg_advisory_xact_lock(18273491)");
+            $db->exec('CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, checksum text NOT NULL, applied_at timestamptz NOT NULL DEFAULT now())');
             foreach (glob($directory.'/*.sql') ?: [] as $path) {
                 $name = basename($path);
                 $sql = file_get_contents($path);

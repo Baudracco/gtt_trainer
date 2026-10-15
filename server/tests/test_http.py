@@ -5,6 +5,8 @@ import os
 from pathlib import Path
 import socket
 import subprocess
+import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -45,7 +47,8 @@ def error(result,status,code):
     check(result[0]==status and result[1]['error']['code']==code,f'{status} {code}')
 
 environment=dict(os.environ,APP_ENV='development',APP_ORIGIN='http://localhost:5173')
-server=subprocess.Popen([PHP,'-S',f'127.0.0.1:{PORT}','-t',str(ROOT/'server/public'),str(ROOT/'server/public/index.php')],env=environment,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+server_log=tempfile.TemporaryFile(mode='w+')
+server=subprocess.Popen([PHP,'-S',f'127.0.0.1:{PORT}','-t',str(ROOT/'server/public'),str(ROOT/'server/public/index.php')],env=environment,stdout=server_log,stderr=server_log)
 try:
     for _ in range(50):
         try:
@@ -70,6 +73,7 @@ try:
          'stops':[],'notes':'<script>alert(1)</script>','instructions':[{'offsetM':0,'text':'Depart'},{'offsetM':700,'text':'Arrive'}]}
     editor=clients['editor'];admin=clients['admin']
     error(editor.send('/routes','POST',raw=b'{bad json'),400,'invalid_json')
+    error(editor.send('/routes','POST',raw=b'[]'),400,'invalid_json')
     result=editor.send('/routes','POST',doc);check(result[0]==201,'Create route via HTTP');draft=result[1]['data'];rid=draft['id']
     error(anonymous.send('/routes/'+rid),404,'not_found')
     error(editor.send('/routes/'+rid+'/publish','POST',{'expectedVersion':draft['version'],'revisionId':draft['revisionId'],'verified':True}),403,'permission_denied')
@@ -99,5 +103,8 @@ try:
     error(response,429,'rate_limited')
     check(bool(response[1]['trace_id']) and response[2].get('X-Trace-Id')==response[1]['trace_id'],'Trace IDs connect response and logs')
     print(f'{count} HTTP checks passed.')
+except BaseException:
+    server_log.seek(0);print(server_log.read(),file=sys.stderr);raise
 finally:
     server.terminate();server.wait(timeout=10)
+    server_log.close()

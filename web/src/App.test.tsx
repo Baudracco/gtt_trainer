@@ -19,6 +19,13 @@ it('shows, hides and overlays exactly the variants selected by the user',async()
   fireEvent.click(screen.getByLabelText('Mapa 5 Route 5'));expect(screen.getByTestId('map-routes').textContent).toBe('5');
   fireEvent.click(screen.getByRole('button',{name:'Mostrar todos'}));expect(screen.getByTestId('map-routes').textContent).toBe('2,5');
 });
+it('preserves a deliberate hide-all choice when refreshing the same view',async()=>{
+  render(<App/>);await screen.findByRole('button',{name:/Route 2/});
+  fireEvent.click(screen.getByRole('button',{name:'Ocultar todos'}));
+  fireEvent.click(screen.getByRole('button',{name:'Actualizar'}));
+  await waitFor(()=>expect(api.request).toHaveBeenCalledTimes(2));
+  expect(screen.getByTestId('map-routes').textContent).toBe('');
+});
 it('navigates one fixed route and sends no location fixes to the API',async()=>{
   let success:PositionCallback | undefined;
   const watchPosition=vi.fn((callback:PositionCallback)=>{success=callback;return 42;});
