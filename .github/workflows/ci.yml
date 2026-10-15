@@ -1,0 +1,88 @@
+name: verify
+on:
+  push:
+    branches: [main, feat/mvp-foundation]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm, cache-dependency-path: web/package-lock.json}
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+  server:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_DB: gtt_test
+          POSTGRES_USER: gtt_trainer
+          POSTGRES_PASSWORD: gtt_ci_only
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U gtt_trainer -d gtt_test" --health-interval 5s --health-timeout 3s --health-retries 12
+    env:
+      DATABASE_DSN: pgsql:host=127.0.0.1;port=5432;dbname=gtt_test
+      TEST_DATABASE_DSN: pgsql:host=127.0.0.1;port=5432;dbname=gtt_test
+      DATABASE_USER: gtt_trainer
+      DATABASE_PASSWORD: gtt_ci_only
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_pgsql, mbstring, dom
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist
+        working-directory: server
+      - run: find server/src server/public server/bin server/tests -name '*.php' -print0 | xargs -0 -n1 php -l
+      - run: php server/tests/run.php
+      - run: python3 server/tests/test_http.py
+  sources-and-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/requirements.txt openapi-spec-validator
+      - run: python tools/test_imports.py
+      - run: openapi-spec-validator docs/openapi.yaml
+  docker-package:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: gtt_compose_ci_only
+      APP_ENV: development
+      APP_ORIGIN: http://localhost:8080
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - run: docker compose up --build -d
+      - name: Create isolated CI user and import the bundled catalogue
+        run: |
+          for attempt in $(seq 1 60); do
+            if docker compose exec -T api php -r 'require "vendor/autoload.php"; GttTrainer\Database::connect()->query("SELECT 1 FROM schema_migrations");' 2>/dev/null; then break; fi
+            sleep 1
+          done
+          printf '%s\n' 'gtt-compose-test-only' | docker compose exec -T api php bin/console.php user:create compose@test.invalid admin
+          docker compose exec -T api php bin/console.php import /var/www/data/gtt-gerbido-drafts.json compose@test.invalid
+      - run: python3 tools/smoke_compose.py
+      - if: failure()
+        run: docker compose logs --no-color
+      - if: always()
+        run: docker compose down -v

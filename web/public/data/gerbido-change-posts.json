@@ -1,0 +1,278 @@
+{
+  "title": "Posti cambio deposito Gerbido",
+  "source": "posto camcio como llegar.jpg",
+  "sha256": "d4fee5df186b7354223a687d0e59168be243e9fcdcc42d30c65effd4897660f7",
+  "notes": "Trascrizione della foto fornita. La fonte non specifica andata/ritorno, fermata esatta o data di validità. Combinazioni conservate letteralmente, senza calcolo di itinerari.",
+  "posts": [
+    {
+      "line": "2",
+      "place": "Piazza Pitagora",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "5",
+      "place": "Piazza Cattaneo",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "12",
+      "place": "Piazza Cattaneo",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "12 F",
+      "place": "Piazza Omero",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "14",
+      "place": "Stazione Lingotto FS",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "17",
+      "place": "C.so Sebastopoli ang. C.so Orbassano",
+      "access": "74 + 5",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "17/",
+      "place": "C.so Sebastopoli ang. C.so Orbassano",
+      "access": "74 + 5",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "33 F",
+      "place": "C.so Francia ang. Leopardi Collegno",
+      "access": "38 + 36",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "33",
+      "place": "C.so Francia ang. Leopardi Collegno",
+      "access": "38 + 36",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "34",
+      "place": "Via Barbera / C.so Unione Sovietica",
+      "access": "74 + 34 + 10",
+      "notes": "Annotazione manoscritta a lato: «138»; significato da verificare. Combinazione stampata conservata.",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "35",
+      "place": "Piazza Bengasi",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "36",
+      "place": "C.so Francia ang. Viale Gramsci",
+      "access": "38",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "38",
+      "place": "Strada del Portone / Via Gorini",
+      "access": "",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "39",
+      "place": "P.zza Caio Mario",
+      "access": "74 + 10",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "43",
+      "place": "C.so Orbassano / C.so Settembrini",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "44 F",
+      "place": "Via Echirolles / Via Goito",
+      "access": "38",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "44",
+      "place": "Piazza Omero",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "55",
+      "place": "C.so Orbassano ang. C.so Sebastopoli",
+      "access": "74 + 5",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "58",
+      "place": "Via Gorizia ang. via Filadelfia",
+      "access": "74 + 5 o 12",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "58/",
+      "place": "Via Gorizia ang. via Filadelfia",
+      "access": "74 + 5 o 12",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "62",
+      "place": "C.so Sebastopoli ang. C.so Orbassano",
+      "access": "74 + 5",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "62F",
+      "place": "Piazza Cattaneo",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "63",
+      "place": "Stazione Lingotto FS",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "63/",
+      "place": "Piazza Caio Mario",
+      "access": "74 + 10",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "71",
+      "place": "Piazza Cattaneo",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "74",
+      "place": "Piazza Cattaneo",
+      "access": "74",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "76",
+      "place": "Via Echirolles / Via Goito",
+      "access": "38",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "CP1",
+      "place": "Stazione Fermi",
+      "access": "38 + 36",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "VE1",
+      "place": "P.zza Massaua",
+      "access": "38 + 36 o 74 + 40",
+      "notes": "P.zza Massaua è un’integrazione manoscritta nella foto.",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    },
+    {
+      "line": "132",
+      "place": "Stazione Fermi",
+      "access": "38 + 36",
+      "notes": "",
+      "direction": null,
+      "stopId": null,
+      "coordinates": null
+    }
+  ]
+}

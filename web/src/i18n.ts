@@ -1,0 +1,71 @@
+export type Language = 'es' | 'it' | 'en';
+const copy = {
+  routes: ['Recorridos','Percorsi','Routes'], map: ['Mapa','Mappa','Map'], stops: ['Paradas','Fermate','Stops'],
+  heading: ['Aprendé el recorrido. Seguí el trazado.','Impara il percorso. Segui il tracciato.','Learn the route. Follow the path.'],
+  study: ['Estudio de recorridos fijos','Studio di percorsi fissi','Fixed route study'],
+  all: ['Mostrar todos','Mostra tutti','Show all'], none: ['Ocultar todos','Nascondi tutti','Hide all'],
+  selected: ['Solo seleccionados','Solo selezionati','Selected only'], active: ['Recorrido activo','Percorso attivo','Active route'],
+  search: ['Buscar línea, destino o parada','Cerca linea, destinazione o fermata','Search line, destination or stop'],
+  any: ['Todos los sentidos','Tutte le direzioni','All directions'], andata: ['Ida','Andata','Outbound'], ritorno: ['Vuelta','Ritorno','Inbound'], circular: ['Circular','Circolare','Circular'],
+  unspecified: ['Sentido sin confirmar','Direzione da confermare','Direction unconfirmed'],
+  service: ['Servicio de línea','Servizio di linea','Line service'], depot_out: ['Salida del depósito','Uscita deposito','Depot departure'], depot_in: ['Regreso al depósito','Rientro deposito','Depot return'], deadhead: ['Fuera de servicio','Fuori servizio','Deadhead'], partial: ['Parcial','Limitato','Partial'],
+  empty: ['No hay recorridos cargados. Importá un trazado verificado o creá un borrador.','Nessun percorso caricato. Importa un tracciato verificato o crea una bozza.','No routes yet. Import a verified track or create a draft.'],
+  noMatch: ['No hay coincidencias.','Nessun risultato.','No matches.'],
+  login: ['Iniciar sesión','Accedi','Sign in'], logout: ['Cerrar sesión','Esci','Sign out'], email: ['Correo electrónico','Email','Email'], password: ['Contraseña','Password','Password'],
+  cancel: ['Cancelar','Annulla','Cancel'], close: ['Cerrar','Chiudi','Close'], save: ['Guardar borrador','Salva bozza','Save draft'], saving: ['Guardando…','Salvataggio…','Saving…'],
+  reload: ['Actualizar','Aggiorna','Refresh'], new: ['Nuevo recorrido','Nuovo percorso','New route'], import: ['Importar','Importa','Import'], export: ['Descargar JSON','Scarica JSON','Download JSON'],
+  importPreview: ['Revisar importación','Controlla importazione','Review import'], importHelp: ['Cada trazado se guarda como borrador. Revisá sentidos, calles y paradas antes de publicar.','Ogni tracciato viene salvato come bozza. Verifica direzioni, strade e fermate prima di pubblicare.','Each track is saved as a draft. Check directions, streets and stops before publishing.'],
+  edit: ['Editar','Modifica','Edit'], line: ['Línea','Linea','Line'], name: ['Nombre','Nome','Name'], direction: ['Sentido','Direzione','Direction'], kind: ['Tipo','Tipo','Type'], color: ['Color','Colore','Color'],
+  notes: ['Observaciones','Osservazioni','Notes'], source: ['Fuente','Fonte','Source'], sourceUrl: ['Enlace a la fuente','Link alla fonte','Source link'], license: ['Licencia / condiciones','Licenza / condizioni','License / terms'],
+  geometry: ['Trazado','Tracciato','Geometry'], addVertex: ['Añadir vértices en el mapa','Aggiungi vertici sulla mappa','Add vertices on map'], stopDrawing: ['Terminar dibujo','Termina disegno','Finish drawing'],
+  vertexHint: ['Cada clic añade un vértice, en orden. El trazado no se ajusta ni recalcula.','Ogni clic aggiunge un vertice, in ordine. Nessun adattamento o ricalcolo.','Each click adds an ordered vertex. The path is never snapped or recalculated.'],
+  coordinates: ['Coordenadas [longitud, latitud]','Coordinate [longitudine, latitudine]','Coordinates [longitude, latitude]'], apply: ['Aplicar','Applica','Apply'], undo: ['Deshacer último vértice','Annulla ultimo vertice','Undo last vertex'],
+  addStop: ['Añadir parada en el mapa','Aggiungi fermata sulla mappa','Add stop on map'], stopHint: ['Elegí el punto de la parada en el mapa.','Scegli il punto della fermata sulla mappa.','Choose the stop position on the map.'],
+  code: ['Código','Codice','Code'], metres: ['Metros desde el inicio','Metri dalla partenza','Metres from start'], exchange: ['Posto cambio','Posto cambio','Change post'],
+  exchangeDirection: ['Sentido del posto cambio','Direzione del posto cambio','Change post direction'], common: ['Solo paradas de varias líneas','Solo fermate di più linee','Only stops shared by multiple lines'],
+  exchangesOnly: ['Solo puestos de cambio','Solo posti cambio','Only change posts'], linesHere: ['Líneas en esta parada','Linee in questa fermata','Lines at this stop'],
+  remove: ['Quitar','Rimuovi','Remove'], sort: ['Ordenar por avance','Ordina per progressione','Sort by progress'], reuseStop: ['Reutilizar parada existente','Riutilizza fermata esistente','Reuse existing stop'],
+  instructions: ['Instrucciones','Istruzioni','Instructions'], generate: ['Generar giros del trazado','Genera svolte dal tracciato','Generate turns from geometry'],
+  generatedHint: ['Los giros geométricos son una ayuda de edición. Completá nombres de calles y comprobá cada maniobra.','Le svolte geometriche sono un aiuto alla modifica. Completa i nomi delle strade e verifica ogni manovra.','Geometric turns assist editing. Add street names and verify each maneuver.'],
+  addInstruction: ['Añadir instrucción','Aggiungi istruzione','Add instruction'], depart: ['Iniciar por el trazado indicado','Parti lungo il tracciato indicato','Depart along the fixed path'], left: ['Girar a la izquierda','Svolta a sinistra','Turn left'], right: ['Girar a la derecha','Svolta a destra','Turn right'], arrive: ['Fin del recorrido','Fine del percorso','End of route'],
+  straight: ['Continuar recto','Prosegui diritto','Continue straight'], roundabout: ['Rotonda','Rotatoria','Roundabout'], note: ['Observación','Osservazione','Note'],
+  report: ['Reporte PDF','Scheda PDF','PDF report'], print: ['Vista de impresión','Vista di stampa','Print view'], revision: ['Revisión','Revisione','Revision'],
+  draft: ['Borrador','Bozza','Draft'], review: ['En revisión','In revisione','In review'], published: ['Publicado','Pubblicato','Published'], archived: ['Archivado','Archiviato','Archived'],
+  submit: ['Enviar a revisión','Invia in revisione','Submit for review'], publish: ['Publicar revisión','Pubblica revisione','Publish revision'],
+  verified: ['Comprobé el trazado fijo, los sentidos y las instrucciones contra la fuente.','Ho verificato tracciato fisso, direzioni e istruzioni con la fonte.','I checked the fixed path, directions and instructions against the source.'],
+  history: ['Historial','Cronologia','History'], revert: ['Copiar a nuevo borrador','Copia in nuova bozza','Copy to new draft'], trash: ['Papelera','Cestino','Trash'], delete: ['Enviar a papelera','Sposta nel cestino','Move to trash'], restore: ['Restaurar','Ripristina','Restore'],
+  start: ['Iniciar navegación','Avvia navigazione','Start navigation'], stop: ['Detener navegación','Ferma navigazione','Stop navigation'],
+  startAt: ['Comenzar desde','Inizia da','Start from'], beginning: ['Inicio del recorrido','Inizio percorso','Route beginning'], voice: ['Avisos por voz','Avvisi vocali','Voice announcements'], follow: ['Seguir mi posición','Segui la mia posizione','Follow my position'],
+  waiting: ['Esperando posición GPS…','In attesa del GPS…','Waiting for GPS…'], tracking: ['Siguiendo el trazado fijo','Seguendo il tracciato fisso','Following the fixed path'],
+  'off-route': ['Fuera del trazado. Volvé al recorrido indicado.','Fuori tracciato. Ritorna al percorso indicato.','Off route. Return to the fixed path.'],
+  'weak-gps': ['Señal GPS insuficiente','Segnale GPS insufficiente','Weak GPS signal'], 'wrong-direction': ['Sentido de marcha contrario al recorrido','Direzione opposta al percorso','Travel direction opposes this route'],
+  gpsLocal: ['La posición queda en este dispositivo. El recorrido permanece fijo.','La posizione rimane su questo dispositivo. Il percorso resta fisso.','Location stays on this device. The route remains fixed.'],
+  gpsError: ['No se pudo obtener la ubicación. Revisá el permiso de GPS y la conexión HTTPS.','Posizione non disponibile. Verifica permesso GPS e connessione HTTPS.','Location unavailable. Check GPS permission and HTTPS.'],
+  remaining: ['Restante','Rimanente','Remaining'], nextStop: ['Próxima parada','Prossima fermata','Next stop'], nextInstruction: ['Próxima maniobra','Prossima manovra','Next maneuver'],
+  offline: ['Modo sin conexión: recorridos publicados guardados.','Modalità offline: percorsi pubblicati salvati.','Offline: saved published routes.'],
+  offlineHelp: ['Guardá los recorridos mientras estás conectado. El mapa de fondo necesita conexión o un proveedor offline autorizado.','Salva i percorsi quando sei online. La mappa di base richiede rete o un fornitore offline autorizzato.','Save routes while online. Basemaps need a connection or a licensed offline provider.'],
+  saved: ['Borrador guardado.','Bozza salvata.','Draft saved.'], changed: ['Cambios aplicados.','Modifiche applicate.','Changes applied.'],
+  unsaved: ['Hay cambios sin guardar. Guardalos o descargá el JSON antes de cerrar.','Ci sono modifiche non salvate. Salva o scarica il JSON prima di chiudere.','Unsaved changes. Save or download JSON before closing.'],
+  noBasemap: ['Mapa de fondo sin configurar. Los trazados siguen disponibles.','Mappa di base non configurata. I tracciati restano disponibili.','Basemap is not configured. Route geometry remains available.'],
+  mapError: ['El mapa no pudo iniciarse. Las listas y los reportes siguen disponibles.','La mappa non si è avviata. Elenchi e schede restano disponibili.','Map could not start. Lists and reports remain available.'],
+  references: ['Depósitos y cambios','Depositi e cambi','Depots and change posts'], noGeometry: ['Referencia de texto: trazado pendiente de validar','Riferimento testuale: tracciato da validare','Text reference: geometry awaits validation'],
+  access: ['Cómo llegar desde Gerbido','Come arrivare da Gerbido','How to reach from Gerbido'], sourcePage: ['Página de la fuente','Pagina della fonte','Source page'],
+  noDirection: ['Sentido no indicado en la fuente','Direzione non indicata nella fonte','Direction not specified in source'],
+  error: ['No se pudo completar la operación.','Impossibile completare l’operazione.','Could not complete the operation.'],
+  invalid_credentials: ['Correo o contraseña incorrectos.','Email o password non corretti.','Invalid email or password.'],
+  version_conflict: ['El recorrido cambió. Descargá tus cambios y actualizá antes de guardar.','Il percorso è cambiato. Scarica le modifiche e aggiorna prima di salvare.','Route changed. Download your edits and refresh before saving.'],
+  csrf_failed: ['La sesión cambió. Actualizá e iniciá sesión de nuevo.','La sessione è cambiata. Aggiorna e accedi di nuovo.','Session changed. Refresh and sign in again.'],
+  authentication_required: ['Iniciá sesión para continuar.','Accedi per continuare.','Sign in to continue.'],
+  rate_limited: ['Demasiadas solicitudes. Esperá antes de reintentar.','Troppe richieste. Attendi prima di riprovare.','Too many requests. Wait before retrying.'],
+  permission_denied: ['Tu cuenta no tiene permiso para esta acción.','Il tuo account non ha il permesso per questa azione.','Your account cannot perform this action.'],
+} as const;
+export type TextKey = keyof typeof copy;
+export function translator(language: Language) {
+  const index = {es: 0, it: 1, en: 2}[language];
+  return (key: TextKey): string => copy[key][index];
+}
+export type Translate = ReturnType<typeof translator>;
+export function errorText(error: unknown, t: Translate): string {
+  const code = (error as {code?: string})?.code;
+  return code && code in copy ? t(code as TextKey) : error instanceof Error ? error.message : t('error');
+}
