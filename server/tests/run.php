@@ -46,7 +46,7 @@ if (getenv('TEST_DATABASE_DSN')) {
     $db = Database::connect();
     Database::migrate($db,dirname(__DIR__).'/migrations');
     Database::migrate($db,dirname(__DIR__).'/migrations');
-    check((int)$db->query('SELECT count(*) FROM schema_migrations')->fetchColumn() === 4, 'Migrations are idempotent');
+    check((int)$db->query('SELECT count(*) FROM schema_migrations')->fetchColumn() === count(glob(dirname(__DIR__).'/migrations/*.sql')), 'Migrations are idempotent');
     $actor = Database::uuid();
     $db->prepare("INSERT INTO users(id,email,password_hash,role) VALUES (?,?,?,'admin')")->execute([$actor,$actor.'@test.invalid',password_hash('test-password-only',PASSWORD_ARGON2ID)]);
     $repo = new RouteRepository($db);
@@ -89,5 +89,6 @@ if (getenv('TEST_DATABASE_DSN')) {
     dbReject($db,"DELETE FROM audit_events",'Audit trail is append-only');
     check(count($repo->history($route['id'])) === 3,'All saved revisions remain in history');
     require __DIR__.'/gtfs.php';
+    require __DIR__.'/streetview.php';
 } else echo "SKIP PostGIS integration: TEST_DATABASE_DSN is unset.\n";
 echo "$count checks passed.\n";

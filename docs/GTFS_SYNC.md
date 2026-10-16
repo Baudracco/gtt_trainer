@@ -74,3 +74,9 @@ startup from the provenance-backed bundled feed.
 
 Attribution/non-commercial terms stay in every source document; see `SOURCES.md` and the
 [official licence](https://www.gtt.to.it/gtt_gtfs_license.html).
+
+## Catálogo urbano completo y actualización de instalaciones
+
+La selección actual usa `agencies: ["U"]`, `routeTypes: ["0", "3"]` y `lines: []`: todos los buses y tranvías urbanos declarados en el feed. En el snapshot 20261013 produce 602 variantes válidas de 137 códigos de línea y 31 patrones retenidos para revisión. La identidad distingue ruta, shape, direction_id y secuencia de paradas; no representa 602 líneas. Las 139 variantes del primer lote están incluidas.
+
+El paquete `data/gtt-urban-drafts.json` arranca instalaciones nuevas sin repetir la descarga ya realizada. Si una instalación conserva el mismo SHA del primer lote, la semilla ampliada sustituye únicamente el catálogo de candidatos y conserva íntegro `state.json`, incluido `lastAttemptAt`. Si ya descargó un feed diferente, nunca se vuelve al snapshot empaquetado. Un cambio posterior de selección reutiliza el ZIP local cuando existe; la reserva de HTTP sigue vigente.

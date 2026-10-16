@@ -31,10 +31,12 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Optional written turn references, normalized photos, complete-route video and playback rate;
   private uploads, immutable revision associations, streaming/ranges and illustrated reports.
 
+- Panoramax contextual street imagery with true 360° Photo Sphere Viewer, manual/automatic fixed-path study, adjustable 5–120 km/h speed, attribution, explicit coverage gaps and cached metadata.
+
 ## Data incorporated
 
-- 139 fixed bus variant candidates from the official GTT GTFS snapshot, with ordered shared stops.
-- 11 discrepant GTFS stop/shape patterns retained in the manifest for manual review.
+- 602 fixed urban bus/tram variant candidates across 137 line codes, including all 139 original Gerbido-related bus variants.
+- 31 discrepant GTFS stop/shape patterns retained for manual review (including the initial 11).
 - 133 source-reference blocks from DAPER 05/26 (pages 2–68), separating USCITA and RIENTRO.
 - 30 Gerbido line/change-place/access combinations from the supplied photograph.
 
@@ -45,7 +47,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Verify detailed maneuvers/street names and operational direction for each GTFS candidate.
 - Resolve exact stop/platform and andata/ritorno for Gerbido change posts; the photo omits them.
 - Cross-check service routes against the forthcoming user PDF and current official evidence.
-- Ingest tram routes and the consolidated duties/timetable PDF when provided.
+- Cross-check the imported tram GTFS with the forthcoming tram/service PDFs; ingest the consolidated duties/timetable PDF when provided.
 
 ## Later production/learning work
 

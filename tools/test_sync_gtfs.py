@@ -127,4 +127,24 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(downloader.run()['outcome'],'cooldown');self.assertEqual(self.opener.calls,[])
 
 
+    def test_same_feed_packaged_scope_upgrade_keeps_download_reservation(self):
+        root=Path(__file__).resolve().parents[1]
+        status=sync.read_json(root/'data/gtt-sync-status.json')
+        self.now=sync.parse_stamp(status['lastAttemptAt'])+timedelta(hours=12)
+        self.downloader().seed(root/'data/gtt-gerbido-drafts.json',status)
+        before=sync.read_json(self.path/'state.json')
+        urban=sync.Downloader(self.path,agencies=['U'],route_types=['0','3'],opener=self.opener,clock=lambda:self.now)
+        urban.seed(root/'data/gtt-urban-drafts.json',status)
+        self.assertEqual(len(urban.bundle()['variants']),602)
+        self.assertEqual(sync.read_json(self.path/'state.json'),before)
+        self.assertEqual(urban.run()['outcome'],'cooldown')
+        self.assertEqual(self.opener.calls,[])
+
+    def test_packaged_seed_cannot_replace_a_newer_download(self):
+        root=Path(__file__).resolve().parents[1]
+        self.downloader().run()
+        previous=self.downloader().bundle()
+        self.downloader().seed(root/'data/gtt-urban-drafts.json',sync.read_json(root/'data/gtt-sync-status.json'))
+        self.assertEqual(self.downloader().bundle(),previous)
+
 if __name__=='__main__':unittest.main()
