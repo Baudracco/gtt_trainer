@@ -87,7 +87,11 @@ php tests/run.php
 fresh `gtt_test` database, runs migrations twice, verifies immutable publication and ordered
 shared stops, then `python3 server/tests/test_http.py` verifies CSRF, roles, session rotation,
 HTTP PDF download, draft visibility, conflicts and rate limits. Frontend tests exercise actual
-React controls with a map mock; they are not a WebGL/device field test.
+React controls with a map mock. `npm run test:e2e` (after `npm run build` and
+`npx playwright install chromium`) additionally exercises real MapLibre/WebGL and native
+browser GPS in Chromium desktop/mobile emulation, including recovery from temporary GPS
+errors. It uses synthetic routes/empty tiles for deterministic checks and stores screenshots
+and failure traces in the CI `browser-evidence` artifact. This is not an on-road device test.
 
 `python3 tools/test_imports.py` checks parser behavior and source coverage. Validate the full
 OpenAPI with `python3 -m openapi_spec_validator docs/openapi.yaml`. The CI workflow records each

@@ -25,7 +25,7 @@ async function prepare(page:Page,editor=false) {
   });
   // Exercise real MapLibre/WebGL and workers without depending on an external tile
   // provider's availability. Route geometry is the fixture; no map API is mocked.
-  const transparent=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a3XQAAAAASUVORK5CYII=','base64');
+  const transparent=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==','base64');
   await page.route('https://tiles.openfreemap.org/**',async request=>{
     const url=request.request().url();
     if(url.endsWith('/planet'))return request.fulfill({json:{tilejson:'3.0.0',tiles:['https://fixture.tiles.invalid/{z}/{x}/{y}.pbf'],minzoom:0,maxzoom:14,attribution:'Test fixture'}});
@@ -44,7 +44,7 @@ async function pixels(page:Page) {
     const img=new Image();img.src='data:image/png;base64,'+data;await img.decode();
     const canvas=document.createElement('canvas');canvas.width=img.width;canvas.height=img.height;
     const ctx=canvas.getContext('2d')!;ctx.drawImage(img,0,0);const values=ctx.getImageData(0,0,canvas.width,canvas.height).data;
-    let blue=0,pink=0;for(let i=0;i<values.length;i+=4){const [r,g,b]=[values[i],values[i+1],values[i+2]];if(b>180&&r<100&&g>40&&g<170)blue++;if(r>130&&b>80&&r>b&&g<100)pink++;}
+    let blue=0,pink=0;for(let i=0;i<values.length;i+=4){const [r,g,b]=[values[i],values[i+1],values[i+2]];if(b>180&&r<100&&g>40&&g<170)blue++;if(r>130&&b>80&&r>b&&g<170&&r-g>40)pink++;}
     return {blue,pink};
   },png.toString('base64'));
 }

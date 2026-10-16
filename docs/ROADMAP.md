@@ -25,6 +25,8 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Idempotent source-linked GTFS ingestion: changed geometry becomes a new draft; unchanged
   routes, publications, manual drafts, trash decisions and missing/rejected source history survive.
 - Editor source status and incoming-conflict export; source keys include distinct stop patterns.
+- Chromium desktop/mobile WebGL, overlay pixels, ordered map editing and native GPS checks;
+  temporary GPS unavailability retains the watcher and active route for automatic recovery.
 
 ## Data incorporated
 

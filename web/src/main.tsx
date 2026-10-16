@@ -9,7 +9,7 @@ import {errorText, translator, type Language, type TextKey} from './i18n';
 import * as api from './api';
 import {cachePublished, readPublished} from './cache';
 import {downloadDocument, importFile} from './importers';
-import {matchFix, measure, nearestOffset, type Progress} from './geometry';
+import {matchFix, measure, nearestOffset, pointAt, type Progress} from './geometry';
 import './style.css';
 
 function preference<T extends string>(key: string, allowed: readonly T[], fallback: T): T {
@@ -59,10 +59,17 @@ export function App() {
     if (!nav || !activeMeasure) return;
     if (!navigator.geolocation) {setError(t('gpsError')); setNav(false); return;}
     const watcher = navigator.geolocation.watchPosition(fix => {
-      const p: Coordinate = [fix.coords.longitude,fix.coords.latitude]; setPosition(p);
+      const p: Coordinate = [fix.coords.longitude,fix.coords.latitude];
       const next = matchFix(activeMeasure,{coordinate:p,accuracy:fix.coords.accuracy,heading:fix.coords.heading,speed:fix.coords.speed,timestamp:fix.timestamp},progressRef.current,startOffset);
-      progressRef.current = next; setProgress(next);
-    },() => {setError(t('gpsError')); setNav(false);},{enableHighAccuracy:true,maximumAge:0,timeout:15000});
+      progressRef.current = next; setProgress(next); if (next.state !== 'weak-gps') setPosition(p);
+    },error => {
+      if (error.code === 1) {setError(t('gpsError'));setNav(false);return;}
+      // Position-unavailable and timeout are recoverable watch errors. Keep the
+      // selected route and watcher; the next valid fix can resume tracking.
+      const weak: Progress = progressRef.current ? {...progressRef.current,state:'weak-gps'} : {offsetM:startOffset,timestamp:0,coordinate:pointAt(activeMeasure,startOffset),distanceM:0,segment:0,state:'weak-gps'};
+      if (progressRef.current) progressRef.current=weak;
+      setProgress(weak);
+    },{enableHighAccuracy:true,maximumAge:0,timeout:15000});
     return () => navigator.geolocation.clearWatch(watcher);
   },[nav,activeMeasure,startOffset,t]);
   const nextStep = active?.instructions.find(s => s.offsetM > (progress?.offsetM ?? startOffset) + 8);

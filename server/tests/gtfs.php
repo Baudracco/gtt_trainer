@@ -29,7 +29,7 @@ $bundle['archiveSha256'] = str_repeat('4',64);
 $bundle['variants'][0]['document']['geometry']['coordinates'][1][0] += .001;
 check($sync->apply($bundle)['conflicts'] === 1, 'Manual working revision blocks automatic replacement');
 check($repo->get($seed['id'],true)['revisionId'] === $manual['revisionId'], 'Manual draft remains active and intact after synchronization');
-check($sync->pending($key)['geometry'] === $bundle['variants'][0]['document']['geometry'], 'Conflicting incoming document is retained for review/export');
+check(RouteValidator::document($sync->pending($key))['geometry'] === RouteValidator::document($bundle['variants'][0]['document'])['geometry'], 'Conflicting incoming document is retained for review/export');
 $status = $sync->status();
 check($status['archiveSha256'] === str_repeat('4',64) && $status['issues'][0]['state'] === 'conflict', 'Editors can inspect source hash and unresolved updates');
 $saved = $bundle['variants'][0];
