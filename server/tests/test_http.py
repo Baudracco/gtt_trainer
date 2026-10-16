@@ -124,6 +124,8 @@ try:
     edited=dict(doc,notes='New draft',expectedVersion=published['version']);result=editor.send(f'/routes/{rid}/draft','PUT',edited);check(result[0]==200,'Save new draft');new=result[1]['data']
     error(editor.send(f'/routes/{rid}/draft','PUT',edited),409,'version_conflict')
     error(anonymous.send(f'/routes/{rid}/revisions/{new["revisionId"]}'),404,'not_found')
+    error(anonymous.send(f'/routes/{rid}/revisions/{new["revisionId"]}/streetview/0'),404,'not_found')
+    error(editor.send(f'/routes/{rid}/revisions/{new["revisionId"]}/streetview/999999999'),422,'validation_failed')
     check(editor.send(f'/routes/{rid}/revisions/{new["revisionId"]}')[0]==200,'Editor can retrieve a revision with a friendly path')
     bad=dict(doc,geometry={'type':'LineString','coordinates':[[200,45],[7,45]]})
     before=len(editor.send('/routes')[1]['data'])

@@ -881,6 +881,54 @@ paths:
           $ref: '#/components/responses/Error'
         '500':
           $ref: '#/components/responses/Error'
+  /routes/{routeId}/revisions/{revisionId}/streetview/{offsetM}:
+    get:
+      summary: Nearby Panoramax imagery at an offset on a visible fixed route revision
+      description: No GPS fix is accepted. The integer metre offset follows the saved LineString. Nearby photos
+        are contextual, licensed per image and may be absent; route geometry never changes. Metadata is cached for
+        seven days; provider failures retain stale imagery when available. Draft/history visibility follows the
+        revision endpoint.
+      parameters:
+      - name: routeId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: revisionId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: offsetM
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 999999999
+      responses:
+        '200':
+          description: Fixed route position and optional contextual photos
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                - trace_id
+                properties:
+                  trace_id:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/StreetFrame'
+        '404':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
 components:
   securitySchemes:
     sessionCookie:
@@ -1302,3 +1350,91 @@ components:
           pattern: ^[a-f0-9]{64}$
         metadata:
           type: object
+    StreetFrame:
+      type: object
+      required:
+      - provider
+      - status
+      - coordinate
+      - bearing
+      - length
+      - offsetM
+      - photos
+      properties:
+        provider:
+          type: string
+          enum:
+          - panoramax
+        status:
+          type: string
+          enum:
+          - available
+          - empty
+          - loading
+          - unavailable
+          - rate_limited
+        coordinate:
+          type: array
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+        bearing:
+          type: number
+        length:
+          type: number
+        offsetM:
+          type: number
+        checkedAt:
+          type: string
+          format: date-time
+        stale:
+          type: boolean
+        photos:
+          type: array
+          maxItems: 12
+          items:
+            type: object
+            required:
+            - id
+            - url
+            - coordinates
+            - panorama
+            - credit
+            - license
+            - sourceUrl
+            properties:
+              id:
+                type: string
+              collection:
+                type: string
+              url:
+                type: string
+                format: uri
+              thumbnailUrl:
+                type: string
+                format: uri
+              coordinates:
+                type: array
+                items:
+                  type: number
+                minItems: 2
+                maxItems: 2
+              heading:
+                type: number
+                nullable: true
+              panorama:
+                type: boolean
+              capturedAt:
+                type: string
+              credit:
+                type: string
+              license:
+                type: string
+              licenseUrl:
+                type: string
+              sourceUrl:
+                type: string
+                format: uri
+              distanceM:
+                type: number

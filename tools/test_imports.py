@@ -60,4 +60,16 @@ class ImportTests(unittest.TestCase):
             self.assertEqual(sorted(s['offsetM'] for s in d['stops']),[s['offsetM'] for s in d['stops']])
             self.assertEqual(d['direction'],'none')
 
+    def test_full_urban_scope_preserves_initial_variants_and_trams(self):
+        root=Path(__file__).resolve().parents[1]
+        original=json.loads((root/'data/gtt-gerbido-drafts.manifest.json').read_text())
+        manifest=json.loads((root/'data/gtt-urban-drafts.manifest.json').read_text())
+        docs=json.loads((root/'data/gtt-urban-drafts.json').read_text())
+        self.assertEqual(manifest['routes'],602)
+        self.assertEqual(len(manifest['skipped']),31)
+        self.assertEqual(len({d['line'] for d in docs}),137)
+        self.assertTrue({v['key'] for v in original['variants']} <= {v['key'] for v in manifest['variants']})
+        self.assertTrue({'4U','3U','9U','10U','15U','16CDU','16CSU','13U'} <= {v['route'] for v in manifest['variants']})
+        self.assertEqual(manifest['sha256'],original['sha256'])
+
 if __name__=='__main__':unittest.main()

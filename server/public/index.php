@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-use GttTrainer\{ApiError, Auth, Database, GtfsSynchronizer, MediaRepository, Report, RouteRepository, RouteValidator};
+use GttTrainer\{ApiError, Auth, Database, GtfsSynchronizer, MediaRepository, Report, RouteRepository, RouteValidator, StreetView};
 
 $trace = bin2hex(random_bytes(12));
 header('X-Trace-Id: '.$trace);
@@ -71,6 +71,10 @@ try {
         MediaRepository::serve((new MediaRepository($db))->get(RouteValidator::uuid($match[1]),(bool)$editor),$method==='HEAD');
     }
     if ($path === '/api/v1/routes/trash' && $method === 'GET') {$auth->requireRole();respond($repo->list(true,true));}
+    if (preg_match('~^/api/v1/routes/([^/]+)/revisions/([^/]+)/streetview/([0-9]{1,9})$~D',$path,$match) && $method==='GET') {
+        $route=$repo->get(RouteValidator::uuid($match[1]),(bool)$editor,RouteValidator::uuid($match[2]));
+        session_write_close();respond((new StreetView($db))->lookup($route,(float)$match[3]));
+    }
     if ($path === '/api/v1/sources/gtt' && $method === 'GET') { $auth->requireRole(); respond((new GtfsSynchronizer($db))->status()); }
     if (preg_match('~^/api/v1/sources/gtt/(gtt:[a-f0-9]{64})/document$~D', $path, $match) && $method === 'GET') {
         $auth->requireRole(); respond((new GtfsSynchronizer($db))->pending($match[1]));

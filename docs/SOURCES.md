@@ -5,7 +5,7 @@ traffic, arrival time or a routing provider. New data requires a new reviewed re
 
 | Source | Frozen version | Result | Remaining validation |
 | --- | --- | --- | --- |
-| [Official GTT GTFS](https://www.gtt.to.it/open_data/gtt_gtfs.zip) | feed version 20261013, valid 2026-10-12 to 2027-01-31; SHA-256 in `data/gtt-gerbido-drafts.manifest.json` | 139 bus variants for selected Gerbido-related lines, exact supplied shape order and ordered stop patterns | 11 rejected patterns listed in manifest; operational direction names; detailed street maneuvers; comparison to future service-route PDF |
+| [Official GTT GTFS](https://www.gtt.to.it/open_data/gtt_gtfs.zip) | feed version 20261013, valid 2026-10-12 to 2027-01-31; SHA-256 in `data/gtt-urban-drafts.manifest.json` | 602 urban bus/tram variants across 137 line codes (agency U, types 0 and 3), exact supplied shape order and ordered stop patterns; all original 139 retained | 31 rejected patterns listed in manifest; operational direction names; detailed street maneuvers; comparison to future service-route PDF |
 | User-provided DAPER linee urbane e suburbane | 05/26, effective 2026-09-11; original SHA-256 in reference JSON | 133 two-column reference blocks spanning source pages 2–68; USCITA and RIENTRO separated | Digitize and verify individual depot movements; do not infer a road path by connecting named streets |
 | User-provided Gerbido change-post photo | Undated; original SHA-256 in reference JSON | 30 line/place/access combinations, preserving printed text and handwritten uncertainty | Exact directional stop/platform, andata/ritorno and validity date not given in image |
 | [OpenFreeMap Positron style](https://tiles.openfreemap.org/styles/positron) | Bundled style JSON; online vector tiles | Basemap with provider attribution | No offline tile download implemented |
@@ -30,3 +30,5 @@ or real-time public-transport journey is computed from them.
 
 User inputs still pending: tram depot/service routes, service-route PDF for cross-checking,
 the consolidated duties/timetable PDF, directional confirmation of the Gerbido change posts.
+
+The original `gtt-gerbido-drafts` documents/manifest are retained unchanged as the first 139-variant provenance checkpoint. The urban expansion reused the same downloaded ZIP, without another HTTP request or resetting the download cooldown. Interurban, tourist, metro and funicular services remain outside the declared bus/tram urban scope.

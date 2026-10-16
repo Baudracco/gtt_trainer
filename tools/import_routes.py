@@ -70,14 +70,23 @@ def gtfs_key(route_id, shape_id, direction, pattern):
     return 'gtt:' + hashlib.sha256(identity.encode()).hexdigest()
 
 
-def gtfs(path, source, selected, direction_map, with_identity=False):
+def gtfs(path, source, selected, direction_map, with_identity=False, agencies=None, route_types=None):
+    """Retain every distinct shape/direction/ordered-stop pattern in the selected scope.
+
+    Selection uses exact source values. The default remains buses for CLI backwards
+    compatibility; the autonomous urban catalogue explicitly includes trams too.
+    Invalid stop projection is reported, never repaired with guessed geometry.
+    """
     with zipfile.ZipFile(path) as z:
         entries = z.infolist()
         if len(entries) > 200 or sum(i.file_size for i in entries) > 250*1024*1024:
             raise ValueError('GTFS archive exceeds limits')
         def rows(name):
             return csv.DictReader(io.TextIOWrapper(z.open(name), encoding='utf-8-sig', newline=''))
-        lines = {r['route_id']: r for r in rows('routes.txt') if r.get('route_type') == '3' and (not selected or r['route_short_name'] in selected)}
+        types = set(route_types if route_types is not None else ['3'])
+        lines = {r['route_id']: r for r in rows('routes.txt')
+                 if r.get('route_type') in types and (not selected or r['route_short_name'] in selected)
+                 and (not agencies or r.get('agency_id') in agencies)}
         trips = {r['trip_id']: r for r in rows('trips.txt') if r['route_id'] in lines and r.get('shape_id')}
         shape_ids = {t['shape_id'] for t in trips.values()}
         shapes = {s: [] for s in shape_ids}
@@ -163,7 +172,9 @@ def tabular(path, source):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('input', type=Path); p.add_argument('output', type=Path)
-    p.add_argument('--lines', default='', help='Comma-separated exact GTFS route_short_name values; buses only')
+    p.add_argument('--lines', default='', help='Comma-separated exact GTFS route_short_name values')
+    p.add_argument('--agencies', default='', help='Comma-separated exact agency_id values; empty means all')
+    p.add_argument('--route-types', default='3', help='GTFS route_type values; use 0,3 for tram and bus')
     p.add_argument('--source-name', default='GTT S.p.A. – Gruppo Torinese Trasporti')
     p.add_argument('--source-url', default='https://www.gtt.to.it/open_data/gtt_gtfs.zip')
     p.add_argument('--license', default='GTT GTFS non-commercial use; attribution required. https://www.gtt.to.it/gtt_gtfs_license.html')
@@ -172,7 +183,8 @@ if __name__ == '__main__':
     a = p.parse_args()
     source = {'name': a.source_name, 'url': a.source_url, 'license': a.license, 'retrievedAt': datetime.now(timezone.utc).date().isoformat()}
     if a.input.stat().st_size > 100*1024*1024: raise ValueError('Input exceeds 100 MiB')
-    docs, skipped = gtfs(a.input, source, set(filter(None,a.lines.split(','))), {'0':a.direction_0,'1':a.direction_1}) if a.input.suffix.lower()=='.zip' else tabular(a.input, source)
+    docs, skipped = gtfs(a.input, source, set(filter(None,a.lines.split(','))), {'0':a.direction_0,'1':a.direction_1},
+        agencies=set(filter(None,a.agencies.split(','))), route_types=a.route_types.split(',')) if a.input.suffix.lower()=='.zip' else tabular(a.input, source)
     if not docs: raise ValueError('No valid route documents found')
     a.output.parent.mkdir(parents=True, exist_ok=True)
     a.output.write_text(json.dumps(docs, ensure_ascii=False, separators=(',',':'))+'\n')

@@ -3,8 +3,8 @@ let csrf = '';
 export class ApiFailure extends Error {
   constructor(public code: string, message: string, public trace = '') { super(message); }
 }
-export async function request<T>(path: string, method = 'GET', data?: unknown): Promise<T> {
-  const response = await fetch('/api/v1' + path, {method, credentials: 'same-origin', headers: method === 'GET' ? {} : {'Content-Type': 'application/json', 'X-CSRF-Token': csrf}, body: data === undefined ? undefined : JSON.stringify(data)});
+export async function request<T>(path: string, method = 'GET', data?: unknown, signal?:AbortSignal): Promise<T> {
+  const response = await fetch('/api/v1' + path, {method, signal, credentials: 'same-origin', headers: method === 'GET' ? {} : {'Content-Type': 'application/json', 'X-CSRF-Token': csrf}, body: data === undefined ? undefined : JSON.stringify(data)});
   const result = await response.json().catch(() => {throw new ApiFailure('invalid_response', 'The server returned an invalid response.');});
   if (!response.ok) throw new ApiFailure(result.error?.code ?? 'internal_error', result.error?.message ?? 'Request failed.', result.trace_id);
   return result.data as T;

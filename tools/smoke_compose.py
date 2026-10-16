@@ -37,16 +37,18 @@ else:raise AssertionError('Compose API did not become ready')
 
 request('/login','POST',{'email':'compose@test.invalid','password':'gtt-compose-test-only'})
 routes=request('/routes')
-assert len(routes)==139 and all(r['status']=='draft' for r in routes),'Seeded candidate count/status mismatch'
+manifest=json.loads(Path('data/gtt-urban-drafts.manifest.json').read_text())
+assert len(routes)==manifest['routes'] and all(r['status']=='draft' for r in routes),'Seeded candidate count/status mismatch'
 status=request('/sources/gtt')
-assert status['archiveSha256']==json.loads(Path('data/gtt-gerbido-drafts.manifest.json').read_text())['sha256'],'Automatic sync lost feed provenance'
-assert len(status['issues'])==11 and all(i['state']=='rejected' for i in status['issues']),'Rejected GTFS patterns not retained'
+assert status['archiveSha256']==manifest['sha256'],'Automatic sync lost feed provenance'
+assert len(status['issues'])==len(manifest['skipped']) and all(i['state']=='rejected' for i in status['issues']),'Rejected GTFS patterns not retained'
 first=routes[0]
 photo=upload('/media/photos',base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg=='),'corner.png','image/png')
 subprocess.run(['docker','compose','exec','-T','api','ffmpeg','-v','error','-f','lavfi','-i','color=c=blue:s=160x120:d=1','-c:v','libx264','-pix_fmt','yuv420p','-movflags','+faststart','-y','/tmp/gtt-smoke.mp4'],check=True)
 video_bytes=subprocess.check_output(['docker','compose','exec','-T','api','cat','/tmp/gtt-smoke.mp4'])
 video=upload('/media/videos',video_bytes,'whole-route.mp4','video/mp4')
-source=json.loads(Path('data/gtt-gerbido-drafts.json').read_text())[0]
+sources=json.loads(Path('data/gtt-urban-drafts.json').read_text())
+source=next(doc for doc in sources if doc['line']==first['line'] and doc['name']==first['name'])
 assert first['geometry']==source['geometry'],'Compose import changed source geometry'
 for route in routes:
     assert route['stops']==sorted(route['stops'],key=lambda s:s['offsetM']),'Stops reordered'
@@ -74,4 +76,4 @@ with opener.open('http://localhost:8080/',timeout=10) as response:
     html=response.read().decode()
     assert 'GTT Trainer' in html and '/assets/' in html,'Production frontend missing'
     assert "worker-src 'self' blob:" in response.headers['Content-Security-Policy'],'Map worker policy missing'
-print('Docker package: 139 draft imports, exact geometry, ordered stops, review/publication, PDF and public frontend passed.')
+print(f'Docker package: {manifest["routes"]} draft imports, exact geometry, ordered stops, review/publication, PDF and public frontend passed.')
