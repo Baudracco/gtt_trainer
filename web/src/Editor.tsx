@@ -3,10 +3,14 @@ import {generateInstructions, measure} from './geometry';
 import {coordinate, downloadDocument, validateDocument} from './importers';
 import type {RouteDocument, RouteSnapshot, RouteStop} from './model';
 import type {Translate, TextKey} from './i18n';
+import {MediaUpload} from './MediaUpload';
+import {MediaGallery} from './MediaGallery';
+import {mediaUrl} from './api';
 
 type Props = {document: RouteDocument; setDocument: (d: RouteDocument) => void; previous: RouteSnapshot | null; knownStops: RouteStop[]; mode: 'vertex' | 'stop' | null; setMode: (m: 'vertex' | 'stop' | null) => void; save: () => Promise<void>; close: () => void; t: Translate};
 export function Editor({document: doc, setDocument: set, previous, knownStops, mode, setMode, save, close, t}: Props) {
   const [busy, setBusy] = useState(false), [geometryText, setGeometryText] = useState<string | null>(null), [error, setError] = useState('');
+  const [uploading,setUploading] = useState(false);
   const update = <K extends keyof RouteDocument>(key: K, value: RouteDocument[K]) => set({...doc, [key]: value});
   const stop = (index: number, patch: Partial<RouteStop>) => update('stops', doc.stops.map((s, i) => i === index ? {...s, ...patch} : s));
   const source = (key: keyof RouteDocument['source'], value: string) => update('source', {...doc.source, [key]: value});
@@ -18,10 +22,12 @@ export function Editor({document: doc, setDocument: set, previous, knownStops, m
   return <section className="editor" aria-label={t('edit')}>
     <div className="section-heading"><h2>{previous ? t('edit') : t('new')}</h2><button className="icon-button" aria-label={t('close')} onClick={close}>×</button></div>
     <p className="muted">{t('unsaved')}</p>
+    <fieldset className="editor-fields" disabled={busy || uploading}>
     <div className="field-grid"><label>{t('line')}<input value={doc.line} maxLength={40} onChange={e => update('line',e.target.value)}/></label><label>{t('color')}<input type="color" value={doc.color} onChange={e => update('color',e.target.value)}/></label></div>
     <label>{t('name')}<input value={doc.name} maxLength={200} onChange={e => update('name',e.target.value)}/></label>
     <div className="field-grid"><label>{t('direction')}<select value={doc.direction} onChange={e => update('direction',e.target.value as RouteDocument['direction'])}>{['andata','ritorno','circular','none'].map(v => <option value={v} key={v}>{t(v === 'none' ? 'unspecified' : v as TextKey)}</option>)}</select></label><label>{t('kind')}<select value={doc.kind} onChange={e => update('kind',e.target.value as RouteDocument['kind'])}>{['service','depot_out','depot_in','deadhead','partial','circular'].map(v => <option value={v} key={v}>{t(v as TextKey)}</option>)}</select></label></div>
     <label>{t('notes')}<textarea value={doc.notes} maxLength={12000} rows={3} onChange={e => update('notes',e.target.value)}/></label>
+    <details><summary>{t('routeVideo')}</summary>{doc.video ? <><video controls playsInline preload="metadata" src={mediaUrl(doc.video.id)}/><label>{t('caption')}<input value={doc.video.caption} maxLength={500} onChange={e=>update('video',{...doc.video!,caption:e.target.value})}/></label><label>{t('credit')}<input value={doc.video.credit} maxLength={500} onChange={e=>update('video',{...doc.video!,credit:e.target.value})}/></label><button onClick={()=>update('video',null)}>{t('remove')}</button></> : <MediaUpload kind="video" onUpload={video=>update('video',video)} onBusy={setUploading} t={t}/>}</details>
     <details open={!doc.geometry.coordinates.length}><summary>{t('geometry')} · {doc.geometry.coordinates.length} · {(measured.length / 1000).toFixed(2)} km</summary>
       <p className="muted">{t('vertexHint')}</p><div className="button-row"><button aria-pressed={mode === 'vertex'} onClick={() => setMode(mode === 'vertex' ? null : 'vertex')}>{t(mode === 'vertex' ? 'stopDrawing' : 'addVertex')}</button><button disabled={!doc.geometry.coordinates.length} onClick={() => update('geometry',{type: 'LineString',coordinates: doc.geometry.coordinates.slice(0,-1)})}>{t('undo')}</button></div>
       <button onClick={() => setGeometryText(JSON.stringify(doc.geometry.coordinates, null, 1))}>{t('coordinates')}</button>
@@ -44,11 +50,16 @@ export function Editor({document: doc, setDocument: set, previous, knownStops, m
       <button onClick={() => update('instructions',[...doc.instructions].sort((a,b) => a.offsetM - b.offsetM))}>{t('sort')}</button>
       {doc.instructions.map((step,i) => <fieldset key={i}><legend>{i + 1}</legend><div className="field-grid"><label>{t('metres')}<input type="number" value={step.offsetM} min={0} step={1} onChange={e => update('instructions',doc.instructions.map((s,j) => j === i ? {...s,offsetM:Number(e.target.value)} : s))}/></label><label>{t('kind')}<select value={step.kind} onChange={e => update('instructions',doc.instructions.map((s,j) => j === i ? {...s,kind:e.target.value as typeof step.kind} : s))}>{['depart','straight','left','right','roundabout','arrive','note'].map(v => <option value={v} key={v}>{t(v as TextKey)}</option>)}</select></label></div>
         <label>{t('instructions')}<textarea rows={2} value={step.text} onChange={e => update('instructions',doc.instructions.map((s,j) => j === i ? {...s,text:e.target.value} : s))}/></label>
-        <label>{t('notes')}<textarea rows={2} value={step.notes} onChange={e => update('instructions',doc.instructions.map((s,j) => j === i ? {...s,notes:e.target.value} : s))}/></label><button className="danger-text" onClick={() => update('instructions',doc.instructions.filter((_,j) => i !== j))}>{t('remove')}</button>
+        <label>{t('landmark')}<textarea rows={2} value={step.notes} onChange={e => update('instructions',doc.instructions.map((s,j) => j === i ? {...s,notes:e.target.value} : s))}/></label>
+        <MediaGallery photos={step.photos??[]} fallback={step.text}/>
+        {(step.photos??[]).map((photo,k)=><div className="photo-fields" key={photo.id}><label>{t('caption')}<input value={photo.caption} maxLength={500} onChange={e=>update('instructions',doc.instructions.map((s,j)=>j===i?{...s,photos:s.photos!.map((p,n)=>n===k?{...p,caption:e.target.value}:p)}:s))}/></label><label>{t('credit')}<input value={photo.credit} maxLength={500} onChange={e=>update('instructions',doc.instructions.map((s,j)=>j===i?{...s,photos:s.photos!.map((p,n)=>n===k?{...p,credit:e.target.value}:p)}:s))}/></label><button onClick={()=>update('instructions',doc.instructions.map((s,j)=>j===i?{...s,photos:s.photos!.filter((_,n)=>n!==k)}:s))}>{t('removePhoto')}</button></div>)}
+        {(step.photos?.length??0)<3&&<MediaUpload kind="photo" onBusy={setUploading} t={t} onUpload={photo=>update('instructions',doc.instructions.map((s,j)=>j===i?{...s,photos:[...(s.photos??[]),photo]}:s))}/>}
+        <button className="danger-text" onClick={() => update('instructions',doc.instructions.filter((_,j) => i !== j))}>{t('remove')}</button>
       </fieldset>)}
     </details>
     <details><summary>{t('source')}</summary><label>{t('source')}<input value={doc.source.name} onChange={e => source('name',e.target.value)}/></label><label>{t('sourceUrl')}<input type="url" value={doc.source.url} onChange={e => source('url',e.target.value)}/></label><label>{t('license')}<textarea value={doc.source.license} onChange={e => source('license',e.target.value)}/></label></details>
+    </fieldset>
     {error && <p className="alert error" role="alert">{error}</p>}
-    <div className="editor-actions"><button className="primary" disabled={busy} onClick={() => void submit()}>{t(busy ? 'saving' : 'save')}</button><button onClick={() => downloadDocument(doc)}>{t('export')}</button></div>
+    <div className="editor-actions"><button className="primary" disabled={busy || uploading} onClick={() => void submit()}>{t(busy ? 'saving' : 'save')}</button><button onClick={() => downloadDocument(doc)}>{t('export')}</button></div>
   </section>;
 }

@@ -8,14 +8,16 @@ const route=(n:number):RouteSnapshot=>({...emptyRoute(),line:n===1?'2':'5',name:
   color:n===1?'#2463eb':'#b32f80',stops:[{...shared,exchange:n===1,exchangeDirection:n===1?'andata':null}],
   instructions:[]});
 
-async function prepare(page:Page,editor=false) {
+async function prepare(page:Page,editor=false,path='/') {
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
   const routes=[route(1),route(2)];const writes:string[]=[];
   await page.route('**/api/v1/**',async request=>{
     const path=new URL(request.request().url()).pathname.replace('/api/v1','');
     if(request.request().method()!=='GET')writes.push(path);
     let data:unknown;
+    if(/^\/media\/[a-f0-9-]{36}$/.test(path))return request.fulfill({body:transparent,contentType:'image/png'});
     if(path==='/session')data={csrf:'fixture-token',user:editor?{id:routes[0].id,email:'editor@test.invalid',role:'editor'}:null};
+    else if(path==='/media/photos'||path==='/media/videos')data={id:crypto.randomUUID()};
     else if(path==='/sources/gtt')data={archiveSha256:'a'.repeat(64),summary:{unchanged:2},download:{lastAttemptAt:'2026-10-16T06:00:00Z',nextAttemptAt:'2026-10-17T06:00:00Z'},issues:[{key:'gtt:'+'a'.repeat(64),state:'rejected',identity:{route:'T',shape:'S'},reason:'Synthetic stop/shape discrepancy',hasDocument:false}]};
     else if(path==='/routes' && request.request().method()==='POST') {
       const doc=request.request().postDataJSON();const created={...routes[0],...doc,id:crypto.randomUUID(),revisionId:crypto.randomUUID(),status:'draft'};routes.push(created);data=created;
@@ -34,7 +36,7 @@ async function prepare(page:Page,editor=false) {
     return request.fulfill({body:Buffer.alloc(0),contentType:'application/x-protobuf'});
   });
   await page.route('https://fixture.tiles.invalid/**',request=>request.fulfill({body:Buffer.alloc(0),contentType:'application/x-protobuf'}));
-  await page.goto('/');await expect(page.getByRole('button',{name:/Control Alfa/})).toBeVisible();
+  await page.goto(path);await expect(page.getByRole('button',{name:/Control Alfa/})).toBeVisible();
   return {errors,writes};
 }
 
@@ -93,8 +95,25 @@ test('authors ordered map vertices and inspects automatic source state',async({p
   await page.getByRole('button',{name:'Añadir vértices en el mapa',exact:true}).click();
   const map=page.locator('.maplibregl-canvas');const box=(await map.boundingBox())!;
   await map.click({position:{x:box.width*.4,y:box.height*.55}});await map.click({position:{x:box.width*.65,y:box.height*.65}});
-  await expect(page.locator('.editor summary').first()).toContainText('2');
+  await expect(page.locator('.editor summary').filter({hasText:/^Trazado/})).toContainText('2');
+  await page.getByRole('button',{name:'Añadir instrucción',exact:true}).click();
+  await page.getByRole('textbox',{name:'Instrucciones',exact:true}).fill('Girar en la esquina de control');
+  await page.getByLabel('Referencia escrita del giro (opcional)').fill('Semáforo y edificio azul');
+  await page.getByLabel('Añadir foto del giro').setInputFiles({name:'corner.png',mimeType:'image/png',buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGBgAAAABQABpfZFQAAAAABJRU5ErkJggg==','base64')});
+  await expect(page.getByRole('img',{name:'Girar en la esquina de control'})).toBeVisible();
+  await page.locator('.photo-fields').getByLabel('Descripción de la imagen o video').fill('Edificio de la esquina');
+  await page.locator('.editor summary').filter({hasText:'Video del recorrido'}).click();
+  await page.getByLabel('Subir video completo').setInputFiles({name:'route.mp4',mimeType:'video/mp4',buffer:Buffer.from('browser-fixture-upload')});
+  await expect(page.locator('.editor video')).toBeVisible();
   await page.locator('.editor-actions').getByRole('button',{name:'Guardar borrador'}).click();
   await expect(page.getByRole('button',{name:/Dibujo de control/})).toBeVisible();
-  expect(writes).toEqual(['/routes']);expect(errors).toEqual([]);
+  expect(writes).toEqual(['/media/photos','/media/videos','/routes']);expect(errors).toEqual([]);
+});
+test('opens and shares an explicit revision through its friendly URL',async({page})=>{
+  const beta=route(2);const path=`/routes/${beta.id}/revisions/${beta.revisionId}`;
+  const {errors}=await prepare(page,false,path);
+  await expect(page.locator('.route-detail h3').first()).toHaveText('5 · Control Beta');
+  await expect(page).toHaveURL(new RegExp(path+'$'));
+  await expect(page.getByRole('link',{name:'Reporte PDF',exact:true})).toHaveAttribute('href',`/api/v1${path}/report/es.pdf`);
+  expect(errors).toEqual([]);
 });

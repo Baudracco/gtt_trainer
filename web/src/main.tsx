@@ -4,6 +4,8 @@ import {RouteMap} from './RouteMap';
 import {Editor} from './Editor';
 import {References} from './References';
 import {SyncStatus} from './SyncStatus';
+import {MediaGallery} from './MediaGallery';
+import {RouteVideo} from './RouteVideo';
 import {emptyRoute, groupStops, type Coordinate, type Direction, type RouteDocument, type RouteSnapshot, type User} from './model';
 import {errorText, translator, type Language, type TextKey} from './i18n';
 import * as api from './api';
@@ -39,11 +41,16 @@ export function App() {
   const shownStop = allGroups.find(g => g.stop.id === stopId);
 
   const refresh = useCallback(async (trashView = false, preferred?: string) => {
-    const list = await api.request<RouteSnapshot[]>(`/routes${trashView ? '?trash=1' : ''}`);
+    const list = await api.request<RouteSnapshot[]>(`/routes${trashView ? '/trash' : ''}`);
     setRoutes(list);
     const firstLoad = !initialized.current; initialized.current = true;
     setVisible(old => firstLoad ? list.map(r => r.revisionId) : old.filter(id => list.some(r => r.revisionId === id)));
-    setActive(old => preferred && list.some(r => r.revisionId === preferred) ? preferred : list.some(r => r.revisionId === old) ? old : list[0]?.revisionId ?? '');
+    setActive(old => {
+      if(preferred && list.some(r=>r.revisionId===preferred))return preferred;
+      const path=firstLoad?/^\/routes\/([^/]+)\/revisions\/([^/]+)$/.exec(location.pathname):null;
+      if(path&&list.some(r=>r.id===path[1]&&r.revisionId===path[2]))return path[2];
+      return list.some(r=>r.revisionId===old)?old:list[0]?.revisionId??'';
+    });
     setOffline(false);
     if (!trashView) void cachePublished(list).catch(() => {});
   },[]);
@@ -55,6 +62,7 @@ export function App() {
   useEffect(() => {document.documentElement.lang = lang; document.documentElement.dataset.theme = theme; try {localStorage.setItem('gtt-language',lang); localStorage.setItem('gtt-theme',theme);} catch {}},[lang,theme]);
   useEffect(() => {if (!editing) return; const handler = (e: BeforeUnloadEvent) => {e.preventDefault();}; window.addEventListener('beforeunload',handler); return () => window.removeEventListener('beforeunload',handler);},[editing]);
   useEffect(() => {setStartOffset(0); setProgress(null); progressRef.current = null; setHistory(null); setVerified(false);},[activeId]);
+  useEffect(()=>{if(active)window.history.replaceState(null,'',`/routes/${active.id}/revisions/${active.revisionId}`);},[active?.id,active?.revisionId]);
   useEffect(() => {
     if (!nav || !activeMeasure) return;
     if (!navigator.geolocation) {setError(t('gpsError')); setNav(false); return;}
@@ -131,7 +139,8 @@ export function App() {
           </div>}
           {history && <div className="history"><h3>{t('history')}</h3>{history.map(r => <div key={r.id}><span>r{r.revision} · {t(r.status as TextKey)}</span><button disabled={busy || nav || trash} onClick={() => void run(() => transition('revert',r.id))}>{t('revert')}</button></div>)}</div>}
           {!trash && <section className="navigation-panel"><h3>{t('start')}</h3><p className="muted">{t('gpsLocal')}</p><label>{t('startAt')}<select disabled={nav} value={startOffset} onChange={e => {setStartOffset(Number(e.target.value));progressRef.current=null;setProgress(null);}}><option value={0}>{t('beginning')}</option>{active.stops.map((s,i) => <option key={i} value={s.offsetM}>{i+1} · {s.name}</option>)}</select></label><label className="check"><input type="checkbox" checked={voice} onChange={e => setVoice(e.target.checked)}/>{t('voice')}</label><label className="check"><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)}/>{t('follow')}</label><button className={nav ? 'danger' : 'primary'} onClick={() => {setNav(!nav);setPosition(null);setError('');progressRef.current=null;setProgress(null);setVisible(old => [...new Set([...old,active.revisionId])]);}}>{t(nav ? 'stop' : 'start')}</button></section>}
-          <details><summary>{t('instructions')} · {active.instructions.length}</summary><ol className="instructions">{active.instructions.map((s,i) => <li key={i}><span className="offset">{Math.round(s.offsetM)} m</span><strong>{s.text}</strong>{s.notes && <p>{s.notes}</p>}</li>)}</ol></details>
+          <details><summary>{t('instructions')} · {active.instructions.length}</summary><ol className="instructions">{active.instructions.map((s,i) => {const p=pointAt(activeMeasure!,s.offsetM);return <li key={i}><span className="offset">{Math.round(s.offsetM)} m</span><strong>{s.text}</strong>{s.notes && <p>{s.notes}</p>}<MediaGallery photos={s.photos??[]} fallback={s.text}/><a className="corner-link" href={`https://www.mapillary.com/app/?lat=${p[1]}&lng=${p[0]}&z=18`} target="_blank" rel="noreferrer">{t('exploreCorner')}</a></li>;})}</ol></details>
+          {active.video && <details><summary>{t('routeVideo')}</summary><RouteVideo id={active.video.id} t={t}/>{active.video.caption&&<p>{active.video.caption}</p>}{active.video.credit&&<small>{active.video.credit}</small>}</details>}
           <details><summary>{t('source')}</summary><p>{active.source.name}</p>{active.source.url && <a href={active.source.url} target="_blank" rel="noreferrer">{active.source.url}</a>}<p className="muted">{active.source.license} · {active.source.retrievedAt}</p></details>
         </section>}
         <section className="stops-panel"><h2>{t('stops')} <span className="count">{shownGroups.length}</span></h2><label className="check"><input type="checkbox" checked={showStops} onChange={e => setShowStops(e.target.checked)}/>{t('stops')}</label><label className="check"><input type="checkbox" checked={common} onChange={e => setCommon(e.target.checked)}/>{t('common')}</label><label className="check"><input type="checkbox" checked={exchangeOnly} onChange={e => setExchangeOnly(e.target.checked)}/>{t('exchangesOnly')}</label><ul className="stop-list">{shownGroups.map(g => <li key={g.stop.id}><button className={stopId === g.stop.id ? 'selected' : ''} onClick={() => setStopId(g.stop.id)}><span className={`stop-dot ${g.memberships.some(m => m.stop.exchange) ? 'exchange' : ''}`}/><span><strong>{g.stop.code} {g.stop.name}</strong><small>{g.lines.join(' · ')}</small></span></button></li>)}</ul>
@@ -142,7 +151,7 @@ export function App() {
     </aside>
     <main className="map-panel"><RouteMap routes={visibleRoutes} active={activeId} groups={shownGroups} showStops={showStops} edit={editing} drawMode={mode} onPoint={point} onStop={setStopId} position={position} follow={nav && follow} t={t}/><div className="map-label"><span className="live-dot"/>{t('study')}</div>
       {mode && <div className="draw-hint">{t(mode === 'vertex' ? 'vertexHint' : 'stopHint')}<button onClick={() => setMode(null)}>{t('stopDrawing')}</button></div>}
-      {nav && <div className="navigation-hud" aria-live="polite"><div className={`nav-state ${progress?.state ?? 'waiting'}`}>{t(progress?.state ?? 'waiting')}</div><h2>{navTitle}</h2>{nextStep && <p>{Math.max(0,Math.round(nextStep.offsetM-(progress?.offsetM ?? startOffset)))} m</p>}{nextStop && <p>{t('nextStop')}: <b>{nextStop.name}</b>{nextStop.exchange && <> · {t('exchange')}</>}</p>}<progress max={activeMeasure?.length || 1} value={progress?.offsetM ?? startOffset}/><small>{t('remaining')}: {(((activeMeasure?.length ?? 0)-(progress?.offsetM ?? startOffset))/1000).toFixed(2)} km</small></div>}
+      {nav && <div className="navigation-hud" aria-live="polite"><div className={`nav-state ${progress?.state ?? 'waiting'}`}>{t(progress?.state ?? 'waiting')}</div><h2>{navTitle}</h2>{nextStep && <p>{Math.max(0,Math.round(nextStep.offsetM-(progress?.offsetM ?? startOffset)))} m</p>}{nextStep?.notes&&<p>{nextStep.notes}</p>}{!!nextStep?.photos?.length&&<MediaGallery photos={nextStep.photos.slice(0,1)} fallback={nextStep.text}/>} {nextStop && <p>{t('nextStop')}: <b>{nextStop.name}</b>{nextStop.exchange && <> · {t('exchange')}</>}</p>}<progress max={activeMeasure?.length || 1} value={progress?.offsetM ?? startOffset}/><small>{t('remaining')}: {(((activeMeasure?.length ?? 0)-(progress?.offsetM ?? startOffset))/1000).toFixed(2)} km</small></div>}
     </main></div>
     {loginOpen && <div className="modal-backdrop"><form className="modal" onSubmit={e => {e.preventDefault();setAuthBusy(true);void run(async () => {setUser(await api.login(email,password));setPassword('');setLoginOpen(false);await refresh();}).finally(() => setAuthBusy(false));}}><h2>{t('login')}</h2>{error && <p className="alert error" role="alert">{error}</p>}<label>{t('email')}<input autoFocus type="email" autoComplete="username" required value={email} onChange={e => setEmail(e.target.value)}/></label><label>{t('password')}<input type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)}/></label><div className="button-row"><button type="submit" className="primary" disabled={authBusy}>{t('login')}</button><button type="button" onClick={() => {setLoginOpen(false);setPassword('');}}>{t('cancel')}</button></div></form></div>}
     {imports && <div className="modal-backdrop"><section className="modal"><h2>{t('importPreview')}</h2><p>{t('importHelp')}</p><ul>{imports.map((doc,i) => <li key={i}>{doc.line} · {doc.name} · {doc.geometry.coordinates.length} · {t(doc.direction === 'none' ? 'unspecified' : doc.direction)}</li>)}</ul><div className="button-row"><button disabled={busy} className="primary" onClick={() => void run(async () => {const result = await api.request<RouteSnapshot[]>('/imports','POST',{documents:imports});setImports(null);await refresh(false,result[0]?.revisionId);setVisible(old => [...new Set([...old,...result.map(r => r.revisionId)])]);setNotice(t('saved'));})}>{t('save')}</button><button disabled={busy} onClick={() => setImports(null)}>{t('cancel')}</button></div></section></div>}

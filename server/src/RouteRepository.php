@@ -152,6 +152,7 @@ final class RouteRepository
             $this->db->prepare('INSERT INTO route_instructions(revision_id,sequence,offset_m,maneuver,landmark_notes) VALUES (?,?,?,?,?)')
                 ->execute([$revision, $sequence, $instruction['offsetM'], $instruction['text'], $instruction['notes']]);
         }
+        (new MediaRepository($this->db))->link($revision, $document);
         return $revision;
     }
 

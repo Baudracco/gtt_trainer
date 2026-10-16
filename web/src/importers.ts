@@ -25,6 +25,10 @@ export function validateDocument(value: unknown): RouteDocument {
     return {...s, coordinates: coordinate(s.coordinates)};
   });
   for (const instruction of d.instructions) if (typeof instruction.text !== 'string' || !instruction.text.trim() || typeof instruction.notes !== 'string') throw Error('Invalid instruction.');
+  const reference=(r:unknown)=>{const m=r as {id?:unknown;caption?:unknown;credit?:unknown};if(!m||typeof m.id!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(m.id)||typeof m.caption!=='string'||m.caption.length>500||typeof m.credit!=='string'||m.credit.length>500)throw Error('Invalid media reference.');};
+  if(d.video)reference(d.video);
+  let photos=0;for(const step of d.instructions){if(step.photos!==undefined){if(!Array.isArray(step.photos)||step.photos.length>3)throw Error('Maximum three photos per instruction.');step.photos.forEach(reference);photos+=step.photos.length;}}
+  if(photos>200)throw Error('Maximum 200 photo references per route.');
   if (typeof d.notes !== 'string' || !d.source || Object.values(d.source).some(v => typeof v !== 'string')) throw Error('Invalid source or notes.');
   return {...d, geometry, stops};
 }

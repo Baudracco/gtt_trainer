@@ -4,7 +4,7 @@ namespace GttTrainer;
 
 final class Report
 {
-    public static function html(array $route, string $lang = 'es'): string
+    public static function html(array $route, string $lang = 'es', array $photos = []): string
     {
         $labels = [
             'es' => ['Reporte de recorrido','Revisión','Estado','Paradas','Instrucciones','Observaciones','Posto cambio','Fuente','Distancia','Sentido','Sin observaciones','Generado'],
@@ -38,10 +38,23 @@ final class Report
             .'<p>'.$e($t[1]).' '.$e($route['revision']).' · '.$e($t[2]).': '.$e($route['status']).' · '.$e($t[9]).': '.$e($route['direction']).' · '.number_format($length / 1000, 2).' km</p>'
             .'<img alt="Fixed route geometry" src="'.$image.'"><h2>'.$e($t[5]).'</h2><p class="notes">'.$e($route['notes'] ?: $t[10]).'</p>'
             .'<h2>'.$e($t[4]).'</h2><table><thead><tr><th>#</th><th>m</th><th>'.$e($t[4]).'</th><th>'.$e($t[5]).'</th></tr></thead><tbody>';
-        foreach ($route['instructions'] as $index => $instruction) $html .= '<tr><td>'.($index + 1).'</td><td>'.round($instruction['offsetM']).'</td><td>'.$e($instruction['text']).'</td><td class="notes">'.$e($instruction['notes']).'</td></tr>';
+        foreach ($route['instructions'] as $index => $instruction) {
+            $visual='';
+            foreach ($instruction['photos'] ?? [] as $photo) {
+                if (isset($photos[$photo['id']])) $visual.='<div><img style="width:180px;max-height:140px" alt="'.$e($photo['caption'] ?: $instruction['text']).'" src="'.$photos[$photo['id']].'">';
+                else $visual.='<div>';
+                $visual.='<br>'.$e($photo['caption']).'<br>'.$e($photo['credit']).'</div>';
+            }
+            $html .= '<tr><td>'.($index + 1).'</td><td>'.round($instruction['offsetM']).'</td><td>'.$e($instruction['text']).$visual.'</td><td class="notes">'.$e($instruction['notes']).'</td></tr>';
+        }
         $html .= '</tbody></table><h2>'.$e($t[3]).'</h2><table><thead><tr><th>#</th><th>m</th><th>'.$e($t[3]).'</th><th>'.$e($t[6]).' / '.$e($t[5]).'</th></tr></thead><tbody>';
         foreach ($route['stops'] as $index => $stop) $html .= '<tr><td>'.($index + 1).'</td><td>'.round($stop['offsetM']).'</td><td>'.$e($stop['code'].' '.$stop['name']).'</td><td class="notes">'.($stop['exchange'] ? $e($t[6].' · '.$stop['exchangeDirection']).'<br>' : '').$e($stop['notes']).'</td></tr>';
-        $html .= '</tbody></table><h2>'.$e($t[7]).'</h2><p>'.$e($route['source']['name']).'<br>'.$e($route['source']['url']).'<br>'.$e($route['source']['license']).'<br>'.$e($route['source']['retrievedAt']).'</p>'
+        $html .= '</tbody></table>';
+        if (!empty($route['video'])) {
+            $origin=rtrim(getenv('APP_ORIGIN') ?: '', '/');
+            $html.='<h2>Video</h2><p>'.$e($route['video']['caption']).'<br>'.$e($route['video']['credit']).'<br><a href="'.$e($origin.'/api/v1/media/'.$route['video']['id']).'">'.$e($origin.'/api/v1/media/'.$route['video']['id']).'</a></p>';
+        }
+        $html .= '<h2>'.$e($t[7]).'</h2><p>'.$e($route['source']['name']).'<br>'.$e($route['source']['url']).'<br>'.$e($route['source']['license']).'<br>'.$e($route['source']['retrievedAt']).'</p>'
             .'<p class="muted">'.$e($t[11]).': '.gmdate('Y-m-d H:i').' UTC</p><p class="trace">'.$e($route['id'].' / '.$route['revisionId']).'</p></body></html>';
         return $html;
     }

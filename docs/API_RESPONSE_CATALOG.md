@@ -18,6 +18,10 @@ Every response includes `X-Trace-Id` and `Cache-Control: no-store`. Report succe
 | 409 | `data_conflict` | Concurrent uniqueness, serialization or deadlock conflict. Entire mutation rolls back. |
 | 413 | `payload_too_large` | Request body exceeds 4 MiB. |
 | 415 | `unsupported_media_type` | Writes require `application/json`. |
+| 413 | `media_too_large` | Photo/video or configured PHP upload cap exceeded. |
+| 415 | `unsupported_media` | Unsupported image/video format or codec. |
+| 416 | `invalid_range` | Requested media byte range cannot be served. |
+| 422 | `invalid_media` | Incomplete/corrupt upload or missing/wrong-kind attachment reference. |
 | 422 | `validation_failed` | Invalid UUID, text, geometry, direction, membership, offset or travel order. |
 | 422 | `publication_incomplete` | Missing source, reviewed instructions or explicit verification. |
 | 429 | `rate_limited` | General, account, IP or report budget exhausted; includes `Retry-After`. |
@@ -32,6 +36,11 @@ checks that the account remains enabled and reads its current role. Account crea
 Anonymous/viewer reads only current publications. Editor can author, review, trash, restore
 and revert. Admin can publish. All saves preserve complete snapshots, with a new revision
 number and optimistic variant version. Batch imports are atomic and create drafts only.
+
+API query parameters are rejected. Revisions use `/routes/{id}/revisions/{revisionId}`,
+reports append `/report/{lang}.{format}`, and trash uses `/routes/trash`. Uploads use
+multipart `file` at `/media/photos` or `/media/videos`; media reads support GET/HEAD and
+the Range header. See [media and URLs](MEDIA_AND_URLS.md).
 
 Limits: 240 API requests/IP/minute, 20 logins/IP/15min, 10 logins/account/15min,
 15 reports/IP/minute. Proxy headers are not trusted; configure the reverse proxy so PHP's

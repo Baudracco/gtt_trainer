@@ -27,6 +27,9 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Editor source status and incoming-conflict export; source keys include distinct stop patterns.
 - Chromium desktop/mobile WebGL, overlay pixels, ordered map editing and native GPS checks;
   temporary GPS unavailability retains the watcher and active route for automatic recovery.
+- Friendly revision/trash/report paths, shareable web revision URLs and no API query params.
+- Optional written turn references, normalized photos, complete-route video and playback rate;
+  private uploads, immutable revision associations, streaming/ranges and illustrated reports.
 
 ## Data incorporated
 
