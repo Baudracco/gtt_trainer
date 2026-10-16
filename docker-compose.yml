@@ -44,6 +44,22 @@ services:
       - "127.0.0.1:8080:80"
     depends_on:
       - api
+  gtfs-sync:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    restart: unless-stopped
+    command: ["python3", "/var/www/tools/sync_gtfs.py", "--serve", "--apply"]
+    environment:
+      GTFS_DOWNLOAD_ENABLED: ${GTFS_DOWNLOAD_ENABLED:-1}
+      DATABASE_DSN: pgsql:host=db;port=5432;dbname=gtt_trainer
+      DATABASE_USER: gtt_trainer
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - serverdata:/var/www/server/var
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   pgdata:
   serverdata:

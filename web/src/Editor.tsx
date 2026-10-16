@@ -34,8 +34,8 @@ export function Editor({document: doc, setDocument: set, previous, knownStops, m
       {doc.stops.map((s,i) => <fieldset key={`${s.id}-${i}`}><legend>{i + 1} · {s.code || t('stops')}</legend>
         <label>{t('name')}<input value={s.name} onChange={e => stop(i,{name:e.target.value})}/></label>
         <div className="field-grid"><label>{t('code')}<input value={s.code} onChange={e => stop(i,{code:e.target.value})}/></label><label>{t('metres')}<input type="number" min={0} step={1} value={s.offsetM} onChange={e => stop(i,{offsetM:Number(e.target.value)})}/></label></div>
-        <label className="check"><input type="checkbox" checked={s.exchange} onChange={e => stop(i,{exchange:e.target.checked,exchangeDirection:e.target.checked ? (doc.direction === 'none' ? 'andata' : doc.direction) : null})}/>{t('exchange')}</label>
-        {s.exchange && <label>{t('exchangeDirection')}<select value={s.exchangeDirection ?? 'andata'} onChange={e => stop(i,{exchangeDirection:e.target.value as RouteStop['exchangeDirection']})}>{['andata','ritorno','circular'].map(v => <option key={v} value={v}>{t(v as TextKey)}</option>)}</select></label>}
+        <label className="check"><input type="checkbox" checked={s.exchange} onChange={e => stop(i,{exchange:e.target.checked,exchangeDirection:e.target.checked && doc.direction !== 'none' ? doc.direction : null})}/>{t('exchange')}</label>
+        {s.exchange && <label>{t('exchangeDirection')}<select value={s.exchangeDirection ?? ''} onChange={e => stop(i,{exchangeDirection:e.target.value ? e.target.value as RouteStop['exchangeDirection'] : null})}><option value="">{t('unspecified')}</option>{['andata','ritorno','circular'].map(v => <option key={v} value={v}>{t(v as TextKey)}</option>)}</select></label>}
         <label>{t('notes')}<textarea rows={2} value={s.notes} onChange={e => stop(i,{notes:e.target.value})}/></label><button className="danger-text" onClick={() => update('stops',doc.stops.filter((_,j) => j !== i))}>{t('remove')}</button>
       </fieldset>)}
     </details>

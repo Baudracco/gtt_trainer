@@ -29,6 +29,13 @@ directional change posts, write instructions/observations and submit review. Adm
 after checking the fixed streets and maneuvers against evidence. Every save creates a new
 snapshot; stale `expectedVersion` returns 409. Revert copies an older snapshot to a new draft.
 
+Docker's `gtfs-sync` service loads the bundled catalogue and checks the official GTT source
+automatically, with SHA-256 comparison and a persistent minimum 24h cooldown. Do not also
+run the initial manual `import` command, which deliberately creates separate user variants.
+See [GTFS synchronization](GTFS_SYNC.md) for state retention, interval configuration,
+editorial conflicts, missing patterns and pausing downloads. Code and changes are tracked
+in GitHub; runtime source provenance and each accepted route update are recorded in PostGIS.
+
 Map import preview does not persist anything until Save. `/imports` validates the complete
 batch and uses one transaction; any failure rolls everything back. CLI imports are also atomic.
 LineString order is preserved. GPX segments become separate variants; MultiLineStrings and

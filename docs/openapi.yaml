@@ -326,6 +326,50 @@ paths:
         '422': {$ref: '#/components/responses/Error'}
         '429': {$ref: '#/components/responses/Error'}
         '500': {$ref: '#/components/responses/Error'}
+  /sources/gtt:
+    get:
+      operationId: gttSyncStatus
+      description: Editor/admin. Source hash, persistent download timing, ingestion counts and unresolved patterns. Read-only; cannot trigger an HTTP download.
+      security: [{sessionCookie: []}]
+      responses:
+        '200':
+          description: Current GTFS synchronization state.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - {$ref: '#/components/schemas/Envelope'}
+                  - properties:
+                      data: {type: object, properties: {archiveSha256: {type: [string, 'null']}, downloadedAt: {type: [string, 'null']}, appliedAt: {type: [string, 'null']}, summary: {type: [object, 'null']}, download: {type: [object, 'null']}, issues: {type: array, items: {type: object}}}}
+        '401': {$ref: '#/components/responses/Error'}
+        '403': {$ref: '#/components/responses/Error'}
+        '429': {$ref: '#/components/responses/Error'}
+        '500': {$ref: '#/components/responses/Error'}
+  /sources/gtt/{key}/document:
+    parameters:
+      - in: path
+        name: key
+        required: true
+        schema: {type: string, pattern: '^gtt:[a-f0-9]{64}$'}
+    get:
+      operationId: gttIncomingDocument
+      description: Editor/admin. Retrieve a separately retained incoming conflict for manual comparison; no mutation/download from GTT.
+      security: [{sessionCookie: []}]
+      responses:
+        '200':
+          description: Incoming normalized route document.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - {$ref: '#/components/schemas/Envelope'}
+                  - properties:
+                      data: {$ref: '#/components/schemas/RouteDocument'}
+        '401': {$ref: '#/components/responses/Error'}
+        '403': {$ref: '#/components/responses/Error'}
+        '404': {$ref: '#/components/responses/Error'}
+        '429': {$ref: '#/components/responses/Error'}
+        '500': {$ref: '#/components/responses/Error'}
   /stops:
     get:
       operationId: stopRegistry

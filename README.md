@@ -9,7 +9,7 @@ El navegador sigue la geometría guardada y avisa de desvíos sin recalcular el 
 React/TypeScript + MapLibre, PHP 8.3, PostgreSQL/PostGIS. Sesiones, roles, CSRF, límites de solicitudes,
 revisiones inmutables, revisión/publicación, papelera/restauración e historial auditable.
 
-Incluye un catálogo importable de **139 variantes GTFS oficiales** como borradores, **133 bloques DAPER**
+Incluye un catálogo inicial de **139 variantes GTFS oficiales** como borradores, **133 bloques DAPER**
 de referencia de depósitos y **30 entradas de puestos de cambio de Gerbido**. Los nombres andata/ritorno,
 las maniobras detalladas y los movimientos DAPER se validan antes de publicación; no se inventan geometrías.
 
@@ -22,12 +22,18 @@ docker compose up --build -d
 read -rs -p 'Contraseña del administrador: ' GTT_ADMIN_PASSWORD
 printf '%s\n' "$GTT_ADMIN_PASSWORD" | docker compose exec -T api php bin/console.php user:create admin@example.com admin
 unset GTT_ADMIN_PASSWORD
-docker compose exec -T api php bin/console.php import /var/www/data/gtt-gerbido-drafts.json admin@example.com
 ```
 
 Abrir http://localhost:8080 e iniciar sesión. Revisar una variante, generar y completar sus instrucciones,
 enviarla a revisión y publicarla. Los visitantes ven las revisiones publicadas. El catálogo conserva el
 trazado original aunque cambien horarios o condiciones de tráfico. No hay credenciales predeterminadas.
+
+El servicio `gtfs-sync` carga el catálogo inicial y actualiza automáticamente desde GTT. Compara el
+SHA-256 del ZIP y respeta **al menos 24 horas entre intentos**, incluidos los fallidos, también tras
+reiniciar Docker. El intervalo se configura en `tools/gtfs-sync-config.json` (mínimo 24). Un ZIP sin
+cambios evita la conversión; un cambio solo de horarios no crea revisiones. Los cambios de recorrido
+crean borradores, conservando la publicación y las ediciones manuales. La pestaña **Fuentes GTT**
+muestra el hash, las descargas y los pendientes. No es necesario importar el catálogo a mano.
 
 GPS en el celular requiere HTTPS y permiso de ubicación; la posición permanece en el dispositivo.
 Se conservan recorridos publicados para consulta sin conexión; el mapa de fondo necesita conexión.

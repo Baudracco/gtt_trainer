@@ -47,3 +47,9 @@ it('offers authoring only after an enabled editor session',async()=>{
   expect(screen.getByRole('region',{name:'Editar'})).toBeTruthy();
   expect(screen.getByRole('button',{name:'Guardar borrador'})).toBeTruthy();
 });
+it('does not announce arrival for an imported route without instructions',async()=>{
+  render(<App/>);await screen.findByRole('button',{name:/Route 2/});
+  fireEvent.click(screen.getByRole('button',{name:'Iniciar navegación'}));
+  expect(screen.getByRole('heading',{name:'Seguí el trazado indicado'})).toBeTruthy();
+  expect(screen.queryByRole('heading',{name:'Fin del recorrido'})).toBeNull();
+});

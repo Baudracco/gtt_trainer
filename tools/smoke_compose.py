@@ -30,6 +30,9 @@ else:raise AssertionError('Compose API did not become ready')
 request('/login','POST',{'email':'compose@test.invalid','password':'gtt-compose-test-only'})
 routes=request('/routes')
 assert len(routes)==139 and all(r['status']=='draft' for r in routes),'Seeded candidate count/status mismatch'
+status=request('/sources/gtt')
+assert status['archiveSha256']==json.loads(Path('data/gtt-gerbido-drafts.manifest.json').read_text())['sha256'],'Automatic sync lost feed provenance'
+assert len(status['issues'])==11 and all(i['state']=='rejected' for i in status['issues']),'Rejected GTFS patterns not retained'
 first=routes[0]
 source=json.loads(Path('data/gtt-gerbido-drafts.json').read_text())[0]
 assert first['geometry']==source['geometry'],'Compose import changed source geometry'

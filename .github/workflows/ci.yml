@@ -1,7 +1,7 @@
 name: verify
 on:
   push:
-    branches: [main, feat/mvp-foundation]
+    branches: [main]
   pull_request:
     branches: [main]
 permissions:
@@ -23,6 +23,16 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-evidence
+          path: |
+            web/test-results/
+            web/playwright-report/
+          retention-days: 14
   server:
     runs-on: ubuntu-latest
     services:
@@ -62,6 +72,7 @@ jobs:
         with: {python-version: '3.12'}
       - run: pip install -r tools/requirements.txt openapi-spec-validator
       - run: python tools/test_imports.py
+      - run: python tools/test_sync_gtfs.py
       - run: openapi-spec-validator docs/openapi.yaml
   docker-package:
     runs-on: ubuntu-latest
@@ -69,18 +80,18 @@ jobs:
       POSTGRES_PASSWORD: gtt_compose_ci_only
       APP_ENV: development
       APP_ORIGIN: http://localhost:8080
+      GTFS_DOWNLOAD_ENABLED: '0'
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
       - run: docker compose up --build -d
-      - name: Create isolated CI user and import the bundled catalogue
+      - name: Wait for automatic catalogue synchronization and create isolated CI user
         run: |
           for attempt in $(seq 1 60); do
-            if docker compose exec -T api php -r 'require "vendor/autoload.php"; GttTrainer\Database::connect()->query("SELECT 1 FROM schema_migrations");' 2>/dev/null; then break; fi
+            if docker compose exec -T api php -r 'require "vendor/autoload.php"; exit(GttTrainer\Database::connect()->query("SELECT count(*) FROM gtfs_sync")->fetchColumn() == 1 ? 0 : 1);' 2>/dev/null; then break; fi
             sleep 1
           done
           printf '%s\n' 'gtt-compose-test-only' | docker compose exec -T api php bin/console.php user:create compose@test.invalid admin
-          docker compose exec -T api php bin/console.php import /var/www/data/gtt-gerbido-drafts.json compose@test.invalid
       - run: python3 tools/smoke_compose.py
       - if: failure()
         run: docker compose logs --no-color

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-use GttTrainer\{ApiError, Auth, Database, Report, RouteRepository, RouteValidator};
+use GttTrainer\{ApiError, Auth, Database, GtfsSynchronizer, Report, RouteRepository, RouteValidator};
 
 $trace = bin2hex(random_bytes(12));
 header('X-Trace-Id: '.$trace);
@@ -56,6 +56,10 @@ try {
     if ($path === '/api/v1/login' && $method === 'POST') respond(['user' => $auth->login(body()), 'csrf' => $auth->csrf()]);
     if ($path === '/api/v1/logout' && $method === 'POST') { body(); $auth->logout(); respond(['user' => null, 'csrf' => $auth->csrf()]); }
     if ($path === '/api/v1/stops' && $method === 'GET') { $auth->requireRole(); respond($repo->stops()); }
+    if ($path === '/api/v1/sources/gtt' && $method === 'GET') { $auth->requireRole(); respond((new GtfsSynchronizer($db))->status()); }
+    if (preg_match('~^/api/v1/sources/gtt/(gtt:[a-f0-9]{64})/document$~D', $path, $match) && $method === 'GET') {
+        $auth->requireRole(); respond((new GtfsSynchronizer($db))->pending($match[1]));
+    }
     if ($path === '/api/v1/imports' && $method === 'POST') {
         $actor = $auth->requireRole(); $data = body();
         if (!is_array($data['documents'] ?? null) || !array_is_list($data['documents']) || count($data['documents']) < 1 || count($data['documents']) > 200) throw new ApiError(422, 'validation_failed', 'Import requires 1–200 documents.');

@@ -41,7 +41,7 @@ final class RouteRepository
         return $this->db->query("SELECT id, external_code AS code, name, ST_AsGeoJSON(position)::json AS geometry FROM stops WHERE deleted_at IS NULL ORDER BY name LIMIT 20000")->fetchAll();
     }
 
-    public function create(array $document, string $actor): array
+    public function create(array $document, ?string $actor): array
     {
         return $this->transaction(function () use ($document, $actor) {
             $id = Database::uuid();
@@ -59,7 +59,7 @@ final class RouteRepository
         return $this->transaction(fn() => array_map(fn($document) => $this->create($document, $actor), $documents));
     }
 
-    public function save(string $id, int $version, array $document, string $actor): array
+    public function save(string $id, int $version, array $document, ?string $actor): array
     {
         return $this->transaction(function () use ($id, $version, $document, $actor) {
             $this->lock($id, $version);
@@ -113,7 +113,7 @@ final class RouteRepository
             ->execute([$actor, $event, $id, json_encode($details, JSON_THROW_ON_ERROR)]);
     }
 
-    private function newDraft(string $id, array $document, string $actor, string $event): array
+    private function newDraft(string $id, array $document, ?string $actor, string $event): array
     {
         $this->db->prepare("UPDATE route_revisions SET status = 'archived' WHERE variant_id = ? AND status IN ('draft','review')")->execute([$id]);
         $q = $this->db->prepare('SELECT COALESCE(MAX(revision),0) + 1 FROM route_revisions WHERE variant_id = ?');
@@ -124,7 +124,7 @@ final class RouteRepository
         return $this->get($id, true, $revision);
     }
 
-    private function insertRevision(string $id, int $number, array $document, string $actor): string
+    private function insertRevision(string $id, int $number, array $document, ?string $actor): string
     {
         // The registry shares stop identity; each revision retains its own immutable stop snapshot.
         foreach ($document['stops'] as &$stop) {
