@@ -22,6 +22,9 @@ async function prepare(page:Page,editor=false,path='/') {
     else if(path==='/sources/gtt')data={archiveSha256:'a'.repeat(64),summary:{unchanged:2},download:{lastAttemptAt:'2026-10-16T06:00:00Z',nextAttemptAt:'2026-10-17T06:00:00Z'},issues:[{key:'gtt:'+'a'.repeat(64),state:'rejected',identity:{route:'T',shape:'S'},reason:'Synthetic stop/shape discrepancy',hasDocument:false}]};
     else if(path==='/routes' && request.request().method()==='POST') {
       const doc=request.request().postDataJSON();const created={...routes[0],...doc,id:crypto.randomUUID(),revisionId:crypto.randomUUID(),status:'draft'};routes.push(created);data=created;
+    } else if(/\/streetview\/[0-9]+$/.test(path)) {
+      const offset=Number(path.split('/').at(-1));const measured=measure(routes[0].geometry.coordinates);const coordinate=pointAt(measured,offset);
+      data={provider:'panoramax',status:offset>=150?'empty':'available',coordinate,bearing:90,length:measured.length,offsetM:offset,photos:offset>=150?[]:[{id:'synthetic-panorama',collection:'fixture',url:'https://fixture.photos.invalid/panorama.png',thumbnailUrl:'https://fixture.photos.invalid/panorama.png',coordinates:coordinate,heading:90,panorama:true,capturedAt:'2026-01-01',credit:'Synthetic test photographer',license:'CC0-1.0',licenseUrl:'https://creativecommons.org/publicdomain/zero/1.0/',sourceUrl:'https://example.invalid/synthetic',distanceM:0}]};
     } else if(path==='/routes')data=routes;
     else throw Error(`Unexpected API call: ${path}`);
     await request.fulfill({json:{data,trace_id:'e2e-fixture'}});

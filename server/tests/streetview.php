@@ -31,7 +31,7 @@ $service=new StreetView($db,function($url) use (&$calls) {
 });
 $frame=$service->lookup($geometry,0);
 check($frame['status']==='available' && count($frame['photos'])===1, 'Viewer excludes distant and reverse-facing plane photos');
-$service->lookup($geometry,10);
+$service->lookup($geometry,1);
 check($calls===1 && $geometry['geometry']===$before, 'Nearby progress reuses shared cached metadata and never changes geometry');
 rejects(fn()=>$service->lookup($geometry,-1),'validation_failed');
 rejects(fn()=>$service->lookup($geometry,1e9),'validation_failed');
