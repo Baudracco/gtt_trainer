@@ -31,24 +31,29 @@ REQUIRED = {'routes.txt', 'trips.txt', 'shapes.txt', 'stops.txt', 'stop_times.tx
 
 
 def utcnow():
+    """Timezone-aware UTC wall clock; injectable in Downloader tests."""
     return datetime.now(timezone.utc)
 
 
 def stamp(value):
+    """Serialize UTC provenance/reservation timestamps with whole seconds and a Z suffix."""
     return value.astimezone(timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')
 
 
 def parse_stamp(value):
+    """Require timezone-aware persisted state to avoid ambiguous cooldown calculations."""
     parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
     if parsed.tzinfo is None: raise ValueError('Sync timestamps require a timezone')
     return parsed
 
 
 def read_json(path, default=None):
+    """Read a trusted local JSON checkpoint, or return the supplied default when absent."""
     return json.loads(path.read_text()) if path.exists() else default
 
 
 def atomic_json(path, value):
+    """Flush and fsync a temporary JSON file, then atomically replace the checkpoint."""
     path.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary = tempfile.mkstemp(prefix='.' + path.name, dir=path.parent)
     try:
@@ -64,6 +69,7 @@ def atomic_json(path, value):
 def content_hash(document):
     # Download date is provenance, not a route change. Identity canonicalization in
     # PostGIS may replace stop UUIDs; names/coordinates/order remain significant.
+    """Hash meaningful source content while ignoring retrieval date and canonical stop UUID substitution."""
     document = json.loads(json.dumps(document))
     document['source'].pop('retrievedAt', None)
     for stop in document['stops']: stop.pop('id', None)
@@ -71,6 +77,7 @@ def content_hash(document):
 
 
 def validate_archive(path):
+    """Bound GTFS ZIP members/uncompressed size, require core files and verify CRC/duplicate names."""
     with zipfile.ZipFile(path) as archive:
         entries = archive.infolist()
         if len(entries) > 200 or len({e.filename for e in entries}) != len(entries):
@@ -81,6 +88,7 @@ def validate_archive(path):
 
 
 def make_bundle(path, sha256, downloaded_at, lines, agencies=None, route_types=None):
+    """Convert all selected source patterns into a review-only catalogue with stable identities and rejected facts."""
     validate_archive(path)
     source = {'name': 'GTT S.p.A. – Gruppo Torinese Trasporti', 'url': URL,
               'license': 'GTT GTFS non-commercial use; attribution required. https://www.gtt.to.it/gtt_gtfs_license.html',
@@ -101,6 +109,7 @@ def make_bundle(path, sha256, downloaded_at, lines, agencies=None, route_types=N
 
 
 def compare(previous, current):
+    """Compare source identity/content hashes; observed rejected patterns are not classified as missing."""
     old = {v['key']: v['contentHash'] for v in (previous or {}).get('variants', [])}
     new = {v['key']: v['contentHash'] for v in current['variants']}
     rejected = {v['key'] for v in current['rejected']}
@@ -120,6 +129,12 @@ class OfficialRedirects(HTTPRedirectHandler):
 
 
 class Downloader:
+    """Single-owner, crash-persistent official-feed downloader.
+
+    The filesystem lock serializes workers sharing serverdata. A reservation is
+    fsynced before opening the network connection, including failed attempts.
+    clock/opener injection keeps all automated tests independent of live GTT.
+    """
     def __init__(self, directory, cooldown_hours=24, lines=None, opener=None, clock=utcnow, agencies=None, route_types=None):
         if not 24 <= float(cooldown_hours) <= 8760:
             raise ValueError('cooldownHours must be between 24 and 8760; minimum 24 hours')
@@ -133,12 +148,15 @@ class Downloader:
         self.clock = clock
 
     def bundle(self):
+        """Return the last completely converted bundle, never a partial download."""
         return read_json(self.directory / 'current.json')
 
     def same_selection(self, bundle):
+        """Compare all scope dimensions, including legacy bus-only bundle defaults."""
         return bool(bundle) and bundle.get('lines') == self.lines and bundle.get('agencies', []) == self.agencies and bundle.get('routeTypes', ['3']) == self.route_types
 
     def convert(self, path, sha256, downloaded_at):
+        """Apply this worker’s exact selection to already downloaded source bytes."""
         return make_bundle(path, sha256, downloaded_at, self.lines, self.agencies, self.route_types)
 
     def seed(self, documents, status):
@@ -169,6 +187,11 @@ class Downloader:
                 atomic_json(self.directory / 'state.json', {**status, 'nextAttemptAt': stamp(parse_stamp(status['lastAttemptAt']) + self.cooldown)})
 
     def run(self):
+        """Check one due window and atomically stage a validated source generation.
+
+        busy/cooldown are successful no-download outcomes. Exceptions retain the
+        previous ZIP/bundle and the already persisted attempt reservation.
+        """
         with (self.directory / 'download.lock').open('a') as lock:
             try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             except BlockingIOError: return {'outcome': 'busy'}
@@ -230,6 +253,7 @@ class Downloader:
 
 
 def apply_bundle(directory):
+    """Invoke trusted PHP/PostGIS ingestion for the last completely validated local bundle."""
     path = directory / 'current.json'
     if not path.exists(): return
     result = subprocess.run(['php', str(ROOT / 'server/bin/console.php'), 'gtfs:sync', str(path)], capture_output=True, text=True, timeout=600)
@@ -238,6 +262,7 @@ def apply_bundle(directory):
 
 
 def main():
+    """Run once or as a Docker daemon; local hourly checks cannot bypass persistent HTTP reservations."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--state-dir', type=Path, default=ROOT / 'server/var/gtfs')
     parser.add_argument('--config', type=Path, default=ROOT / 'tools/gtfs-sync-config.json')

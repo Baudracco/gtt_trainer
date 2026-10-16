@@ -4,18 +4,38 @@ namespace GttTrainer;
 
 use PDO;
 
+/**
+ * Private immutable media storage, validated uploads and revision-based access control.
+ *
+ * Files live outside the web root. Photos are decoded/re-encoded, videos inspected
+ * with bounded ffprobe; associations are created in the revision transaction. Public
+ * reads require a current nontrashed publication referencing the asset.
+ */
 final class MediaRepository
 {
     public const PHOTO_LIMIT = 12582912; // 12 MiB input, normalized JPEG output.
     public const VIDEO_LIMIT = 1073741824; // 1 GiB; streams to disk, never into a PHP string.
 
+    /**
+     * Bind storage metadata/audit to the application database.
+     */
     public function __construct(private PDO $db) {}
 
+    /**
+     * Resolve the private MEDIA_DIR override or the persistent server/var/media directory.
+     */
     public static function directory(): string
     {
         return getenv('MEDIA_DIR') ?: dirname(__DIR__).'/var/media';
     }
 
+    /**
+     * Validate one genuine PHP multipart upload, write immutable files and commit metadata/audit.
+     *
+     * Photos: JPEG/PNG/WebP, 12 MiB, 32 MP, normalized JPEG plus PDF thumbnail.
+     * Video: MP4/WebM, 1 GiB, inspected codecs/duration; never loaded into memory as a whole.
+     * @throws ApiError On invalid type, corrupt media or exceeded size/codec limits.
+     */
     public function upload(array $file, string $kind, string $actor): array
     {
         $limit = $kind === 'photo' ? self::PHOTO_LIMIT : self::VIDEO_LIMIT;
@@ -83,6 +103,9 @@ final class MediaRepository
         try {if (!imagejpeg($out,$path,$quality)) throw new \RuntimeException('Cannot store normalized photo.');} finally {imagedestroy($out);}
     }
 
+    /**
+     * Inspect one local video in a subprocess with a 30-second timeout and bounded JSON output.
+     */
     private static function probe(string $input): array
     {
         $process=proc_open(['timeout','30s','ffprobe','-v','error','-show_entries','format=duration:stream=codec_type,codec_name,width,height','-of','json',$input],
@@ -96,6 +119,9 @@ final class MediaRepository
         return ['durationSeconds'=>round($duration,2),'width'=>(int)($video['width'] ?? 0),'height'=>(int)($video['height'] ?? 0),'codec'=>$video['codec_name']];
     }
 
+    /**
+     * Collect typed asset references from a validated revision document.
+     */
     public static function references(array $document): array
     {
         $refs=[];
@@ -104,6 +130,9 @@ final class MediaRepository
         return $refs;
     }
 
+    /**
+     * Validate asset existence/kind and bind it to a new revision inside the caller transaction.
+     */
     public function link(string $revisionId, array $document): void
     {
         $refs=self::references($document);if (!$refs) return;
@@ -115,6 +144,9 @@ final class MediaRepository
         foreach ($ids as $id) $q->execute([$revisionId,$id]);
     }
 
+    /**
+     * Resolve private file metadata after checking editor or current-publication visibility.
+     */
     public function get(string $id, bool $editor): array
     {
         $sql='SELECT m.* FROM media_assets m WHERE m.id = ?';
@@ -124,6 +156,9 @@ final class MediaRepository
         return $row;
     }
 
+    /**
+     * Load bounded local JPEG thumbnails indexed by asset UUID; never fetch remote report content.
+     */
     public function reportImages(array $document): array
     {
         $images=[];
@@ -134,6 +169,12 @@ final class MediaRepository
         return $images;
     }
 
+    /**
+     * Serve authorized GET/HEAD using Nginx internal offload or a bounded PHP byte-range stream.
+     *
+     * The caller must obtain this asset through get() first. Direct internal media URLs
+     * are denied by Nginx; no session or asset is cached by the service worker.
+     */
     public static function serve(array $asset, bool $head=false): never
     {
         if (session_status() === PHP_SESSION_ACTIVE) session_write_close();

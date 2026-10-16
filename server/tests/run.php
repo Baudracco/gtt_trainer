@@ -20,6 +20,8 @@ function dbReject(PDO $db, string $sql, string $label): void {
     $db->rollBack();throw new RuntimeException('Expected DB rejection: '.$label);
 }
 
+require __DIR__.'/diagnostics.php';
+
 $base = fixture();
 $valid = RouteValidator::document($base);
 check($valid['geometry']['coordinates'] === $base['geometry']['coordinates'], 'Fixed geometry preserved exactly');
@@ -90,5 +92,14 @@ if (getenv('TEST_DATABASE_DSN')) {
     check(count($repo->history($route['id'])) === 3,'All saved revisions remain in history');
     require __DIR__.'/gtfs.php';
     require __DIR__.'/streetview.php';
+    $diagnostic=GttTrainer\ErrorLogger::record(new RuntimeException('secret-sql-value'),Database::uuid(),$db,$diagnosticPath);
+    check($diagnostic['database'] && $diagnostic['file'] && $diagnostic['native'],'Unexpected errors are recorded independently in three sinks');
+    check((int)$db->query('SELECT count(*) FROM system_logs')->fetchColumn()>0,'Database diagnostics retain a searchable trace');
+    $db->beginTransaction();
+    $diagnostic=GttTrainer\ErrorLogger::record(new RuntimeException('private'),Database::uuid(),$db,$diagnosticPath);
+    check(!$diagnostic['database'] && $diagnostic['file'],'Transaction failure path skips DB diagnostics but retains file/native sinks');
+    $db->rollBack();
 } else echo "SKIP PostGIS integration: TEST_DATABASE_DSN is unset.\n";
+@unlink($diagnosticPath);
+@unlink($nativeLog);
 echo "$count checks passed.\n";

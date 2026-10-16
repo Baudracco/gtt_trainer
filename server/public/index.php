@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-use GttTrainer\{ApiError, Auth, Database, GtfsSynchronizer, MediaRepository, Report, RouteRepository, RouteValidator, StreetView};
+use GttTrainer\{ApiError, Auth, Database, ErrorCatalog, ErrorLogger, GtfsSynchronizer, MediaRepository, Report, RouteRepository, RouteValidator, StreetView};
 
 $trace = bin2hex(random_bytes(12));
 header('X-Trace-Id: '.$trace);
@@ -45,7 +45,7 @@ try {
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $method = $_SERVER['REQUEST_METHOD'];
     if (parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)) throw new ApiError(422,'validation_failed','Use path parameters; this API does not accept query parameters.');
-    if ($path === '/api/v1/health' && $method === 'GET') respond(['status' => 'ok', 'version' => '0.3.0']);
+    if ($path === '/api/v1/health' && $method === 'GET') respond(['status' => 'ok', 'version' => '0.4.0']);
     $db = Database::connect();
     $auth = new Auth($db);
     $auth->limit('request:'.($_SERVER['REMOTE_ADDR'] ?? ''), 240, 60);
@@ -139,13 +139,9 @@ try {
     $code = $error instanceof ApiError ? $error->errorCode : 'internal_error';
     $message = $error instanceof ApiError ? $error->getMessage() : 'Internal server error.';
     if ($status >= 500) {
-        // Do not log request bodies, passwords, cookies, location or SQL parameter values.
-        $entry = json_encode(['trace_id' => $trace, 'type' => $error::class, 'state' => $error instanceof PDOException ? $error->getCode() : 'unexpected', 'file' => basename($error->getFile()), 'line' => $error->getLine()]);
-        error_log($entry);
-        $fallback = getenv('AUDIT_FALLBACK_LOG');
-        if ($fallback) file_put_contents($fallback, $entry.PHP_EOL, FILE_APPEND | LOCK_EX);
+        ErrorLogger::record($error,$trace,$db ?? null);
     }
     http_response_code($status);
     header('Content-Type: application/json; charset=utf-8');header_remove('Content-Disposition');header_remove('Content-Length');
-    echo json_encode(['error' => ['code' => $code, 'message' => $message], 'trace_id' => $trace], JSON_UNESCAPED_UNICODE);
+    echo json_encode(['error' => ['code' => $code, 'number' => ErrorCatalog::number($code), 'message' => $message], 'trace_id' => $trace], JSON_UNESCAPED_UNICODE);
 }

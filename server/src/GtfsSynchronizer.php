@@ -7,8 +7,14 @@ use PDO;
 /** Trusted CLI ingestion only; the web API can inspect but cannot trigger downloads. */
 final class GtfsSynchronizer
 {
+    /**
+     * Bind the trusted CLI ingestion/database connection.
+     */
     public function __construct(private PDO $db) {}
 
+    /**
+     * Hash normalized route content excluding download date and canonical stop UUID substitutions.
+     */
     public static function fingerprint(array $document): string
     {
         $document = RouteValidator::document($document);
@@ -18,6 +24,13 @@ final class GtfsSynchronizer
         return hash('sha256', json_encode($document, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION));
     }
 
+    /**
+     * Apply one validated source bundle atomically under the GTFS advisory transaction lock.
+     *
+     * Adopt exact existing snapshots, append source-only changes as drafts and retain
+     * manual/review conflicts separately. Missing/rejected/trash never remove publications.
+     * @return array Counts for created/adopted/updated/unchanged/conflicts/rejected/missing/deleted.
+     */
     public function apply(array $bundle): array
     {
         if (($bundle['schemaVersion'] ?? null) !== 1 || ($bundle['provider'] ?? '') !== 'gtt'
@@ -118,6 +131,9 @@ final class GtfsSynchronizer
             ->execute([$entry['key'], $variant, $revision, $hash, $sha, $state, $reason, json_encode($entry, JSON_THROW_ON_ERROR), $pending ? json_encode($pending, JSON_THROW_ON_ERROR) : null]);
     }
 
+    /**
+     * Return feed provenance, latest import summary, download reservation and unresolved source issues.
+     */
     public function status(): array
     {
         $row = $this->db->query("SELECT * FROM gtfs_sync WHERE provider = 'gtt'")->fetch();
@@ -135,6 +151,9 @@ final class GtfsSynchronizer
             'download' => $download, 'issues' => $issues];
     }
 
+    /**
+     * Return a retained incoming document for editor inspection/export; never publish it implicitly.
+     */
     public function pending(string $key): array
     {
         $q = $this->db->prepare('SELECT pending_document FROM gtfs_route_links WHERE source_key = ? AND pending_document IS NOT NULL');

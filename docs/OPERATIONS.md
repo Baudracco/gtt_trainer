@@ -63,7 +63,7 @@ Docker defaults bind HTTP and DB to loopback only. To use on a phone, deploy beh
 HTTPS reverse proxy, set `APP_ENV=production`, and set `APP_ORIGIN` to the exact public origin.
 Secure cookies are mandatory outside development. The application neither logs GPS nor sends
 fixes to the API. Audit writes are transactional; unexpected server faults have a sanitized
-error_log record and an optional append file in `AUDIT_FALLBACK_LOG`.
+native PHP record, independent `system_logs` entry and a bounded locked NDJSON file in `AUDIT_FALLBACK_LOG` (private default under server/var).
 
 Use a restricted application DB role in production (DML on application tables and sequence
 access), and a separate migration owner. Do not grant the application role superuser or DDL.
@@ -98,3 +98,5 @@ and failure traces in the CI `browser-evidence` artifact. This is not an on-road
 OpenAPI with `python3 -m openapi_spec_validator docs/openapi.yaml`. The CI workflow records each
 result on the exact PR commit. Mobile GPS and voice need a real device field test against the
 reviewed route; geometric turn suggestions still require street-name and maneuver review.
+
+See [deployment/backup/restore](DEPLOYMENT.md), [developer guide](DEVELOPER_GUIDE.md), and [generated code references](CODE_DOCUMENTATION.md).
