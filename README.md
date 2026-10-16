@@ -42,5 +42,8 @@ Documentación: [arquitectura](docs/ARCHITECTURE.md), [estado y pendientes](docs
 [operación e importación](docs/OPERATIONS.md), [fuentes y licencias](docs/SOURCES.md),
 [OpenAPI](docs/openapi.yaml), [errores](docs/API_RESPONSE_CATALOG.md).
 
+Fotos por giro, video completo, rangos de reproducción y enlaces compartibles:
+[material visual y URLs](docs/MEDIA_AND_URLS.md).
+
 Los cambios se realizan mediante ramas y PR a `main`, con verificaciones registradas en GitHub.
 El usuario autorizó el 15/10/2026 la creación de PR y los merges autónomos después de verificarlos.

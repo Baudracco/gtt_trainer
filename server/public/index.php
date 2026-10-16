@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-use GttTrainer\{ApiError, Auth, Database, GtfsSynchronizer, Report, RouteRepository, RouteValidator};
+use GttTrainer\{ApiError, Auth, Database, GtfsSynchronizer, MediaRepository, Report, RouteRepository, RouteValidator};
 
 $trace = bin2hex(random_bytes(12));
 header('X-Trace-Id: '.$trace);
@@ -44,18 +44,33 @@ function version(array $body): int
 try {
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $method = $_SERVER['REQUEST_METHOD'];
-    if ($path === '/api/v1/health' && $method === 'GET') respond(['status' => 'ok', 'version' => '0.2.0']);
+    if (parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)) throw new ApiError(422,'validation_failed','Use path parameters; this API does not accept query parameters.');
+    if ($path === '/api/v1/health' && $method === 'GET') respond(['status' => 'ok', 'version' => '0.3.0']);
     $db = Database::connect();
     $auth = new Auth($db);
     $auth->limit('request:'.($_SERVER['REMOTE_ADDR'] ?? ''), 240, 60);
     $repo = new RouteRepository($db);
     $user = $auth->user();
     $editor = $user && in_array($user['role'], ['editor','admin'], true);
-    if ($method !== 'GET') $auth->verifyCsrf();
+    if (!in_array($method,['GET','HEAD'],true)) $auth->verifyCsrf();
     if ($path === '/api/v1/session' && $method === 'GET') respond(['user' => $user, 'csrf' => $auth->csrf()]);
     if ($path === '/api/v1/login' && $method === 'POST') respond(['user' => $auth->login(body()), 'csrf' => $auth->csrf()]);
     if ($path === '/api/v1/logout' && $method === 'POST') { body(); $auth->logout(); respond(['user' => null, 'csrf' => $auth->csrf()]); }
     if ($path === '/api/v1/stops' && $method === 'GET') { $auth->requireRole(); respond($repo->stops()); }
+    if (in_array($path,['/api/v1/media/photos','/api/v1/media/videos'],true) && $method === 'POST') {
+        $actor=$auth->requireRole();
+        if (!str_starts_with(strtolower($_SERVER['CONTENT_TYPE'] ?? ''),'multipart/form-data;')) throw new ApiError(415,'unsupported_media_type','Send multipart/form-data.');
+        if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0)>MediaRepository::VIDEO_LIMIT+1048576) throw new ApiError(413,'media_too_large','File exceeds the upload limit.');
+        $postLimit=ini_parse_quantity(ini_get('post_max_size'));
+        if ($postLimit>0 && (int)($_SERVER['CONTENT_LENGTH'] ?? 0)>$postLimit) throw new ApiError(413,'media_too_large','File exceeds the PHP upload limit.');
+        if (count($_FILES)!==1 || !is_array($_FILES['file'] ?? null)) throw new ApiError(422,'invalid_media','Upload exactly one file.');
+        session_write_close();
+        respond((new MediaRepository($db))->upload($_FILES['file'],str_ends_with($path,'photos')?'photo':'video',$actor['id']),201);
+    }
+    if (preg_match('~^/api/v1/media/([^/]+)$~D',$path,$match) && in_array($method,['GET','HEAD'],true)) {
+        MediaRepository::serve((new MediaRepository($db))->get(RouteValidator::uuid($match[1]),(bool)$editor),$method==='HEAD');
+    }
+    if ($path === '/api/v1/routes/trash' && $method === 'GET') {$auth->requireRole();respond($repo->list(true,true));}
     if ($path === '/api/v1/sources/gtt' && $method === 'GET') { $auth->requireRole(); respond((new GtfsSynchronizer($db))->status()); }
     if (preg_match('~^/api/v1/sources/gtt/(gtt:[a-f0-9]{64})/document$~D', $path, $match) && $method === 'GET') {
         $auth->requireRole(); respond((new GtfsSynchronizer($db))->pending($match[1]));
@@ -68,37 +83,32 @@ try {
     }
     if ($path === '/api/v1/routes') {
         if ($method === 'GET') {
-            $trash = ($_GET['trash'] ?? '') === '1';
-            if ($trash) $auth->requireRole();
-            respond($repo->list((bool) $editor, $trash));
+            respond($repo->list((bool) $editor));
         }
         if ($method === 'POST') {
             $actor = $auth->requireRole();
             respond($repo->create(RouteValidator::document(body()), $actor['id']), 201);
         }
     }
-    if (preg_match('~^/api/v1/routes/([^/]+)(?:/(draft|review|publish|restore|history|report|revert))?$~D', $path, $match)) {
+    if (preg_match('~^/api/v1/routes/([^/]+)/revisions/([^/]+)(?:/report/([^/.]+)\.([^/.]+))?$~D',$path,$match) && $method==='GET') {
+        $id=RouteValidator::uuid($match[1]);$revision=RouteValidator::uuid($match[2]);
+        $route=$repo->get($id,(bool)$editor,$revision);
+        if (!isset($match[3])) respond($route);
+        $lang=$match[3];$format=$match[4];
+        if (!in_array($lang,['es','it','en'],true) || !in_array($format,['html','pdf'],true)) throw new ApiError(422,'validation_failed','Invalid report language or format.');
+        $auth->limit('report:'.($_SERVER['REMOTE_ADDR'] ?? ''),15,60);
+        $html=Report::html($route,$lang,(new MediaRepository($db))->reportImages($route));
+        if ($format==='pdf') {
+            header('Content-Type: application/pdf');header('Content-Disposition: attachment; filename="gtt-route-'.$id.'-r'.$route['revision'].'.pdf"');echo Report::pdf($html);
+        } else {header('Content-Type: text/html; charset=utf-8');echo $html;}
+        exit;
+    }
+    if (preg_match('~^/api/v1/routes/([^/]+)(?:/(draft|review|publish|restore|history|revert))?$~D', $path, $match)) {
         $id = RouteValidator::uuid($match[1]);
         $action = $match[2] ?? '';
         if ($method === 'GET') {
             if ($action === 'history') { $auth->requireRole(); respond($repo->history($id)); }
-            if ($action === '' || $action === 'report') {
-                $revision = isset($_GET['revision']) ? RouteValidator::uuid($_GET['revision']) : null;
-                $route = $repo->get($id, (bool) $editor, $revision);
-                if ($action === '') respond($route);
-                $lang = $_GET['lang'] ?? 'es';
-                if (!in_array($lang, ['es','it','en'], true)) throw new ApiError(422, 'validation_failed', 'Invalid report language.');
-                $format = $_GET['format'] ?? 'html';
-                if (!in_array($format, ['html','pdf'], true)) throw new ApiError(422, 'validation_failed', 'Invalid report format.');
-                $auth->limit('report:'.($_SERVER['REMOTE_ADDR'] ?? ''), 15, 60);
-                $html = Report::html($route, $lang);
-                if ($format === 'pdf') {
-                    header('Content-Type: application/pdf');
-                    header('Content-Disposition: attachment; filename="gtt-route-'.$id.'-r'.$route['revision'].'.pdf"');
-                    echo Report::pdf($html);
-                } else { header('Content-Type: text/html; charset=utf-8'); echo $html; }
-                exit;
-            }
+            if ($action === '') respond($repo->get($id,(bool)$editor));
         }
         if ($method === 'PUT' && $action === 'draft') {
             $actor = $auth->requireRole(); $data = body();
@@ -132,5 +142,6 @@ try {
         if ($fallback) file_put_contents($fallback, $entry.PHP_EOL, FILE_APPEND | LOCK_EX);
     }
     http_response_code($status);
+    header('Content-Type: application/json; charset=utf-8');header_remove('Content-Disposition');header_remove('Content-Length');
     echo json_encode(['error' => ['code' => $code, 'message' => $message], 'trace_id' => $trace], JSON_UNESCAPED_UNICODE);
 }

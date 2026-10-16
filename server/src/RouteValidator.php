@@ -67,14 +67,22 @@ final class RouteValidator
             $stops[] = $entry;
         }
         $instructions = [];
+        $photoCount = 0;
         foreach ($instructionInput as $instruction) {
             if (!is_array($instruction)) self::fail('Invalid instruction.');
-            $instructions[] = [
+            $entry = [
                 'offsetM' => self::offset($instruction['offsetM'] ?? null, $length),
                 'text' => self::text($instruction['text'] ?? null, 2000),
                 'notes' => self::text($instruction['notes'] ?? '', 4000, false),
                 'kind' => in_array($instruction['kind'] ?? '', ['depart','straight','left','right','roundabout','arrive','note'], true) ? $instruction['kind'] : 'note',
             ];
+            $photos = $instruction['photos'] ?? [];
+            if (!is_array($photos) || !array_is_list($photos) || count($photos) > 3) self::fail('Maximum three photos per instruction.');
+            $photoCount += count($photos);
+            if ($photoCount > 200) self::fail('Maximum 200 photo references per route.');
+            if ($photos) $entry['photos'] = array_map(self::media(...), $photos);
+            if (count(array_unique(array_column($entry['photos'] ?? [], 'id'))) !== count($photos)) self::fail('Duplicate photo reference on an instruction.');
+            $instructions[] = $entry;
         }
         foreach ([$stops, $instructions] as $ordered) {
             $previous = -1;
@@ -85,7 +93,7 @@ final class RouteValidator
         }
         $source = $data['source'] ?? [];
         if (!is_array($source)) self::fail('Invalid source.');
-        return [
+        $document = [
             'line' => $line, 'name' => $name, 'direction' => $direction, 'kind' => $kind, 'color' => $color,
             'geometry' => ['type' => 'LineString', 'coordinates' => $coords],
             'stops' => $stops, 'instructions' => $instructions, 'notes' => self::text($data['notes'] ?? '', 12000, false),
@@ -96,6 +104,14 @@ final class RouteValidator
                 'retrievedAt' => self::text($source['retrievedAt'] ?? '', 40, false),
             ],
         ];
+        if (isset($data['video'])) $document['video'] = self::media($data['video']);
+        return $document;
+    }
+
+    private static function media(mixed $reference): array
+    {
+        if (!is_array($reference)) self::fail('Invalid media reference.');
+        return ['id'=>self::uuid($reference['id'] ?? null), 'caption'=>self::text($reference['caption'] ?? '',500,false), 'credit'=>self::text($reference['credit'] ?? '',500,false)];
     }
 
     private static function offset(mixed $value, float $length): float

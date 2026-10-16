@@ -55,11 +55,12 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: pdo_pgsql, mbstring, dom
+          extensions: pdo_pgsql, mbstring, dom, gd, exif, fileinfo
           tools: composer:v2
           coverage: none
       - run: composer install --no-interaction --prefer-dist
         working-directory: server
+      - run: command -v ffprobe || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: find server/src server/public server/bin server/tests -name '*.php' -print0 | xargs -0 -n1 php -l
       - run: php server/tests/run.php
       - run: python3 server/tests/test_http.py

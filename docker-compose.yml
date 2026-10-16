@@ -27,6 +27,7 @@ services:
       APP_ENV: ${APP_ENV:-development}
       APP_ORIGIN: ${APP_ORIGIN:-http://localhost:8080}
       AUDIT_FALLBACK_LOG: /var/www/server/var/errors.log
+      MEDIA_ACCEL_REDIRECT: '1'
     volumes:
       - serverdata:/var/www/server/var
     depends_on:
@@ -42,6 +43,8 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:80"
+    volumes:
+      - serverdata:/var/www/server/var:ro
     depends_on:
       - api
   gtfs-sync:

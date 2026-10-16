@@ -1,10 +1,11 @@
 openapi: 3.1.0
 info:
   title: GTT Trainer API
-  version: 0.2.0
-  description: Fixed geometry, immutable route revisions, contextual stop memberships and reviewed publication. Location fixes never leave the device.
+  version: 0.3.0
+  description: Fixed geometry, immutable route revisions, contextual stop memberships and reviewed publication.
+    Location fixes never leave the device.
 servers:
-  - url: /api/v1
+- url: /api/v1
 paths:
   /health:
     get:
@@ -16,135 +17,203 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/Envelope'
-                  - properties:
-                      data:
-                        type: object
-                        properties:
-                          status: {const: ok}
-                          version: {type: string}
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: object
+                      properties:
+                        status:
+                          const: ok
+                        version:
+                          type: string
   /session:
     get:
       operationId: session
       description: Creates an anonymous session and CSRF token, or returns the current enabled user.
       responses:
-        '200': {$ref: '#/components/responses/Session'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Session'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /login:
     post:
       operationId: login
-      security: [{sessionCookie: [], csrfToken: []}]
+      security:
+      - sessionCookie: []
+        csrfToken: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [email, password]
+              required:
+              - email
+              - password
               properties:
-                email: {type: string, format: email, maxLength: 320}
-                password: {type: string, maxLength: 1024}
+                email:
+                  type: string
+                  format: email
+                  maxLength: 320
+                password:
+                  type: string
+                  maxLength: 1024
       responses:
-        '200': {$ref: '#/components/responses/Session'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Session'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /logout:
     post:
       operationId: logout
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Empty'}
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Empty'
       responses:
-        '200': {$ref: '#/components/responses/Session'}
-        '400': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Session'
+        '400':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes:
     get:
       operationId: listRoutes
-      description: Anonymous/viewer sees current published revisions. Editor/admin also sees working revisions. Trash requires editor. Different revisions of the same variant share id and version.
-      parameters:
-        - in: query
-          name: trash
-          schema: {type: string, enum: ['0', '1']}
+      description: Anonymous/viewer sees current publications; editor/admin also sees drafts/reviews. Use /routes/trash
+        for trash.
       responses:
-        '200': {$ref: '#/components/responses/Routes'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Routes'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
     post:
       operationId: createRoute
       description: Editor/admin creates a new variant and revision 1 as a draft.
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Document'}
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Document'
       responses:
-        '201': {$ref: '#/components/responses/Route'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '201':
+          $ref: '#/components/responses/Route'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /imports:
     post:
       operationId: importDrafts
-      description: Editor/admin. Validates the whole batch, then atomically creates 1–200 draft variants. Any error rolls back every item.
-      security: [{sessionCookie: [], csrfToken: []}]
+      description: Editor/admin. Validates the whole batch, then atomically creates 1–200 draft variants. Any error
+        rolls back every item.
+      security:
+      - sessionCookie: []
+        csrfToken: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [documents]
+              required:
+              - documents
               properties:
                 documents:
                   type: array
                   minItems: 1
                   maxItems: 200
-                  items: {$ref: '#/components/schemas/RouteDocument'}
+                  items:
+                    $ref: '#/components/schemas/RouteDocument'
       responses:
-        '201': {$ref: '#/components/responses/Routes'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '201':
+          $ref: '#/components/responses/Routes'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     get:
       operationId: getRoute
       description: Anonymous/viewer can request only the current published revision. Editors can read archived snapshots.
-      parameters:
-        - {$ref: '#/components/parameters/Revision'}
       responses:
-        '200': {$ref: '#/components/responses/Route'}
-        '404': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Route'
+        '404':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
     delete:
       operationId: trashRoute
       description: Editor/admin. Soft delete, with immutable history retained.
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Version'}
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Version'
       responses:
         '200':
           description: Route moved to trash.
@@ -152,133 +221,219 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: '#/components/schemas/Envelope'
-                  - properties:
-                      data: {type: object, properties: {deleted: {const: true}}}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: object
+                      properties:
+                        deleted:
+                          const: true
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}/draft:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     put:
       operationId: saveDraft
-      description: Editor/admin. Creates a new revision for every save. Working revision is archived; published snapshot remains current until a new publication.
-      security: [{sessionCookie: [], csrfToken: []}]
+      description: Editor/admin. Creates a new revision for every save. Working revision is archived; published
+        snapshot remains current until a new publication.
+      security:
+      - sessionCookie: []
+        csrfToken: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
               allOf:
-                - {$ref: '#/components/schemas/RouteDocument'}
-                - {$ref: '#/components/schemas/Version'}
+              - $ref: '#/components/schemas/RouteDocument'
+              - $ref: '#/components/schemas/Version'
       responses:
-        '200': {$ref: '#/components/responses/Route'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Route'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}/review:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     post:
       operationId: submitReview
       description: Editor/admin. Transitions draft to review and increments variant version.
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Transition'}
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Transition'
       responses:
-        '200': {$ref: '#/components/responses/Route'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Route'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}/publish:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     post:
       operationId: publishRevision
-      description: Admin only. Requires review state, verified=true, source name and at least two reviewed instructions. Atomically archives old publication and points to new immutable snapshot.
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Transition'}
+      description: Admin only. Requires review state, verified=true, source name and at least two reviewed instructions.
+        Atomically archives old publication and points to new immutable snapshot.
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Transition'
       responses:
-        '200': {$ref: '#/components/responses/Route'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Route'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}/revert:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     post:
       operationId: revertRevision
       description: Editor/admin. Copies a snapshot into a new draft; never rewrites or silently republishes history.
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Transition'}
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Transition'
       responses:
-        '200': {$ref: '#/components/responses/Route'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Route'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}/restore:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     post:
       operationId: restoreRoute
       description: Editor/admin restores a soft deleted variant, checking expectedVersion.
-      security: [{sessionCookie: [], csrfToken: []}]
-      requestBody: {$ref: '#/components/requestBodies/Version'}
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        $ref: '#/components/requestBodies/Version'
       responses:
-        '200': {$ref: '#/components/responses/Route'}
-        '400': {$ref: '#/components/responses/Error'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '409': {$ref: '#/components/responses/Error'}
-        '413': {$ref: '#/components/responses/Error'}
-        '415': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+        '200':
+          $ref: '#/components/responses/Route'
+        '400':
+          $ref: '#/components/responses/Error'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '409':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /routes/{id}/history:
     parameters:
-      - {$ref: '#/components/parameters/RouteId'}
+    - $ref: '#/components/parameters/RouteId'
     get:
       operationId: revisionHistory
-      description: Editor/admin. All revisions in descending order; each can be retrieved via getRoute?revision=UUID.
-      security: [{sessionCookie: []}]
+      description: Editor/admin. All revisions in descending order; fetch each with /routes/{id}/revisions/{revisionId}.
+      security:
+      - sessionCookie: []
       responses:
         '200':
           description: Revision metadata.
@@ -286,51 +441,44 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - {$ref: '#/components/schemas/Envelope'}
-                  - properties:
-                      data:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id: {type: string, format: uuid}
-                            revision: {type: integer}
-                            status: {type: string, enum: [draft, review, published, archived]}
-                            created_at: {type: string}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
-  /routes/{id}/report:
-    parameters:
-      - {$ref: '#/components/parameters/RouteId'}
-    get:
-      operationId: routeReport
-      description: Versioned server-rendered report. Same visibility as getRoute. Does not fetch external images or tiles.
-      parameters:
-        - {$ref: '#/components/parameters/Revision'}
-        - in: query
-          name: format
-          schema: {type: string, enum: [html, pdf], default: html}
-        - in: query
-          name: lang
-          schema: {type: string, enum: [es, it, en], default: es}
-      responses:
-        '200':
-          description: HTML print view or downloadable A4 PDF including revision ID, ordered instructions, stop/exchange memberships, observations and provenance.
-          content:
-            text/html: {schema: {type: string}}
-            application/pdf: {schema: {type: string, format: binary}}
-        '404': {$ref: '#/components/responses/Error'}
-        '422': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          revision:
+                            type: integer
+                          status:
+                            type: string
+                            enum:
+                            - draft
+                            - review
+                            - published
+                            - archived
+                          created_at:
+                            type: string
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /sources/gtt:
     get:
       operationId: gttSyncStatus
-      description: Editor/admin. Source hash, persistent download timing, ingestion counts and unresolved patterns. Read-only; cannot trigger an HTTP download.
-      security: [{sessionCookie: []}]
+      description: Editor/admin. Source hash, persistent download timing, ingestion counts and unresolved patterns.
+        Read-only; cannot trigger an HTTP download.
+      security:
+      - sessionCookie: []
       responses:
         '200':
           description: Current GTFS synchronization state.
@@ -338,23 +486,57 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - {$ref: '#/components/schemas/Envelope'}
-                  - properties:
-                      data: {type: object, properties: {archiveSha256: {type: [string, 'null']}, downloadedAt: {type: [string, 'null']}, appliedAt: {type: [string, 'null']}, summary: {type: [object, 'null']}, download: {type: [object, 'null']}, issues: {type: array, items: {type: object}}}}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: object
+                      properties:
+                        archiveSha256:
+                          type:
+                          - string
+                          - 'null'
+                        downloadedAt:
+                          type:
+                          - string
+                          - 'null'
+                        appliedAt:
+                          type:
+                          - string
+                          - 'null'
+                        summary:
+                          type:
+                          - object
+                          - 'null'
+                        download:
+                          type:
+                          - object
+                          - 'null'
+                        issues:
+                          type: array
+                          items:
+                            type: object
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /sources/gtt/{key}/document:
     parameters:
-      - in: path
-        name: key
-        required: true
-        schema: {type: string, pattern: '^gtt:[a-f0-9]{64}$'}
+    - in: path
+      name: key
+      required: true
+      schema:
+        type: string
+        pattern: ^gtt:[a-f0-9]{64}$
     get:
       operationId: gttIncomingDocument
-      description: Editor/admin. Retrieve a separately retained incoming conflict for manual comparison; no mutation/download from GTT.
-      security: [{sessionCookie: []}]
+      description: Editor/admin. Retrieve a separately retained incoming conflict for manual comparison; no mutation/download
+        from GTT.
+      security:
+      - sessionCookie: []
       responses:
         '200':
           description: Incoming normalized route document.
@@ -362,19 +544,27 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - {$ref: '#/components/schemas/Envelope'}
-                  - properties:
-                      data: {$ref: '#/components/schemas/RouteDocument'}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '404': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/RouteDocument'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /stops:
     get:
       operationId: stopRegistry
-      description: Editor/admin. Shared stop identities; immutable route snapshots retain historical names and coordinates. Maximum 20000 records.
-      security: [{sessionCookie: []}]
+      description: Editor/admin. Shared stop identities; immutable route snapshots retain historical names and coordinates.
+        Maximum 20000 records.
+      security:
+      - sessionCookie: []
       responses:
         '200':
           description: Stop registry.
@@ -382,53 +572,376 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - {$ref: '#/components/schemas/Envelope'}
-                  - properties:
-                      data:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id: {type: string, format: uuid}
-                            code: {type: [string, 'null']}
-                            name: {type: string}
-                            geometry: {type: string, description: JSON-encoded GeoJSON Point from the registry.}
-        '401': {$ref: '#/components/responses/Error'}
-        '403': {$ref: '#/components/responses/Error'}
-        '429': {$ref: '#/components/responses/Error'}
-        '500': {$ref: '#/components/responses/Error'}
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          code:
+                            type:
+                            - string
+                            - 'null'
+                          name:
+                            type: string
+                          geometry:
+                            type: string
+                            description: JSON-encoded GeoJSON Point from the registry.
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /routes/trash:
+    get:
+      operationId: trashedRoutes
+      description: Editor/admin lists soft-deleted variants and their retained revisions.
+      responses:
+        '200':
+          $ref: '#/components/responses/Routes'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+      security:
+      - sessionCookie: []
+  /routes/{id}/revisions/{revisionId}:
+    parameters:
+    - $ref: '#/components/parameters/RouteId'
+    - $ref: '#/components/parameters/RevisionId'
+    get:
+      operationId: getRevision
+      description: Anonymous/viewer can request only the current published revision. Editors can read archived snapshots.
+      responses:
+        '200':
+          $ref: '#/components/responses/Route'
+        '404':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /routes/{id}/revisions/{revisionId}/report/{lang}.{format}:
+    parameters:
+    - $ref: '#/components/parameters/RouteId'
+    - $ref: '#/components/parameters/RevisionId'
+    - in: path
+      name: lang
+      required: true
+      schema:
+        type: string
+        enum:
+        - es
+        - it
+        - en
+    - in: path
+      name: format
+      required: true
+      schema:
+        type: string
+        enum:
+        - html
+        - pdf
+    get:
+      operationId: routeReport
+      description: Versioned server-rendered report. Same visibility as getRoute. Does not fetch external images
+        or tiles.
+      responses:
+        '200':
+          description: HTML print view or downloadable A4 PDF including revision ID, ordered instructions, stop/exchange
+            memberships, observations and provenance.
+          content:
+            text/html:
+              schema:
+                type: string
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /media/photos:
+    post:
+      operationId: uploadPhotos
+      description: Editor/admin uploads one photo, maximum 12 MiB. Photo JPEG/PNG/WebP is decoded and normalized
+        with EXIF removed; video MP4/H.264 or WebM is inspected. Stored outside the public root.
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              additionalProperties: false
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Uploaded immutable asset. Attach its ID in a new route revision.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/MediaAsset'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /media/videos:
+    post:
+      operationId: uploadVideos
+      description: Editor/admin uploads one video, maximum 1 GiB. Photo JPEG/PNG/WebP is decoded and normalized
+        with EXIF removed; video MP4/H.264 or WebM is inspected. Stored outside the public root.
+      security:
+      - sessionCookie: []
+        csrfToken: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              additionalProperties: false
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Uploaded immutable asset. Attach its ID in a new route revision.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      $ref: '#/components/schemas/MediaAsset'
+        '401':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+        '413':
+          $ref: '#/components/responses/Error'
+        '415':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /media/{id}:
+    parameters:
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: getMedia
+      description: Editor/admin can inspect uploads; public/viewer can read only assets referenced in a current
+        non-trashed publication. Supports single byte ranges for video seeking.
+      parameters:
+      - in: header
+        name: Range
+        schema:
+          type: string
+          example: bytes=0-1023
+      responses:
+        '200':
+          description: Full media bytes.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            video/mp4:
+              schema:
+                type: string
+                format: binary
+            video/webm:
+              schema:
+                type: string
+                format: binary
+        '206':
+          description: Requested byte range.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            video/mp4:
+              schema:
+                type: string
+                format: binary
+            video/webm:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/Error'
+        '416':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+    head:
+      operationId: mediaHeaders
+      description: Editor/admin can inspect uploads; public/viewer can read only assets referenced in a current
+        non-trashed publication. Supports single byte ranges for video seeking.
+      parameters:
+      - in: header
+        name: Range
+        schema:
+          type: string
+          example: bytes=0-1023
+      responses:
+        '200':
+          description: Full media bytes.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            video/mp4:
+              schema:
+                type: string
+                format: binary
+            video/webm:
+              schema:
+                type: string
+                format: binary
+        '206':
+          description: Requested byte range.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            video/mp4:
+              schema:
+                type: string
+                format: binary
+            video/webm:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/Error'
+        '416':
+          $ref: '#/components/responses/Error'
+        '422':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
 components:
   securitySchemes:
-    sessionCookie: {type: apiKey, in: cookie, name: gtt_session}
-    csrfToken: {type: apiKey, in: header, name: X-CSRF-Token}
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: gtt_session
+    csrfToken:
+      type: apiKey
+      in: header
+      name: X-CSRF-Token
   parameters:
-    RouteId: {name: id, in: path, required: true, schema: {type: string, format: uuid}}
-    Revision: {name: revision, in: query, schema: {type: string, format: uuid}}
+    RouteId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    RevisionId:
+      in: path
+      name: revisionId
+      required: true
+      schema:
+        type: string
+        format: uuid
   requestBodies:
     Empty:
       required: true
       content:
-        application/json: {schema: {type: object}}
+        application/json:
+          schema:
+            type: object
     Document:
       required: true
       content:
-        application/json: {schema: {$ref: '#/components/schemas/RouteDocument'}}
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RouteDocument'
     Version:
       required: true
       content:
-        application/json: {schema: {$ref: '#/components/schemas/Version'}}
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Version'
     Transition:
       required: true
       content:
         application/json:
           schema:
             allOf:
-              - {$ref: '#/components/schemas/Version'}
-              - type: object
-                required: [revisionId]
-                properties:
-                  revisionId: {type: string, format: uuid}
-                  verified: {type: boolean, description: Must be true for publication.}
+            - $ref: '#/components/schemas/Version'
+            - type: object
+              required:
+              - revisionId
+              properties:
+                revisionId:
+                  type: string
+                  format: uuid
+                verified:
+                  type: boolean
+                  description: Must be true for publication.
   responses:
     Session:
       description: Session and current anti-CSRF token. Always use the new token after login/logout.
@@ -436,143 +949,356 @@ components:
         application/json:
           schema:
             allOf:
-              - {$ref: '#/components/schemas/Envelope'}
-              - properties:
-                  data:
-                    type: object
-                    required: [user, csrf]
-                    properties:
-                      user:
-                        oneOf:
-                          - {$ref: '#/components/schemas/User'}
-                          - {type: 'null'}
-                      csrf: {type: string}
+            - $ref: '#/components/schemas/Envelope'
+            - properties:
+                data:
+                  type: object
+                  required:
+                  - user
+                  - csrf
+                  properties:
+                    user:
+                      oneOf:
+                      - $ref: '#/components/schemas/User'
+                      - type: 'null'
+                    csrf:
+                      type: string
     Routes:
       description: Route snapshots.
       content:
         application/json:
           schema:
             allOf:
-              - {$ref: '#/components/schemas/Envelope'}
-              - properties:
-                  data: {type: array, items: {$ref: '#/components/schemas/RouteSnapshot'}}
+            - $ref: '#/components/schemas/Envelope'
+            - properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RouteSnapshot'
     Route:
       description: Route snapshot with current variant version for optimistic concurrency.
       content:
         application/json:
           schema:
             allOf:
-              - {$ref: '#/components/schemas/Envelope'}
-              - properties:
-                  data: {$ref: '#/components/schemas/RouteSnapshot'}
+            - $ref: '#/components/schemas/Envelope'
+            - properties:
+                data:
+                  $ref: '#/components/schemas/RouteSnapshot'
     Error:
-      description: Structured error. See API_RESPONSE_CATALOG.md. 429 includes Retry-After. All responses carry X-Trace-Id. Unexpected faults are opaque.
+      description: Structured error. See API_RESPONSE_CATALOG.md. 429 includes Retry-After. All responses carry
+        X-Trace-Id. Unexpected faults are opaque.
       headers:
-        Retry-After: {schema: {type: integer}, description: Seconds to wait on HTTP 429.}
-        X-Trace-Id: {schema: {type: string}}
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait on HTTP 429.
+        X-Trace-Id:
+          schema:
+            type: string
       content:
         application/json:
-          schema: {$ref: '#/components/schemas/Error'}
-          example: {error: {code: version_conflict, message: This route changed. Reload before saving.}, trace_id: 856fccf30c1b8b4a4f720a98}
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: version_conflict
+              message: This route changed. Reload before saving.
+            trace_id: 856fccf30c1b8b4a4f720a98
   schemas:
     Envelope:
       type: object
-      required: [data, trace_id]
+      required:
+      - data
+      - trace_id
       properties:
         data: {}
-        trace_id: {type: string}
+        trace_id:
+          type: string
     Error:
       type: object
-      required: [error, trace_id]
+      required:
+      - error
+      - trace_id
       properties:
         error:
           type: object
-          required: [code, message]
+          required:
+          - code
+          - message
           properties:
-            code: {type: string}
-            message: {type: string}
-        trace_id: {type: string}
+            code:
+              type: string
+            message:
+              type: string
+        trace_id:
+          type: string
     User:
       type: object
-      required: [id, email, role]
+      required:
+      - id
+      - email
+      - role
       properties:
-        id: {type: string, format: uuid}
-        email: {type: string, format: email}
-        role: {type: string, enum: [viewer, editor, admin]}
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum:
+          - viewer
+          - editor
+          - admin
     Version:
       type: object
-      required: [expectedVersion]
+      required:
+      - expectedVersion
       properties:
-        expectedVersion: {type: integer, minimum: 1}
+        expectedVersion:
+          type: integer
+          minimum: 1
     Coordinate:
       type: array
       minItems: 2
       maxItems: 2
       prefixItems:
-        - {type: number, minimum: -180, maximum: 180}
-        - {type: number, minimum: -90, maximum: 90}
+      - type: number
+        minimum: -180
+        maximum: 180
+      - type: number
+        minimum: -90
+        maximum: 90
     RouteDocument:
       type: object
-      required: [line, name, direction, kind, geometry]
+      required:
+      - line
+      - name
+      - direction
+      - kind
+      - geometry
       properties:
-        line: {type: string, minLength: 1, maxLength: 40}
-        name: {type: string, minLength: 1, maxLength: 200}
-        direction: {type: string, enum: [andata, ritorno, circular, none]}
-        kind: {type: string, enum: [service, depot_out, depot_in, deadhead, partial, circular]}
-        color: {type: string, pattern: '^#[a-fA-F0-9]{6}$', default: '#2463eb'}
+        line:
+          type: string
+          minLength: 1
+          maxLength: 40
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        direction:
+          type: string
+          enum:
+          - andata
+          - ritorno
+          - circular
+          - none
+        kind:
+          type: string
+          enum:
+          - service
+          - depot_out
+          - depot_in
+          - deadhead
+          - partial
+          - circular
+        color:
+          type: string
+          pattern: ^#[a-fA-F0-9]{6}$
+          default: '#2463eb'
         geometry:
           type: object
-          required: [type, coordinates]
+          required:
+          - type
+          - coordinates
           properties:
-            type: {const: LineString}
-            coordinates: {type: array, minItems: 2, maxItems: 50000, items: {$ref: '#/components/schemas/Coordinate'}}
+            type:
+              const: LineString
+            coordinates:
+              type: array
+              minItems: 2
+              maxItems: 50000
+              items:
+                $ref: '#/components/schemas/Coordinate'
         stops:
           type: array
           maxItems: 1000
-          description: Ordered by offsetM; same stop ID may repeat on loops. Registry canonicalizes matching external codes. Name and coordinates are snapshotted in every revision.
-          items: {$ref: '#/components/schemas/RouteStop'}
+          description: Ordered by offsetM; same stop ID may repeat on loops. Registry canonicalizes matching external
+            codes. Name and coordinates are snapshotted in every revision.
+          items:
+            $ref: '#/components/schemas/RouteStop'
         instructions:
           type: array
           maxItems: 2000
           description: Ordered by offsetM. Offsets must lie on route length (5m rounding tolerance).
           items:
             type: object
-            required: [offsetM, text]
+            required:
+            - offsetM
+            - text
             properties:
-              offsetM: {type: number, minimum: 0}
-              text: {type: string, minLength: 1, maxLength: 2000}
-              notes: {type: string, maxLength: 4000}
-              kind: {type: string, enum: [depart, straight, left, right, roundabout, arrive, note]}
-        notes: {type: string, maxLength: 12000}
+              offsetM:
+                type: number
+                minimum: 0
+              text:
+                type: string
+                minLength: 1
+                maxLength: 2000
+              notes:
+                type: string
+                maxLength: 4000
+              kind:
+                type: string
+                enum:
+                - depart
+                - straight
+                - left
+                - right
+                - roundabout
+                - arrive
+                - note
+              photos:
+                type: array
+                maxItems: 3
+                items:
+                  $ref: '#/components/schemas/MediaReference'
+                description: Optional turn photos; at most 200 references across the route.
+        notes:
+          type: string
+          maxLength: 12000
         source:
           type: object
           properties:
-            name: {type: string, maxLength: 200}
-            url: {type: string, maxLength: 1000, description: Empty or http/https URL. Never fetched by the API.}
-            license: {type: string, maxLength: 500}
-            retrievedAt: {type: string, maxLength: 40}
+            name:
+              type: string
+              maxLength: 200
+            url:
+              type: string
+              maxLength: 1000
+              description: Empty or http/https URL. Never fetched by the API.
+            license:
+              type: string
+              maxLength: 500
+            retrievedAt:
+              type: string
+              maxLength: 40
+        video:
+          anyOf:
+          - $ref: '#/components/schemas/MediaReference'
+          - type: 'null'
+          description: Optional complete-route recording. Upload first; reference is immutable with the revision.
     RouteStop:
       type: object
-      required: [id, name, coordinates, offsetM]
+      required:
+      - id
+      - name
+      - coordinates
+      - offsetM
       properties:
-        id: {type: string, format: uuid}
-        code: {type: string, maxLength: 100}
-        name: {type: string, minLength: 1, maxLength: 200}
-        coordinates: {$ref: '#/components/schemas/Coordinate'}
-        offsetM: {type: number, minimum: 0}
-        exchange: {type: boolean, default: false}
-        exchangeDirection: {type: [string, 'null'], enum: [andata, ritorno, circular, null], description: Required when exchange=true; scoped to this route membership.}
-        notes: {type: string, maxLength: 4000}
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          maxLength: 100
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+        coordinates:
+          $ref: '#/components/schemas/Coordinate'
+        offsetM:
+          type: number
+          minimum: 0
+        exchange:
+          type: boolean
+          default: false
+        exchangeDirection:
+          type:
+          - string
+          - 'null'
+          enum:
+          - andata
+          - ritorno
+          - circular
+          - null
+          description: Required when exchange=true; scoped to this route membership.
+        notes:
+          type: string
+          maxLength: 4000
     RouteSnapshot:
       allOf:
-        - {$ref: '#/components/schemas/RouteDocument'}
-        - type: object
-          required: [id, revisionId, revision, version, status, deleted, createdAt]
-          properties:
-            id: {type: string, format: uuid, description: Route variant identity.}
-            revisionId: {type: string, format: uuid}
-            revision: {type: integer, minimum: 1}
-            version: {type: integer, minimum: 1}
-            status: {type: string, enum: [draft, review, published, archived]}
-            deleted: {type: boolean}
-            createdAt: {type: string}
+      - $ref: '#/components/schemas/RouteDocument'
+      - type: object
+        required:
+        - id
+        - revisionId
+        - revision
+        - version
+        - status
+        - deleted
+        - createdAt
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: Route variant identity.
+          revisionId:
+            type: string
+            format: uuid
+          revision:
+            type: integer
+            minimum: 1
+          version:
+            type: integer
+            minimum: 1
+          status:
+            type: string
+            enum:
+            - draft
+            - review
+            - published
+            - archived
+          deleted:
+            type: boolean
+          createdAt:
+            type: string
+    MediaReference:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          format: uuid
+        caption:
+          type: string
+          maxLength: 500
+          default: ''
+        credit:
+          type: string
+          maxLength: 500
+          default: ''
+    MediaAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - photo
+          - video
+        mime:
+          type: string
+        bytes:
+          type: integer
+          minimum: 1
+        sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+        metadata:
+          type: object

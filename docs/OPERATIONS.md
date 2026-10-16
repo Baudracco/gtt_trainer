@@ -2,7 +2,8 @@
 
 ## Local development
 
-Node 24+, PHP 8.3+ with PDO PostgreSQL, mbstring and DOM, Composer 2, PostgreSQL 16/PostGIS.
+Node 24+, PHP 8.3+ with PDO PostgreSQL, mbstring, DOM, GD (JPEG/PNG/WebP), fileinfo and
+optional EXIF, ffmpeg/ffprobe, Composer 2, PostgreSQL 16/PostGIS. Docker supplies these.
 
 ```sh
 docker compose up -d db
@@ -12,7 +13,7 @@ export DATABASE_DSN='pgsql:host=127.0.0.1;port=5432;dbname=gtt_trainer'
 export DATABASE_USER=gtt_trainer
 # Set DATABASE_PASSWORD from your local .env, without committing it.
 php bin/console.php migrate
-APP_ENV=development APP_ORIGIN=http://localhost:5173 php -S 127.0.0.1:8080 -t public public/index.php
+APP_ENV=development APP_ORIGIN=http://localhost:5173 php -d upload_max_filesize=1024M -d post_max_size=1030M -d memory_limit=512M -S 127.0.0.1:8080 -t public public/index.php
 ```
 
 In another terminal, `cd web`, `npm ci`, `npm run dev`. Vite proxies `/api` to port 8080.
