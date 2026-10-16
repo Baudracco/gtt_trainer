@@ -39,7 +39,9 @@ async function prepare(page:Page,editor=false) {
 }
 
 async function pixels(page:Page) {
-  const png=await page.locator('.maplibregl-canvas').screenshot();
+  // Subpixel antialiasing in attribution/control text can contain route-like RGB
+  // values. Mask those DOM overlays while retaining every WebGL route pixel.
+  const png=await page.locator('.maplibregl-canvas').screenshot({mask:[page.locator('.maplibregl-ctrl'),page.locator('.map-label')],maskColor:'#eef0ef'});
   return page.evaluate(async data=>{
     const img=new Image();img.src='data:image/png;base64,'+data;await img.decode();
     const canvas=document.createElement('canvas');canvas.width=img.width;canvas.height=img.height;
