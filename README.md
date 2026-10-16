@@ -38,7 +38,7 @@ muestra el hash, las descargas y los pendientes. No es necesario importar el cat
 GPS en el celular requiere HTTPS y permiso de ubicación; la posición permanece en el dispositivo.
 Se conservan recorridos publicados para consulta sin conexión; el mapa de fondo necesita conexión.
 
-Documentación: [arquitectura](docs/ARCHITECTURE.md), [estado y pendientes](docs/ROADMAP.md),
+Documentación completa: [índice y manuales](docs/README.md), [arquitectura](docs/ARCHITECTURE.md), [estado y pendientes](docs/ROADMAP.md),
 [operación e importación](docs/OPERATIONS.md), [fuentes y licencias](docs/SOURCES.md),
 [OpenAPI](docs/openapi.yaml), [errores](docs/API_RESPONSE_CATALOG.md).
 
@@ -49,3 +49,5 @@ Los cambios se realizan mediante ramas y PR a `main`, con verificaciones registr
 El usuario autorizó el 15/10/2026 la creación de PR y los merges autónomos después de verificarlos.
 
 El recorrido virtual integra Panoramax y Photo Sphere Viewer: avance manual o automático de 5 a 120 km/h, panoramas 360° cuando existen y fotografías planas sin deformarlas. [Uso, límites y arquitectura](docs/VIRTUAL_TOURS.md). El catálogo inicial de 139 variantes queda conservado para trazabilidad; las 602 actuales lo incluyen completo.
+
+Referencias del código: `sh tools/generate_docs.sh` (DocBlocks PHP, TypeDoc/JSDoc y docstrings Python). La CI publica el artefacto `maintainer-docs`. [Guía del desarrollador](docs/DEVELOPER_GUIDE.md) y [qué se adaptó de Shortener](docs/SHORTENER_REUSE.md).

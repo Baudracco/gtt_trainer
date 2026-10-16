@@ -1,0 +1,23 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "GTT Trainer · Frontend domain API",
+  "entryPoints": [
+    "src/model.ts",
+    "src/geometry.ts",
+    "src/api.ts",
+    "src/importers.ts",
+    "src/cache.ts",
+    "src/virtual.ts",
+    "src/i18n.ts"
+  ],
+  "out": "../docs/generated/typescript",
+  "json": "../docs/generated/typescript/reference.json",
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "hideGenerator": true,
+  "githubPages": false,
+  "validation": { "notDocumented": true, "notExported": false },
+  "requiredToBeDocumented": ["Function", "Class", "TypeAlias"],
+  "treatWarningsAsErrors": true
+}

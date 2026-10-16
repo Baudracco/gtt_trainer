@@ -48,7 +48,7 @@ def check(condition,label):
     count+=1;print('PASS',label,flush=True)
 
 def error(result,status,code):
-    check(result[0]==status and result[1]['error']['code']==code,f'{status} {code}')
+    check(result[0]==status and result[1]['error']['code']==code and isinstance(result[1]['error'].get('number'),int),f'{status} {code} with numeric identifier')
 
 environment=dict(os.environ,APP_ENV='development',APP_ORIGIN='http://localhost:5173')
 server_log=tempfile.TemporaryFile(mode='w+')

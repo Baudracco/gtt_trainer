@@ -21,6 +21,7 @@ NAMESPACE = uuid.UUID('7c4c8e96-e6b9-43bd-bb24-05fc3ebc3fae')
 
 
 def coordinate(lon, lat):
+    """Parse a finite WGS84 coordinate pair in longitude/latitude order."""
     p = [float(lon), float(lat)]
     if not all(map(math.isfinite, p)) or abs(p[0]) > 180 or abs(p[1]) > 90:
         raise ValueError('Invalid WGS84 coordinate')
@@ -28,18 +29,23 @@ def coordinate(lon, lat):
 
 
 def distance(a, b):
+    """Great-circle distance in metres using the mean Earth radius."""
     lat1, lat2 = math.radians(a[1]), math.radians(b[1])
     h = math.sin((lat2-lat1)/2)**2 + math.cos(lat1)*math.cos(lat2)*math.sin(math.radians(b[0]-a[0])/2)**2
     return 6371008.8*2*math.asin(math.sqrt(min(1, h)))
 
 
 def offsets(points):
+    """Cumulative metre offsets in the exact provided point order."""
     out = [0.0]
     for a, b in zip(points, points[1:]): out.append(out[-1]+distance(a, b))
     return out
 
 
 def project(points, distances, point, after=0):
+    """Project a source stop after its predecessor; reject ambiguous order or >250 m discrepancy.
+
+    Never repair the source shape or connect a distant stop using a routing engine."""
     candidates = []
     cosine = math.cos(math.radians(point[1]))
     for i, (a, b) in enumerate(zip(points, points[1:])):
@@ -59,6 +65,7 @@ def project(points, distances, point, after=0):
 
 
 def document(line, name, points, source):
+    """Build an unreviewed fixed-shape candidate with empty instructions."""
     if not 2 <= len(points) <= 50000 or offsets(points)[-1] < 1: raise ValueError('Invalid fixed shape')
     return {'line': line, 'name': name, 'direction': 'none', 'kind': 'service', 'color': '#2463eb',
             'geometry': {'type': 'LineString', 'coordinates': points}, 'stops': [], 'instructions': [], 'notes': '',
@@ -66,6 +73,7 @@ def document(line, name, points, source):
 
 
 def gtfs_key(route_id, shape_id, direction, pattern):
+    """Stable identity of route ID, shape ID, direction flag and ordered stop pattern."""
     identity = json.dumps([route_id, shape_id, direction, list(pattern)], separators=(',', ':'))
     return 'gtt:' + hashlib.sha256(identity.encode()).hexdigest()
 
@@ -133,6 +141,7 @@ def gtfs(path, source, selected, direction_map, with_identity=False, agencies=No
 
 
 def tabular(path, source):
+    """Read exact ordered vertices from CSV/XLSX plus explicit optional memberships/instructions."""
     if path.suffix.lower() == '.xlsx':
         import openpyxl
         book = openpyxl.load_workbook(path, read_only=True, data_only=True)

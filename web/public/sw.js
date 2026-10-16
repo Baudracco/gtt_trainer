@@ -1,5 +1,5 @@
 /* Cache the app shell and static references only. API responses and map tiles never enter CacheStorage. */
-const CACHE = 'gtt-shell-v3';
+const CACHE = 'gtt-shell-v4';
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(['/', '/manifest.webmanifest', '/icon.svg', '/data/depot-references.json', '/data/gerbido-change-posts.json']))));
 self.addEventListener('activate', event => event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('gtt-shell-') && key !== CACHE).map(key => caches.delete(key))))));
 self.addEventListener('fetch', event => {

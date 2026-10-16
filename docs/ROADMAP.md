@@ -33,6 +33,9 @@ and merges after verification. All route geometry remains fixed and versioned.
 
 - Panoramax contextual street imagery with true 360° Photo Sphere Viewer, manual/automatic fixed-path study, adjustable 5–120 km/h speed, attribution, explicit coverage gaps and cached metadata.
 
+- Maintainer/user/deployment manuals, DocBlock-enforced PHP reference, TypeDoc/JSDoc and Python AST references generated in CI.
+- GTT-specific numeric error identifiers and independent sanitized DB/locked-file/native diagnostics; verified Shortener adaptation provenance.
+
 ## Data incorporated
 
 - 602 fixed urban bus/tram variant candidates across 137 line codes, including all 139 original Gerbido-related bus variants.

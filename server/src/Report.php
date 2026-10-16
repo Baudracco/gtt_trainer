@@ -2,8 +2,18 @@
 declare(strict_types=1);
 namespace GttTrainer;
 
+/**
+ * Self-contained escaped HTML and PDF for one exact route revision.
+ *
+ * Geometry renders as an SVG from stored vertices. Only local normalized photo
+ * thumbnails may be embedded; PDF generation does not fetch remote resources.
+ */
 final class Report
 {
+    /**
+     * Render escaped instructions, ordered stops, source attribution and the exact revision geometry.
+     * @param array $photos Local JPEG data URLs produced by MediaRepository::reportImages.
+     */
     public static function html(array $route, string $lang = 'es', array $photos = []): string
     {
         $labels = [
@@ -59,6 +69,9 @@ final class Report
         return $html;
     }
 
+    /**
+     * Generate PDF bytes from trusted report HTML with remote resources disabled.
+     */
     public static function pdf(string $html): string
     {
         $options = new \Dompdf\Options();

@@ -2,23 +2,40 @@
 declare(strict_types=1);
 namespace GttTrainer;
 
+/**
+ * Normalize untrusted route documents without repairing or rerouting their geometry.
+ *
+ * WGS84 coordinates are longitude then latitude. Stops/instructions must already be
+ * in travel order. Exchange metadata belongs to each stop membership and direction.
+ * All failures throw ApiError(validation_failed); optional empty media stays omitted.
+ */
 final class RouteValidator
 {
     public const DIRECTIONS = ['andata', 'ritorno', 'circular', 'none'];
     public const KINDS = ['service', 'depot_out', 'depot_in', 'deadhead', 'partial', 'circular'];
 
+    /**
+     * Validate and lowercase an identifier; never interpolate unvalidated input into storage paths.
+     */
     public static function uuid(mixed $id): string
     {
         if (!is_string($id) || !preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/iD', $id)) self::fail('Invalid identifier.');
         return strtolower($id);
     }
 
+    /**
+     * Require bounded UTF-8 text and trim outer whitespace, preserving internal observations.
+     */
     public static function text(mixed $value, int $max = 200, bool $required = true): string
     {
         if (!is_string($value) || mb_strlen($value) > $max || ($required && trim($value) === '')) self::fail('Invalid text value.');
         return trim($value);
     }
 
+    /**
+     * Validate one finite [longitude, latitude] WGS84 position.
+     * @return array{0:float,1:float}
+     */
     public static function coordinate(mixed $p): array
     {
         if (!is_array($p) || count($p) !== 2 || !is_numeric($p[0] ?? null) || !is_numeric($p[1] ?? null)) self::fail('Coordinates must be [longitude, latitude].');
@@ -27,6 +44,13 @@ final class RouteValidator
         return [$lng, $lat];
     }
 
+    /**
+     * Validate a complete travel-ordered fixed-route snapshot and return its canonical document.
+     *
+     * Does not sort, snap, generate turns, fetch routes or decide operational directions.
+     * Unknown fields are discarded; empty photo arrays are omitted for stable fingerprints.
+     * @throws ApiError On invalid geometry, limits, memberships, media or offsets.
+     */
     public static function document(array $data): array
     {
         $line = self::text($data['line'] ?? null, 40);
@@ -127,6 +151,11 @@ final class RouteValidator
         return $url;
     }
 
+    /**
+     * Measure great-circle distance in metres with the mean Earth radius.
+     * @param array $a WGS84 [longitude, latitude].
+     * @param array $b WGS84 [longitude, latitude].
+     */
     public static function distance(array $a, array $b): float
     {
         $lat1 = deg2rad($a[1]); $lat2 = deg2rad($b[1]);

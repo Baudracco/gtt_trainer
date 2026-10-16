@@ -14,6 +14,7 @@ import pdfplumber
 
 
 def extract(path):
+    """Extract separate physical columns, preserve page provenance and report ambiguous layouts."""
     records = []
     prior_bounds = None
     with pdfplumber.open(path) as document:

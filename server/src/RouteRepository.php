@@ -4,10 +4,25 @@ namespace GttTrainer;
 
 use PDO;
 
+/**
+ * Transactional fixed-route snapshots, ordered memberships and append-only business audit.
+ *
+ * Validate documents first. Saves always create a new revision; published content is
+ * immutable at both the repository and database-trigger layers. The variant version
+ * serializes edits and publication independently of revision numbers.
+ */
 final class RouteRepository
 {
+    /**
+     * Bind the caller connection, allowing GTFS/batch operations to share an existing transaction.
+     */
     public function __construct(private PDO $db) {}
 
+    /**
+     * List current public snapshots; editors additionally see the working draft/review.
+     * @param bool $trash Editor-only soft-deleted catalogue when true.
+     * @return array Ordered full snapshots; a variant may expose its publication and draft separately.
+     */
     public function list(bool $editor, bool $trash = false): array
     {
         $sql = 'SELECT r.*, v.version, v.deleted_at FROM route_revisions r JOIN route_variants v ON v.id = r.variant_id WHERE ';
@@ -17,6 +32,10 @@ final class RouteRepository
         return array_map($this->snapshot(...), $this->db->query($sql)->fetchAll());
     }
 
+    /**
+     * Read one visible revision; absent IDs use the latest editor-visible or published snapshot.
+     * @throws ApiError If the variant/revision is not visible to the caller.
+     */
     public function get(string $id, bool $editor, ?string $revisionId = null): array
     {
         $q = $this->db->prepare('SELECT r.*, v.version, v.deleted_at FROM route_revisions r JOIN route_variants v ON v.id = r.variant_id WHERE v.id = ?'
@@ -29,6 +48,9 @@ final class RouteRepository
         return $this->snapshot($row);
     }
 
+    /**
+     * Return all revision identities/statuses for an already authorized editor request.
+     */
     public function history(string $id): array
     {
         $q = $this->db->prepare('SELECT id, revision, status, created_at FROM route_revisions WHERE variant_id = ? ORDER BY revision DESC');
@@ -36,11 +58,19 @@ final class RouteRepository
         return $q->fetchAll();
     }
 
+    /**
+     * Read the canonical editor stop registry; historical snapshots retain their own names/positions.
+     */
     public function stops(): array
     {
         return $this->db->query("SELECT id, external_code AS code, name, ST_AsGeoJSON(position)::json AS geometry FROM stops WHERE deleted_at IS NULL ORDER BY name LIMIT 20000")->fetchAll();
     }
 
+    /**
+     * Create a variant and its first draft, including ordered stops, media links and audit.
+     * @param array $document A RouteValidator-normalized document.
+     * @param string|null $actor Account UUID, or null for trusted automatic source ingestion.
+     */
     public function create(array $document, ?string $actor): array
     {
         return $this->transaction(function () use ($document, $actor) {
@@ -54,11 +84,18 @@ final class RouteRepository
         });
     }
 
+    /**
+     * Import the complete validated batch atomically; one failure rolls back every variant.
+     */
     public function createMany(array $documents, string $actor): array
     {
         return $this->transaction(fn() => array_map(fn($document) => $this->create($document, $actor), $documents));
     }
 
+    /**
+     * Create the next immutable draft after checking the expected variant version.
+     * @throws ApiError On stale version, deleted variant or conflicting stop identity.
+     */
     public function save(string $id, int $version, array $document, ?string $actor): array
     {
         return $this->transaction(function () use ($id, $version, $document, $actor) {
@@ -67,6 +104,9 @@ final class RouteRepository
         });
     }
 
+    /**
+     * Copy a historical snapshot into a new draft; never mutate or reactivate the old row.
+     */
     public function revert(string $id, int $version, string $revisionId, string $actor): array
     {
         return $this->transaction(function () use ($id, $version, $revisionId, $actor) {
@@ -76,6 +116,12 @@ final class RouteRepository
         });
     }
 
+    /**
+     * Move draft to review or review to publication under the variant lock.
+     *
+     * Publishing archives the previous publication and updates its pointer in the same
+     * transaction. The HTTP layer additionally requires admin and explicit verification.
+     */
     public function transition(string $id, int $version, string $revisionId, string $action, string $actor): array
     {
         return $this->transaction(function () use ($id, $version, $revisionId, $action, $actor) {
@@ -98,6 +144,9 @@ final class RouteRepository
         });
     }
 
+    /**
+     * Soft-delete or restore the variant, keeping every revision and publication pointer.
+     */
     public function trash(string $id, int $version, bool $restore, string $actor): void
     {
         $this->transaction(function () use ($id, $version, $restore, $actor) {
@@ -107,12 +156,18 @@ final class RouteRepository
         });
     }
 
+    /**
+     * Append a business event on the current transaction; audit failure rolls back the mutation.
+     */
     public function audit(?string $actor, string $event, ?string $id = null, array $details = []): void
     {
         $this->db->prepare("INSERT INTO audit_events(actor_id,event,target_type,target_id,details) VALUES (?,?,'route',?,?::jsonb)")
             ->execute([$actor, $event, $id, json_encode($details, JSON_THROW_ON_ERROR)]);
     }
 
+    /**
+     * Archive the former working copy and append a complete new snapshot.
+     */
     private function newDraft(string $id, array $document, ?string $actor, string $event): array
     {
         $this->db->prepare("UPDATE route_revisions SET status = 'archived' WHERE variant_id = ? AND status IN ('draft','review')")->execute([$id]);
@@ -124,6 +179,9 @@ final class RouteRepository
         return $this->get($id, true, $revision);
     }
 
+    /**
+     * Canonicalize shared stop identities while retaining immutable membership snapshots and media links.
+     */
     private function insertRevision(string $id, int $number, array $document, ?string $actor): string
     {
         // The registry shares stop identity; each revision retains its own immutable stop snapshot.
@@ -163,6 +221,9 @@ final class RouteRepository
         return $q->fetchColumn();
     }
 
+    /**
+     * Lock the variant row and reject a stale expectedVersion before any mutation.
+     */
     private function lock(string $id, int $version, bool $allowDeleted = false): void
     {
         $q = $this->db->prepare('SELECT version, deleted_at FROM route_variants WHERE id = ? FOR UPDATE');
@@ -186,6 +247,9 @@ final class RouteRepository
         ]);
     }
 
+    /**
+     * Join an existing caller transaction; only commit/rollback a transaction owned by this method.
+     */
     private function transaction(callable $work): mixed
     {
         $ownsTransaction = !$this->db->inTransaction();
