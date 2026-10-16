@@ -1,6 +1,6 @@
 # State and roadmap
 
-Last updated 2026-10-15. Work is traced through PRs and CI; the user authorized autonomous PRs
+Last updated 2026-10-16. Work is traced through PRs and CI; the user authorized autonomous PRs
 and merges after verification. All route geometry remains fixed and versioned.
 
 ## Implemented in the study/navigation MVP
@@ -20,6 +20,13 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Published route cache in IndexedDB, app shell/reference cache; no unlicensed offline tile cache.
 - Docker API/web/database deployment and checksum-based, repeatable migrations.
 - Automated React/geometry/import/contract checks and real PostGIS/HTTP CI verification.
+- Automatic official GTT downloads with ZIP SHA-256 comparison, conditional HTTP, a persistent
+  minimum 24h cooldown including failed attempts, single-worker locking and last-good recovery.
+- Idempotent source-linked GTFS ingestion: changed geometry becomes a new draft; unchanged
+  routes, publications, manual drafts, trash decisions and missing/rejected source history survive.
+- Editor source status and incoming-conflict export; source keys include distinct stop patterns.
+- Chromium desktop/mobile WebGL, overlay pixels, ordered map editing and native GPS checks;
+  temporary GPS unavailability retains the watcher and active route for automatic recovery.
 
 ## Data incorporated
 

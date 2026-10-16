@@ -65,7 +65,12 @@ def document(line, name, points, source):
             'source': source}
 
 
-def gtfs(path, source, selected, direction_map):
+def gtfs_key(route_id, shape_id, direction, pattern):
+    identity = json.dumps([route_id, shape_id, direction, list(pattern)], separators=(',', ':'))
+    return 'gtt:' + hashlib.sha256(identity.encode()).hexdigest()
+
+
+def gtfs(path, source, selected, direction_map, with_identity=False):
     with zipfile.ZipFile(path) as z:
         entries = z.infolist()
         if len(entries) > 200 or sum(i.file_size for i in entries) > 250*1024*1024:
@@ -91,6 +96,8 @@ def gtfs(path, source, selected, direction_map):
         documents = []
         skipped = []
         for (route_id, shape_id, direction, pattern), trip in sorted(distinct.items()):
+            identity = {'key': gtfs_key(route_id, shape_id, direction, pattern), 'route': route_id,
+                        'shape': shape_id, 'direction': direction, 'stopIds': list(pattern)}
             line = lines[route_id]
             points = [point for _, point in sorted(shapes[shape_id])]
             name = f"{trip.get('trip_headsign') or line['route_long_name']} · {shape_id} · GTFS dir {direction or '?'}"
@@ -109,9 +116,10 @@ def gtfs(path, source, selected, direction_map):
                     result['stops'].append({'id': str(uuid.uuid5(NAMESPACE, 'gtt-stop-'+stop_id)),
                         'code': stop.get('stop_code') or 'GTFS:'+stop_id, 'name': stop['stop_name'], 'coordinates': position,
                         'offsetM': previous, 'exchange': False, 'exchangeDirection': None, 'notes': stop.get('stop_desc', '')})
+                if with_identity: result['_gtfs'] = identity
                 documents.append(result)
             except (ValueError, KeyError) as error:
-                skipped.append({'route': route_id, 'shape': shape_id, 'reason': str(error)})
+                skipped.append({**(identity if with_identity else {'route': route_id, 'shape': shape_id}), 'reason': str(error)})
         return documents, skipped
 
 

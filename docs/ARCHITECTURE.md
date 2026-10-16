@@ -1,5 +1,11 @@
 # Architecture decisions
 
+Official GTFS refresh is an independent Docker worker, described in [GTFS_SYNC.md](GTFS_SYNC.md).
+It checks ZIP SHA-256 after a durable minimum 24h download cooldown and uses the internal CLI
+to create source-linked candidate revisions transactionally. It never changes a published
+snapshot or replaces an editorial working draft. Download state survives in `serverdata`;
+source identity, conflicts, missing patterns and accepted revisions are tracked in PostGIS.
+
 - **Web first**: Vite/React/TypeScript PWA, responsive desktop/mobile, later optional Capacitor if background location requires native integrations.
 - **Cartography**: MapLibre GL JS, OpenStreetMap-derived basemaps from a compliant configurable tile provider. Public OSM tile service is not a production CDN or guaranteed offline source.
 - **Server**: PHP 8.3+ PSR-4 domain services, HTTP controllers, repositories, migrations, PDO prepared queries.

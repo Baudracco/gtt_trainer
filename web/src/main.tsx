@@ -3,12 +3,13 @@ import {createRoot} from 'react-dom/client';
 import {RouteMap} from './RouteMap';
 import {Editor} from './Editor';
 import {References} from './References';
+import {SyncStatus} from './SyncStatus';
 import {emptyRoute, groupStops, type Coordinate, type Direction, type RouteDocument, type RouteSnapshot, type User} from './model';
 import {errorText, translator, type Language, type TextKey} from './i18n';
 import * as api from './api';
 import {cachePublished, readPublished} from './cache';
 import {downloadDocument, importFile} from './importers';
-import {matchFix, measure, nearestOffset, type Progress} from './geometry';
+import {matchFix, measure, nearestOffset, pointAt, type Progress} from './geometry';
 import './style.css';
 
 function preference<T extends string>(key: string, allowed: readonly T[], fallback: T): T {
@@ -25,7 +26,7 @@ export function App() {
   const [editing,setEditing] = useState<RouteDocument | null>(null), [previous,setPrevious] = useState<RouteSnapshot | null>(null), [mode,setMode] = useState<'vertex' | 'stop' | null>(null);
   const [imports,setImports] = useState<RouteDocument[] | null>(null), [busy,setBusy] = useState(false), [trash,setTrash] = useState(false), [history,setHistory] = useState<{id:string;revision:number;status:string;created_at:string}[] | null>(null), [verified,setVerified] = useState(false);
   const [nav,setNav] = useState(false), [startOffset,setStartOffset] = useState(0), [progress,setProgress] = useState<Progress | null>(null), [position,setPosition] = useState<Coordinate | null>(null), [follow,setFollow] = useState(true), [voice,setVoice] = useState(false);
-  const [tab,setTab] = useState<'routes' | 'references'>('routes');
+  const [tab,setTab] = useState<'routes' | 'references' | 'sources'>('routes');
   const progressRef = useRef<Progress | null>(null), spoken = useRef(''), initialized = useRef(false);
   const active = routes.find(r => r.revisionId === activeId) ?? null;
   const editor = user?.role === 'editor' || user?.role === 'admin';
@@ -58,14 +59,22 @@ export function App() {
     if (!nav || !activeMeasure) return;
     if (!navigator.geolocation) {setError(t('gpsError')); setNav(false); return;}
     const watcher = navigator.geolocation.watchPosition(fix => {
-      const p: Coordinate = [fix.coords.longitude,fix.coords.latitude]; setPosition(p);
+      const p: Coordinate = [fix.coords.longitude,fix.coords.latitude];
       const next = matchFix(activeMeasure,{coordinate:p,accuracy:fix.coords.accuracy,heading:fix.coords.heading,speed:fix.coords.speed,timestamp:fix.timestamp},progressRef.current,startOffset);
-      progressRef.current = next; setProgress(next);
-    },() => {setError(t('gpsError')); setNav(false);},{enableHighAccuracy:true,maximumAge:0,timeout:15000});
+      progressRef.current = next; setProgress(next); if (next.state !== 'weak-gps') setPosition(p);
+    },error => {
+      if (error.code === 1) {setError(t('gpsError'));setNav(false);return;}
+      // Position-unavailable and timeout are recoverable watch errors. Keep the
+      // selected route and watcher; the next valid fix can resume tracking.
+      const weak: Progress = progressRef.current ? {...progressRef.current,state:'weak-gps'} : {offsetM:startOffset,timestamp:0,coordinate:pointAt(activeMeasure,startOffset),distanceM:0,segment:0,state:'weak-gps'};
+      if (progressRef.current) progressRef.current=weak;
+      setProgress(weak);
+    },{enableHighAccuracy:true,maximumAge:0,timeout:15000});
     return () => navigator.geolocation.clearWatch(watcher);
   },[nav,activeMeasure,startOffset,t]);
   const nextStep = active?.instructions.find(s => s.offsetM > (progress?.offsetM ?? startOffset) + 8);
   const nextStop = active?.stops.find(s => s.offsetM > (progress?.offsetM ?? startOffset) + 10);
+  const navTitle = nextStep?.text ?? t(progress?.state === 'tracking' && (activeMeasure?.length ?? Infinity) - progress.offsetM < 15 ? 'arrive' : 'continueRoute');
   useEffect(() => {
     if (!nav || !voice || !progress || !('speechSynthesis' in window)) return;
     const key = progress.state !== 'tracking' ? progress.state : nextStep && nextStep.offsetM - progress.offsetM < 100 ? `${activeId}-${nextStep.offsetM}` : '';
@@ -99,11 +108,11 @@ export function App() {
   return <div className="app">
     <header className="topbar"><a className="brand" href="#"><span className="brand-symbol">G</span><span>GTT <b>TRAINER</b><small>{t('study')}</small></span></a><div className="header-tools"><select aria-label="Language" value={lang} onChange={e => setLang(e.target.value as Language)}><option value="es">ES</option><option value="it">IT</option><option value="en">EN</option></select><button className="icon-button" aria-label={theme === 'light' ? 'Dark theme' : 'Light theme'} onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>◐</button>{user ? <button disabled={busy} onClick={() => void run(async () => {setNav(false);setPosition(null);await api.logout();setUser(null);setEditing(null);setImports(null);setTrash(false);await refresh();})}>{t('logout')}</button> : <button disabled={offline} onClick={() => setLoginOpen(true)}>{t('login')}</button>}</div></header>
     <div className="workspace"><aside className="sidebar">
-      <nav className="tabs"><button className={tab === 'routes' ? 'selected' : ''} onClick={() => setTab('routes')}>{t('routes')}</button><button className={tab === 'references' ? 'selected' : ''} onClick={() => setTab('references')}>{t('references')}</button></nav>
+      <nav className="tabs"><button className={tab === 'routes' ? 'selected' : ''} onClick={() => setTab('routes')}>{t('routes')}</button><button className={tab === 'references' ? 'selected' : ''} onClick={() => setTab('references')}>{t('references')}</button>{editor && <button className={tab === 'sources' ? 'selected' : ''} onClick={() => setTab('sources')}>{t('syncTitle')}</button>}</nav>
       {offline && <div className="alert">{t('offline')}<p className="muted">{t('offlineHelp')}</p></div>}
       {error && <div className="alert error" role="alert">{error}<button aria-label={t('close')} onClick={() => setError('')}>×</button></div>}
       {notice && <p className="alert success" role="status">{notice}</p>}
-      {editing ? <Editor document={editing} setDocument={setEditing} previous={previous} knownStops={allGroups.map(g => g.stop)} mode={mode} setMode={setMode} save={save} close={() => {setEditing(null);setMode(null);}} t={t}/> : tab === 'references' ? <References t={t} onAuthor={editor && !offline && !nav ? (doc => {setPrevious(null);setEditing(doc);setTab('routes');}) : undefined}/> : <>
+      {editing ? <Editor document={editing} setDocument={setEditing} previous={previous} knownStops={allGroups.map(g => g.stop)} mode={mode} setMode={setMode} save={save} close={() => {setEditing(null);setMode(null);}} t={t}/> : tab === 'sources' && editor ? <SyncStatus t={t}/> : tab === 'references' ? <References t={t} onAuthor={editor && !offline && !nav ? (doc => {setPrevious(null);setEditing(doc);setTab('routes');}) : undefined}/> : <>
         <section className="route-browser"><div className="eyebrow">TORINO · GTT</div><h1>{t('heading')}</h1><div className="search"><span>⌕</span><input type="search" aria-label={t('search')} placeholder={t('search')} value={search} onChange={e => setSearch(e.target.value)}/></div>
           <div className="field-grid filters"><select aria-label={t('direction')} value={direction} onChange={e => setDirection(e.target.value as Direction | '')}><option value="">{t('any')}</option>{['andata','ritorno','circular'].map(v => <option key={v} value={v}>{t(v as TextKey)}</option>)}</select><button disabled={loading || busy || nav} onClick={() => void run(async () => {setUser(await api.session());await refresh(trash);})}>{t('reload')}</button></div>
           <div className="button-row visibility"><button onClick={() => setVisible(routes.map(r => r.revisionId))}>{t('all')}</button><button onClick={() => setVisible([])}>{t('none')}</button><button onClick={() => setVisible(selected)}>{t('selected')}</button></div>
@@ -133,7 +142,7 @@ export function App() {
     </aside>
     <main className="map-panel"><RouteMap routes={visibleRoutes} active={activeId} groups={shownGroups} showStops={showStops} edit={editing} drawMode={mode} onPoint={point} onStop={setStopId} position={position} follow={nav && follow} t={t}/><div className="map-label"><span className="live-dot"/>{t('study')}</div>
       {mode && <div className="draw-hint">{t(mode === 'vertex' ? 'vertexHint' : 'stopHint')}<button onClick={() => setMode(null)}>{t('stopDrawing')}</button></div>}
-      {nav && <div className="navigation-hud" aria-live="polite"><div className={`nav-state ${progress?.state ?? 'waiting'}`}>{t(progress?.state ?? 'waiting')}</div><h2>{nextStep?.text ?? t('arrive')}</h2>{nextStep && <p>{Math.max(0,Math.round(nextStep.offsetM-(progress?.offsetM ?? startOffset)))} m</p>}{nextStop && <p>{t('nextStop')}: <b>{nextStop.name}</b>{nextStop.exchange && <> · {t('exchange')}</>}</p>}<progress max={activeMeasure?.length || 1} value={progress?.offsetM ?? startOffset}/><small>{t('remaining')}: {(((activeMeasure?.length ?? 0)-(progress?.offsetM ?? startOffset))/1000).toFixed(2)} km</small></div>}
+      {nav && <div className="navigation-hud" aria-live="polite"><div className={`nav-state ${progress?.state ?? 'waiting'}`}>{t(progress?.state ?? 'waiting')}</div><h2>{navTitle}</h2>{nextStep && <p>{Math.max(0,Math.round(nextStep.offsetM-(progress?.offsetM ?? startOffset)))} m</p>}{nextStop && <p>{t('nextStop')}: <b>{nextStop.name}</b>{nextStop.exchange && <> · {t('exchange')}</>}</p>}<progress max={activeMeasure?.length || 1} value={progress?.offsetM ?? startOffset}/><small>{t('remaining')}: {(((activeMeasure?.length ?? 0)-(progress?.offsetM ?? startOffset))/1000).toFixed(2)} km</small></div>}
     </main></div>
     {loginOpen && <div className="modal-backdrop"><form className="modal" onSubmit={e => {e.preventDefault();setAuthBusy(true);void run(async () => {setUser(await api.login(email,password));setPassword('');setLoginOpen(false);await refresh();}).finally(() => setAuthBusy(false));}}><h2>{t('login')}</h2>{error && <p className="alert error" role="alert">{error}</p>}<label>{t('email')}<input autoFocus type="email" autoComplete="username" required value={email} onChange={e => setEmail(e.target.value)}/></label><label>{t('password')}<input type="password" autoComplete="current-password" required value={password} onChange={e => setPassword(e.target.value)}/></label><div className="button-row"><button type="submit" className="primary" disabled={authBusy}>{t('login')}</button><button type="button" onClick={() => {setLoginOpen(false);setPassword('');}}>{t('cancel')}</button></div></form></div>}
     {imports && <div className="modal-backdrop"><section className="modal"><h2>{t('importPreview')}</h2><p>{t('importHelp')}</p><ul>{imports.map((doc,i) => <li key={i}>{doc.line} · {doc.name} · {doc.geometry.coordinates.length} · {t(doc.direction === 'none' ? 'unspecified' : doc.direction)}</li>)}</ul><div className="button-row"><button disabled={busy} className="primary" onClick={() => void run(async () => {const result = await api.request<RouteSnapshot[]>('/imports','POST',{documents:imports});setImports(null);await refresh(false,result[0]?.revisionId);setVisible(old => [...new Set([...old,...result.map(r => r.revisionId)])]);setNotice(t('saved'));})}>{t('save')}</button><button disabled={busy} onClick={() => setImports(null)}>{t('cancel')}</button></div></section></div>}

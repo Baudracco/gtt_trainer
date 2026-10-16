@@ -68,6 +68,10 @@ try:
     anonymous=Client();anonymous.send('/session')
     error(anonymous.send('/routes','POST',{}),401,'authentication_required')
     error(clients['viewer'].send('/routes','POST',{}),403,'permission_denied')
+    error(anonymous.send('/sources/gtt'),401,'authentication_required')
+    error(clients['viewer'].send('/sources/gtt'),403,'permission_denied')
+    check(clients['editor'].send('/sources/gtt')[0]==200,'Editor can inspect GTFS synchronization status')
+    error(anonymous.send('/sources/gtt/gtt:'+('a'*64)+'/document'),401,'authentication_required')
     doc={'line':'HTTP-'+str(uuid.uuid4())[:8],'name':'Synthetic HTTP test','direction':'andata','kind':'service','color':'#2463eb',
          'geometry':{'type':'LineString','coordinates':[[7.6,45],[7.61,45]]},'source':{'name':'Synthetic test fixture'},
          'stops':[],'notes':'<script>alert(1)</script>','instructions':[{'offsetM':0,'text':'Depart'},{'offsetM':700,'text':'Arrive'}]}

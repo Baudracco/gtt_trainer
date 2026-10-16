@@ -47,3 +47,20 @@ it('offers authoring only after an enabled editor session',async()=>{
   expect(screen.getByRole('region',{name:'Editar'})).toBeTruthy();
   expect(screen.getByRole('button',{name:'Guardar borrador'})).toBeTruthy();
 });
+it('does not announce arrival for an imported route without instructions',async()=>{
+  render(<App/>);await screen.findByRole('button',{name:/Route 2/});
+  fireEvent.click(screen.getByRole('button',{name:'Iniciar navegación'}));
+  expect(screen.getByRole('heading',{name:'Seguí el trazado indicado'})).toBeTruthy();
+  expect(screen.queryByRole('heading',{name:'Fin del recorrido'})).toBeNull();
+});
+it('keeps the watcher and selected route after a temporary GPS failure, then recovers',async()=>{
+  let success:PositionCallback | undefined, failure:PositionErrorCallback | undefined;
+  const watchPosition=vi.fn((ok:PositionCallback,error:PositionErrorCallback)=>{success=ok;failure=error;return 7;});const clearWatch=vi.fn();
+  Object.defineProperty(navigator,'geolocation',{configurable:true,value:{watchPosition,clearWatch}});
+  render(<App/>);await screen.findByRole('button',{name:/Route 2/});fireEvent.click(screen.getByRole('button',{name:'Iniciar navegación'}));
+  failure!({code:2} as GeolocationPositionError);
+  await screen.findByText('Señal GPS insuficiente');expect(clearWatch).not.toHaveBeenCalled();
+  expect(screen.getByRole('button',{name:/Route 5/}).hasAttribute('disabled')).toBe(true);
+  success!({coords:{longitude:7.6001,latitude:45,accuracy:5,heading:90,speed:5},timestamp:Date.now()} as GeolocationPosition);
+  await screen.findByText('Siguiendo el trazado fijo');expect(watchPosition).toHaveBeenCalledTimes(1);
+});

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__).'/vendor/autoload.php';
-use GttTrainer\{Database, RouteRepository, RouteValidator};
+use GttTrainer\{Database, GtfsSynchronizer, RouteRepository, RouteValidator};
 
 try {
     $db = Database::connect();
@@ -19,6 +19,12 @@ try {
         $hash = password_hash($password, PASSWORD_ARGON2ID);
         $db->prepare('INSERT INTO users(email,password_hash,role) VALUES (?,?,?)')->execute([$email,$hash,$role]);
         echo "User created.\n";
+    } elseif ($command === 'gtfs:sync') {
+        $path = $argv[2] ?? '';
+        if (!is_file($path) || filesize($path) > 33554432) throw new RuntimeException('Usage: gtfs:sync BUNDLE.json (max 32 MiB)');
+        Database::migrate($db, dirname(__DIR__).'/migrations');
+        $bundle = json_decode(file_get_contents($path), true, 128, JSON_THROW_ON_ERROR);
+        echo json_encode((new GtfsSynchronizer($db))->apply($bundle), JSON_THROW_ON_ERROR)."\n";
     } elseif ($command === 'import') {
         $path = $argv[2] ?? ''; $email = strtolower($argv[3] ?? '');
         $q = $db->prepare("SELECT id FROM users WHERE email = ? AND enabled AND role IN ('editor','admin')"); $q->execute([$email]);
@@ -32,7 +38,7 @@ try {
             echo $route['id']." draft\n";
         }
     } else {
-        echo "Commands: migrate | user:create EMAIL ROLE < password | import FILE EDITOR_EMAIL\n";
+        echo "Commands: migrate | user:create EMAIL ROLE < password | import FILE EDITOR_EMAIL | gtfs:sync BUNDLE.json\n";
         exit(1);
     }
 } catch (Throwable $error) {

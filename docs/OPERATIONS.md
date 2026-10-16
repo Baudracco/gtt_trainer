@@ -29,6 +29,13 @@ directional change posts, write instructions/observations and submit review. Adm
 after checking the fixed streets and maneuvers against evidence. Every save creates a new
 snapshot; stale `expectedVersion` returns 409. Revert copies an older snapshot to a new draft.
 
+Docker's `gtfs-sync` service loads the bundled catalogue and checks the official GTT source
+automatically, with SHA-256 comparison and a persistent minimum 24h cooldown. Do not also
+run the initial manual `import` command, which deliberately creates separate user variants.
+See [GTFS synchronization](GTFS_SYNC.md) for state retention, interval configuration,
+editorial conflicts, missing patterns and pausing downloads. Code and changes are tracked
+in GitHub; runtime source provenance and each accepted route update are recorded in PostGIS.
+
 Map import preview does not persist anything until Save. `/imports` validates the complete
 batch and uses one transaction; any failure rolls everything back. CLI imports are also atomic.
 LineString order is preserved. GPX segments become separate variants; MultiLineStrings and
@@ -80,7 +87,11 @@ php tests/run.php
 fresh `gtt_test` database, runs migrations twice, verifies immutable publication and ordered
 shared stops, then `python3 server/tests/test_http.py` verifies CSRF, roles, session rotation,
 HTTP PDF download, draft visibility, conflicts and rate limits. Frontend tests exercise actual
-React controls with a map mock; they are not a WebGL/device field test.
+React controls with a map mock. `npm run test:e2e` (after `npm run build` and
+`npx playwright install chromium`) additionally exercises real MapLibre/WebGL and native
+browser GPS in Chromium desktop/mobile emulation, including recovery from temporary GPS
+errors. It uses synthetic routes/empty tiles for deterministic checks and stores screenshots
+and failure traces in the CI `browser-evidence` artifact. This is not an on-road device test.
 
 `python3 tools/test_imports.py` checks parser behavior and source coverage. Validate the full
 OpenAPI with `python3 -m openapi_spec_validator docs/openapi.yaml`. The CI workflow records each
