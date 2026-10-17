@@ -1,0 +1,6 @@
+FROM python:3.12-slim-bookworm
+WORKDIR /opt/gtt
+COPY tools/requirements.txt /opt/gtt/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY tools/ /opt/gtt/tools/
+ENTRYPOINT ["python3", "/opt/gtt/tools/import_private_references.py", "--output-dir", "/data/references"]

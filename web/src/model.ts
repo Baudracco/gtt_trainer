@@ -25,6 +25,17 @@ export type RouteStop = {
   exchangeDirection: Direction | null;
   notes: string;
 };
+/** Literal source evidence retained inside each revision, independently of future catalogue updates. */
+export type SourceProvenance = {
+  documentSha256: string;
+  referenceId: string;
+  movementId: string;
+  pages: number[];
+  title: string;
+  text: string;
+  textSha256: string;
+  streets: string[];
+};
 /** Editable complete fixed-route content. Vertex, stop and instruction order are semantically significant. */
 export type RouteDocument = {
   line: string;
@@ -36,7 +47,13 @@ export type RouteDocument = {
   stops: RouteStop[];
   instructions: Instruction[];
   notes: string;
-  source: { name: string; url: string; license: string; retrievedAt: string };
+  source: {
+    name: string;
+    url: string;
+    license: string;
+    retrievedAt: string;
+    provenance?: SourceProvenance;
+  };
   video?: MediaReference | null;
 };
 /** Server revision identity/status plus the variant optimistic-lock version. GPS selects one revisionId. */

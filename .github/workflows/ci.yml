@@ -75,6 +75,7 @@ jobs:
       - run: pip install -r tools/requirements.txt openapi-spec-validator
       - run: python tools/test_imports.py
       - run: python tools/test_catalogue.py
+      - run: python tools/test_depot_movements.py
       - run: python tools/test_sync_gtfs.py
       - run: python tools/test_verify_gtt_web.py
       - run: openapi-spec-validator docs/openapi.yaml
@@ -116,6 +117,7 @@ jobs:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
       - run: docker compose up --build -d
+      - run: docker compose --profile tools run --rm reference-import --help
       - name: Wait for automatic catalogue synchronization and create isolated CI user
         run: |
           for attempt in $(seq 1 60); do

@@ -19,6 +19,7 @@ las fotos de calle y el GPS nunca recalculan una publicación.
 | Panoramax, panoramas 360°, velocidades y cobertura | [Recorridos virtuales](VIRTUAL_TOURS.md) |
 | Fotos por giro, video, acceso privado y URLs | [Material visual](MEDIA_AND_URLS.md) |
 | Datos incorporados, procedencia y límites | [Fuentes](SOURCES.md) |
+| Trazar y continuar movimientos individuales de depósito | [Movimientos DAPER](DEPOT_MOVEMENTS.md) |
 | API completa | [OpenAPI](openapi.yaml) y [catálogo de errores](API_RESPONSE_CATALOG.md) |
 | Qué se adaptó del proyecto Shortener | [Reutilización verificada](SHORTENER_REUSE.md) |
 | Estado de implementación y datos aún pendientes | [Hoja de ruta](ROADMAP.md) |
@@ -34,9 +35,9 @@ Las 139 variantes del primer lote siguen incluidas y su manifiesto original qued
 como evidencia. Una línea puede tener varios shapes, sentidos, parciales y patrones
 de paradas; 633 variantes no significa 633 líneas. Todas se importan como borradores.
 
-DAPER aporta 133 bloques de referencia con página y hash; todavía requieren
-geometrías verificadas por movimiento. La foto de Gerbido aporta 30 combinaciones
-literales de puesto/acceso, con sentido operativo pendiente. Los PDF de servicios,
+El material operativo aportado se importa al volumen privado y requiere sesión.
+El catálogo permite iniciar y continuar trazados individuales, que requieren
+geometrías verificadas por movimiento. Los puestos y accesos deben confirmar su sentido operativo. Los PDF de servicios,
 tranvías y turnos que el usuario aún no entregó siguen como trabajo de datos pendiente.
 
 ## Referencias generadas

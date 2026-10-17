@@ -11,6 +11,7 @@ import time
 import urllib.error
 import urllib.request
 import uuid
+import hashlib
 
 ROOT=Path(__file__).resolve().parents[2]
 PHP=os.environ.get('PHP_BINARY','php')
@@ -50,7 +51,16 @@ def check(condition,label):
 def error(result,status,code):
     check(result[0]==status and result[1]['error']['code']==code and isinstance(result[1]['error'].get('number'),int),f'{status} {code} with numeric identifier')
 
-environment=dict(os.environ,APP_ENV='development',APP_ORIGIN='http://localhost:5173')
+reference_temp=tempfile.TemporaryDirectory()
+reference_root=Path(reference_temp.name)
+fixture=json.loads((ROOT/'web/e2e/fixtures/depot.json').read_text())
+for kind,data,key in [('parts',fixture['movements'],fixture['index']['parts'][0]['sha256']),('blocks',fixture['blocks'],fixture['index']['blocksSha256'])]:
+    (reference_root/kind).mkdir()
+    raw=(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n').encode()
+    assert hashlib.sha256(raw).hexdigest()==key
+    (reference_root/kind/(key+'.json')).write_bytes(raw)
+(reference_root/'index.json').write_text(json.dumps(fixture['index']))
+environment=dict(os.environ,APP_ENV='development',APP_ORIGIN='http://localhost:5173',REFERENCE_DIR=str(reference_root))
 server_log=tempfile.TemporaryFile(mode='w+')
 server=subprocess.Popen([PHP,'-S',f'127.0.0.1:{PORT}','-t',str(ROOT/'server/public'),str(ROOT/'server/public/index.php')],env=environment,stdout=server_log,stderr=server_log)
 try:
@@ -71,6 +81,14 @@ try:
         clients[role]=c
     anonymous=Client();anonymous.send('/session')
     error(anonymous.send('/routes','POST',{}),401,'authentication_required')
+    error(anonymous.send('/references/depot'),401,'authentication_required')
+    part_hash=fixture['index']['parts'][0]['sha256']
+    error(anonymous.send('/references/depot/parts/'+part_hash),401,'authentication_required')
+    check(clients['viewer'].send('/references/depot')[1]['data']['movementCount']==3,'Enabled viewer can read the private reference index')
+    check(clients['viewer'].send('/references/depot/parts/'+part_hash)[1]['data'][0]['id']=='synthetic-out-1','Private source part is authenticated and checksum checked')
+    check(clients['viewer'].send('/references/depot/blocks/'+fixture['index']['blocksSha256'])[1]['data']['references'][0]['line']=='S1','Private source blocks retain their generation')
+    check(clients['viewer'].send('/references/changes')[1]['data']['posts']==[],'An unimported change-post reference is explicitly empty')
+    error(clients['viewer'].send('/references/depot/parts/'+('0'*64)),404,'not_found')
     error(clients['viewer'].send('/routes','POST',{}),403,'permission_denied')
     error(anonymous.send('/sources/gtt'),401,'authentication_required')
     error(clients['viewer'].send('/sources/gtt'),403,'permission_denied')

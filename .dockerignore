@@ -10,3 +10,4 @@
 **/*.tsbuildinfo
 **/__pycache__
 **/*.log
+private-input

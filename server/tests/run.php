@@ -25,6 +25,16 @@ require __DIR__.'/diagnostics.php';
 $base = fixture();
 $valid = RouteValidator::document($base);
 check($valid['geometry']['coordinates'] === $base['geometry']['coordinates'], 'Fixed geometry preserved exactly');
+$evidenced = $base;
+$evidenced['source']['provenance'] = ['documentSha256'=>str_repeat('a',64),'referenceId'=>'daper-reference','movementId'=>'daper-movement',
+    'pages'=>[2], 'title'=>'Depot A - Stop B','text'=>'Road A - Road B','textSha256'=>hash('sha256',"Depot A - Stop B\nRoad A - Road B"),'streets'=>['Road A','Road B']];
+$evidenced = RouteValidator::document($evidenced);
+check($evidenced['source']['provenance']['streets'] === ['Road A','Road B'], 'Individual source evidence survives validation');
+check(!isset($valid['source']['provenance']), 'Existing source fingerprints omit absent evidence');
+foreach (['pages'=>[0], 'textSha256'=>str_repeat('b',64), 'streets'=>[str_repeat('x',501)]] as $key=>$value) {
+    $invalidEvidence=$evidenced;$invalidEvidence['source']['provenance'][$key]=$value;
+    rejects(fn()=>RouteValidator::document($invalidEvidence),'validation_failed');
+}
 foreach ([[181,45],[7,91],[NAN,45],[INF,45],[7]] as $point) rejects(fn()=>RouteValidator::coordinate($point),'validation_failed');
 rejects(fn()=>RouteValidator::document(array_replace_recursive($base,['stops'=>[['exchangeDirection'=>null]]])),'validation_failed');
 $invalid = $base; $invalid['instructions'][1]['offsetM'] = -1; rejects(fn()=>RouteValidator::document($invalid),'validation_failed');
@@ -39,6 +49,8 @@ $reportRoute['notes'] = '<script>alert(1)</script>';
 $html = Report::html($reportRoute,'it');
 check(!str_contains($html,'<script>') && str_contains($html,'&lt;script&gt;'), 'Report escapes user content');
 check(str_contains($html,$reportRoute['revisionId']), 'Report identifies exact revision');
+$evidenceHtml = Report::html(array_replace($reportRoute,['source'=>$evidenced['source']]),'es');
+check(str_contains($evidenceHtml,'daper-movement') && str_contains($evidenceHtml,'Road A - Road B'), 'Report retains literal individual source evidence');
 $pdf = Report::pdf($html);
 check(str_starts_with($pdf,'%PDF-'), 'Server produces a real PDF');
 if (getenv('REPORT_TEST_PATH')) file_put_contents(getenv('REPORT_TEST_PATH'),$pdf);
@@ -52,11 +64,13 @@ if (getenv('TEST_DATABASE_DSN')) {
     $actor = Database::uuid();
     $db->prepare("INSERT INTO users(id,email,password_hash,role) VALUES (?,?,?,'admin')")->execute([$actor,$actor.'@test.invalid',password_hash('test-password-only',PASSWORD_ARGON2ID)]);
     $repo = new RouteRepository($db);
-    $route = $repo->create($valid,$actor);
+    $route = $repo->create($evidenced,$actor);
+    check($repo->get($route['id'],true)['source']['provenance'] == $evidenced['source']['provenance'], 'Database round trip preserves individual source evidence');
     check($route['status'] === 'draft' && $repo->list(false) === [], 'Drafts are private to editors');
     $review = $repo->transition($route['id'],1,$route['revisionId'],'review',$actor);
     $published = $repo->transition($route['id'],$review['version'],$review['revisionId'],'publish',$actor);
     check($published['status'] === 'published' && count($repo->list(false)) === 1, 'Reviewed publication becomes visible');
+    check(!isset($repo->get($route['id'],false)['source']['provenance']) && !isset($repo->list(false)[0]['source']['provenance']), 'Private literal source evidence is absent from public route responses and reports');
     $rid = $published['revisionId'];
     dbReject($db,"UPDATE route_revisions SET document = '{}' WHERE id = '$rid'",'Published document cannot change');
     dbReject($db,"UPDATE route_revisions SET created_at = now() WHERE id = '$rid'",'Published provenance cannot change');
@@ -73,6 +87,7 @@ if (getenv('TEST_DATABASE_DSN')) {
     $second = $repo->transition($route['id'],$second['version'],$second['revisionId'],'publish',$actor);
     check($repo->get($route['id'],false)['revisionId'] === $second['revisionId'], 'Republishing atomically replaces the publication pointer');
     $restored = $repo->revert($route['id'],$second['version'],$rid,$actor);
+    check($restored['source']['provenance'] == $evidenced['source']['provenance'], 'Restoring a revision retains its original source text and checksum');
     check($restored['revision'] === 3 && $restored['notes'] === $valid['notes'], 'Revert creates a new draft and retains history');
     rejects(fn()=>$repo->get($route['id'],false,$rid),'not_found');
     $other = $valid; $other['line'] .= '-2'; $other['stops'][0]['id'] = Database::uuid(); $other['stops'][0]['exchange'] = false;

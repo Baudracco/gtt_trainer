@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MODULES = ['import_routes.py', 'catalogue.py', 'sync_gtfs.py', 'extract_depot_reference.py', 'verify_gtt_web.py']
+MODULES = ['import_routes.py', 'catalogue.py', 'sync_gtfs.py', 'extract_depot_reference.py', 'extract_depot_movements.py', 'import_private_references.py', 'validate_private_references.py', 'verify_gtt_web.py']
 
 
 def describe(node, source):

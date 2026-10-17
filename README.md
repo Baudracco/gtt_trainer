@@ -9,9 +9,9 @@ El navegador sigue la geometría guardada y avisa de desvíos sin recalcular el 
 React/TypeScript + MapLibre, PHP 8.3, PostgreSQL/PostGIS. Sesiones, roles, CSRF, límites de solicitudes,
 revisiones inmutables, revisión/publicación, papelera/restauración e historial auditable.
 
-Incluye un catálogo inicial de **633 variantes GTFS oficiales de buses y tranvías urbanos (137 líneas)** como borradores, **133 bloques DAPER**
-de referencia de depósitos y **30 entradas de puestos de cambio de Gerbido**. Los nombres andata/ritorno,
-las maniobras detalladas y los movimientos DAPER se validan antes de publicación; no se inventan geometrías.
+Incluye un catálogo inicial de **633 variantes GTFS oficiales de buses y tranvías urbanos (137 líneas)** como borradores.
+El material operativo DAPER/Gerbido del usuario se [importa de forma privada](docs/DEPOT_MOVEMENTS.md), fuera del repositorio público.
+Los nombres andata/ritorno, las maniobras detalladas y los movimientos de depósito se validan antes de publicación; no se inventan geometrías.
 
 Inicio local con Docker:
 

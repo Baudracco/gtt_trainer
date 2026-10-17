@@ -1,5 +1,10 @@
 import type { RouteSnapshot } from './model';
 const DB = 'gtt-trainer-study';
+/** Keep private source evidence out of the shared offline publication cache. */
+export function studySnapshot(route: RouteSnapshot): RouteSnapshot {
+  const { provenance: _private, ...source } = route.source;
+  return { ...route, source };
+}
 function open(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB, 1);
@@ -14,7 +19,7 @@ export async function cachePublished(routes: RouteSnapshot[]): Promise<void> {
   await new Promise<void>((resolve, reject) => {
     const tx = db.transaction('snapshots', 'readwrite');
     tx.objectStore('snapshots').put(
-      routes.filter((r) => r.status === 'published' && !r.deleted),
+      routes.filter((r) => r.status === 'published' && !r.deleted).map(studySnapshot),
       'routes',
     );
     tx.oncomplete = () => resolve();
@@ -27,7 +32,7 @@ export async function readPublished(): Promise<RouteSnapshot[]> {
   return new Promise<RouteSnapshot[]>((resolve, reject) => {
     const tx = db.transaction('snapshots');
     const req = tx.objectStore('snapshots').get('routes');
-    req.onsuccess = () => resolve(req.result ?? []);
+    req.onsuccess = () => resolve((req.result ?? []).map(studySnapshot));
     req.onerror = () => reject(req.error);
     tx.oncomplete = () => db.close();
   });

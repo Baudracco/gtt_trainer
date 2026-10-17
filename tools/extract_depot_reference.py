@@ -13,7 +13,7 @@ import statistics
 import pdfplumber
 
 
-def extract(path):
+def extract(path, version='05/26', effective_from='2026-09-11'):
     """Extract separate physical columns, preserve page provenance and report ambiguous layouts."""
     records = []
     prior_bounds = None
@@ -52,9 +52,10 @@ def extract(path):
                     if number not in record["pages"]:
                         record["pages"].append(number)
                 else:
-                    records.append({"id": f"daper-05-26-p{number}-{len(records)+1}", "line": label,
+                    tag=version.replace('/','-')
+                    records.append({"id": f"daper-{tag}-p{number}-{len(records)+1}", "line": label,
                                     "pages": [number], "uscita": uscita, "rientro": rientro})
-    return {"title": "DAPER linee urbane e suburbane", "version": "05/26", "effectiveFrom": "2026-09-11",
+    return {"title": "DAPER linee urbane e suburbane", "version": version, "effectiveFrom": effective_from,
             "source": Path(path).name, "sha256": hashlib.sha256(Path(path).read_bytes()).hexdigest(),
             "geometryStatus": "not_georeferenced", "references": records}
 

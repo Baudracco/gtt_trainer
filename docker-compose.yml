@@ -63,6 +63,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  reference-import:
+    profiles: [tools]
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.references
+    volumes:
+      - serverdata:/data
 volumes:
   pgdata:
   serverdata:

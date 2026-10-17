@@ -7,6 +7,118 @@ info:
 servers:
 - url: /api/v1
 paths:
+  /references/depot:
+    get:
+      operationId: privateDepotReferenceIndex
+      description: Any enabled signed-in account. Returns the locally imported private source index, or available=false before import. Never downloads or imports a PDF.
+      security:
+      - sessionCookie: []
+      responses:
+        '200':
+          description: Private source metadata, source checksum, blocksSha256 and immutable movement part identities/counts. Cache-Control no-store.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: object
+                      required: [available]
+                      properties:
+                        available:
+                          type: boolean
+                        sourceSha256:
+                          type: string
+                          pattern: '^[a-f0-9]{64}$'
+                        blocksSha256:
+                          type: string
+                          pattern: '^[a-f0-9]{64}$'
+                        movementCount:
+                          type: integer
+                        sourceReferenceCount:
+                          type: integer
+                        parts:
+                          type: array
+                          items:
+                            type: object
+        '401':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /references/depot/{kind}/{sha256}:
+    get:
+      operationId: privateDepotReferencePart
+      description: Enabled account required. Checks the SHA-256 of one immutable bounded private source part. No original PDF is served.
+      security:
+      - sessionCookie: []
+      parameters:
+      - in: path
+        name: kind
+        required: true
+        schema:
+          type: string
+          enum: [parts, blocks]
+      - in: path
+        name: sha256
+        required: true
+        schema:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+      responses:
+        '200':
+          description: Movement list for parts, or a source object with references for blocks. Cache-Control no-store.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      oneOf:
+                      - type: object
+                      - type: array
+                        items:
+                          type: object
+        '401':
+          $ref: '#/components/responses/Error'
+        '404':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
+  /references/changes:
+    get:
+      operationId: privateChangePostReferences
+      description: Enabled account required. Returns locally imported private change-post facts, or posts=[] before import. Does not infer operational direction or stop/platform identity.
+      security:
+      - sessionCookie: []
+      responses:
+        '200':
+          description: Private posts list. Cache-Control no-store.
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/Envelope'
+                - properties:
+                    data:
+                      type: object
+                      required: [posts]
+                      properties:
+                        posts:
+                          type: array
+                          items:
+                            type: object
+        '401':
+          $ref: '#/components/responses/Error'
+        '429':
+          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/Error'
   /health:
     get:
       operationId: health
@@ -1252,11 +1364,57 @@ components:
             retrievedAt:
               type: string
               maxLength: 40
+            provenance:
+              $ref: '#/components/schemas/SourceProvenance'
         video:
           anyOf:
           - $ref: '#/components/schemas/MediaReference'
           - type: 'null'
           description: Optional complete-route recording. Upload first; reference is immutable with the revision.
+    SourceProvenance:
+      type: object
+      description: Optional private literal source evidence, retained with the immutable revision. Omitted from public/viewer route responses and reports; editor/admin reads retain it. Checksums identify source bytes and text, not editorial approval.
+      required: [documentSha256, referenceId, movementId, pages, title, text, textSha256, streets]
+      properties:
+        documentSha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+        referenceId:
+          type: string
+          minLength: 1
+          maxLength: 100
+        movementId:
+          type: string
+          minLength: 1
+          maxLength: 150
+        pages:
+          type: array
+          minItems: 1
+          maxItems: 100
+          uniqueItems: true
+          items:
+            type: integer
+            minimum: 1
+            maximum: 10000
+        title:
+          type: string
+          minLength: 1
+          maxLength: 500
+        text:
+          type: string
+          minLength: 1
+          maxLength: 8000
+        textSha256:
+          type: string
+          pattern: '^[a-f0-9]{64}$'
+          description: SHA-256 of title, one LF, and text, encoded as UTF-8.
+        streets:
+          type: array
+          maxItems: 200
+          items:
+            type: string
+            minLength: 1
+            maxLength: 500
     RouteStop:
       type: object
       required:

@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { measure, pointAt } from '../src/geometry';
 import { emptyRoute, type RouteSnapshot } from '../src/model';
+import referenceFixture from './fixtures/depot.json';
 
 const shared = {
   id: 'abcd1234-0000-4000-8000-000000000010',
@@ -60,6 +61,10 @@ async function prepare(page: Page, editor = false, path = '/') {
         csrf: 'fixture-token',
         user: editor ? { id: routes[0].id, email: 'editor@test.invalid', role: 'editor' } : null,
       };
+    else if (path === '/references/depot') data = referenceFixture.index;
+    else if (path.startsWith('/references/depot/parts/')) data = referenceFixture.movements;
+    else if (path.startsWith('/references/depot/blocks/')) data = referenceFixture.blocks;
+    else if (path === '/references/changes') data = { posts: [] };
     else if (path === '/media/photos' || path === '/media/videos')
       data = { id: crypto.randomUUID() };
     else if (path === '/sources/gtt')
@@ -278,6 +283,40 @@ test('authors ordered map vertices and inspects automatic source state', async (
   await page.locator('.editor-actions').getByRole('button', { name: 'Guardar borrador' }).click();
   await expect(page.getByRole('button', { name: /Dibujo de control/ })).toBeVisible();
   expect(writes).toEqual(['/media/photos', '/media/videos', '/routes']);
+  expect(errors).toEqual([]);
+});
+test('traces one individual DAPER movement and resumes its saved source evidence', async ({
+  page,
+}, testInfo) => {
+  const { errors, writes } = await prepare(page, true);
+  await page.getByRole('button', { name: 'Depósitos y cambios', exact: true }).click();
+  await expect(page.locator('.references')).toContainText('3 movimientos individuales');
+  await page.getByLabel('Línea', { exact: true }).selectOption('S1');
+  await page.getByLabel('Depósito', { exact: true }).selectOption('gerbido');
+  await expect(page.locator('.movement-card')).toHaveCount(2);
+  await page.locator('.movement-card').first().locator('summary').click();
+  await page.screenshot({ path: testInfo.outputPath('depot-workbench.png') });
+  await page.getByRole('button', { name: 'Trazar este movimiento', exact: true }).click();
+  await expect(page.locator('.source-evidence')).toContainText('Road Alpha');
+  await expect(page.locator('.source-evidence')).not.toContainText('Road Return');
+  await expect(page.locator('.editor summary').filter({ hasText: /^Trazado/ })).toContainText('0');
+  await page.getByRole('button', { name: 'Añadir vértices en el mapa', exact: true }).click();
+  const map = page.locator('.maplibregl-canvas'),
+    box = (await map.boundingBox())!;
+  await map.click({ position: { x: box.width * 0.4, y: box.height * 0.55 } });
+  await map.click({ position: { x: box.width * 0.65, y: box.height * 0.65 } });
+  await page.locator('.editor-actions').getByRole('button', { name: 'Guardar borrador' }).click();
+  await expect(page.locator('.editor')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Depósitos y cambios', exact: true }).click();
+  await expect(page.locator('.references')).toContainText('1 con trazado guardado');
+  await page.getByLabel('Avance del trazado').selectOption('linked');
+  await expect(page.locator('.movement-card')).toHaveCount(1);
+  await page.locator('.movement-card').first().locator('summary').click();
+  await page.getByRole('button', { name: 'Continuar trazado', exact: true }).click();
+  await expect(page.locator('.editor h2')).toHaveText('Editar');
+  await expect(page.locator('.source-evidence')).toContainText('Road Alpha');
+  await page.screenshot({ path: testInfo.outputPath('depot-source.png') });
+  expect(writes).toEqual(['/routes']);
   expect(errors).toEqual([]);
 });
 test('opens and shares an explicit revision through its friendly URL', async ({ page }) => {
