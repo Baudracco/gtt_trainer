@@ -121,3 +121,14 @@ it('exports sub-decimal coordinates without scientific notation or rounding', ()
   };
   expect(recordingGpx(track, 'Tiny')).toContain('lon="0.00000001"');
 });
+
+it('exports isolated observations as waypoint-only GPX without inventing a usable route', () => {
+  let track = append(emptyRecording(), point(0));
+  track = append(breakRecording(track), point(20));
+  const xml = new DOMParser().parseFromString(recordingGpx(track, 'Isolated'), 'application/xml');
+  expect(xml.getElementsByTagName('wpt')).toHaveLength(2);
+  expect(xml.getElementsByTagName('trk')).toHaveLength(0);
+  expect(xml.getElementsByTagName('trkseg')).toHaveLength(0);
+  expect(recordingSegments(track)).toEqual([]);
+  expect(() => recordingGpx(emptyRecording(), 'Empty')).toThrow();
+});

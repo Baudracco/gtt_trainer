@@ -228,9 +228,13 @@ export function GpsRecorder({
               ))}
             </select>
           </label>
-          <div className="button-row">
+        </>
+      )}
+      {track.pointCount > 0 && (
+        <div className="button-row">
+          {chosen && (
             <button
-              disabled={active || disabled || !canApply || !chosen}
+              disabled={active || disabled || !canApply}
               onClick={() => {
                 onApply(chosen.points.map((point) => [...point.coordinate] as Coordinate));
                 onPreview([]);
@@ -239,13 +243,15 @@ export function GpsRecorder({
             >
               {t('gpsRecordApply')}
             </button>
-            <button disabled={active || disabled} onClick={download}>
-              {t('gpsRecordDownload')}
-            </button>
-          </div>
-          {applied !== null && <p className="muted">{t('gpsRecordApplied')}</p>}
-          {!canApply && applied === null && <p className="muted">{t('gpsRecordHasGeometry')}</p>}
-        </>
+          )}
+          <button disabled={active || disabled} onClick={download}>
+            {t('gpsRecordDownload')}
+          </button>
+        </div>
+      )}
+      {applied !== null && <p className="muted">{t('gpsRecordApplied')}</p>}
+      {!!usable.length && !canApply && applied === null && (
+        <p className="muted">{t('gpsRecordHasGeometry')}</p>
       )}
       {track.segments.length > 1 && <p className="muted">{t('gpsRecordGaps')}</p>}
     </details>

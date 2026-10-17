@@ -153,6 +153,16 @@ it('prevents replacing existing geometry, stops or instructions with a capture',
   ).toBe(false);
 });
 
+it('allows downloading an isolated observation without offering it as route geometry', () => {
+  recorder();
+  fix(7.6);
+  fireEvent.click(screen.getByRole('button', { name: t('gpsRecordPause') }));
+  expect(screen.queryByRole('button', { name: t('gpsRecordApply') })).toBeNull();
+  expect(
+    screen.getByRole('button', { name: t('gpsRecordDownload') }).hasAttribute('disabled'),
+  ).toBe(false);
+});
+
 it('preserves private source evidence and the chosen kind/direction when applying in the editor', () => {
   const initial = emptyRoute();
   initial.line = 'SYNTHETIC';

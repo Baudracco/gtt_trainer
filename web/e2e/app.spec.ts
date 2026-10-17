@@ -343,18 +343,40 @@ test('records native GPS as separate local segments and saves only the chosen de
   await context.setGeolocation({ longitude: 7.6, latitude: 45.05, accuracy: 5 });
   await page.addInitScript(() => {
     const live = new Set<number>();
+    const events: unknown[] = [];
+    const record = (event: unknown) => {
+      if (events.length < 30) events.push(event);
+    };
     const start = navigator.geolocation.watchPosition.bind(navigator.geolocation);
     const stop = navigator.geolocation.clearWatch.bind(navigator.geolocation);
-    navigator.geolocation.watchPosition = (...args) => {
-      const id = start(...args);
+    navigator.geolocation.watchPosition = (ok, error, options) => {
+      record({ type: 'watch', time: Date.now() });
+      const id = start(
+        (position) => {
+          record({
+            type: 'position',
+            timestamp: position.timestamp,
+            time: Date.now(),
+            accuracy: position.coords.accuracy,
+          });
+          ok(position);
+        },
+        (failure) => {
+          record({ type: 'error', code: failure.code, time: Date.now() });
+          error?.(failure);
+        },
+        options,
+      );
       live.add(id);
       return id;
     };
     navigator.geolocation.clearWatch = (id) => {
+      record({ type: 'clear', time: Date.now() });
       live.delete(id);
       stop(id);
     };
     Object.defineProperty(window, 'activeGpsWatchers', { get: () => live.size });
+    Object.defineProperty(window, 'nativeGpsEvents', { get: () => events });
   });
   const watchers = () => page.evaluate(() => Reflect.get(window, 'activeGpsWatchers'));
   const { errors, writes } = await prepare(page, true);
@@ -372,6 +394,14 @@ test('records native GPS as separate local segments and saves only the chosen de
   await page.waitForTimeout(1100);
   await context.setGeolocation({ longitude: 7.6003, latitude: 45.05, accuracy: 5 });
   await expect(capture.locator('.recording-stats')).toContainText('2 puntos');
+  const observations = JSON.stringify(
+    await page.evaluate(() => Reflect.get(window, 'nativeGpsEvents')),
+  );
+  await testInfo.attach('native-gps-events', {
+    body: observations,
+    contentType: 'application/json',
+  });
+  console.log('Native GPS observations:', observations);
   await expect.poll(async () => (await pixels(page)).green).toBeGreaterThan(10);
   await capture.getByRole('button', { name: 'Pausar grabación' }).click();
   await expect.poll(watchers).toBe(0);

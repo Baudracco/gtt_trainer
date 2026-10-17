@@ -151,13 +151,15 @@ export function recordingGpx(track: RecordedTrack, name: string): string {
   const point = (p: RecordedPoint, element: 'wpt' | 'trkpt') =>
     `<${element} lat="${decimal(p.coordinate[1])}" lon="${decimal(p.coordinate[0])}"><time>${new Date(p.timestamp).toISOString()}</time><extensions><gtt:accuracyM>${decimal(p.accuracy)}</gtt:accuracyM></extensions></${element}>`;
   const segments = recordingSegments(track);
-  if (!segments.length)
-    throw Error('Recording needs a continuous segment with at least two points.');
+  if (!track.segments.some((segment) => segment.length)) throw Error('Recording is empty.');
   const singles = track.segments
     .filter((segment) => segment.length === 1)
     .map((segment) => point(segment[0], 'wpt'))
     .join('');
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gtt="https://github.com/Baudracco/gtt_trainer/ns/1" version="1.1" creator="GTT Trainer"><metadata><name>${escape(name)}</name></metadata>${singles}<trk><name>${escape(name)}</name>${segments.map((segment) => `<trkseg>${segment.points.map((p) => point(p, 'trkpt')).join('')}</trkseg>`).join('')}</trk></gpx>\n`;
+  const trk = segments.length
+    ? `<trk><name>${escape(name)}</name>${segments.map((segment) => `<trkseg>${segment.points.map((p) => point(p, 'trkpt')).join('')}</trkseg>`).join('')}</trk>`
+    : '';
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:gtt="https://github.com/Baudracco/gtt_trainer/ns/1" version="1.1" creator="GTT Trainer"><metadata><name>${escape(name)}</name></metadata>${singles}${trk}</gpx>\n`;
   if (new TextEncoder().encode(xml).length > 4194304)
     throw Error('GPX exceeds the 4 MiB import limit.');
   return xml;

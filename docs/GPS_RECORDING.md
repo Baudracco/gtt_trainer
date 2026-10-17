@@ -50,6 +50,8 @@ legalidad del recorrido. Una parada prolongada con señal válida no corta el tr
 Cada tramo utilizable necesita al menos dos puntos; las observaciones aisladas se
 exportan como waypoints y no se convierten en calles. El GPX completo tiene un
 límite de 4 MiB, compatible con la previsualización de importaciones.
+También se puede descargar una captura compuesta solo por observaciones aisladas;
+ese GPX conserva evidencia, pero no contiene un trazado importable como ruta.
 
 No se ajustan puntos a calles, suavizan curvas, infieren giros, calculan atajos ni
 suplen huecos. El GPS tampoco prueba el sentido operativo, la plataforma de una
