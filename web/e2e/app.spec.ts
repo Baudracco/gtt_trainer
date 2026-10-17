@@ -187,13 +187,15 @@ async function pixels(page: Page) {
     ctx.drawImage(img, 0, 0);
     const values = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     let blue = 0,
-      pink = 0;
+      pink = 0,
+      orange = 0;
     for (let i = 0; i < values.length; i += 4) {
       const [r, g, b] = [values[i], values[i + 1], values[i + 2]];
       if (b > 180 && r < 100 && g > 40 && g < 170) blue++;
       if (r > 130 && b > 80 && r > b && g < 170 && r - g > 40) pink++;
+      if (r > 160 && g > 40 && g < 140 && b < 60 && r - g > 60) orange++;
     }
-    return { blue, pink };
+    return { blue, pink, orange };
   }, png.toString('base64'));
 }
 
@@ -208,15 +210,51 @@ test('renders real WebGL overlays, preserves hide-all and shares stop membership
     })
     .toBe(true);
   await page.getByRole('button', { name: 'Ocultar todos' }).click();
-  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0 });
+  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0, orange: 0 });
   await page.getByRole('button', { name: 'Actualizar', exact: true }).click();
-  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0 });
+  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0, orange: 0 });
   await page.getByRole('button', { name: 'Mostrar todos' }).click();
   await page.getByRole('button', { name: '10 Esquina compartida 2 · 5' }).click();
   await expect(page.locator('.stop-detail')).toContainText('Posto cambio');
   await expect(page.locator('.stop-detail')).toContainText('5 · Ida');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.screenshot({ path: testInfo.outputPath('map-overlays.png') });
+  expect(errors).toEqual([]);
+});
+
+test('compares current fixed paths with real A/B overlay colours and membership differences', async ({
+  page,
+}, testInfo) => {
+  const { errors, writes } = await prepare(page);
+  const compare = page.getByRole('button', { name: 'Comparar seleccionados' });
+  await expect(compare).toBeDisabled();
+  const selected = page.getByRole('checkbox', { name: 'Solo seleccionados', exact: true });
+  await selected.nth(0).check();
+  await selected.nth(1).check();
+  await compare.click();
+  const comparison = page.getByRole('region', { name: 'Comparación de recorridos' });
+  await expect(comparison).toBeVisible();
+  await expect(comparison).toContainText('Control Alfa');
+  await expect(comparison).toContainText('Control Beta');
+  await expect(comparison.locator('.comparison-difference')).toHaveCount(3);
+  await comparison.getByText('Paradas con diferencias por posición').click();
+  await expect(comparison.locator('.comparison-stops')).toContainText('Posto cambio');
+  await expect
+    .poll(async () => {
+      const p = await pixels(page);
+      return p.blue > 30 && p.orange > 30 && p.pink === 0;
+    })
+    .toBe(true);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.screenshot({ path: testInfo.outputPath('route-comparison.png') });
+  await comparison.getByRole('button', { name: 'Cerrar comparación' }).click();
+  await expect
+    .poll(async () => {
+      const p = await pixels(page);
+      return p.blue > 30 && p.pink > 30 && p.orange === 0;
+    })
+    .toBe(true);
+  expect(writes).toEqual([]);
   expect(errors).toEqual([]);
 });
 

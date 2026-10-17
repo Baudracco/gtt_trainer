@@ -24,6 +24,7 @@ import zipfile
 
 from import_routes import CONVERTER_VERSION, gtfs
 from catalogue import load_catalogue
+from audit_routes import AUDITOR_VERSION, audit_gtfs, digest
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = 'https://www.gtt.to.it/open_data/gtt_gtfs.zip'
@@ -268,6 +269,25 @@ def apply_bundle(directory):
     print(result.stdout.strip(), flush=True)
 
 
+def refresh_duplicate_audit(directory):
+    """Upgrade retained source evidence locally, preserving every HTTP reservation and route.
+
+    Run even when downloads are paused or cooling down. Use the downloader's lock
+    so backup/conversion cannot observe a partially updated bundle. Existing route
+    fingerprints and converter version are unaffected by this read-only analysis.
+    """
+    with (directory / 'download.lock').open('a') as lock:
+        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: return
+        path = directory / 'current.json'
+        bundle = read_json(path)
+        if not bundle: return
+        existing = bundle.get('duplicateAudit', {})
+        if existing.get('auditorVersion') == AUDITOR_VERSION and existing.get('inputSha256') == digest(bundle['variants']): return
+        bundle['duplicateAudit'] = audit_gtfs(bundle['variants'])
+        atomic_json(path, bundle)
+
+
 def main():
     """Run once or as a Docker daemon; local hourly checks cannot bypass persistent HTTP reservations."""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -287,7 +307,9 @@ def main():
         except Exception as error:
             failed = True; print(json.dumps({'outcome': 'failed', 'error': str(error)}), flush=True)
         if args.apply:
-            try: apply_bundle(args.state_dir)
+            try:
+                refresh_duplicate_audit(args.state_dir)
+                apply_bundle(args.state_dir)
             except Exception as error:
                 failed = True; print(json.dumps({'outcome': 'apply_failed', 'error': str(error)}), flush=True)
         if not args.serve:

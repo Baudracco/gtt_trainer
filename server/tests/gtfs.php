@@ -11,9 +11,13 @@ $bundle = ['schemaVersion'=>1,'provider'=>'gtt','archiveSha256'=>str_repeat('1',
     'variants'=>[['key'=>$key,'route'=>'T','shape'=>'S','direction'=>'1','stopIds'=>['X'],'document'=>$source]],'rejected'=>[]];
 $seed = $repo->create(RouteValidator::document($source),$actor);
 $bundle['variants'][0]['projectionRecovery']=['method'=>'ordered_projection','maxDistanceM'=>12.5];
+$bundle['duplicateAudit'] = ['auditorVersion'=>1, 'counts'=>['sourceRecords'=>1],
+    'groups'=>[['kind'=>'same_line_exact','members'=>[['key'=>$key],['key'=>'gtt:'.str_repeat('f',64)]]]], 'nearGeometryPairs'=>[]];
 $result = $sync->apply($bundle);
 check($result['adopted'] === 1 && $result['created'] === 0, 'GTFS adopts exact initial imports without duplicating variants');
 check($sync->status()['projectionRecoveries'][0]['identity']['projectionRecovery']['maxDistanceM'] === 12.5, 'Source recovery evidence is retained and visible to editors');
+$duplicateMembers = $sync->status()['duplicateAudit']['groups'][0]['members'];
+check($duplicateMembers[0]['variantId'] === $seed['id'] && $duplicateMembers[1]['variantId'] === null, 'Source duplicate evidence links to existing variants without creating aliases or discarding revisions');
 check($sync->apply($bundle)['unchanged'] === 1, 'GTFS repeated ingestion creates no extra revisions');
 $review = $repo->transition($seed['id'],$seed['version'],$seed['revisionId'],'review',$actor);
 $publication = $repo->transition($seed['id'],$review['version'],$review['revisionId'],'publish',$actor);

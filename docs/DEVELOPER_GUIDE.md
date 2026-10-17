@@ -72,6 +72,7 @@ npm --prefix web exec playwright install chromium
 npm --prefix web run test:e2e
 python3 -m pip install -r tools/requirements.txt openapi-spec-validator
 python3 tools/test_imports.py
+python3 tools/test_audit_routes.py
 python3 tools/test_sync_gtfs.py
 python3 -m openapi_spec_validator docs/openapi.yaml
 ```

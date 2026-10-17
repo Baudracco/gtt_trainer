@@ -26,6 +26,13 @@ marca aparte. Con catálogos de más de 25 revisiones, la apertura inicial muest
 variantes de la primera línea para conservar legibilidad. Se puede activar cualquier
 otra; la lista muestra 100 resultados y permite cargar más.
 
+Marcar dos variantes y pulsar **Comparar seleccionados** abre una comparación A/B:
+azul y naranja en el mapa, revisión/estado, longitud y diferencias de trazado,
+paradas, puestos de cambio, instrucciones, observaciones, fuente y video. Las
+visitas repetidas a una parada se comparan por su posición. Cerrar restaura los
+colores originales. La comparación conserva ambos recorridos y no guarda cambios.
+Detener GPS/reproducción virtual antes de abrirla. [Detalles](ROUTE_AUDIT.md).
+
 La sección Paradas permite mostrar/ocultar, ver solo compartidas entre líneas o solo
 puestos de cambio. Una parada compartida tiene una identidad canónica y conserva
 las pertenencias a cada recorrido. El panel muestra línea, sentido y observaciones
@@ -101,6 +108,12 @@ recupera su publicación vigente. La sincronización no resucita lo eliminado.
 patrones pendientes. Un cambio de fuente genera otra candidata cuando no hay trabajo
 manual en curso. Si hay conflicto o una revisión ya está siendo revisada, se conserva
 el documento entrante para exportarlo y compararlo. Abrir el panel no descarga GTFS.
+
+**Revisión de repeticiones GTFS** distingue registros de fuente, coincidencias
+dentro de una línea y trazados compartidos entre líneas. **Comparar versiones
+actuales** abre las variantes locales vinculadas; pueden contener cambios
+editoriales posteriores a la auditoría de la fuente. Una coincidencia no confirma
+que sean el mismo servicio operativo.
 
 **Depósitos y cambios** requiere sesión y una importación local del material operativo privado.
 Filtrá por línea, depósito y salida/regreso. Cada movimiento conserva su página y texto;

@@ -49,6 +49,22 @@ beforeEach(() => {
   vi.mocked(api.request).mockResolvedValue([route('2'), route('5')]);
 });
 afterEach(cleanup);
+it('compares exactly two selected revisions locally and preserves both map overlays', async () => {
+  render(<App />);
+  await screen.findByRole('button', { name: /Route 2/ });
+  const compare = screen.getByRole('button', { name: 'Comparar seleccionados' });
+  expect(compare.hasAttribute('disabled')).toBe(true);
+  const selected = screen.getAllByRole('checkbox', { name: 'Solo seleccionados' });
+  fireEvent.click(selected[0]);
+  fireEvent.click(selected[1]);
+  const before = vi.mocked(api.request).mock.calls.length;
+  fireEvent.click(compare);
+  expect(screen.getByRole('region', { name: 'Comparación de recorridos' })).toBeTruthy();
+  expect(screen.getByTestId('map-routes').textContent).toBe('2,5');
+  expect(api.request).toHaveBeenCalledTimes(before);
+  fireEvent.click(screen.getByRole('button', { name: 'Cerrar comparación' }));
+  expect(screen.queryByRole('region', { name: 'Comparación de recorridos' })).toBeNull();
+});
 it('shows, hides and overlays exactly the variants selected by the user', async () => {
   render(<App />);
   await screen.findByRole('button', { name: /Route 2/ });

@@ -37,10 +37,12 @@ and merges after verification. All route geometry remains fixed and versioned.
 - GTT-specific numeric error identifiers and independent sanitized DB/locked-file/native diagnostics; verified Shortener adaptation provenance.
 - Daily private Docker backups with one exported DB/media snapshot, SHA-256 manifests, persistent schedule/retention and isolated restore. CI exercises a restored HTTP application, media/ranges/PDF, private references, immutable publications and preserved GTFS reservations.
 - Production HTTPS override with Caddy, persistent certificate volumes, exact-origin checks and narrowly trusted Nginx client-address forwarding. CI validates configuration without issuing certificates; deployment host/domain and physical phone validation remain deployment-specific.
+- Read-only duplicate audit on retained GTFS bundles, including during cooldown/paused downloads; source-linked editor evidence and A/B map comparison with ordered stop/change-post differences. Separate private text/context auditing for depot references.
 
 ## Data incorporated
 
 - 633 fixed urban bus/tram variant candidates across 137 line codes, including all 139 original Gerbido-related bus variants.
+- These are source records, not certified unique operational routes: exact audit finds three same-line pairs (630 path/stop groups within lines) and six additional shared pairs across different lines; all identities/history remain intact. See [route audit](ROUTE_AUDIT.md).
 - 31 formerly rejected stop patterns recovered by global ordered projection; source geometry preserved; 601 accepted documents unchanged and one line-14 stop-offset correction recorded.
 - Private local import of operator depot/change-post references, splitting individual movements with page boxes and source checksums. The authenticated workbench resumes linked variants; editor evidence survives revision storage, JSON export/restoration and private reports. Public responses and offline publications omit private literal evidence. The operational material is not packaged in Git or public assets.
 
@@ -49,6 +51,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Digitize each individual DAPER depot movement against street geometry and travel restrictions,
   preserving stated streets, order, continuation and turns. Text blocks are not navigable shapes.
 - Verify detailed maneuvers/street names and operational direction for each GTFS candidate.
+- Resolve each duplicate candidate against operational conditions before consolidating source links; preserve manual edits, publications and revision history (issue #16).
 - Resolve exact stop/platform and andata/ritorno for Gerbido change posts; the photo omits them.
 - Cross-check service routes against the forthcoming user PDF and current official evidence.
 - Cross-check the imported tram GTFS with the forthcoming tram/service PDFs; ingest the consolidated duties/timetable PDF when provided.
@@ -57,7 +60,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 
 - Real-device foreground GPS/voice field validation; native/background feasibility and battery tests.
 - Licensed offline basemap areas with provider-specific download limits.
-- Expanded editorial workflows, source discrepancy resolution and route comparison tools.
+- Expanded editorial workflows and source discrepancy resolution; A/B route comparison is implemented.
 - Driver lessons/quizzes/progress and deployment-specific off-host backup replication.
 
 ## Acceptance invariants

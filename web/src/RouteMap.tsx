@@ -11,6 +11,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 type Props = {
   routes: RouteSnapshot[];
+  comparisonIds?: string[];
   active: string;
   groups: StopGroup[];
   showStops: boolean;
@@ -253,9 +254,13 @@ export function RouteMap(props: Props) {
     const active = props.routes.find((r) => r.revisionId === props.active);
     if (!ready || !m || !active || props.follow) return;
     const bounds = new maplibregl.LngLatBounds();
-    active.geometry.coordinates.forEach((p) => bounds.extend(p));
+    const targets =
+      props.comparisonIds?.length === 2
+        ? props.routes.filter((r) => props.comparisonIds!.includes(r.revisionId))
+        : [active];
+    targets.forEach((route) => route.geometry.coordinates.forEach((p) => bounds.extend(p)));
     m.fitBounds(bounds, { padding: 70, maxZoom: 16, duration: 600 });
-  }, [ready, props.active]);
+  }, [ready, props.active, props.comparisonIds]);
   useEffect(() => {
     if (ready && props.follow && props.position)
       map.current?.easeTo({ center: props.position, zoom: 16, duration: 700 });

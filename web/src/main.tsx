@@ -4,6 +4,8 @@ import { RouteMap } from './RouteMap';
 import { Editor } from './Editor';
 import { References } from './References';
 import { SyncStatus } from './SyncStatus';
+import { RouteComparison } from './RouteComparison';
+import { COMPARISON_COLORS } from './comparison';
 import { MediaGallery } from './MediaGallery';
 import { RouteVideo } from './RouteVideo';
 import { VirtualTour } from './VirtualTour';
@@ -77,16 +79,35 @@ export function App() {
   const [virtualOpen, setVirtualOpen] = useState(false),
     [virtualPosition, setVirtualPosition] = useState<Coordinate | null>(null);
   const [tab, setTab] = useState<'routes' | 'references' | 'sources'>('routes');
+  const [comparison, setComparison] = useState<[string, string] | null>(null);
   const progressRef = useRef<Progress | null>(null),
     spoken = useRef(''),
     initialized = useRef(false);
   const active = routes.find((r) => r.revisionId === activeId) ?? null;
   const editor = user?.role === 'editor' || user?.role === 'admin';
+  const compared = useMemo(
+    () =>
+      comparison
+        ?.map((id) => routes.find((r) => r.revisionId === id))
+        .filter((r): r is RouteSnapshot => !!r) ?? [],
+    [routes, comparison],
+  );
+  const comparing = compared.length === 2 && !editing && !nav && !virtualOpen && tab === 'routes';
   const visibleRoutes = useMemo(
     () => routes.filter((r) => visible.includes(r.revisionId)),
     [routes, visible],
   );
   const groups = useMemo(() => groupStops(visibleRoutes), [visibleRoutes]);
+  const mapRoutes = useMemo(
+    () =>
+      visibleRoutes.map((route) => {
+        const index = comparing
+          ? compared.findIndex((item) => item.revisionId === route.revisionId)
+          : -1;
+        return index < 0 ? route : { ...route, color: COMPARISON_COLORS[index] };
+      }),
+    [visibleRoutes, compared, comparing],
+  );
   const allGroups = useMemo(() => groupStops(routes), [routes]);
   const shownGroups = useMemo(
     () =>
@@ -344,6 +365,15 @@ export function App() {
     setHistory(null);
     setNotice(t('changed'));
   }
+  function openComparison(pair: RouteSnapshot[]) {
+    if (pair.length !== 2 || nav || virtualOpen || editing) return;
+    const ids: [string, string] = [pair[0].revisionId, pair[1].revisionId];
+    setComparison(ids);
+    setSelected(ids);
+    setVisible(ids);
+    setActive(ids[0]);
+    setTab('routes');
+  }
   return (
     <div className="app">
       <header className="topbar">
@@ -453,7 +483,15 @@ export function App() {
               t={t}
             />
           ) : tab === 'sources' && editor ? (
-            <SyncStatus t={t} />
+            <SyncStatus
+              t={t}
+              routes={routes}
+              onCompare={
+                !nav && !virtualOpen
+                  ? (ids) => openComparison(routes.filter((r) => ids.includes(r.id)))
+                  : undefined
+              }
+            />
           ) : tab === 'references' ? (
             <References
               t={t}
@@ -536,7 +574,20 @@ export function App() {
                   >
                     {t('selected')}
                   </button>
+                  <button
+                    disabled={
+                      nav ||
+                      virtualOpen ||
+                      routes.filter((r) => selected.includes(r.revisionId)).length !== 2
+                    }
+                    onClick={() =>
+                      openComparison(routes.filter((r) => selected.includes(r.revisionId)))
+                    }
+                  >
+                    {t('compareSelected')}
+                  </button>
                 </div>
+                <p className="muted">{t('compareSelectionHelp')}</p>
                 <div className="section-heading">
                   <h2>
                     {t('routes')} <span className="count">{filtered.length}</span>
@@ -656,6 +707,15 @@ export function App() {
                   </div>
                 )}
               </section>
+              {comparing && (
+                <RouteComparison
+                  key={comparison!.join(':')}
+                  first={compared[0]}
+                  second={compared[1]}
+                  t={t}
+                  close={() => setComparison(null)}
+                />
+              )}
               {active && (
                 <section className="route-detail">
                   <div className="section-heading">
@@ -980,7 +1040,8 @@ export function App() {
         </aside>
         <main className="map-panel">
           <RouteMap
-            routes={visibleRoutes}
+            routes={mapRoutes}
+            comparisonIds={comparing ? (comparison ?? undefined) : undefined}
             active={activeId}
             groups={shownGroups}
             showStops={showStops}

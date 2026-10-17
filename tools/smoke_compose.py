@@ -40,6 +40,9 @@ routes=request('/routes')
 manifest=json.loads(Path('data/gtt-urban-drafts.manifest.json').read_text())
 assert len(routes)==manifest['routes'] and all(r['status']=='draft' for r in routes),'Seeded candidate count/status mismatch'
 status=request('/sources/gtt')
+expected_audit=json.loads(Path('data/gtfs-duplicate-audit.json').read_text())
+assert status['duplicateAudit']['counts']==expected_audit['counts'],'Automatic duplicate audit missing or inconsistent'
+assert all(m['variantId'] in {r['id'] for r in routes} for g in status['duplicateAudit']['groups'] for m in g['members']),'Duplicate candidates lost source/variant links'
 assert status['archiveSha256']==manifest['sha256'],'Automatic sync lost feed provenance'
 assert len(status['issues'])==len(manifest['skipped']) and all(i['state']=='rejected' for i in status['issues']),'Rejected GTFS patterns not retained'
 first=routes[0]

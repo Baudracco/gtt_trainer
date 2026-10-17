@@ -23,10 +23,13 @@ Basemap: OpenFreeMap / OpenMapTiles / OpenStreetMap; [attribution and terms](htt
 MapLibre renders provider attribution. The bundled style is a configuration snapshot, not
 an offline map database. No public OSM raster service is used as a production default.
 
-Known handwritten items: the note beside line 34 appears to read `138`; it does not
-replace the printed access combination. VE1's location `P.zza Massaua` is handwritten.
-Combinations such as `74 + 5 o 12` are retained literally; no unproven transfer semantics
-or real-time public-transport journey is computed from them.
+Handwritten annotations and literal access combinations remain in the private
+reference material. Preserve uncertainty and confirm their operational meaning;
+do not infer transfers or compute a real-time journey from an unverified note.
+
+The [duplicate audit](ROUTE_AUDIT.md) distinguishes imported source records from
+exact path/stop groups and shared paths across lines. It preserves all source
+identities and does not certify unique operational routes or remove repetitions.
 
 User inputs still pending: tram depot/service routes, service-route PDF for cross-checking,
 the consolidated duties/timetable PDF, directional confirmation of the Gerbido change posts.
