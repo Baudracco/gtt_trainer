@@ -1,0 +1,5 @@
+# Use only after a checked isolated restore and a planned stop of all writers.
+volumes:
+  serverdata:
+    external: true
+    name: ${RESTORED_SERVERDATA_VOLUME:?Set the already restored private volume name}
