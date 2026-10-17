@@ -71,7 +71,9 @@ agrupación exacta se completa aunque se alcance ese presupuesto.
 
 ## Comparar en la aplicación
 
-Marcar dos recorridos y pulsar **Comparar seleccionados**. El mapa muestra A en
+El selector **Línea** permite aislar un código exacto sin confundirlo con números
+de parada o códigos con barra. Marcar dos recorridos y pulsar **Comparar seleccionados**.
+La comparación despeja los filtros de lista para que ambos queden accesibles. El mapa muestra A en
 azul y B en naranja, ajusta el encuadre a ambos y conserva las coordenadas guardadas.
 Cerrar la comparación restaura los colores de línea. Solo se elige una revisión
 activa para GPS; abrir la comparación requiere detener GPS/reproducción virtual.

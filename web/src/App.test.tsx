@@ -57,13 +57,30 @@ it('compares exactly two selected revisions locally and preserves both map overl
   const selected = screen.getAllByRole('checkbox', { name: 'Solo seleccionados' });
   fireEvent.click(selected[0]);
   fireEvent.click(selected[1]);
+  fireEvent.change(screen.getByRole('combobox', { name: 'Línea' }), { target: { value: '2' } });
+  expect(screen.queryByLabelText('Mapa 5 Route 5')).toBeNull();
   const before = vi.mocked(api.request).mock.calls.length;
   fireEvent.click(compare);
   expect(screen.getByRole('region', { name: 'Comparación de recorridos' })).toBeTruthy();
+  expect(screen.getByLabelText('Mapa 5 Route 5')).toBeTruthy();
   expect(screen.getByTestId('map-routes').textContent).toBe('2,5');
   expect(api.request).toHaveBeenCalledTimes(before);
   fireEvent.click(screen.getByRole('button', { name: 'Cerrar comparación' }));
   expect(screen.queryByRole('region', { name: 'Comparación de recorridos' })).toBeNull();
+});
+it('filters exact line codes without matching slash variants or stop numbers on other lines', async () => {
+  const other = route('5');
+  other.name = 'Parada 17';
+  vi.mocked(api.request).mockResolvedValue([route('17'), route('17/'), other]);
+  render(<App />);
+  await screen.findByLabelText('Mapa 17 Route 17');
+  fireEvent.change(screen.getByRole('combobox', { name: 'Línea' }), { target: { value: '17' } });
+  expect(screen.getByLabelText('Mapa 17 Route 17')).toBeTruthy();
+  expect(screen.queryByLabelText('Mapa 17/ Route 17/')).toBeNull();
+  expect(screen.queryByLabelText('Mapa 5 Parada 17')).toBeNull();
+  fireEvent.change(screen.getByRole('combobox', { name: 'Línea' }), { target: { value: '' } });
+  expect(screen.getByLabelText('Mapa 17/ Route 17/')).toBeTruthy();
+  expect(screen.getByLabelText('Mapa 5 Parada 17')).toBeTruthy();
 });
 it('shows, hides and overlays exactly the variants selected by the user', async () => {
   render(<App />);

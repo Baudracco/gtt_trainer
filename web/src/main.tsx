@@ -51,6 +51,7 @@ export function App() {
     [notice, setNotice] = useState('');
   const [listLimit, setListLimit] = useState(100);
   const [search, setSearch] = useState(''),
+    [lineFilter, setLineFilter] = useState(''),
     [direction, setDirection] = useState<Direction | ''>(''),
     [showStops, setShowStops] = useState(true),
     [common, setCommon] = useState(false),
@@ -122,16 +123,24 @@ export function App() {
     () => (active ? measure(active.geometry.coordinates) : null),
     [active],
   );
+  const lineCodes = useMemo(
+    () =>
+      [...new Set(routes.map((r) => r.line))].sort((a, b) =>
+        a.localeCompare(b, lang, { numeric: true }),
+      ),
+    [routes, lang],
+  );
   const filtered = useMemo(
     () =>
       routes.filter(
         (r) =>
+          (!lineFilter || r.line === lineFilter) &&
           (!direction || r.direction === direction) &&
           `${r.line} ${r.name} ${r.stops.map((s) => s.name).join(' ')}`
             .toLocaleLowerCase()
             .includes(search.toLocaleLowerCase()),
       ),
-    [routes, direction, search],
+    [routes, direction, search, lineFilter],
   );
   const shownStop = allGroups.find((g) => g.stop.id === stopId);
 
@@ -260,7 +269,10 @@ export function App() {
   }, [nav, activeMeasure, startOffset, t]);
   useEffect(() => {
     setListLimit(100);
-  }, [search, direction]);
+  }, [search, direction, lineFilter]);
+  useEffect(() => {
+    if (lineFilter && !lineCodes.includes(lineFilter)) setLineFilter('');
+  }, [lineCodes, lineFilter]);
   const nextStep = active?.instructions.find(
     (s) => s.offsetM > (progress?.offsetM ?? startOffset) + 8,
   );
@@ -372,6 +384,9 @@ export function App() {
     setSelected(ids);
     setVisible(ids);
     setActive(ids[0]);
+    setSearch('');
+    setLineFilter('');
+    setDirection('');
     setTab('routes');
   }
   return (
@@ -534,6 +549,18 @@ export function App() {
                   />
                 </div>
                 <div className="field-grid filters">
+                  <select
+                    aria-label={t('line')}
+                    value={lineFilter}
+                    onChange={(e) => setLineFilter(e.target.value)}
+                  >
+                    <option value="">{t('allLines')}</option>
+                    {lineCodes.map((code) => (
+                      <option key={code} value={code}>
+                        {code}
+                      </option>
+                    ))}
+                  </select>
                   <select
                     aria-label={t('direction')}
                     value={direction}

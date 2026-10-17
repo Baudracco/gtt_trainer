@@ -192,8 +192,10 @@ async function pixels(page: Page) {
     for (let i = 0; i < values.length; i += 4) {
       const [r, g, b] = [values[i], values[i + 1], values[i + 2]];
       if (b > 180 && r < 100 && g > 40 && g < 170) blue++;
-      if (r > 130 && b > 80 && r > b && g < 170 && r - g > 40) pink++;
-      if (r > 160 && g > 40 && g < 140 && b < 60 && r - g > 60) orange++;
+      if (r > 130 && b > g + 25 && r > b && g < 170 && r - g > 40) pink++;
+      // Non-active paths have 0.65 opacity, so classify hue rather than solid RGB.
+      // The orange hue ratio excludes the yellow change-post marker.
+      if (r > 160 && r - g > 50 && g - b > 20 && r - g > (g - b) * 1.3) orange++;
     }
     return { blue, pink, orange };
   }, png.toString('base64'));
@@ -231,21 +233,28 @@ test('compares current fixed paths with real A/B overlay colours and membership 
   const selected = page.getByRole('checkbox', { name: 'Solo seleccionados', exact: true });
   await selected.nth(0).check();
   await selected.nth(1).check();
+  await page.getByRole('combobox', { name: 'Línea', exact: true }).selectOption('2');
   await compare.click();
   const comparison = page.getByRole('region', { name: 'Comparación de recorridos' });
   await expect(comparison).toBeVisible();
   await expect(comparison).toContainText('Control Alfa');
   await expect(comparison).toContainText('Control Beta');
+  await expect(page.getByLabel('Mapa 5 Control Beta')).toBeVisible();
   await expect(comparison.locator('.comparison-difference')).toHaveCount(3);
   await comparison.getByText('Paradas con diferencias por posición').click();
   await expect(comparison.locator('.comparison-stops')).toContainText('Posto cambio');
   await expect
     .poll(async () => {
       const p = await pixels(page);
-      return p.blue > 30 && p.orange > 30 && p.pink === 0;
+      // A few blended junction pixels can be purple where blue crosses orange;
+      // an entire remaining pink overlay would exceed this small relative budget.
+      return p.blue > 30 && p.orange > 30 && p.pink < p.orange * 0.05;
     })
     .toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await comparison
+    .getByRole('heading', { name: 'Comparación de recorridos' })
+    .scrollIntoViewIfNeeded();
   await page.screenshot({ path: testInfo.outputPath('route-comparison.png') });
   await comparison.getByRole('button', { name: 'Cerrar comparación' }).click();
   await expect

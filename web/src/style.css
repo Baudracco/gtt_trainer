@@ -299,6 +299,9 @@ button[aria-pressed='true'] {
 .filters {
   margin: 12px 0;
 }
+.filters > button {
+  grid-column: 1 / -1;
+}
 .button-row {
   display: flex;
   flex-wrap: wrap;

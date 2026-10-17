@@ -8,7 +8,10 @@ administradores también ven borradores y revisiones en revisión. En una instal
 nueva el administrador entra para revisar el catálogo: no existen rutas publicadas
 ni contraseñas predeterminadas.
 
-Buscar por número/nombre o parada y filtrar por sentido. **Sin especificar** indica
+El selector **Línea** filtra por código exacto, distinguiendo por ejemplo una línea
+y su variante con barra. La búsqueda de texto sigue permitiendo destinos y paradas;
+un número de parada en otra línea no afecta al filtro exacto. Se puede combinar
+con el filtro de sentido. **Sin especificar** indica
 que falta confirmar la correspondencia operativa: GTFS 0/1 no se convierte a
 andata/ritorno automáticamente. El tipo distingue servicio, salida/entrada de
 depósito, traslado, parcial y circular.
