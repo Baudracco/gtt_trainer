@@ -118,6 +118,7 @@ export function References({
         <label>
           {t('line')}
           <select
+            aria-label={t('line')}
             value={line}
             onChange={(e) => {
               setLine(e.target.value);
@@ -137,6 +138,7 @@ export function References({
         <label>
           {t('depotFilter')}
           <select
+            aria-label={t('depotFilter')}
             value={depot}
             onChange={(e) => {
               setDepot(e.target.value);
@@ -154,6 +156,7 @@ export function References({
         <label>
           {t('kind')}
           <select
+            aria-label={t('kind')}
             value={kind}
             onChange={(e) => {
               setKind(e.target.value);
@@ -168,6 +171,7 @@ export function References({
         <label>
           {t('movementProgress')}
           <select
+            aria-label={t('movementProgress')}
             value={linkedFilter}
             onChange={(e) => {
               setLinkedFilter(e.target.value);
