@@ -16,3 +16,4 @@ tmp/
 test-results/
 playwright-report/
 docs/generated/
+private-input/

@@ -40,17 +40,10 @@ class ImportTests(unittest.TestCase):
             path=Path(directory)/'vertices.csv';path.write_text('route_id,sequence,longitude,latitude,line,name\nA,2,7.61,45,T,Test\nA,1,7.6,45,T,Test\n')
             docs,_=module.tabular(path,{})
             self.assertEqual(docs[0]['geometry']['coordinates'],[[7.6,45],[7.61,45]])
-    def test_reference_provenance_and_coverage(self):
+    def test_private_operational_sources_are_not_packaged(self):
         root=Path(__file__).resolve().parents[1]
-        data=json.loads((root/'web/public/data/depot-references.json').read_text())
-        pages={p for r in data['references'] for p in r['pages']}
-        self.assertEqual(pages,set(range(2,69)))
-        self.assertEqual(len(data['sha256']),64)
-        first=data['references'][0]
-        self.assertEqual(first['line'],'CP1');self.assertIn('2699 FERMI SUD',first['rientro']);self.assertIn('V. Manzoni',first['uscita'])
-        self.assertNotIn('geometry',first)
-        posts=json.loads((root/'web/public/data/gerbido-change-posts.json').read_text())['posts']
-        self.assertEqual(len(posts),30);self.assertTrue(all(p['direction'] is None for p in posts))
+        for name in ['depot-references.json','depot-movements.json','gerbido-change-posts.json']:
+            self.assertFalse((root/'web/public/data'/name).exists())
     def test_official_snapshot_manifest(self):
         root=Path(__file__).resolve().parents[1]
         manifest=json.loads((root/'data/gtt-gerbido-drafts.manifest.json').read_text())

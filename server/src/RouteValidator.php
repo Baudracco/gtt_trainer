@@ -128,8 +128,30 @@ final class RouteValidator
                 'retrievedAt' => self::text($source['retrievedAt'] ?? '', 40, false),
             ],
         ];
+        if (isset($source['provenance'])) $document['source']['provenance'] = self::provenance($source['provenance']);
         if (isset($data['video'])) $document['video'] = self::media($data['video']);
         return $document;
+    }
+
+    /** Preserve bounded literal source evidence; a checksum identifies text, not editorial approval. */
+    private static function provenance(mixed $value): array
+    {
+        if (!is_array($value)) self::fail('Invalid source provenance.');
+        foreach (['documentSha256','textSha256'] as $key) {
+            if (!is_string($value[$key] ?? null) || !preg_match('/^[a-f0-9]{64}$/D', $value[$key])) self::fail('Invalid source checksum.');
+        }
+        $pages = $value['pages'] ?? null;
+        if (!is_array($pages) || !array_is_list($pages) || count($pages) < 1 || count($pages) > 100 || count(array_unique($pages, SORT_REGULAR)) !== count($pages)) self::fail('Invalid source pages.');
+        foreach ($pages as $page) if (!is_int($page) || $page < 1 || $page > 10000) self::fail('Invalid source page.');
+        $streets = $value['streets'] ?? null;
+        if (!is_array($streets) || !array_is_list($streets) || count($streets) > 200) self::fail('Invalid source streets.');
+        $title = self::text($value['title'] ?? null, 500);
+        $text = self::text($value['text'] ?? null, 8000);
+        if (!hash_equals($value['textSha256'], hash('sha256', $title."\n".$text))) self::fail('Source text checksum mismatch.');
+        return ['documentSha256'=>$value['documentSha256'], 'referenceId'=>self::text($value['referenceId'] ?? null,100),
+                'movementId'=>self::text($value['movementId'] ?? null,150), 'pages'=>$pages, 'title'=>$title,
+                'text'=>$text, 'textSha256'=>$value['textSha256'],
+                'streets'=>array_map(fn($street)=>self::text($street,500),$streets)];
     }
 
     private static function media(mixed $reference): array

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require dirname(__DIR__).'/vendor/autoload.php';
 
-use GttTrainer\{ApiError, Auth, Database, ErrorCatalog, ErrorLogger, GtfsSynchronizer, MediaRepository, Report, RouteRepository, RouteValidator, StreetView};
+use GttTrainer\{ApiError, Auth, Database, ErrorCatalog, ErrorLogger, GtfsSynchronizer, MediaRepository, ReferenceRepository, Report, RouteRepository, RouteValidator, StreetView};
 
 $trace = bin2hex(random_bytes(12));
 header('X-Trace-Id: '.$trace);
@@ -57,6 +57,15 @@ try {
     if ($path === '/api/v1/login' && $method === 'POST') respond(['user' => $auth->login(body()), 'csrf' => $auth->csrf()]);
     if ($path === '/api/v1/logout' && $method === 'POST') { body(); $auth->logout(); respond(['user' => null, 'csrf' => $auth->csrf()]); }
     if ($path === '/api/v1/stops' && $method === 'GET') { $auth->requireRole(); respond($repo->stops()); }
+    if ($path === '/api/v1/references/depot' && $method === 'GET') {
+        $auth->requireRole('viewer');respond((new ReferenceRepository())->index());
+    }
+    if (preg_match('~^/api/v1/references/depot/(parts|blocks)/([a-f0-9]{64})$~D',$path,$match) && $method==='GET') {
+        $auth->requireRole('viewer');respond((new ReferenceRepository())->part($match[1],$match[2]));
+    }
+    if ($path === '/api/v1/references/changes' && $method === 'GET') {
+        $auth->requireRole('viewer');respond((new ReferenceRepository())->changes());
+    }
     if (in_array($path,['/api/v1/media/photos','/api/v1/media/videos'],true) && $method === 'POST') {
         $actor=$auth->requireRole();
         if (!str_starts_with(strtolower($_SERVER['CONTENT_TYPE'] ?? ''),'multipart/form-data;')) throw new ApiError(415,'unsupported_media_type','Send multipart/form-data.');

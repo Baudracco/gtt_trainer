@@ -102,9 +102,11 @@ patrones pendientes. Un cambio de fuente genera otra candidata cuando no hay tra
 manual en curso. Si hay conflicto o una revisión ya está siendo revisada, se conserva
 el documento entrante para exportarlo y compararlo. Abrir el panel no descarga GTFS.
 
-**Referencias** conserva bloques USCITA/RIENTRO de DAPER y la foto de Gerbido con
-procedencia. Crear desde una referencia inicia un formulario para dibujar y validar;
-el texto no se convierte en calles inventadas.
+**Depósitos y cambios** requiere sesión y una importación local del material operativo privado.
+Filtrá por línea, depósito y salida/regreso. Cada movimiento conserva su página y texto;
+**Trazar este movimiento** inicia un formulario con geometría vacía y el plan de calles
+visible. **Continuar trazado** retoma una variante guardada y su historial. Los bloques
+completos quedan como evidencia. [Procedimiento y límites](DEPOT_MOVEMENTS.md).
 
 ## Sin conexión y reportes
 

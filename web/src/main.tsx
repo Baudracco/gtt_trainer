@@ -457,12 +457,24 @@ export function App() {
           ) : tab === 'references' ? (
             <References
               t={t}
+              authenticated={!!user}
+              onSignIn={() => setLoginOpen(true)}
+              routes={routes}
+              onOpenRoute={
+                editor && !offline && !nav
+                  ? (route) => {
+                      edit(route);
+                      setTab('routes');
+                    }
+                  : undefined
+              }
               onAuthor={
                 editor && !offline && !nav
                   ? (doc) => {
                       setVirtualOpen(false);
                       setPrevious(null);
                       setEditing(doc);
+                      setMode(null);
                       setTab('routes');
                     }
                   : undefined

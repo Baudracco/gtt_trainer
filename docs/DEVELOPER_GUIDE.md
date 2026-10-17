@@ -36,8 +36,9 @@ herramientas de desarrollo, no servicios necesarios para ejecutar la app.
 | `tools/sync_gtfs.py` | Único dueño de la descarga/cooldown/hash del feed |
 | `tools/import_routes.py` | Conversión conservando formas/patrones; nunca publica |
 | `tools/extract_depot_reference.py` | Texto DAPER por columnas/páginas, sin geometría inventada |
+| `tools/extract_depot_movements.py` | Movimientos individuales por encabezados del PDF, partes pequeñas y hashes |
 | `data` | Catálogos/manifiestos versionados y estado de descarga semilla |
-| `web/public/data` | Referencias literales DAPER/Gerbido para consulta |
+| `server/src/ReferenceRepository.php`, `server/var/references` | Lectura autenticada del material operativo privado, excluido de Git |
 | `.github/workflows/ci.yml` | Pruebas, Docker completo y referencias documentales |
 
 ## Cambiar una funcionalidad

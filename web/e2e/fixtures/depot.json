@@ -1,0 +1,117 @@
+{
+  "index": {
+    "available": true,
+    "schemaVersion": 1,
+    "title": "Synthetic depot reference (test only)",
+    "version": "00/00",
+    "effectiveFrom": "2026-01-01",
+    "sourceSha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "sourceReferenceCount": 2,
+    "movementCount": 3,
+    "blocksSha256": "a4b8f49901e8d20c1eeb32d4d975d07c06ed65f5ea15ee8bb3e15a3184fc856b",
+    "parts": [
+      {
+        "file": "cff3238efcd3c850b264f43a7672b534d99bdd4dea487f49e0d33ca530e53b0a.json",
+        "sha256": "cff3238efcd3c850b264f43a7672b534d99bdd4dea487f49e0d33ca530e53b0a",
+        "count": 3,
+        "movementIds": ["synthetic-out-1", "synthetic-in-1", "synthetic-out-2"]
+      }
+    ]
+  },
+  "movements": [
+    {
+      "id": "synthetic-out-1",
+      "sourceRefId": "synthetic-block-S1",
+      "lineLabel": "S1",
+      "kind": "depot_out",
+      "movement": "uscita",
+      "title": "Synthetic synthetic-out-1",
+      "depot": "Synthetic depot gerbido",
+      "depotCode": "gerbido",
+      "origin": "Synthetic origin",
+      "destination": "Synthetic destination",
+      "pages": [2],
+      "streetSequence": ["Road Alpha", "Road Beta"],
+      "sourceText": "Road Alpha - Road Beta",
+      "sourceTextSha256": "295ec3e7a18cb08a42239849fb4c00a06eb786140d2b864891332c7bdbb807b4",
+      "reviewFlags": ["geometry_required", "operational_review_required"],
+      "direction": "none",
+      "geometryStatus": "not_georeferenced",
+      "sourceFragments": [
+        {
+          "page": 2,
+          "bbox": [80, 100, 320, 112]
+        }
+      ]
+    },
+    {
+      "id": "synthetic-in-1",
+      "sourceRefId": "synthetic-block-S1",
+      "lineLabel": "S1",
+      "kind": "depot_in",
+      "movement": "rientro",
+      "title": "Synthetic synthetic-in-1",
+      "depot": "Synthetic depot gerbido",
+      "depotCode": "gerbido",
+      "origin": "Synthetic origin",
+      "destination": "Synthetic destination",
+      "pages": [2],
+      "streetSequence": ["Road Return", "Road Depot"],
+      "sourceText": "Road Return - Road Depot",
+      "sourceTextSha256": "b18ba0eb319fccc88fb648e5bc515f9b42bb97394e45ad30e4aee70f46733812",
+      "reviewFlags": ["geometry_required", "operational_review_required"],
+      "direction": "none",
+      "geometryStatus": "not_georeferenced",
+      "sourceFragments": [
+        {
+          "page": 2,
+          "bbox": [80, 100, 320, 112]
+        }
+      ]
+    },
+    {
+      "id": "synthetic-out-2",
+      "sourceRefId": "synthetic-block-S2",
+      "lineLabel": "S2",
+      "kind": "depot_out",
+      "movement": "uscita",
+      "title": "Synthetic synthetic-out-2",
+      "depot": "Synthetic depot venaria",
+      "depotCode": "venaria",
+      "origin": "Synthetic origin",
+      "destination": "Synthetic destination",
+      "pages": [2],
+      "streetSequence": ["Road Gamma", "Road Delta"],
+      "sourceText": "Road Gamma - Road Delta",
+      "sourceTextSha256": "92687858ceaab0abe0b109f77caa12d5d94118f102e555749679ec3bada2569e",
+      "reviewFlags": ["geometry_required", "operational_review_required"],
+      "direction": "none",
+      "geometryStatus": "not_georeferenced",
+      "sourceFragments": [
+        {
+          "page": 2,
+          "bbox": [80, 100, 320, 112]
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "references": [
+      {
+        "id": "synthetic-block-S1",
+        "line": "S1",
+        "pages": [2],
+        "uscita": "Synthetic outgoing source",
+        "rientro": "Synthetic incoming source"
+      },
+      {
+        "id": "synthetic-block-S2",
+        "line": "S2",
+        "pages": [2],
+        "uscita": "Synthetic outgoing source",
+        "rientro": ""
+      }
+    ],
+    "sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  }
+}

@@ -6,6 +6,7 @@ import type { Translate, TextKey } from './i18n';
 import { MediaUpload } from './MediaUpload';
 import { MediaGallery } from './MediaGallery';
 import { mediaUrl } from './api';
+import { SourceEvidence } from './SourceEvidence';
 
 type Props = {
   document: RouteDocument;
@@ -66,6 +67,7 @@ export function Editor({
         </button>
       </div>
       <p className="muted">{t('unsaved')}</p>
+      {doc.source.provenance && <SourceEvidence evidence={doc.source.provenance} t={t} />}
       <fieldset className="editor-fields" disabled={busy || uploading}>
         <div className="field-grid">
           <label>

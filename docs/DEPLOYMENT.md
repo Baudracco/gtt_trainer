@@ -12,6 +12,7 @@ solo a loopback; exponer el servicio al teléfono requiere un proxy HTTPS confia
 | `api` | PHP-FPM y migraciones al arrancar | `unless-stopped`; `serverdata` |
 | `db` | PostGIS | `unless-stopped`; `pgdata`, healthcheck |
 | `gtfs-sync` | Daemon Python y CLI de ingestión | `unless-stopped`; `serverdata`, espera DB sana |
+| `reference-import` | Herramienta opcional de importación privada, perfil `tools` | Ejecución puntual; `serverdata/references`; original montado en solo lectura |
 
 El worker no necesita cron. Al arrancar adopta el catálogo empaquetado y su fecha de
 descarga, luego aplica un bundle validado. Sus chequeos locales horarios no equivalen
@@ -32,6 +33,7 @@ solo se usa en CI o instalaciones descartables.
 | `GTFS_DOWNLOAD_ENABLED` | `1` normal; `0` pausa HTTP sin borrar bundle/cooldown |
 | `MEDIA_ACCEL_REDIRECT` | `1` con Nginx del paquete; fallback PHP para desarrollo |
 | `MEDIA_DIR` | Directorio privado de medios si se configura otro volumen |
+| `REFERENCE_DIR` | Directorio privado de referencias; por defecto `server/var/references`, excluido de Git y del web root |
 | `AUDIT_FALLBACK_LOG` | NDJSON diagnóstico privado; compose usa `serverdata/errors.log` |
 | `VITE_TILE_URL`, `VITE_TILE_ATTRIBUTION` | Proveedor raster opcional fijado al construir la web |
 

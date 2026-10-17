@@ -64,6 +64,11 @@ final class Report
             $origin=rtrim(getenv('APP_ORIGIN') ?: '', '/');
             $html.='<h2>Video</h2><p>'.$e($route['video']['caption']).'<br>'.$e($route['video']['credit']).'<br><a href="'.$e($origin.'/api/v1/media/'.$route['video']['id']).'">'.$e($origin.'/api/v1/media/'.$route['video']['id']).'</a></p>';
         }
+        if (!empty($route['source']['provenance'])) {
+            $evidence=$route['source']['provenance'];
+            $html.='<h2>'.$e($t[7]).' · '.$e($evidence['title']).'</h2><p class="notes">'.$e($evidence['text']).'</p>'
+                .'<p class="trace">'.$e($evidence['movementId']).' · p. '.$e(implode(', ',$evidence['pages'])).'<br>SHA-256 '.$e($evidence['documentSha256']).'</p>';
+        }
         $html .= '<h2>'.$e($t[7]).'</h2><p>'.$e($route['source']['name']).'<br>'.$e($route['source']['url']).'<br>'.$e($route['source']['license']).'<br>'.$e($route['source']['retrievedAt']).'</p>'
             .'<p class="muted">'.$e($t[11]).': '.gmdate('Y-m-d H:i').' UTC</p><p class="trace">'.$e($route['id'].' / '.$route['revisionId']).'</p></body></html>';
         return $html;

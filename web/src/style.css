@@ -732,6 +732,26 @@ progress {
   font-family: monospace !important;
   font-size: 11px !important;
 }
+.source-evidence {
+  margin: 1rem 0;
+  padding: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+}
+.source-evidence summary {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.source-evidence li,
+.movement-card li {
+  margin: 0.3rem 0;
+}
+.source-evidence small {
+  overflow-wrap: anywhere;
+}
+.movement-card {
+  margin: 0.6rem 0;
+}
 .source-text {
   white-space: pre-wrap;
   font-size: 12px;

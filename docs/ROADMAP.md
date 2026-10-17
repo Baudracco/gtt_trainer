@@ -1,6 +1,6 @@
 # State and roadmap
 
-Last updated 2026-10-16. Work is traced through PRs and CI; the user authorized autonomous PRs
+Last updated 2026-10-17. Work is traced through PRs and CI; the user authorized autonomous PRs
 and merges after verification. All route geometry remains fixed and versioned.
 
 ## Implemented in the study/navigation MVP
@@ -40,8 +40,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 
 - 633 fixed urban bus/tram variant candidates across 137 line codes, including all 139 original Gerbido-related bus variants.
 - 31 formerly rejected stop patterns recovered by global ordered projection; source geometry preserved; 601 accepted documents unchanged and one line-14 stop-offset correction recorded.
-- 133 source-reference blocks from DAPER 05/26 (pages 2–68), separating USCITA and RIENTRO.
-- 30 Gerbido line/change-place/access combinations from the supplied photograph.
+- Private local import of operator depot/change-post references, splitting individual movements with page boxes and source checksums. The authenticated workbench resumes linked variants; editor evidence survives revision storage, JSON export/restoration and private reports. Public responses and offline publications omit private literal evidence. The operational material is not packaged in Git or public assets.
 
 ## Next data work
 

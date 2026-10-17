@@ -108,9 +108,30 @@ export function validateDocument(value: unknown): RouteDocument {
   if (
     typeof d.notes !== 'string' ||
     !d.source ||
-    Object.values(d.source).some((v) => typeof v !== 'string')
+    ['name', 'url', 'license', 'retrievedAt'].some(
+      (key) => typeof d.source[key as keyof RouteDocument['source']] !== 'string',
+    )
   )
     throw Error('Invalid source or notes.');
+  const evidence = d.source.provenance;
+  if (
+    evidence !== undefined &&
+    (!evidence ||
+      !/^[a-f0-9]{64}$/.test(evidence.documentSha256) ||
+      !/^[a-f0-9]{64}$/.test(evidence.textSha256) ||
+      ['referenceId', 'movementId', 'title', 'text'].some(
+        (key) => typeof evidence[key as keyof typeof evidence] !== 'string',
+      ) ||
+      !Array.isArray(evidence.pages) ||
+      evidence.pages.length < 1 ||
+      evidence.pages.length > 100 ||
+      evidence.pages.some((p) => !Number.isInteger(p) || p < 1 || p > 10000) ||
+      new Set(evidence.pages).size !== evidence.pages.length ||
+      !Array.isArray(evidence.streets) ||
+      evidence.streets.length > 200 ||
+      evidence.streets.some((s) => typeof s !== 'string' || s.length > 500))
+  )
+    throw Error('Invalid source provenance.');
   return { ...d, geometry, stops };
 }
 

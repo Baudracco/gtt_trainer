@@ -29,7 +29,7 @@ final class RouteRepository
         $sql .= $trash && $editor ? 'v.deleted_at IS NOT NULL' : 'v.deleted_at IS NULL';
         $sql .= $editor ? " AND (r.id = v.published_revision_id OR r.status IN ('draft','review'))" : ' AND r.id = v.published_revision_id';
         $sql .= ' ORDER BY v.created_at, r.revision';
-        return array_map($this->snapshot(...), $this->db->query($sql)->fetchAll());
+        return array_map(fn($row)=>$editor ? $this->snapshot($row) : self::publicSnapshot($this->snapshot($row)), $this->db->query($sql)->fetchAll());
     }
 
     /**
@@ -45,7 +45,14 @@ final class RouteRepository
         $q->execute($revisionId ? [$id, $revisionId] : [$id]);
         $row = $q->fetch();
         if (!$row) throw new ApiError(404, 'not_found', 'Route or revision not found.');
-        return $this->snapshot($row);
+        $snapshot=$this->snapshot($row);
+        return $editor ? $snapshot : self::publicSnapshot($snapshot);
+    }
+
+    private static function publicSnapshot(array $snapshot): array
+    {
+        unset($snapshot['source']['provenance']);
+        return $snapshot;
     }
 
     /**
