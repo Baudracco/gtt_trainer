@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { measure, pointAt } from '../src/geometry';
 import { emptyRoute, type RouteSnapshot } from '../src/model';
-import referenceFixture from './fixtures/depot.json';
+import referenceFixture from './fixtures/depot.json' with { type: 'json' };
 
 const shared = {
   id: 'abcd1234-0000-4000-8000-000000000010',
