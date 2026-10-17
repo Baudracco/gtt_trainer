@@ -13,7 +13,7 @@ un recorrido GPS verificado.
 2. Abrí el movimiento exacto y revisá su página, encabezado y secuencia de calles.
 3. Con sesión de editor, **Trazar este movimiento** abre un formulario con geometría
    vacía. El texto de otra alternativa del mismo bloque no se mezcla con este movimiento.
-4. Importá o dibujá sus vértices siguiendo las calles indicadas. Agregá giros, paradas,
+4. Importá, dibujá o [grabá con GPS](GPS_RECORDING.md) sus vértices siguiendo las calles indicadas. Agregá giros, paradas,
    restricciones y referencias escritas/fotográficas. La dirección inicial queda sin confirmar.
 5. Guardá el borrador. El catálogo lo cuenta como **con trazado guardado**, que no
    significa aprobado. **Continuar trazado** retoma la variante y su historial/versionado.

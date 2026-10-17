@@ -19,6 +19,7 @@ las fotos de calle y el GPS nunca recalculan una publicación.
 | Desarrollo local, importadores y verificación existente | [Operación](OPERATIONS.md) |
 | Descarga automática GTT, hash, cooldown y conflictos | [Sincronización GTFS](GTFS_SYNC.md) |
 | Panoramax, panoramas 360°, velocidades y cobertura | [Recorridos virtuales](VIRTUAL_TOURS.md) |
+| Capturar vértices con GPS y descargar tramos separados | [Grabación GPS](GPS_RECORDING.md) |
 | Fotos por giro, video, acceso privado y URLs | [Material visual](MEDIA_AND_URLS.md) |
 | Datos incorporados, procedencia y límites | [Fuentes](SOURCES.md) |
 | Trazar y continuar movimientos individuales de depósito | [Movimientos DAPER](DEPOT_MOVEMENTS.md) |

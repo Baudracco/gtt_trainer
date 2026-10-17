@@ -38,6 +38,8 @@ crean borradores, conservando la publicación y las ediciones manuales. La pesta
 muestra el hash, las descargas y los pendientes. No es necesario importar el catálogo a mano.
 
 GPS en el celular requiere HTTPS y permiso de ubicación; la posición permanece en el dispositivo.
+El editor permite [grabar trazados GPS](docs/GPS_RECORDING.md), revisar tramos separados
+y descargar GPX. La geometría elegida se envía solo al guardar el borrador.
 Se conservan recorridos publicados para consulta sin conexión; el mapa de fondo necesita conexión.
 
 Documentación completa: [índice y manuales](docs/README.md), [arquitectura](docs/ARCHITECTURE.md), [estado y pendientes](docs/ROADMAP.md),

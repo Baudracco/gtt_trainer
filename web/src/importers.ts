@@ -230,6 +230,7 @@ export function parseGpx(text: string, filename: string): RouteDocument[] {
     const doc = emptyRoute();
     doc.line = 'IMPORT';
     doc.name = `${filename} · ${index + 1}`;
+    doc.direction = 'none';
     doc.geometry.coordinates = [...segment.getElementsByTagNameNS('*', 'trkpt')].map((p) =>
       coordinate([Number(p.getAttribute('lon') ?? NaN), Number(p.getAttribute('lat') ?? NaN)]),
     );

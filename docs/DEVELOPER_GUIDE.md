@@ -19,6 +19,7 @@ herramientas de desarrollo, no servicios necesarios para ejecutar la app.
 | `web/src/main.tsx` | Estado de catálogo/editor, historial y exclusión GPS/virtual |
 | `web/src/model.ts` | Documentos, snapshots, paradas y agrupación de pertenencias |
 | `web/src/geometry.ts` | Medición/proyección GPS y sugerencias geométricas revisables |
+| `web/src/recording.ts`, `GpsRecorder.tsx` | Captura GPS local, filtros, tramos separados y exportación GPX |
 | `web/src/RouteMap.tsx` | WebGL y eventos de mapa, sin reemplazar geometría |
 | `web/src/Editor.tsx` | Formulario completo y orden explícito |
 | `web/src/VirtualTour.tsx`, `StreetPhoto.tsx`, `virtual.ts` | Reproducción fija, carga cancelable y visor 360° |
@@ -61,6 +62,8 @@ requieren evidencia operativa: 0/1 son etiquetas del feed, no una traducción se
 No enviar fixes al API. El lookup de fotos recibe revisión y distancia, no ubicación
 del dispositivo. No usar texto/HTML del proveedor como instrucción de conducción.
 No generar geometrías desde nombres de calles sin trazado y comprobación explícitos.
+La captura editorial solo envía coordenadas al guardar explícitamente el borrador;
+no añade telemetría ni un endpoint GPS. [Contrato de grabación](GPS_RECORDING.md).
 
 ## Pruebas por responsabilidad
 
@@ -88,6 +91,10 @@ Las pruebas Python de sincronización inyectan reloj y transporte: no descargan 
 ni consumen su ventana. Las PHP de Panoramax inyectan HTTP y usan PostGIS real para
 la caché. El E2E usa WebGL/Photo Sphere Viewer reales, tiles vacíos y un panorama
 sintético marcado. El GPS se usa a través de permisos/fixes nativos del navegador.
+La captura continua del editor también se prueba con callbacks controlados: el
+override nativo de Chromium emite un error temporal al cambiar de posición en CI.
+La prueba nativa comprueba ese error, recuperación, pausas y GPX de puntos aislados;
+la prueba continua mantiene WebGL real y verifica el guardado explícito del tramo.
 No confundir la emulación móvil con una prueba en calle en un teléfono.
 
 CI levanta además Docker completo, carga automáticamente las 633 candidatas, sube

@@ -86,6 +86,12 @@ por tiempo y ancla, comprueba precisión/edad/rumbo y conserva el progreso ante 
 No usa un servicio de routing. El watcher GPS solo vive en el navegador y se libera
 al detener. El reproductor virtual usa la misma medición y es excluyente con GPS.
 
+La captura editorial GPS es otro modo excluyente. Mantiene observaciones originales
+solo en memoria y separa pausas/fallos en tramos; el mapa recibe un `LineString` por
+tramo. Aplicar uno al formulario vacío es explícito y conserva la evidencia fuente.
+El GPX incluye tiempos/precisión; guardar el borrador conserva su geometría, sin
+los metadatos de adquisición. [Contrato y límites](GPS_RECORDING.md).
+
 Panoramax recibe celdas derivadas de la revisión guardada. Sus imágenes son contexto:
 no definen giros ni progreso. Los metadatos factuales se filtran y cachean; los
 panoramas 360° usan un visor cargado de forma diferida. [Contrato](VIRTUAL_TOURS.md).

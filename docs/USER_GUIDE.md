@@ -86,6 +86,14 @@ La importación no escribe nada hasta Guardar y cada documento crea un borrador.
 Los archivos grandes GTFS/CSV/XLSX se convierten por CLI y el worker gestiona el feed
 oficial; no importar su semilla a mano, porque crearía variantes de usuario adicionales.
 
+En un formulario vacío, **Grabar recorrido con GPS** captura vértices en primer
+plano. Pausar, elegir un tramo y **Usar este tramo** copia la geometría al editor;
+después se revisa y guarda. Las pausas y pérdidas de señal quedan separadas, sin
+conexiones inventadas. **Descargar GPX grabado** conserva todos los tramos para
+trabajarlos por separado. La captura permanece en memoria y se pierde al cerrar o
+recargar si no se descarga; ocultar la app pausa y exige retomar explícitamente.
+La evidencia DAPER se conserva al aplicar un tramo. [Uso y límites](GPS_RECORDING.md).
+
 Añadir vértices explícitos en orden de marcha. Añadir/reutilizar paradas canónicas,
 ordenarlas por distancia recorrida y especificar cambio/sentido solo cuando esté
 confirmado. Una misma parada puede aparecer más de una vez en una circular.

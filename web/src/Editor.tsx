@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { generateInstructions, measure } from './geometry';
 import { coordinate, downloadDocument, validateDocument } from './importers';
 import type { RouteDocument, RouteSnapshot, RouteStop } from './model';
@@ -7,6 +7,10 @@ import { MediaUpload } from './MediaUpload';
 import { MediaGallery } from './MediaGallery';
 import { mediaUrl } from './api';
 import { SourceEvidence } from './SourceEvidence';
+import { GpsRecorder } from './GpsRecorder';
+import type { Coordinate } from './model';
+
+const ignoreRecording = () => {};
 
 type Props = {
   document: RouteDocument;
@@ -17,6 +21,10 @@ type Props = {
   setMode: (m: 'vertex' | 'stop' | null) => void;
   save: () => Promise<void>;
   close: () => void;
+  onRecordingPreview?: (segments: Coordinate[][]) => void;
+  onRecordingActive?: (active: boolean) => void;
+  recordingFollow?: boolean;
+  setRecordingFollow?: (follow: boolean) => void;
   t: Translate;
 };
 /** Author explicit vertices, ordered memberships, maneuver references and immutable media links.
@@ -30,12 +38,25 @@ export function Editor({
   setMode,
   save,
   close,
+  onRecordingPreview = ignoreRecording,
+  onRecordingActive = ignoreRecording,
+  recordingFollow = true,
+  setRecordingFollow = ignoreRecording,
   t,
 }: Props) {
   const [busy, setBusy] = useState(false),
     [geometryText, setGeometryText] = useState<string | null>(null),
     [error, setError] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const recordingActive = useCallback(
+    (active: boolean) => {
+      setRecording(active);
+      onRecordingActive(active);
+      if (active) setMode(null);
+    },
+    [onRecordingActive, setMode],
+  );
   const update = <K extends keyof RouteDocument>(key: K, value: RouteDocument[K]) =>
     set({ ...doc, [key]: value });
   const stop = (index: number, patch: Partial<RouteStop>) =>
@@ -68,7 +89,23 @@ export function Editor({
       </div>
       <p className="muted">{t('unsaved')}</p>
       {doc.source.provenance && <SourceEvidence evidence={doc.source.provenance} t={t} />}
-      <fieldset className="editor-fields" disabled={busy || uploading}>
+      <GpsRecorder
+        disabled={busy || uploading}
+        canApply={!doc.geometry.coordinates.length && !doc.stops.length && !doc.instructions.length}
+        onApply={(coordinates) =>
+          set({
+            ...doc,
+            geometry: { type: 'LineString', coordinates },
+            source: doc.source.name ? doc.source : { ...doc.source, name: t('gpsRecordSource') },
+          })
+        }
+        onPreview={onRecordingPreview}
+        onActiveChange={recordingActive}
+        follow={recordingFollow}
+        setFollow={setRecordingFollow}
+        t={t}
+      />
+      <fieldset className="editor-fields" disabled={busy || uploading || recording}>
         <div className="field-grid">
           <label>
             {t('line')}
@@ -600,7 +637,11 @@ export function Editor({
         </p>
       )}
       <div className="editor-actions">
-        <button className="primary" disabled={busy || uploading} onClick={() => void submit()}>
+        <button
+          className="primary"
+          disabled={busy || uploading || recording}
+          onClick={() => void submit()}
+        >
           {t(busy ? 'saving' : 'save')}
         </button>
         <button onClick={() => downloadDocument(doc)}>{t('export')}</button>
