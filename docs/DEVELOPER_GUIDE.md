@@ -1,5 +1,9 @@
 # Guía para continuar el desarrollo
 
+Al retomar, leer primero [el estado y punto de continuidad](PROJECT_STATUS.md):
+inventario implementado, evidencia de pruebas, pendientes y tarea siguiente. Revisar
+solo los commits posteriores y los archivos necesarios para el cambio elegido.
+
 ## Entorno y arranque
 
 El camino reproducible es Docker Compose: Nginx, PHP 8.3-FPM, PostGIS y worker.
