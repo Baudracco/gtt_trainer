@@ -3,6 +3,9 @@
 Last updated 2026-10-17. Work is traced through PRs and CI; the user authorized autonomous PRs
 and merges after verification. All route geometry remains fixed and versioned.
 
+Start with [the maintained project checkpoint](PROJECT_STATUS.md) when resuming work;
+it records the verified delivery, entry points and next concrete task.
+
 ## Implemented in the study/navigation MVP
 
 - React/TypeScript responsive UI, ES/IT/EN, saved theme/language, installable shell.

@@ -46,6 +46,9 @@ Documentación completa: [índice y manuales](docs/README.md), [arquitectura](do
 [operación e importación](docs/OPERATIONS.md), [fuentes y licencias](docs/SOURCES.md),
 [OpenAPI](docs/openapi.yaml), [errores](docs/API_RESPONSE_CATALOG.md).
 
+Para continuar el desarrollo sin repetir la revisión completa, empezar por
+[el estado verificado y punto de continuidad](docs/PROJECT_STATUS.md).
+
 Fotos por giro, video completo, rangos de reproducción y enlaces compartibles:
 [material visual y URLs](docs/MEDIA_AND_URLS.md).
 

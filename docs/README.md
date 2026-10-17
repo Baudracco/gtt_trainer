@@ -8,6 +8,7 @@ las fotos de calle y el GPS nunca recalculan una publicación.
 
 | Necesidad | Documento |
 | --- | --- |
+| Retomar sin revisar todo: implementado, evidencia y siguiente tarea | [Estado y punto de continuidad](PROJECT_STATUS.md) |
 | Instalar y crear el primer administrador | [README del proyecto](../README.md) |
 | Usar mapas, GPS, referencias y editor | [Manual de uso](USER_GUIDE.md) |
 | Entender servicios, revisiones, datos y decisiones | [Arquitectura](ARCHITECTURE.md) |
