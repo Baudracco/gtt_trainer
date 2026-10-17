@@ -25,14 +25,14 @@ las fotos de calle y el GPS nunca recalculan una publicación.
 
 ## Estado del catálogo empaquetado
 
-El snapshot oficial 20261013 contiene 602 variantes válidas seleccionadas de 137
-códigos de línea urbana: 550 variantes de bus y 52 de tranvía. La selección incluye
+El snapshot oficial 20261013 contiene 633 variantes válidas seleccionadas de 137
+códigos de línea urbana: 581 variantes de bus y 52 de tranvía. La selección incluye
 todos los registros `agency_id=U`, `route_type=0/3` del feed, no solo las líneas
-relacionadas con Gerbido. Los 31 patrones discrepantes se conservan para revisión.
+relacionadas con Gerbido. Los 31 patrones antes rechazados se recuperaron al corregir la proyección global de paradas; siguen sujetos a revisión operativa.
 
 Las 139 variantes del primer lote siguen incluidas y su manifiesto original queda
 como evidencia. Una línea puede tener varios shapes, sentidos, parciales y patrones
-de paradas; 602 variantes no significa 602 líneas. Todas se importan como borradores.
+de paradas; 633 variantes no significa 633 líneas. Todas se importan como borradores.
 
 DAPER aporta 133 bloques de referencia con página y hash; todavía requieren
 geometrías verificadas por movimiento. La foto de Gerbido aporta 30 combinaciones

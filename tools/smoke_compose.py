@@ -47,7 +47,8 @@ photo=upload('/media/photos',base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABC
 subprocess.run(['docker','compose','exec','-T','api','ffmpeg','-v','error','-f','lavfi','-i','color=c=blue:s=160x120:d=1','-c:v','libx264','-pix_fmt','yuv420p','-movflags','+faststart','-y','/tmp/gtt-smoke.mp4'],check=True)
 video_bytes=subprocess.check_output(['docker','compose','exec','-T','api','cat','/tmp/gtt-smoke.mp4'])
 video=upload('/media/videos',video_bytes,'whole-route.mp4','video/mp4')
-sources=json.loads(Path('data/gtt-urban-drafts.json').read_text())
+from catalogue import load_catalogue
+sources=load_catalogue(Path('data/gtt-urban-drafts.json'))
 source=next(doc for doc in sources if doc['line']==first['line'] and doc['name']==first['name'])
 assert first['geometry']==source['geometry'],'Compose import changed source geometry'
 for route in routes:

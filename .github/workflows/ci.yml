@@ -74,7 +74,9 @@ jobs:
         with: {python-version: '3.12'}
       - run: pip install -r tools/requirements.txt openapi-spec-validator
       - run: python tools/test_imports.py
+      - run: python tools/test_catalogue.py
       - run: python tools/test_sync_gtfs.py
+      - run: python tools/test_verify_gtt_web.py
       - run: openapi-spec-validator docs/openapi.yaml
       - run: python tools/check_docs.py
   documentation:

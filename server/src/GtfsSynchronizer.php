@@ -140,6 +140,9 @@ final class GtfsSynchronizer
         $issues = $this->db->query("SELECT source_key AS key, variant_id AS \"variantId\", state, reason, identity, pending_document IS NOT NULL AS \"hasDocument\" FROM gtfs_route_links WHERE state <> 'current' ORDER BY source_key")->fetchAll();
         foreach ($issues as &$issue) $issue['identity'] = json_decode($issue['identity'], true, 128, JSON_THROW_ON_ERROR);
         unset($issue);
+        $recoveries = $this->db->query("SELECT source_key AS key, variant_id AS \"variantId\", identity FROM gtfs_route_links WHERE state = 'current' AND jsonb_exists(identity,'projectionRecovery') ORDER BY source_key")->fetchAll();
+        foreach ($recoveries as &$recovery) $recovery['identity'] = json_decode($recovery['identity'], true, 128, JSON_THROW_ON_ERROR);
+        unset($recovery);
         $download = null; $path = getenv('GTFS_STATE_DIR') ?: dirname(__DIR__).'/var/gtfs';
         if (is_file($path.'/state.json')) {
             $state = json_decode(file_get_contents($path.'/state.json'), true);
@@ -148,7 +151,7 @@ final class GtfsSynchronizer
         }
         return ['archiveSha256' => $row['archive_sha256'] ?? null, 'downloadedAt' => $row['downloaded_at'] ?? null,
             'appliedAt' => $row['applied_at'] ?? null, 'summary' => $row ? json_decode($row['summary'], true) : null,
-            'download' => $download, 'issues' => $issues];
+            'download' => $download, 'issues' => $issues, 'projectionRecoveries' => $recoveries];
     }
 
     /**

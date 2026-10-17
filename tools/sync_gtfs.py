@@ -22,7 +22,8 @@ from urllib.parse import urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 import zipfile
 
-from import_routes import gtfs
+from import_routes import CONVERTER_VERSION, gtfs
+from catalogue import load_catalogue
 
 ROOT = Path(__file__).resolve().parents[1]
 URL = 'https://www.gtt.to.it/open_data/gtt_gtfs.zip'
@@ -102,7 +103,7 @@ def make_bundle(path, sha256, downloaded_at, lines, agencies=None, route_types=N
         variants.append({**identity, 'contentHash': content_hash(doc), 'document': doc})
     with zipfile.ZipFile(path) as archive:
         feed_info = list(csv.DictReader(io.TextIOWrapper(archive.open('feed_info.txt'), encoding='utf-8-sig'))) if 'feed_info.txt' in archive.namelist() else []
-    return {'schemaVersion': 1, 'provider': 'gtt', 'archiveSha256': sha256,
+    return {'schemaVersion': 1, 'provider': 'gtt', 'converterVersion': CONVERTER_VERSION, 'archiveSha256': sha256,
             'downloadedAt': downloaded_at, 'sourceUrl': URL, 'lines': lines,
             'agencies': sorted(agencies or []), 'routeTypes': sorted(route_types if route_types is not None else ['3']),
             'feedInfo': feed_info, 'variants': variants, 'rejected': rejected}
@@ -155,6 +156,10 @@ class Downloader:
         """Compare all scope dimensions, including legacy bus-only bundle defaults."""
         return bool(bundle) and bundle.get('lines') == self.lines and bundle.get('agencies', []) == self.agencies and bundle.get('routeTypes', ['3']) == self.route_types
 
+    def current_conversion(self, bundle):
+        """Require the current importer version as well as matching selection."""
+        return self.same_selection(bundle) and bundle.get('converterVersion', 1) == CONVERTER_VERSION
+
     def convert(self, path, sha256, downloaded_at):
         """Apply this worker’s exact selection to already downloaded source bytes."""
         return make_bundle(path, sha256, downloaded_at, self.lines, self.agencies, self.route_types)
@@ -173,11 +178,11 @@ class Downloader:
             manifest = read_json(documents.with_suffix('.manifest.json'))
             selection = manifest.get('selection', {'lines': self.lines, 'agencies': self.agencies, 'routeTypes': self.route_types})
             if selection != {'lines': self.lines, 'agencies': self.agencies, 'routeTypes': self.route_types}: return
-            if state and (state.get('sha256') != manifest['sha256'] or self.same_selection(previous)): return
-            docs = read_json(documents)
+            if state and (state.get('sha256') != manifest['sha256'] or self.current_conversion(previous)): return
+            docs = load_catalogue(documents)
             variants = [{**identity, 'document': doc, 'contentHash': content_hash(doc)} for identity, doc in zip(manifest['variants'], docs, strict=True)]
             if manifest['sha256'] != status['sha256']: raise ValueError('Seed provenance mismatch')
-            bundle = {'schemaVersion': 1, 'provider': 'gtt', 'archiveSha256': manifest['sha256'],
+            bundle = {'schemaVersion': 1, 'provider': 'gtt', 'converterVersion': manifest.get('converterVersion', 1), 'archiveSha256': manifest['sha256'],
                       'downloadedAt': status['lastDownloadAt'], 'sourceUrl': URL, 'lines': self.lines,
                       'agencies': self.agencies, 'routeTypes': self.route_types,
                       'feedInfo': manifest.get('feedInfo', []), 'variants': variants, 'rejected': manifest['skipped']}
@@ -200,8 +205,10 @@ class Downloader:
             now = self.clock()
             previous = self.bundle()
             local_archive = self.directory / 'gtt_gtfs.zip'
-            if previous and not self.same_selection(previous) and local_archive.exists():
-                # Selection changes can reuse already downloaded bytes during cooldown.
+            if previous and not self.current_conversion(previous) and local_archive.exists():
+                # Selection/importer changes reuse downloaded bytes during cooldown.
+                if hashlib.sha256(local_archive.read_bytes()).hexdigest() != previous['archiveSha256']:
+                    raise ValueError('Cached GTFS ZIP hash does not match its provenance; retaining last good bundle')
                 bundle = self.convert(local_archive, previous['archiveSha256'], previous['downloadedAt'])
                 bundle['changes'] = compare(previous, bundle)
                 atomic_json(self.directory / 'current.json', bundle)
@@ -212,7 +219,7 @@ class Downloader:
             state.update(lastAttemptAt=stamp(now), nextAttemptAt=stamp(now + self.cooldown), outcome='attempting', error=None)
             atomic_json(state_path, state)
             headers = {'User-Agent': 'GTT-Trainer/0.3 (+educational fixed-route study)', 'Accept': 'application/zip'}
-            if self.same_selection(previous):
+            if self.current_conversion(previous):
                 if state.get('etag'): headers['If-None-Match'] = state['etag']
                 if state.get('lastModified'): headers['If-Modified-Since'] = state['lastModified']
             temporary = None
@@ -233,7 +240,7 @@ class Downloader:
                     stream.flush(); os.fsync(stream.fileno())
                     etag, last_modified = response.headers.get('ETag'), response.headers.get('Last-Modified')
                 digest = sha.hexdigest()
-                if digest != state.get('sha256') or not self.same_selection(previous):
+                if digest != state.get('sha256') or not self.current_conversion(previous):
                     bundle = self.convert(Path(temporary), digest, stamp(now))
                     bundle['changes'] = compare(previous, bundle)
                     # Keep the current bundle intact until the complete conversion succeeds.

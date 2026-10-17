@@ -135,7 +135,7 @@ class SyncTests(unittest.TestCase):
         before=sync.read_json(self.path/'state.json')
         urban=sync.Downloader(self.path,agencies=['U'],route_types=['0','3'],opener=self.opener,clock=lambda:self.now)
         urban.seed(root/'data/gtt-urban-drafts.json',status)
-        self.assertEqual(len(urban.bundle()['variants']),602)
+        self.assertEqual(len(urban.bundle()['variants']),633)
         self.assertEqual(sync.read_json(self.path/'state.json'),before)
         self.assertEqual(urban.run()['outcome'],'cooldown')
         self.assertEqual(self.opener.calls,[])
@@ -146,5 +146,25 @@ class SyncTests(unittest.TestCase):
         previous=self.downloader().bundle()
         self.downloader().seed(root/'data/gtt-urban-drafts.json',sync.read_json(root/'data/gtt-sync-status.json'))
         self.assertEqual(self.downloader().bundle(),previous)
+
+    def test_importer_upgrade_reprocesses_cached_zip_without_resetting_cooldown(self):
+        downloader=self.downloader();downloader.run()
+        previous=downloader.bundle();previous['converterVersion']=1
+        sync.atomic_json(self.path/'current.json',previous)
+        before=sync.read_json(self.path/'state.json')
+        self.now+=timedelta(hours=1)
+        self.assertEqual(downloader.run()['outcome'],'cooldown')
+        self.assertEqual(downloader.bundle()['converterVersion'],sync.CONVERTER_VERSION)
+        self.assertEqual(sync.read_json(self.path/'state.json'),before)
+        self.assertEqual(len(self.opener.calls),1)
+
+    def test_importer_upgrade_rejects_mismatched_cached_archive(self):
+        downloader=self.downloader();downloader.run()
+        previous=downloader.bundle();previous['converterVersion']=1
+        sync.atomic_json(self.path/'current.json',previous)
+        (self.path/'gtt_gtfs.zip').write_bytes(archive(changed=True))
+        with self.assertRaises(ValueError):downloader.run()
+        self.assertEqual(downloader.bundle(),previous)
+        self.assertEqual(len(self.opener.calls),1)
 
 if __name__=='__main__':unittest.main()
