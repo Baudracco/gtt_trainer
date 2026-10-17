@@ -2,7 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import * as api from './api';
 import { downloadDocument } from './importers';
 import { errorText, type Translate, type TextKey } from './i18n';
-import type { RouteDocument } from './model';
+import type { RouteDocument, RouteSnapshot } from './model';
+
+type DuplicateGroup = {
+  kind: 'same_line_exact' | 'cross_line_shared';
+  fingerprint: string;
+  members: { key: string; line: string; shape: string; variantId: string | null }[];
+};
 
 type Status = {
   archiveSha256: string | null;
@@ -14,6 +20,18 @@ type Status = {
     lastDownloadAt?: string;
     nextAttemptAt?: string;
     outcome?: string;
+  } | null;
+  duplicateAudit?: {
+    nearGeometryComplete?: boolean;
+    counts: {
+      sourceRecords: number;
+      sameLinePathStopGroups: number;
+      sameLineExactGroups: number;
+      crossLineSharedGroups: number;
+      nearGeometryPairs: number;
+    };
+    groups: DuplicateGroup[];
+    nearGeometryPairs: { members: DuplicateGroup['members']; maxSeparationM: number }[];
   } | null;
   projectionRecoveries?: {
     key: string;
@@ -31,7 +49,15 @@ type Status = {
 };
 /** Read editor-only synchronization provenance and export conflicting incoming documents.
  * Opening this panel cannot trigger or bypass an external GTFS download. */
-export function SyncStatus({ t }: { t: Translate }) {
+export function SyncStatus({
+  t,
+  routes = [],
+  onCompare,
+}: {
+  t: Translate;
+  routes?: RouteSnapshot[];
+  onCompare?: (variantIds: string[]) => void;
+}) {
   const [status, setStatus] = useState<Status | null>(null),
     [error, setError] = useState(''),
     [busy, setBusy] = useState(false);
@@ -71,6 +97,21 @@ export function SyncStatus({ t }: { t: Translate }) {
     missing: 'syncMissing',
     deleted: 'syncDeleted',
   } as const;
+  const duplicateGroups = status?.duplicateAudit?.groups ?? [];
+  function compareButton(members: DuplicateGroup['members']) {
+    const ids = [
+      ...new Set(
+        members
+          .map((member) => member.variantId)
+          .filter((id): id is string => !!id && routes.some((r) => r.id === id)),
+      ),
+    ];
+    return (
+      <button disabled={!onCompare || ids.length !== 2} onClick={() => onCompare?.(ids)}>
+        {t('compareCurrent')}
+      </button>
+    );
+  }
   return (
     <section className="sync-status">
       <div className="section-heading">
@@ -101,6 +142,65 @@ export function SyncStatus({ t }: { t: Translate }) {
               <code>{status.archiveSha256 ?? '—'}</code>
             </dd>
           </dl>
+          {status.duplicateAudit && (
+            <details className="duplicate-audit">
+              <summary>
+                {t('duplicateAudit')} · {status.duplicateAudit.counts.sameLineExactGroups}
+              </summary>
+              <p>{t('duplicateAuditHelp')}</p>
+              {status.duplicateAudit.nearGeometryComplete === false && (
+                <p className="alert">{t('duplicateAuditLimited')}</p>
+              )}
+              <dl className="comparison-results">
+                <div>
+                  <dt>{t('sourceRecords')}</dt>
+                  <dd>{status.duplicateAudit.counts.sourceRecords}</dd>
+                </div>
+                <div>
+                  <dt>{t('sameLinePathGroups')}</dt>
+                  <dd>{status.duplicateAudit.counts.sameLinePathStopGroups}</dd>
+                </div>
+                <div>
+                  <dt>{t('sameLineCandidates')}</dt>
+                  <dd>{status.duplicateAudit.counts.sameLineExactGroups}</dd>
+                </div>
+                <div>
+                  <dt>{t('crossLineShared')}</dt>
+                  <dd>{status.duplicateAudit.counts.crossLineSharedGroups}</dd>
+                </div>
+                <div>
+                  <dt>{t('nearShapeCandidates')}</dt>
+                  <dd>{status.duplicateAudit.counts.nearGeometryPairs}</dd>
+                </div>
+              </dl>
+              {duplicateGroups.map((group) => (
+                <article className="reference-card" key={`${group.kind}-${group.fingerprint}`}>
+                  <h3>
+                    {t(group.kind === 'same_line_exact' ? 'sameLineCandidates' : 'crossLineShared')}
+                  </h3>
+                  {group.members.map((member) => (
+                    <p key={member.key}>
+                      <b>{member.line}</b> · {member.shape}
+                    </p>
+                  ))}
+                  {compareButton(group.members)}
+                </article>
+              ))}
+              {status.duplicateAudit.nearGeometryPairs.map((pair, index) => (
+                <article className="reference-card" key={`near-${index}`}>
+                  <h3>
+                    {t('nearShapeCandidates')} · {pair.maxSeparationM} m
+                  </h3>
+                  {pair.members.map((member) => (
+                    <p key={member.key}>
+                      <b>{member.line}</b> · {member.shape}
+                    </p>
+                  ))}
+                  {compareButton(pair.members)}
+                </article>
+              ))}
+            </details>
+          )}
           {!!status.projectionRecoveries?.length && (
             <details className="projection-recoveries">
               <summary>

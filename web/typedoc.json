@@ -4,6 +4,7 @@
   "entryPoints": [
     "src/model.ts",
     "src/geometry.ts",
+    "src/comparison.ts",
     "src/api.ts",
     "src/importers.ts",
     "src/cache.ts",

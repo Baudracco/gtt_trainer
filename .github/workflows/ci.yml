@@ -75,6 +75,7 @@ jobs:
       - run: pip install -r tools/requirements.txt openapi-spec-validator
       - run: python tools/test_imports.py
       - run: python tools/test_catalogue.py
+      - run: python tools/test_audit_routes.py
       - run: python tools/test_depot_movements.py
       - run: python tools/test_backup.py
       - run: python tools/test_production.py

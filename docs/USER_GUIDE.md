@@ -8,7 +8,10 @@ administradores también ven borradores y revisiones en revisión. En una instal
 nueva el administrador entra para revisar el catálogo: no existen rutas publicadas
 ni contraseñas predeterminadas.
 
-Buscar por número/nombre o parada y filtrar por sentido. **Sin especificar** indica
+El selector **Línea** filtra por código exacto, distinguiendo por ejemplo una línea
+y su variante con barra. La búsqueda de texto sigue permitiendo destinos y paradas;
+un número de parada en otra línea no afecta al filtro exacto. Se puede combinar
+con el filtro de sentido. **Sin especificar** indica
 que falta confirmar la correspondencia operativa: GTFS 0/1 no se convierte a
 andata/ritorno automáticamente. El tipo distingue servicio, salida/entrada de
 depósito, traslado, parcial y circular.
@@ -25,6 +28,13 @@ todos** y **Seleccionados** controlan lo visible; la selección para comparació
 marca aparte. Con catálogos de más de 25 revisiones, la apertura inicial muestra las
 variantes de la primera línea para conservar legibilidad. Se puede activar cualquier
 otra; la lista muestra 100 resultados y permite cargar más.
+
+Marcar dos variantes y pulsar **Comparar seleccionados** abre una comparación A/B:
+azul y naranja en el mapa, revisión/estado, longitud y diferencias de trazado,
+paradas, puestos de cambio, instrucciones, observaciones, fuente y video. Las
+visitas repetidas a una parada se comparan por su posición. Cerrar restaura los
+colores originales. La comparación conserva ambos recorridos y no guarda cambios.
+Detener GPS/reproducción virtual antes de abrirla. [Detalles](ROUTE_AUDIT.md).
 
 La sección Paradas permite mostrar/ocultar, ver solo compartidas entre líneas o solo
 puestos de cambio. Una parada compartida tiene una identidad canónica y conserva
@@ -101,6 +111,12 @@ recupera su publicación vigente. La sincronización no resucita lo eliminado.
 patrones pendientes. Un cambio de fuente genera otra candidata cuando no hay trabajo
 manual en curso. Si hay conflicto o una revisión ya está siendo revisada, se conserva
 el documento entrante para exportarlo y compararlo. Abrir el panel no descarga GTFS.
+
+**Revisión de repeticiones GTFS** distingue registros de fuente, coincidencias
+dentro de una línea y trazados compartidos entre líneas. **Comparar versiones
+actuales** abre las variantes locales vinculadas; pueden contener cambios
+editoriales posteriores a la auditoría de la fuente. Una coincidencia no confirma
+que sean el mismo servicio operativo.
 
 **Depósitos y cambios** requiere sesión y una importación local del material operativo privado.
 Filtrá por línea, depósito y salida/regreso. Cada movimiento conserva su página y texto;

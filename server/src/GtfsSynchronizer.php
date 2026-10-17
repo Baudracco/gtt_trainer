@@ -132,7 +132,8 @@ final class GtfsSynchronizer
     }
 
     /**
-     * Return feed provenance, latest import summary, download reservation and unresolved source issues.
+     * Return feed provenance, duplicate candidates, reservation and unresolved source issues.
+     * Duplicate evidence describes the incoming source, not subsequent manual revisions.
      */
     public function status(): array
     {
@@ -143,6 +144,18 @@ final class GtfsSynchronizer
         $recoveries = $this->db->query("SELECT source_key AS key, variant_id AS \"variantId\", identity FROM gtfs_route_links WHERE state = 'current' AND jsonb_exists(identity,'projectionRecovery') ORDER BY source_key")->fetchAll();
         foreach ($recoveries as &$recovery) $recovery['identity'] = json_decode($recovery['identity'], true, 128, JSON_THROW_ON_ERROR);
         unset($recovery);
+        $manifest = $row ? json_decode($row['manifest'], true, 128, JSON_THROW_ON_ERROR) : [];
+        $duplicates = $manifest['duplicateAudit'] ?? null;
+        if ($duplicates) {
+            $variants = $this->db->query('SELECT source_key, variant_id FROM gtfs_route_links')->fetchAll(PDO::FETCH_KEY_PAIR);
+            foreach (['groups', 'nearGeometryPairs'] as $field) {
+                foreach ($duplicates[$field] as &$group) {
+                    foreach ($group['members'] as &$member) $member['variantId'] = $variants[$member['key'] ?? ''] ?? null;
+                    unset($member);
+                }
+                unset($group);
+            }
+        }
         $download = null; $path = getenv('GTFS_STATE_DIR') ?: dirname(__DIR__).'/var/gtfs';
         if (is_file($path.'/state.json')) {
             $state = json_decode(file_get_contents($path.'/state.json'), true);
@@ -151,7 +164,8 @@ final class GtfsSynchronizer
         }
         return ['archiveSha256' => $row['archive_sha256'] ?? null, 'downloadedAt' => $row['downloaded_at'] ?? null,
             'appliedAt' => $row['applied_at'] ?? null, 'summary' => $row ? json_decode($row['summary'], true) : null,
-            'download' => $download, 'issues' => $issues, 'projectionRecoveries' => $recoveries];
+            'download' => $download, 'issues' => $issues, 'projectionRecoveries' => $recoveries,
+            'duplicateAudit' => $duplicates];
     }
 
     /**

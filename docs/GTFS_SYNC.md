@@ -55,6 +55,13 @@ The editor/admin **Fuentes GTT** tab shows hash, download eligibility, counts an
 issues. Incoming conflicts can be downloaded as JSON for manual comparison/reconciliation.
 Automatic updates never rewrite a publication or recalculate a route from time/traffic.
 
+The worker also attaches a bounded read-only duplicate audit to its retained bundle
+before ingestion, including when HTTP is paused or cooling down. This changes no
+download reservation, route fingerprint or source identity. The editor source panel
+shows same-line exact matches separately from paths shared across lines, with links
+to compare current local revisions. Existing revisions/links are preserved. See
+[audit method and snapshot findings](ROUTE_AUDIT.md).
+
 ## Operations and checks
 
 ```sh

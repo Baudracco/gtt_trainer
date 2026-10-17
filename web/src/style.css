@@ -299,6 +299,9 @@ button[aria-pressed='true'] {
 .filters {
   margin: 12px 0;
 }
+.filters > button {
+  grid-column: 1 / -1;
+}
 .button-row {
   display: flex;
   flex-wrap: wrap;
@@ -333,6 +336,60 @@ button[aria-pressed='true'] {
   max-height: 42vh;
   overflow: auto;
   padding: 2px;
+}
+
+.comparison-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.comparison-pair article {
+  border-top: 4px solid;
+  padding: 10px 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.comparison-pair p {
+  margin: 8px 0;
+}
+.comparison-pair small {
+  color: var(--muted);
+}
+.comparison-results {
+  margin: 16px 0;
+}
+.comparison-results > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 9px 0;
+}
+.comparison-results dd {
+  margin: 0;
+  font-weight: 600;
+}
+.comparison-difference {
+  color: #b74715;
+}
+[data-theme='dark'] .comparison-difference {
+  color: #ffb58c;
+}
+.comparison-stops {
+  padding-left: 24px;
+}
+.comparison-stops li {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.comparison-stops small {
+  display: block;
+  color: var(--muted);
+}
+.route-comparison,
+.duplicate-audit {
+  overflow-wrap: anywhere;
 }
 .route-card {
   border: 1px solid var(--line);

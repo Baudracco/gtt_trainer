@@ -642,6 +642,57 @@ paths:
                                 - 'null'
                               identity:
                                 type: object
+                        duplicateAudit:
+                          type: [object, 'null']
+                          description: Read-only audit of incoming GTFS source patterns, not current manual edits. Null
+                            until the worker analyzes its retained bundle. Candidate matches never merge or delete variants.
+                          properties:
+                            auditorVersion:
+                              type: integer
+                            inputSha256:
+                              type: string
+                              pattern: '^[a-f0-9]{64}$'
+                            decision:
+                              const: review_only_no_merge
+                            counts:
+                              type: object
+                              additionalProperties:
+                                type: integer
+                                minimum: 0
+                            nearGeometryComplete:
+                              type: boolean
+                              description: False when bounded approximate comparison leaves pairs untested; exact grouping is complete.
+                            groups:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  kind:
+                                    enum: [same_line_exact, cross_line_shared]
+                                  fingerprint:
+                                    type: string
+                                  editorialDifferences:
+                                    type: array
+                                    items:
+                                      type: string
+                                  members:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        key:
+                                          type: string
+                                        line:
+                                          type: string
+                                        shape:
+                                          type: string
+                                        variantId:
+                                          type: [string, 'null']
+                                          description: Existing source-linked local variant, without an implicit revision update.
+                            nearGeometryPairs:
+                              type: array
+                              items:
+                                type: object
         '401':
           $ref: '#/components/responses/Error'
         '403':

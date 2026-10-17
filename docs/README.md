@@ -22,6 +22,7 @@ las fotos de calle y el GPS nunca recalculan una publicación.
 | Fotos por giro, video, acceso privado y URLs | [Material visual](MEDIA_AND_URLS.md) |
 | Datos incorporados, procedencia y límites | [Fuentes](SOURCES.md) |
 | Trazar y continuar movimientos individuales de depósito | [Movimientos DAPER](DEPOT_MOVEMENTS.md) |
+| Revisar repeticiones y comparar dos variantes | [Auditoría de recorridos](ROUTE_AUDIT.md) |
 | API completa | [OpenAPI](openapi.yaml) y [catálogo de errores](API_RESPONSE_CATALOG.md) |
 | Qué se adaptó del proyecto Shortener | [Reutilización verificada](SHORTENER_REUSE.md) |
 | Estado de implementación y datos aún pendientes | [Hoja de ruta](ROADMAP.md) |
@@ -36,6 +37,10 @@ relacionadas con Gerbido. Los 31 patrones antes rechazados se recuperaron al cor
 Las 139 variantes del primer lote siguen incluidas y su manifiesto original queda
 como evidencia. Una línea puede tener varios shapes, sentidos, parciales y patrones
 de paradas; 633 variantes no significa 633 líneas. Todas se importan como borradores.
+La auditoría detectó tres pares con el mismo trazado y paradas dentro de su línea:
+630 grupos por línea y seis pares adicionales compartidos entre líneas distintas.
+Estos contadores no certifican recorridos operativos únicos; las identidades y su
+historial se conservan. [Resultado y comparación](ROUTE_AUDIT.md).
 
 El material operativo aportado se importa al volumen privado y requiere sesión.
 El catálogo permite iniciar y continuar trazados individuales, que requieren

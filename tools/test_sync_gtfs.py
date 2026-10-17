@@ -1,5 +1,6 @@
 """Deterministic sync tests: no request to GTT is made by the test suite."""
 import csv
+import fcntl
 from datetime import datetime, timedelta, timezone
 import hashlib
 import io
@@ -80,6 +81,30 @@ class SyncTests(unittest.TestCase):
         self.assertEqual(downloader.run()['outcome'],'changed')
         changes=downloader.bundle()['changes']
         self.assertEqual(changes['unchanged'],1);self.assertEqual(changes['changed'],[])
+
+    def test_duplicate_audit_upgrades_cached_bundle_without_http_reservation_or_route_changes(self):
+        downloader = self.downloader(); downloader.run()
+        original = downloader.bundle()
+        state = (self.path/'state.json').read_bytes()
+        archive_bytes = (self.path/'gtt_gtfs.zip').read_bytes()
+        sync.refresh_duplicate_audit(self.path)
+        updated = downloader.bundle()
+        self.assertEqual(updated['variants'], original['variants'])
+        self.assertEqual(updated['converterVersion'], original['converterVersion'])
+        self.assertEqual(updated['duplicateAudit']['counts']['sourceRecords'], 1)
+        first_bytes = (self.path/'current.json').read_bytes()
+        sync.refresh_duplicate_audit(self.path)
+        self.assertEqual((self.path/'current.json').read_bytes(), first_bytes)
+        self.assertEqual((self.path/'state.json').read_bytes(), state)
+        self.assertEqual((self.path/'gtt_gtfs.zip').read_bytes(), archive_bytes)
+        self.assertEqual(len(self.opener.calls), 1)
+
+    def test_duplicate_audit_does_not_wait_for_an_active_download_or_backup_lock(self):
+        self.downloader().run()
+        with (self.path/'download.lock').open('a') as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            sync.refresh_duplicate_audit(self.path)
+        self.assertNotIn('duplicateAudit', self.downloader().bundle())
 
     def test_geometry_change_keeps_source_identity_and_creates_change_candidate(self):
         downloader=self.downloader(); downloader.run(); old=downloader.bundle()['variants'][0]

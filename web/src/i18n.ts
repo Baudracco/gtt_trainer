@@ -195,6 +195,83 @@ const copy = {
   routeVideo: ['Video del recorrido', 'Video del percorso', 'Route video'],
   playbackSpeed: ['Velocidad de reproducción', 'Velocità di riproduzione', 'Playback speed'],
   moreRoutes: ['Ver más recorridos', 'Mostra altri percorsi', 'Show more routes'],
+  compareTitle: ['Comparación de recorridos', 'Confronto percorsi', 'Route comparison'],
+  compareSelected: ['Comparar seleccionados', 'Confronta selezionati', 'Compare selected'],
+  compareCurrent: [
+    'Comparar versiones actuales',
+    'Confronta versioni attuali',
+    'Compare current versions',
+  ],
+  closeComparison: ['Cerrar comparación', 'Chiudi confronto', 'Close comparison'],
+  compareSelectionHelp: [
+    'Marcá dos recorridos para compararlos.',
+    'Seleziona due percorsi per confrontarli.',
+    'Select two routes to compare them.',
+  ],
+  compareHelp: [
+    'A se muestra en azul y B en naranja. Se comparan las revisiones indicadas.',
+    'A è blu e B arancione. Si confrontano le revisioni indicate.',
+    'A is blue and B orange. The indicated revisions are compared.',
+  ],
+  compareSame: ['Coincide', 'Uguale', 'Matches'],
+  compareDifferent: ['Difiere', 'Diverso', 'Differs'],
+  compareStopOrder: ['Orden de paradas', 'Ordine fermate', 'Stop order'],
+  compareMemberships: [
+    'Detalles y puestos de cambio',
+    'Dettagli e posti cambio',
+    'Details and change posts',
+  ],
+  compareStopChanges: [
+    'Paradas con diferencias por posición',
+    'Fermate diverse per posizione',
+    'Stop differences by position',
+  ],
+  moreStopChanges: [
+    'Mostrar 20 diferencias más',
+    'Mostra altre 20 differenze',
+    'Show 20 more differences',
+  ],
+  compareNoMerge: [
+    'Esta vista conserva ambos recorridos. Una coincidencia no confirma su equivalencia operativa.',
+    'Questa vista conserva entrambi i percorsi. Una corrispondenza non conferma l’equivalenza operativa.',
+    'This view preserves both routes. A match does not confirm operational equivalence.',
+  ],
+  duplicateAuditLimited: [
+    'La búsqueda de geometrías cercanas alcanzó su límite. La comparación exacta está completa; quedan aproximadas por revisar.',
+    'La ricerca di geometrie vicine ha raggiunto il limite. Il confronto esatto è completo; restano confronti approssimati da verificare.',
+    'Near-geometry search reached its limit. Exact comparison is complete; approximate comparisons remain to review.',
+  ],
+  duplicateAudit: [
+    'Revisión de repeticiones GTFS',
+    'Verifica ripetizioni GTFS',
+    'GTFS duplicate review',
+  ],
+  duplicateAuditHelp: [
+    'La auditoría describe la fuente importada. Los trazados compartidos entre líneas se mantienen separados. Compará las versiones actuales antes de decidir.',
+    'La verifica descrive la fonte importata. I tracciati condivisi tra linee restano separati. Confronta le versioni attuali prima di decidere.',
+    'The audit describes the imported source. Shared paths across lines stay separate. Compare current versions before deciding.',
+  ],
+  sourceRecords: ['Registros de fuente', 'Record della fonte', 'Source records'],
+  sameLinePathGroups: [
+    'Grupos por trazado y paradas dentro de cada línea',
+    'Gruppi per tracciato e fermate nella stessa linea',
+    'Path and stop groups within each line',
+  ],
+  sameLineCandidates: [
+    'Mismo trazado y paradas en la misma línea',
+    'Stesso tracciato e fermate nella stessa linea',
+    'Same path and stops within one line',
+  ],
+  crossLineShared: [
+    'Trazados compartidos entre líneas',
+    'Tracciati condivisi tra linee',
+    'Paths shared across lines',
+  ],
+  nearShapeCandidates: [
+    'Geometrías cercanas por revisar',
+    'Geometrie vicine da verificare',
+    'Near geometries to review',
+  ],
   virtualTour: ['Recorrido virtual', 'Percorso virtuale', 'Virtual route'],
   panorama: [
     'Panorama interactivo de 360 grados',
