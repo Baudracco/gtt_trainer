@@ -13,6 +13,8 @@ and merges after verification. All route geometry remains fixed and versioned.
 - PostGIS immutable publication, complete snapshots for every save, optimistic version conflicts,
   review/admin publication, history, revert to new draft, soft delete/restore.
 - Map vertex authoring, stop reuse/editing, instruction and observation editing.
+- Foreground GPS recording in the editor: quality checks, separate segments across gaps,
+  green map preview, local GPX export and explicit single-segment draft application with source evidence preserved.
 - Geometry-based turn suggestions for review, printable server reports and downloadable real PDFs.
 - GeoJSON/GPX browser preview and atomic draft import; CLI conversion for CSV/XLSX/GTFS.
 - Local foreground GPS matching with progress/heading checks, ambiguity handling, off-route and

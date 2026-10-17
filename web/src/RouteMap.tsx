@@ -16,6 +16,7 @@ type Props = {
   groups: StopGroup[];
   showStops: boolean;
   edit: RouteDocument | null;
+  recordedSegments?: Coordinate[][];
   drawMode: 'vertex' | 'stop' | null;
   onPoint: (p: Coordinate) => void;
   onStop: (id: string) => void;
@@ -64,7 +65,7 @@ export function RouteMap(props: Props) {
       });
       m.addControl(new maplibregl.NavigationControl(), 'top-right');
       m.on('style.load', () => {
-        for (const source of ['routes', 'stops', 'position', 'edit', 'vertices'])
+        for (const source of ['routes', 'stops', 'position', 'edit', 'vertices', 'recorded'])
           m.addSource(source, {
             type: 'geojson',
             data: { type: 'FeatureCollection', features: [] },
@@ -95,6 +96,13 @@ export function RouteMap(props: Props) {
           type: 'line',
           source: 'edit',
           paint: { 'line-color': '#ad2a71', 'line-width': 5, 'line-dasharray': [2, 1] },
+        });
+        m.addLayer({
+          id: 'recorded',
+          type: 'line',
+          source: 'recorded',
+          layout: { 'line-cap': 'round', 'line-join': 'round' },
+          paint: { 'line-color': '#10835d', 'line-width': 5 },
         });
         m.addLayer({
           id: 'vertices',
@@ -234,6 +242,19 @@ export function RouteMap(props: Props) {
     props.edit,
     props.drawMode,
   ]);
+  useEffect(() => {
+    if (!ready || !map.current) return;
+    (map.current.getSource('recorded') as GeoJSONSource).setData({
+      type: 'FeatureCollection',
+      features: (props.recordedSegments ?? [])
+        .filter((segment) => segment.length >= 2)
+        .map((coordinates) => ({
+          type: 'Feature' as const,
+          geometry: { type: 'LineString' as const, coordinates },
+          properties: {},
+        })),
+    });
+  }, [ready, props.recordedSegments]);
   useEffect(() => {
     if (!ready || !map.current) return;
     (map.current.getSource('position') as GeoJSONSource).setData({

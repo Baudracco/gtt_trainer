@@ -19,6 +19,7 @@ herramientas de desarrollo, no servicios necesarios para ejecutar la app.
 | `web/src/main.tsx` | Estado de catálogo/editor, historial y exclusión GPS/virtual |
 | `web/src/model.ts` | Documentos, snapshots, paradas y agrupación de pertenencias |
 | `web/src/geometry.ts` | Medición/proyección GPS y sugerencias geométricas revisables |
+| `web/src/recording.ts`, `GpsRecorder.tsx` | Captura GPS local, filtros, tramos separados y exportación GPX |
 | `web/src/RouteMap.tsx` | WebGL y eventos de mapa, sin reemplazar geometría |
 | `web/src/Editor.tsx` | Formulario completo y orden explícito |
 | `web/src/VirtualTour.tsx`, `StreetPhoto.tsx`, `virtual.ts` | Reproducción fija, carga cancelable y visor 360° |
@@ -61,6 +62,8 @@ requieren evidencia operativa: 0/1 son etiquetas del feed, no una traducción se
 No enviar fixes al API. El lookup de fotos recibe revisión y distancia, no ubicación
 del dispositivo. No usar texto/HTML del proveedor como instrucción de conducción.
 No generar geometrías desde nombres de calles sin trazado y comprobación explícitos.
+La captura editorial solo envía coordenadas al guardar explícitamente el borrador;
+no añade telemetría ni un endpoint GPS. [Contrato de grabación](GPS_RECORDING.md).
 
 ## Pruebas por responsabilidad
 

@@ -81,6 +81,18 @@ export function App() {
     [virtualPosition, setVirtualPosition] = useState<Coordinate | null>(null);
   const [tab, setTab] = useState<'routes' | 'references' | 'sources'>('routes');
   const [comparison, setComparison] = useState<[string, string] | null>(null);
+  const [recording, setRecording] = useState(false),
+    [recordingPreview, setRecordingPreview] = useState<Coordinate[][]>([]);
+  const recordingChanged = useCallback((active: boolean) => {
+    setRecording(active);
+    if (active) {
+      setNav(false);
+      setVirtualOpen(false);
+      setMode(null);
+      setComparison(null);
+    }
+  }, []);
+  const recordedPosition = recordingPreview.at(-1)?.at(-1) ?? null;
   const progressRef = useRef<Progress | null>(null),
     spoken = useRef(''),
     initialized = useRef(false);
@@ -491,6 +503,10 @@ export function App() {
               mode={mode}
               setMode={setMode}
               save={save}
+              onRecordingPreview={setRecordingPreview}
+              onRecordingActive={recordingChanged}
+              recordingFollow={follow}
+              setRecordingFollow={setFollow}
               close={() => {
                 setEditing(null);
                 setMode(null);
@@ -1073,16 +1089,19 @@ export function App() {
             groups={shownGroups}
             showStops={showStops}
             edit={editing}
+            recordedSegments={editing ? recordingPreview : undefined}
             drawMode={mode}
             onPoint={point}
             onStop={setStopId}
-            position={nav ? position : virtualOpen ? virtualPosition : null}
-            follow={(nav || virtualOpen) && follow}
+            position={
+              nav ? position : virtualOpen ? virtualPosition : editing ? recordedPosition : null
+            }
+            follow={(nav || virtualOpen || recording) && follow}
             t={t}
           />
           <div className="map-label">
             <span className="live-dot" />
-            {t('study')}
+            {t(recording ? 'gpsRecordLive' : 'study')}
           </div>
           {virtualOpen && active && (
             <VirtualTour

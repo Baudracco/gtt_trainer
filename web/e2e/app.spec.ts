@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import { measure, pointAt } from '../src/geometry';
 import { emptyRoute, type RouteSnapshot } from '../src/model';
+import { readFile } from 'node:fs/promises';
 import referenceFixture from './fixtures/depot.json' with { type: 'json' };
 
 const shared = {
@@ -188,7 +189,8 @@ async function pixels(page: Page) {
     const values = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     let blue = 0,
       pink = 0,
-      orange = 0;
+      orange = 0,
+      green = 0;
     for (let i = 0; i < values.length; i += 4) {
       const [r, g, b] = [values[i], values[i + 1], values[i + 2]];
       if (b > 180 && r < 100 && g > 40 && g < 170) blue++;
@@ -196,8 +198,9 @@ async function pixels(page: Page) {
       // Non-active paths have 0.65 opacity, so classify hue rather than solid RGB.
       // The orange hue ratio excludes the yellow change-post marker.
       if (r > 160 && r - g > 50 && g - b > 20 && r - g > (g - b) * 1.3) orange++;
+      if (g > 90 && g > r + 35 && g > b + 20 && b > 40) green++;
     }
-    return { blue, pink, orange };
+    return { blue, pink, orange, green };
   }, png.toString('base64'));
 }
 
@@ -212,9 +215,9 @@ test('renders real WebGL overlays, preserves hide-all and shares stop membership
     })
     .toBe(true);
   await page.getByRole('button', { name: 'Ocultar todos' }).click();
-  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0, orange: 0 });
+  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0, orange: 0, green: 0 });
   await page.getByRole('button', { name: 'Actualizar', exact: true }).click();
-  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0, orange: 0 });
+  await expect.poll(async () => pixels(page)).toEqual({ blue: 0, pink: 0, orange: 0, green: 0 });
   await page.getByRole('button', { name: 'Mostrar todos' }).click();
   await page.getByRole('button', { name: '10 Esquina compartida 2 · 5' }).click();
   await expect(page.locator('.stop-detail')).toContainText('Posto cambio');
@@ -332,6 +335,104 @@ test('authors ordered map vertices and inspects automatic source state', async (
   expect(writes).toEqual(['/media/photos', '/media/videos', '/routes']);
   expect(errors).toEqual([]);
 });
+test('records native GPS as separate local segments and saves only the chosen depot draft', async ({
+  page,
+  context,
+}, testInfo) => {
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ longitude: 7.6, latitude: 45.05, accuracy: 5 });
+  await page.addInitScript(() => {
+    const live = new Set<number>();
+    const start = navigator.geolocation.watchPosition.bind(navigator.geolocation);
+    const stop = navigator.geolocation.clearWatch.bind(navigator.geolocation);
+    navigator.geolocation.watchPosition = (...args) => {
+      const id = start(...args);
+      live.add(id);
+      return id;
+    };
+    navigator.geolocation.clearWatch = (id) => {
+      live.delete(id);
+      stop(id);
+    };
+    Object.defineProperty(window, 'activeGpsWatchers', { get: () => live.size });
+  });
+  const watchers = () => page.evaluate(() => Reflect.get(window, 'activeGpsWatchers'));
+  const { errors, writes } = await prepare(page, true);
+  await page.getByRole('button', { name: 'Depósitos y cambios', exact: true }).click();
+  await page.getByLabel('Línea', { exact: true }).selectOption('S1');
+  await page.locator('.movement-card').first().locator('summary').click();
+  await page.getByRole('button', { name: 'Trazar este movimiento', exact: true }).click();
+  const capture = page.locator('.gps-recorder');
+  await capture.locator('summary').click();
+  await capture.getByRole('button', { name: 'Iniciar grabación GPS' }).click();
+  await expect.poll(watchers).toBe(1);
+  await expect(capture.locator('.recording-stats')).toContainText('1 puntos');
+  await expect(page.locator('.editor-actions button').first()).toBeDisabled();
+  // Real timestamps must pass the recorder's one-second sampling interval.
+  await page.waitForTimeout(1100);
+  await context.setGeolocation({ longitude: 7.6003, latitude: 45.05, accuracy: 5 });
+  await expect(capture.locator('.recording-stats')).toContainText('2 puntos');
+  await expect.poll(async () => (await pixels(page)).green).toBeGreaterThan(10);
+  await capture.getByRole('button', { name: 'Pausar grabación' }).click();
+  await expect.poll(watchers).toBe(0);
+  await context.setGeolocation({ longitude: 7.602, latitude: 45.05, accuracy: 5 });
+  await capture.getByRole('button', { name: 'Retomar grabación' }).click();
+  await expect.poll(watchers).toBe(1);
+  await expect(capture.locator('.recording-stats')).toContainText('3 puntos');
+  await page.waitForTimeout(1100);
+  await context.setGeolocation({ longitude: 7.6023, latitude: 45.05, accuracy: 5 });
+  await expect(capture.locator('.recording-stats')).toContainText('4 puntos');
+  await capture.getByRole('button', { name: 'Pausar grabación' }).click();
+  await expect.poll(watchers).toBe(0);
+  await expect(capture.locator('.recording-stats')).toContainText('2 tramos utilizables');
+  expect(writes).toEqual([]);
+  const downloadPromise = page.waitForEvent('download');
+  await capture.getByRole('button', { name: 'Descargar GPX grabado' }).click();
+  const download = await downloadPromise;
+  const gpx = await readFile((await download.path())!, 'utf8');
+  expect(gpx).not.toContain('Road Alpha');
+  const segments = await page.evaluate((xml) => {
+    const doc = new DOMParser().parseFromString(xml, 'application/xml');
+    return [...doc.querySelectorAll('trkseg')].map((segment) =>
+      [...segment.querySelectorAll('trkpt')].map((p) => [
+        Number(p.getAttribute('lon')),
+        Number(p.getAttribute('lat')),
+      ]),
+    );
+  }, gpx);
+  expect(segments).toEqual([
+    [
+      [7.6, 45.05],
+      [7.6003, 45.05],
+    ],
+    [
+      [7.602, 45.05],
+      [7.6023, 45.05],
+    ],
+  ]);
+  await capture.getByRole('combobox', { name: 'Tramo grabado' }).selectOption('1');
+  await page.screenshot({ path: testInfo.outputPath('gps-recording.png') });
+  await capture.getByRole('button', { name: 'Usar este tramo' }).click();
+  expect(writes).toEqual([]);
+  await expect(page.locator('.source-evidence')).toContainText('Road Alpha');
+  await expect(page.getByRole('combobox', { name: 'Sentido', exact: true })).toHaveValue('none');
+  const saved = page.waitForRequest(
+    (request) =>
+      request.method() === 'POST' && new URL(request.url()).pathname === '/api/v1/routes',
+  );
+  await page.locator('.editor-actions').getByRole('button', { name: 'Guardar borrador' }).click();
+  const doc = (await saved).postDataJSON();
+  expect(doc.geometry.coordinates).toEqual(segments[1]);
+  expect(doc.kind).toBe('depot_out');
+  expect(doc.direction).toBe('none');
+  expect(doc.source.provenance.movementId).toBe('synthetic-out-1');
+  expect(doc.source.provenance.text).toBe('Road Alpha - Road Beta');
+  await expect(page.locator('.editor')).toHaveCount(0);
+  await expect.poll(watchers).toBe(0);
+  expect(writes).toEqual(['/routes']);
+  expect(errors).toEqual([]);
+});
+
 test('traces one individual DAPER movement and resumes its saved source evidence', async ({
   page,
 }, testInfo) => {
