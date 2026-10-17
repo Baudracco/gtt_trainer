@@ -77,6 +77,35 @@ Attribution/non-commercial terms stay in every source document; see `SOURCES.md`
 
 ## Catálogo urbano completo y actualización de instalaciones
 
-La selección actual usa `agencies: ["U"]`, `routeTypes: ["0", "3"]` y `lines: []`: todos los buses y tranvías urbanos declarados en el feed. En el snapshot 20261013 produce 602 variantes válidas de 137 códigos de línea y 31 patrones retenidos para revisión. La identidad distingue ruta, shape, direction_id y secuencia de paradas; no representa 602 líneas. Las 139 variantes del primer lote están incluidas.
+La selección actual usa `agencies: ["U"]`, `routeTypes: ["0", "3"]` y `lines: []`: todos los buses y tranvías urbanos declarados en el feed. En el snapshot 20261013 produce 633 variantes válidas de 137 códigos de línea tras recuperar los 31 patrones que rechazaba el proyector anterior. La identidad distingue ruta, shape, direction_id y secuencia de paradas; no representa 633 líneas. Las 139 variantes del primer lote están incluidas.
 
-El paquete `data/gtt-urban-drafts.json` arranca instalaciones nuevas sin repetir la descarga ya realizada. Si una instalación conserva el mismo SHA del primer lote, la semilla ampliada sustituye únicamente el catálogo de candidatos y conserva íntegro `state.json`, incluido `lastAttemptAt`. Si ya descargó un feed diferente, nunca se vuelve al snapshot empaquetado. Un cambio posterior de selección reutiliza el ZIP local cuando existe; la reserva de HTTP sigue vigente.
+La semilla empaquetada arranca instalaciones nuevas sin repetir la descarga ya realizada. Se conserva intacta la base de 602 documentos en `data/gtt-urban-drafts.json`; `gtt-urban-drafts.patch-index.json` y los 32 archivos de `gtt-urban-drafts.patches/` contienen una corrección existente y 31 incorporaciones, para obtener exactamente 633 documentos. `tools/catalogue.py` comprueba SHA-256 de la base, de cada corrección y del resultado completo antes de importar. Los cambios pequeños pueden revisarse y transmitirse individualmente. El sincronizador y el verificador web usan ese lector; los bundles de futuras descargas se convierten completos y no dependen de estas correcciones.
+
+Para exportar un JSON independiente compatible con otras herramientas:
+
+```sh
+python3 tools/catalogue.py data/gtt-urban-drafts.json --output /tmp/gtt-urban-complete.json
+```
+
+Si una instalación conserva el mismo SHA del primer lote, la semilla ampliada sustituye únicamente el catálogo de candidatos y conserva íntegro `state.json`, incluido `lastAttemptAt`. Si ya descargó un feed diferente, nunca se vuelve al snapshot empaquetado. Un cambio posterior de selección reutiliza el ZIP local cuando existe; la reserva de HTTP sigue vigente.
+
+## Corrección del importador sin descargas adicionales
+
+La versión 2 del conversor recupera los 31 patrones que el algoritmo voraz rechazaba
+al elegir una aparición posterior de una calle repetida. También corrige un patrón aceptado de línea 14. Proyecta la secuencia
+completa sobre los mismos segmentos, mantiene el orden y minimiza el error espacial.
+No calcula calles alternativas, no desplaza paradas ni cambia vértices. Los 31 casos
+tienen residuales máximos inferiores a 35 m y el catálogo pasa de 602 a 633 variantes.
+De los 602 documentos previos, 601 conservan su contenido y uno de línea 14 corrige los offsets de paradas que saltaban 953,75 m hacia una pasada posterior. Ningún vértice ni coordenada de parada cambia.
+
+`data/gtfs-projection-audit.json` registra claves, fallo anterior, residuales y hashes.
+`converterVersion` obliga a reprocesar un ZIP local verificado, o adoptar una semilla
+actualizada del mismo feed, sin reiniciar `state.json` ni saltar el cooldown. Un ZIP
+local cuyo hash no coincida se rechaza conservando el último bundle bueno.
+
+`python3 tools/verify_gtt_web.py` contrasta las secuencias recuperadas con las páginas
+oficiales GTT y escribe evidencia URL/fecha/hash y orden de códigos. Cachea cada
+intento de página 24 h, no descarga GTFS y no modifica publicaciones. Las diferencias
+con una web que cambia son evidencia de revisión, no autorización para reescribir.
+
+El contraste oficial guardado en `data/gtt-web-audit.json` confirma exactamente las secuencias de los 31 casos recuperados. El código de línea web procede de `route_url` del feed (por ejemplo 63B), que puede diferir del rótulo comercial 63/.

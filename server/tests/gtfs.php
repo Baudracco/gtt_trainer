@@ -10,8 +10,10 @@ $key = 'gtt:'.str_repeat('a',64);
 $bundle = ['schemaVersion'=>1,'provider'=>'gtt','archiveSha256'=>str_repeat('1',64),'downloadedAt'=>'2026-10-16T06:00:00Z',
     'variants'=>[['key'=>$key,'route'=>'T','shape'=>'S','direction'=>'1','stopIds'=>['X'],'document'=>$source]],'rejected'=>[]];
 $seed = $repo->create(RouteValidator::document($source),$actor);
+$bundle['variants'][0]['projectionRecovery']=['method'=>'ordered_projection','maxDistanceM'=>12.5];
 $result = $sync->apply($bundle);
 check($result['adopted'] === 1 && $result['created'] === 0, 'GTFS adopts exact initial imports without duplicating variants');
+check($sync->status()['projectionRecoveries'][0]['identity']['projectionRecovery']['maxDistanceM'] === 12.5, 'Source recovery evidence is retained and visible to editors');
 check($sync->apply($bundle)['unchanged'] === 1, 'GTFS repeated ingestion creates no extra revisions');
 $review = $repo->transition($seed['id'],$seed['version'],$seed['revisionId'],'review',$actor);
 $publication = $repo->transition($seed['id'],$review['version'],$review['revisionId'],'publish',$actor);

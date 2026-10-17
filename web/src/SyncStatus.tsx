@@ -15,6 +15,11 @@ type Status = {
     nextAttemptAt?: string;
     outcome?: string;
   } | null;
+  projectionRecoveries?: {
+    key: string;
+    variantId: string | null;
+    identity: { route: string; shape: string; projectionRecovery: { maxDistanceM: number } };
+  }[];
   issues: {
     key: string;
     variantId: string | null;
@@ -96,6 +101,22 @@ export function SyncStatus({ t }: { t: Translate }) {
               <code>{status.archiveSha256 ?? '—'}</code>
             </dd>
           </dl>
+          {!!status.projectionRecoveries?.length && (
+            <details className="projection-recoveries">
+              <summary>
+                {t('syncRecoveries')} · {status.projectionRecoveries.length}
+              </summary>
+              <p>{t('syncRecoveryHelp')}</p>
+              {status.projectionRecoveries.map((item) => (
+                <p key={item.key}>
+                  <b>
+                    {item.identity.route} · {item.identity.shape}
+                  </b>{' '}
+                  · {item.identity.projectionRecovery.maxDistanceM} m
+                </p>
+              ))}
+            </details>
+          )}
           {status.download?.outcome === 'failed' && (
             <p className="alert error">{t('syncFailed')}</p>
           )}

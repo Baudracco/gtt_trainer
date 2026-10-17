@@ -515,6 +515,21 @@ paths:
                           type: array
                           items:
                             type: object
+                        projectionRecoveries:
+                          type: array
+                          description: Formerly rejected source patterns recovered using ordered projection on unchanged
+                            geometry. Still draft-only.
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                type: string
+                              variantId:
+                                type:
+                                - string
+                                - 'null'
+                              identity:
+                                type: object
         '401':
           $ref: '#/components/responses/Error'
         '403':

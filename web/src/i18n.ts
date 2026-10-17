@@ -335,6 +335,16 @@ const copy = {
     'Direzione non indicata nella fonte',
     'Direction not specified in source',
   ],
+  syncRecoveries: [
+    'Patrones recuperados por orden de paradas',
+    'Schemi recuperati con ordine fermate',
+    'Patterns recovered using stop order',
+  ],
+  syncRecoveryHelp: [
+    'Se corrigió la proyección de paradas en tramos repetidos. La geometría oficial se conserva; siguen siendo borradores pendientes de revisión.',
+    'Corretta la proiezione delle fermate su tratti ripetuti. Geometria ufficiale invariata; restano bozze da verificare.',
+    'Stop projection on repeated sections was corrected. Official geometry is unchanged; candidates still require review.',
+  ],
   syncTitle: ['Fuentes GTT', 'Fonti GTT', 'GTT sources'],
   syncHelp: [
     'Las actualizaciones de GTT crean borradores para revisar. Las publicaciones y el trabajo de edición se conservan.',

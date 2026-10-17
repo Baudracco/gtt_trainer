@@ -7,6 +7,7 @@ CSV/XLSX vertices require route_id, sequence, longitude, latitude, line, name.
 Use XLSX sheets 'vertices', optional 'stops' and 'instructions'.
 """
 import argparse
+import bisect
 import csv
 import hashlib
 import io
@@ -15,9 +16,11 @@ import math
 from pathlib import Path
 import uuid
 import zipfile
+from urllib.parse import parse_qs, urlparse
 from datetime import datetime, timezone
 
 NAMESPACE = uuid.UUID('7c4c8e96-e6b9-43bd-bb24-05fc3ebc3fae')
+CONVERTER_VERSION = 2
 
 
 def coordinate(lon, lat):
@@ -42,6 +45,16 @@ def offsets(points):
     return out
 
 
+def point_at(points, measured, along):
+    """Interpolate an offset on existing vertices for residual verification only."""
+    if along <= 0: return points[0]
+    if along >= measured[-1]: return points[-1]
+    index = max(1, bisect.bisect_left(measured, along))
+    a, b = points[index-1], points[index]
+    ratio = (along-measured[index-1])/(measured[index]-measured[index-1] or 1)
+    return [a[0]+ratio*(b[0]-a[0]), a[1]+ratio*(b[1]-a[1])]
+
+
 def project(points, distances, point, after=0):
     """Project a source stop after its predecessor; reject ambiguous order or >250 m discrepancy.
 
@@ -62,6 +75,105 @@ def project(points, distances, point, after=0):
     nearest = min(candidates)
     if nearest[0] > 250: raise ValueError(f'Stop {nearest[0]:.0f} m from shape; manual validation required')
     return round(max(after, nearest[1]), 2)
+
+
+def projection_candidates(points, distances, point, limit=250):
+    """All nearby projections on the existing LineString, ordered by travel offset.
+
+    A repeated street can have several almost-identical spatial projections. Keep
+    these alternatives until the entire ordered stop sequence has been considered.
+    This measures existing geometry; it never searches or changes a road network.
+    """
+    cosine = math.cos(math.radians(point[1]))
+    candidates = []
+    for i, (a, b) in enumerate(zip(points, points[1:])):
+        ax, ay = (a[0]-point[0])*cosine, a[1]-point[1]
+        dx, dy = (b[0]-a[0])*cosine, b[1]-a[1]
+        denominator = dx*dx+dy*dy
+        if denominator == 0: continue
+        t = max(0, min(1, -(ax*dx+ay*dy)/denominator))
+        along = distances[i]+t*(distances[i+1]-distances[i])
+        projected = [a[0]+t*(b[0]-a[0]), a[1]+t*(b[1]-a[1])]
+        error = distance(point, projected)
+        if error <= limit: candidates.append((along, error))
+    return sorted(candidates)
+
+
+def ordered_projection(points, positions, limit=250):
+    """Match the whole source stop sequence without skipping an earlier traversal.
+
+    Dynamic programming minimizes total squared stop/shape distance, constrained
+    to nondecreasing travel offsets (two-metre numerical tolerance). Prefix minima
+    make each layer linear after sorting. The shape, stop coordinates and stop
+    order are never changed. No routing, traffic or straight-line repair occurs.
+    Returns selected offsets and actual residuals for source review evidence.
+    """
+    if not positions: return [], []
+    measured = offsets(points)
+    layers = []
+    previous = None
+    for sequence, position in enumerate(positions):
+        candidates = projection_candidates(points, measured, position, limit)
+        if not candidates:
+            raise ValueError(f'Stop sequence {sequence+1} has no projection within {limit} m of supplied shape')
+        current = []
+        cursor, best = 0, None
+        for along, error in candidates:
+            if previous is None:
+                current.append((along, error*error, None, error))
+                continue
+            while cursor < len(previous) and previous[cursor][0] <= along+2:
+                if best is None or previous[cursor][1] < previous[best][1]: best = cursor
+                cursor += 1
+            if best is not None:
+                current.append((along, previous[best][1]+error*error, best, error))
+        if not current:
+            raise ValueError(f'Stop sequence {sequence+1} cannot follow its predecessors on supplied shape')
+        layers.append(current)
+        previous = current
+    selected = min(range(len(previous)), key=lambda i: (previous[i][1], previous[i][0]))
+    matched = []
+    for layer in reversed(layers):
+        state = layer[selected]
+        matched.append((state[0], state[3]))
+        selected = state[2]
+    matched.reverse()
+    progress = 0.0
+    ordered = []
+    for along, error in matched:
+        progress = max(progress, along)
+        ordered.append(round(progress, 2))
+    residuals = [distance(position, point_at(points, measured, along)) for position, along in zip(positions, ordered, strict=True)]
+    if any(error > limit+.01 for error in residuals):
+        raise ValueError('Ordered stop projection exceeds tolerance after numerical normalization')
+    return ordered, [round(error, 2) for error in residuals]
+
+
+def pattern_offsets(points, positions):
+    """Globally check every pattern while preserving numerically equivalent legacy offsets.
+
+    A greedy projection can also appear valid after silently skipping an earlier
+    traversal. Prefer the global assignment when it materially improves squared
+    spatial error; preserve legacy offsets when equivalent to avoid revision churn.
+    All candidates retain source geometry and require editorial publication review.
+    """
+    measured = offsets(points)
+    progress, legacy, previous_reason = 0, [], None
+    try:
+        for position in positions:
+            progress = project(points, measured, position, progress)
+            legacy.append(progress)
+    except ValueError as original:
+        previous_reason = str(original)
+    ordered, residuals = ordered_projection(points, positions)
+    if previous_reason is None:
+        before = sum(distance(p, point_at(points, measured, along))**2 for p, along in zip(positions, legacy, strict=True))
+        after = sum(error*error for error in residuals)
+        if before-after <= 1 or max((abs(a-b) for a,b in zip(legacy,ordered)), default=0) <= .05:
+            return legacy, None
+        previous_reason = 'Greedy projection skipped an earlier traversal despite passing distance checks'
+    return ordered, {'method':'ordered_projection', 'previousReason':previous_reason,
+                     'maxDistanceM':max(residuals, default=0), 'distancesM':residuals}
 
 
 def document(line, name, points, source):
@@ -116,6 +228,10 @@ def gtfs(path, source, selected, direction_map, with_identity=False, agencies=No
             identity = {'key': gtfs_key(route_id, shape_id, direction, pattern), 'route': route_id,
                         'shape': shape_id, 'direction': direction, 'stopIds': list(pattern)}
             line = lines[route_id]
+            official = urlparse(line.get('route_url', ''))
+            if official.hostname in ('www.gtt.to.it', 'gtt.to.it'):
+                official_line = parse_qs(official.query).get('linea', [''])[0]
+                if official_line: identity['officialLineCode'] = official_line
             points = [point for _, point in sorted(shapes[shape_id])]
             name = f"{trip.get('trip_headsign') or line['route_long_name']} · {shape_id} · GTFS dir {direction or '?'}"
             try:
@@ -124,16 +240,14 @@ def gtfs(path, source, selected, direction_map, with_identity=False, agencies=No
                 color = line.get('route_color', '')
                 if len(color) == 6 and all(c in '0123456789abcdefABCDEF' for c in color): result['color'] = '#'+color
                 result['notes'] = f"GTFS route_id={route_id}; shape_id={shape_id}; direction_id={direction}. Verify the operational andata/ritorno designation."
-                previous = 0
-                measured = offsets(points)
-                for stop_id in pattern:
+                positions = [coordinate(stops[s]['stop_lon'], stops[s]['stop_lat']) for s in pattern]
+                projected, recovery = pattern_offsets(points, positions)
+                for stop_id, position, offset in zip(pattern, positions, projected, strict=True):
                     stop = stops[stop_id]
-                    position = coordinate(stop['stop_lon'], stop['stop_lat'])
-                    previous = project(points, measured, position, previous)
                     result['stops'].append({'id': str(uuid.uuid5(NAMESPACE, 'gtt-stop-'+stop_id)),
                         'code': stop.get('stop_code') or 'GTFS:'+stop_id, 'name': stop['stop_name'], 'coordinates': position,
-                        'offsetM': previous, 'exchange': False, 'exchangeDirection': None, 'notes': stop.get('stop_desc', '')})
-                if with_identity: result['_gtfs'] = identity
+                        'offsetM': offset, 'exchange': False, 'exchangeDirection': None, 'notes': stop.get('stop_desc', '')})
+                if with_identity: result['_gtfs'] = {**identity, **({'projectionRecovery':recovery} if recovery else {})}
                 documents.append(result)
             except (ValueError, KeyError) as error:
                 skipped.append({**(identity if with_identity else {'route': route_id, 'shape': shape_id}), 'reason': str(error)})

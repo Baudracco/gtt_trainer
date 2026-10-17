@@ -88,7 +88,7 @@ la caché. El E2E usa WebGL/Photo Sphere Viewer reales, tiles vacíos y un panor
 sintético marcado. El GPS se usa a través de permisos/fixes nativos del navegador.
 No confundir la emulación móvil con una prueba en calle en un teléfono.
 
-CI levanta además Docker completo, carga automáticamente las 602 candidatas, sube
+CI levanta además Docker completo, carga automáticamente las 633 candidatas, sube
 foto/video por HTTP y comprueba Nginx interno/rangos, publicación y PDF. Las descargas
 GTT están pausadas solo en CI mediante `GTFS_DOWNLOAD_ENABLED=0`.
 

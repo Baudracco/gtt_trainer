@@ -38,8 +38,8 @@ and merges after verification. All route geometry remains fixed and versioned.
 
 ## Data incorporated
 
-- 602 fixed urban bus/tram variant candidates across 137 line codes, including all 139 original Gerbido-related bus variants.
-- 31 discrepant GTFS stop/shape patterns retained for manual review (including the initial 11).
+- 633 fixed urban bus/tram variant candidates across 137 line codes, including all 139 original Gerbido-related bus variants.
+- 31 formerly rejected stop patterns recovered by global ordered projection; source geometry preserved; 601 accepted documents unchanged and one line-14 stop-offset correction recorded.
 - 133 source-reference blocks from DAPER 05/26 (pages 2–68), separating USCITA and RIENTRO.
 - 30 Gerbido line/change-place/access combinations from the supplied photograph.
 
