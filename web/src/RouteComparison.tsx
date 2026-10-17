@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { COMPARISON_COLORS, compareRoutes } from './comparison';
 import { measure } from './geometry';
 import type { Translate } from './i18n';
@@ -18,6 +18,10 @@ export function RouteComparison({
 }) {
   const comparison = useMemo(() => compareRoutes(first, second), [first, second]);
   const [limit, setLimit] = useState(20);
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    heading.current?.focus();
+  }, []);
   const rows = [
     ['geometry', comparison.geometry],
     ['compareStopOrder', comparison.stopSequence],
@@ -35,7 +39,9 @@ export function RouteComparison({
   return (
     <section className="route-comparison" role="region" aria-label={t('compareTitle')}>
       <div className="section-heading">
-        <h2>{t('compareTitle')}</h2>
+        <h2 ref={heading} tabIndex={-1}>
+          {t('compareTitle')}
+        </h2>
         <button aria-label={t('closeComparison')} onClick={close}>
           ×
         </button>
