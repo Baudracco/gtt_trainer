@@ -1,0 +1,7 @@
+FROM postgres:16-bookworm
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-psycopg2 \
+    && rm -rf /var/lib/apt/lists/*
+COPY tools/ /opt/gtt/tools/
+ENV PYTHONUNBUFFERED=1 PGCONNECT_TIMEOUT=10
+ENTRYPOINT ["python3", "/opt/gtt/tools/backup.py"]
+CMD ["serve"]

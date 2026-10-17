@@ -35,6 +35,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 
 - Maintainer/user/deployment manuals, DocBlock-enforced PHP reference, TypeDoc/JSDoc and Python AST references generated in CI.
 - GTT-specific numeric error identifiers and independent sanitized DB/locked-file/native diagnostics; verified Shortener adaptation provenance.
+- Daily private Docker backups with one exported DB/media snapshot, SHA-256 manifests, persistent schedule/retention and isolated restore. CI exercises a restored HTTP application, media/ranges/PDF, private references, immutable publications and preserved GTFS reservations.
 
 ## Data incorporated
 
@@ -56,7 +57,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Real-device foreground GPS/voice field validation; native/background feasibility and battery tests.
 - Licensed offline basemap areas with provider-specific download limits.
 - Expanded editorial workflows, source discrepancy resolution and route comparison tools.
-- Driver lessons/quizzes/progress, production backup/restore automation and retention policy.
+- Driver lessons/quizzes/progress and deployment-specific off-host backup replication.
 
 ## Acceptance invariants
 

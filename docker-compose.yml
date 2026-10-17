@@ -3,7 +3,7 @@ services:
     image: postgis/postgis:16-3.4
     restart: unless-stopped
     environment:
-      POSTGRES_DB: gtt_trainer
+      POSTGRES_DB: ${POSTGRES_DB:-gtt_trainer}
       POSTGRES_USER: gtt_trainer
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
     ports:
@@ -21,7 +21,7 @@ services:
       dockerfile: server/Dockerfile
     restart: unless-stopped
     environment:
-      DATABASE_DSN: pgsql:host=db;port=5432;dbname=gtt_trainer
+      DATABASE_DSN: pgsql:host=db;port=5432;dbname=${POSTGRES_DB:-gtt_trainer}
       DATABASE_USER: gtt_trainer
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
       APP_ENV: ${APP_ENV:-development}
@@ -55,7 +55,7 @@ services:
     command: ["python3", "/var/www/tools/sync_gtfs.py", "--serve", "--apply"]
     environment:
       GTFS_DOWNLOAD_ENABLED: ${GTFS_DOWNLOAD_ENABLED:-1}
-      DATABASE_DSN: pgsql:host=db;port=5432;dbname=gtt_trainer
+      DATABASE_DSN: pgsql:host=db;port=5432;dbname=${POSTGRES_DB:-gtt_trainer}
       DATABASE_USER: gtt_trainer
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
     volumes:
@@ -63,6 +63,31 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  backups:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile.backup
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGPORT: '5432'
+      PGDATABASE: ${POSTGRES_DB:-gtt_trainer}
+      PGUSER: gtt_trainer
+      PGPASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      BACKUP_INTERVAL_HOURS: ${BACKUP_INTERVAL_HOURS:-24}
+      BACKUP_KEEP: ${BACKUP_KEEP:-7}
+    volumes:
+      - serverdata:/source/serverdata:ro
+      - backups:/backups
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python3", "/opt/gtt/tools/backup.py", "status", "--check"]
+      interval: 60s
+      timeout: 15s
+      start_period: 300s
+      retries: 3
   reference-import:
     profiles: [tools]
     build:
@@ -73,3 +98,4 @@ services:
 volumes:
   pgdata:
   serverdata:
+  backups:

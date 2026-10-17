@@ -13,6 +13,7 @@ solo a loopback; exponer el servicio al teléfono requiere un proxy HTTPS confia
 | `db` | PostGIS | `unless-stopped`; `pgdata`, healthcheck |
 | `gtfs-sync` | Daemon Python y CLI de ingestión | `unless-stopped`; `serverdata`, espera DB sana |
 | `reference-import` | Herramienta opcional de importación privada, perfil `tools` | Ejecución puntual; `serverdata/references`; original montado en solo lectura |
+| `backups` | Copia diaria y herramientas de verificación/restauración aislada | `unless-stopped`; volumen privado `backups`, fuente en solo lectura |
 
 El worker no necesita cron. Al arrancar adopta el catálogo empaquetado y su fecha de
 descarga, luego aplica un bundle validado. Sus chequeos locales horarios no equivalen
@@ -34,6 +35,8 @@ solo se usa en CI o instalaciones descartables.
 | `MEDIA_ACCEL_REDIRECT` | `1` con Nginx del paquete; fallback PHP para desarrollo |
 | `MEDIA_DIR` | Directorio privado de medios si se configura otro volumen |
 | `REFERENCE_DIR` | Directorio privado de referencias; por defecto `server/var/references`, excluido de Git y del web root |
+| `BACKUP_INTERVAL_HOURS`, `BACKUP_KEEP` | Intervalo de copias y cantidad de copias completas retenidas; por defecto 24 h y 7 |
+| `POSTGRES_DB` | Base usada por todos los servicios; por defecto `gtt_trainer`, permite elegir una base ya restaurada |
 | `AUDIT_FALLBACK_LOG` | NDJSON diagnóstico privado; compose usa `serverdata/errors.log` |
 | `VITE_TILE_URL`, `VITE_TILE_ATTRIBUTION` | Proveedor raster opcional fijado al construir la web |
 
@@ -84,41 +87,11 @@ históricos y el estado GTFS no son cachés descartables: no borrarlos automáti
 Las subidas sin usar se conservan hasta una política de retención revisada; no hay
 un recolector destructivo silencioso.
 
-## Copia coherente
+## Copias y recuperación
 
-Guardar juntos DB y `serverdata` durante una ventana sin escrituras. Ejemplo para
-el compose local (adaptar ruta privada y política de cifrado externa):
-
-```sh
-umask 077
-GTT_BACKUP_DIR="/ruta/privada/gtt-$(date -u +%Y%m%dT%H%M%SZ)"
-mkdir -p "$GTT_BACKUP_DIR"
-docker compose stop api gtfs-sync
-docker compose exec -T db pg_dump -U gtt_trainer -Fc gtt_trainer > "$GTT_BACKUP_DIR/database.dump"
-docker compose run --rm --no-deps -T --entrypoint tar api -C /var/www/server/var -czf - . > "$GTT_BACKUP_DIR/serverdata.tar.gz"
-docker compose start api gtfs-sync
-sha256sum "$GTT_BACKUP_DIR/database.dump" "$GTT_BACKUP_DIR/serverdata.tar.gz" > "$GTT_BACKUP_DIR/SHA256SUMS"
-```
-
-Si falla la copia, arrancar de nuevo API/worker antes de cerrar la ventana. Conservar
-el commit desplegado y configuración de entorno en el gestor de secretos. El dump
-incluye schema_migrations, usuarios, snapshots, fuentes y auditoría; serverdata incluye
-medios, thumbnails, bundle/ZIP, timestamps/cooldown y diagnósticos de archivo.
-
-## Ensayar una recuperación
-
-Restaurar primero en un entorno aislado, con otros puertos/credenciales. Comprobar
-los SHA del backup, crear DB PostGIS vacía y restaurar con `pg_restore --exit-on-error`.
-Extraer `serverdata` en el volumen correspondiente conservando rutas/permisos; PHP
-necesita escribir y Nginx leer. No restaurar solo los archivos de medios sin sus
-asociaciones de revisión, ni solo la DB perdiendo la reserva de descarga.
-
-Arrancar el mismo commit y ejecutar migraciones por checksum. Comprobar login/roles,
-conteos e historial, publicación visible, apertura de fotos y un rango de video,
-reporte PDF y Fuentes GTT. Mantener descargas pausadas durante la comprobación evita
-mezclar una recuperación con un feed nuevo. Después reactivar `GTFS_DOWNLOAD_ENABLED=1`;
-la reserva restaurada mantiene su límite temporal original.
-
-CI comprueba migraciones repetibles y el paquete Docker nuevo. Una recuperación real
-con el backup del despliegue requiere este ensayo operativo; no sustituirlo por
-pruebas de integración contra una DB vacía.
+El compose incluye un worker de copias diarias verificadas y restauración en otra
+base/volumen. El [manual de copias automáticas](BACKUPS.md) describe el snapshot
+compartido DB/medios, locks de GTFS/referencias, retención, verificación, comandos,
+permisos y el ensayo Docker/HTTP de CI. Conservar el commit y configuración de secretos
+fuera del volumen; respaldar también los originales aportados y una segunda copia
+protegida fuera del host.
