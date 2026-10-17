@@ -46,6 +46,10 @@ se procesa sin HTTP; no borrar la reserva para forzar una descarga.
 
 ## Publicación detrás de HTTPS
 
+El [override de producción con Caddy](PRODUCTION_HTTPS.md) incorpora certificados,
+origin/cookies Secure, proxy confiable y una comprobación que conserva secretos en memoria.
+Usar ese paquete o el proxy administrado del despliegue según los puertos disponibles.
+
 Terminar TLS en un proxy administrado, reenviar a Nginx local y fijar `APP_ENV=production`
 y `APP_ORIGIN=https://dominio-real`. Recrear API/worker para aplicar configuración.
 Configurar la IP confiable del proxy para que FastCGI REMOTE_ADDR sea el cliente real;

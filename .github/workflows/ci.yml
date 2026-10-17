@@ -77,6 +77,7 @@ jobs:
       - run: python tools/test_catalogue.py
       - run: python tools/test_depot_movements.py
       - run: python tools/test_backup.py
+      - run: python tools/test_production.py
       - run: python tools/test_sync_gtfs.py
       - run: python tools/test_verify_gtt_web.py
       - run: openapi-spec-validator docs/openapi.yaml
@@ -128,6 +129,9 @@ jobs:
           printf '%s\n' 'gtt-compose-test-only' | docker compose exec -T api php bin/console.php user:create compose@test.invalid admin
       - run: python3 tools/smoke_compose.py
       - run: python3 tools/smoke_backup.py
+        env:
+          GTT_ISOLATED_CI: '1'
+      - run: python3 tools/smoke_production.py
         env:
           GTT_ISOLATED_CI: '1'
       - if: failure()

@@ -36,6 +36,7 @@ and merges after verification. All route geometry remains fixed and versioned.
 - Maintainer/user/deployment manuals, DocBlock-enforced PHP reference, TypeDoc/JSDoc and Python AST references generated in CI.
 - GTT-specific numeric error identifiers and independent sanitized DB/locked-file/native diagnostics; verified Shortener adaptation provenance.
 - Daily private Docker backups with one exported DB/media snapshot, SHA-256 manifests, persistent schedule/retention and isolated restore. CI exercises a restored HTTP application, media/ranges/PDF, private references, immutable publications and preserved GTFS reservations.
+- Production HTTPS override with Caddy, persistent certificate volumes, exact-origin checks and narrowly trusted Nginx client-address forwarding. CI validates configuration without issuing certificates; deployment host/domain and physical phone validation remain deployment-specific.
 
 ## Data incorporated
 

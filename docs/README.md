@@ -15,6 +15,7 @@ las fotos de calle y el GPS nunca recalculan una publicación.
 | Generar referencias desde comentarios del código | [Documentación automática](CODE_DOCUMENTATION.md) |
 | Configurar Docker, HTTPS, copias y recuperación | [Despliegue y recuperación](DEPLOYMENT.md) |
 | Copias diarias verificadas y ensayo de restauración | [Copias automáticas](BACKUPS.md) |
+| Configurar el proxy TLS y comprobar producción | [HTTPS](PRODUCTION_HTTPS.md) |
 | Desarrollo local, importadores y verificación existente | [Operación](OPERATIONS.md) |
 | Descarga automática GTT, hash, cooldown y conflictos | [Sincronización GTFS](GTFS_SYNC.md) |
 | Panoramax, panoramas 360°, velocidades y cobertura | [Recorridos virtuales](VIRTUAL_TOURS.md) |

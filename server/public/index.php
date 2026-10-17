@@ -45,7 +45,7 @@ try {
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $method = $_SERVER['REQUEST_METHOD'];
     if (parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY)) throw new ApiError(422,'validation_failed','Use path parameters; this API does not accept query parameters.');
-    if ($path === '/api/v1/health' && $method === 'GET') respond(['status' => 'ok', 'version' => '0.4.0']);
+    if ($path === '/api/v1/health' && $method === 'GET') respond(['status' => 'ok', 'version' => '0.5.0']);
     $db = Database::connect();
     $auth = new Auth($db);
     $auth->limit('request:'.($_SERVER['REMOTE_ADDR'] ?? ''), 240, 60);
