@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: GTT Trainer API
-  version: 0.4.0
+  version: 0.5.0
   description: Fixed geometry, immutable route revisions, contextual stop memberships and reviewed publication.
     Location fixes never leave the device.
 servers:

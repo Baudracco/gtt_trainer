@@ -1,0 +1,29 @@
+services:
+  api:
+    environment:
+      APP_ENV: production
+      APP_ORIGIN: ${APP_ORIGIN:?Set the exact public HTTPS origin}
+  web:
+    depends_on:
+      api:
+        condition: service_started
+      https:
+        condition: service_started
+    volumes:
+      - ./deploy/nginx-trusted-proxy.conf:/etc/nginx/conf.d/10-gtt-proxy.conf:ro
+  https:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN:?Set the public hostname}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+volumes:
+  caddydata:
+  caddyconfig:

@@ -12,6 +12,7 @@ revisiones inmutables, revisión/publicación, papelera/restauración e historia
 Incluye un catálogo inicial de **633 variantes GTFS oficiales de buses y tranvías urbanos (137 líneas)** como borradores.
 El material operativo DAPER/Gerbido del usuario se [importa de forma privada](docs/DEPOT_MOVEMENTS.md), fuera del repositorio público.
 El Docker incluye [copias diarias verificadas y restauración aislada](docs/BACKUPS.md).
+La [configuración HTTPS de producción](docs/PRODUCTION_HTTPS.md) mantiene Nginx/PHP-FPM detrás de Caddy.
 Los nombres andata/ritorno, las maniobras detalladas y los movimientos de depósito se validan antes de publicación; no se inventan geometrías.
 
 Inicio local con Docker:
