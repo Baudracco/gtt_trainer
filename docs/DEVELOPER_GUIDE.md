@@ -91,6 +91,10 @@ Las pruebas Python de sincronización inyectan reloj y transporte: no descargan 
 ni consumen su ventana. Las PHP de Panoramax inyectan HTTP y usan PostGIS real para
 la caché. El E2E usa WebGL/Photo Sphere Viewer reales, tiles vacíos y un panorama
 sintético marcado. El GPS se usa a través de permisos/fixes nativos del navegador.
+La captura continua del editor también se prueba con callbacks controlados: el
+override nativo de Chromium emite un error temporal al cambiar de posición en CI.
+La prueba nativa comprueba ese error, recuperación, pausas y GPX de puntos aislados;
+la prueba continua mantiene WebGL real y verifica el guardado explícito del tramo.
 No confundir la emulación móvil con una prueba en calle en un teléfono.
 
 CI levanta además Docker completo, carga automáticamente las 633 candidatas, sube

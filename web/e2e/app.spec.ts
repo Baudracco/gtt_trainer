@@ -335,14 +335,15 @@ test('authors ordered map vertices and inspects automatic source state', async (
   expect(writes).toEqual(['/media/photos', '/media/videos', '/routes']);
   expect(errors).toEqual([]);
 });
-test('records native GPS as separate local segments and saves only the chosen depot draft', async ({
-  page,
-  context,
-}, testInfo) => {
-  await context.grantPermissions(['geolocation']);
-  await context.setGeolocation({ longitude: 7.6, latitude: 45.05, accuracy: 5 });
-  await page.addInitScript(() => {
+/** Native lifecycle/error checks and deterministic motion share watcher instrumentation.
+ * Chromium's emulation emits POSITION_UNAVAILABLE when replacing an override; that
+ * is a real discontinuity for the app. Controlled callbacks model uninterrupted
+ * movement separately, without weakening the production gap policy or WebGL checks. */
+async function recordingGps(page: Page, native: boolean) {
+  await page.addInitScript((native) => {
     const live = new Set<number>();
+    const controlled = new Map<number, PositionCallback>();
+    let nextId = 0;
     const events: unknown[] = [];
     const record = (event: unknown) => {
       if (events.length < 30) events.push(event);
@@ -351,34 +352,103 @@ test('records native GPS as separate local segments and saves only the chosen de
     const stop = navigator.geolocation.clearWatch.bind(navigator.geolocation);
     navigator.geolocation.watchPosition = (ok, error, options) => {
       record({ type: 'watch', time: Date.now() });
-      const id = start(
-        (position) => {
-          record({
-            type: 'position',
-            timestamp: position.timestamp,
-            time: Date.now(),
-            accuracy: position.coords.accuracy,
-          });
-          ok(position);
-        },
-        (failure) => {
-          record({ type: 'error', code: failure.code, time: Date.now() });
-          error?.(failure);
-        },
-        options,
-      );
+      const callback: PositionCallback = (position) => {
+        record({
+          type: 'position',
+          timestamp: position.timestamp,
+          time: Date.now(),
+          accuracy: position.coords.accuracy,
+        });
+        ok(position);
+      };
+      const id = native
+        ? start(
+            callback,
+            (failure) => {
+              record({ type: 'error', code: failure.code, time: Date.now() });
+              error?.(failure);
+            },
+            options,
+          )
+        : ++nextId;
+      if (!native) controlled.set(id, callback);
       live.add(id);
       return id;
     };
     navigator.geolocation.clearWatch = (id) => {
       record({ type: 'clear', time: Date.now() });
       live.delete(id);
-      stop(id);
+      if (native) stop(id);
+      controlled.delete(id);
     };
     Object.defineProperty(window, 'activeGpsWatchers', { get: () => live.size });
-    Object.defineProperty(window, 'nativeGpsEvents', { get: () => events });
+    Object.defineProperty(window, 'recordingGpsEvents', { get: () => events });
+    if (!native)
+      Object.defineProperty(window, 'recordingTestFix', {
+        value: (longitude: number) => {
+          for (const callback of controlled.values())
+            callback({
+              timestamp: Date.now(),
+              coords: { longitude, latitude: 45.05, accuracy: 5 },
+            } as GeolocationPosition);
+        },
+      });
+  }, native);
+  return {
+    watchers: () => page.evaluate(() => Reflect.get(window, 'activeGpsWatchers')),
+    emit: (longitude: number) =>
+      page.evaluate((longitude) => Reflect.get(window, 'recordingTestFix')(longitude), longitude),
+    events: () => page.evaluate(() => Reflect.get(window, 'recordingGpsEvents')),
+  };
+}
+
+test('captures native GPS errors and pauses without joining isolated observations', async ({
+  page,
+  context,
+}, testInfo) => {
+  await context.grantPermissions(['geolocation']);
+  await context.setGeolocation({ longitude: 7.6, latitude: 45.05, accuracy: 5 });
+  const gps = await recordingGps(page, true);
+  const { errors, writes } = await prepare(page, true);
+  await page.getByRole('button', { name: '+ Nuevo recorrido' }).click();
+  const capture = page.locator('.gps-recorder');
+  await capture.locator('summary').click();
+  await capture.getByRole('button', { name: 'Iniciar grabación GPS' }).click();
+  await expect.poll(gps.watchers).toBe(1);
+  await expect(capture.locator('.recording-stats')).toContainText('1 puntos');
+  await context.setGeolocation(null);
+  await expect(capture.getByText(/^Señal insuficiente/)).toBeVisible();
+  await expect.poll(gps.watchers).toBe(1);
+  await context.setGeolocation({ longitude: 7.601, latitude: 45.05, accuracy: 5 });
+  await expect(capture.locator('.recording-stats')).toContainText('2 puntos');
+  await capture.getByRole('button', { name: 'Pausar grabación' }).click();
+  await expect.poll(gps.watchers).toBe(0);
+  await context.setGeolocation({ longitude: 7.602, latitude: 45.05, accuracy: 5 });
+  await capture.getByRole('button', { name: 'Retomar grabación' }).click();
+  await expect(capture.locator('.recording-stats')).toContainText('3 puntos');
+  await capture.getByRole('button', { name: 'Pausar grabación' }).click();
+  await expect.poll(gps.watchers).toBe(0);
+  await expect(capture.locator('.recording-stats')).toContainText('0 tramos utilizables');
+  await expect(capture.getByRole('button', { name: 'Usar este tramo' })).toHaveCount(0);
+  const downloaded = page.waitForEvent('download');
+  await capture.getByRole('button', { name: 'Descargar GPX grabado' }).click();
+  const gpx = await readFile((await (await downloaded).path())!, 'utf8');
+  expect(gpx.match(/<wpt /g)).toHaveLength(3);
+  expect(gpx).not.toContain('<trk>');
+  await testInfo.attach('native-gps-events', {
+    body: JSON.stringify(await gps.events()),
+    contentType: 'application/json',
   });
-  const watchers = () => page.evaluate(() => Reflect.get(window, 'activeGpsWatchers'));
+  await page.locator('.editor').getByRole('button', { name: 'Cerrar', exact: true }).click();
+  await expect.poll(gps.watchers).toBe(0);
+  expect(writes).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+test('records continuous controlled fixes with WebGL, segmented GPX and explicit depot draft save', async ({
+  page,
+}, testInfo) => {
+  const gps = await recordingGps(page, false);
   const { errors, writes } = await prepare(page, true);
   await page.getByRole('button', { name: 'Depósitos y cambios', exact: true }).click();
   await page.getByLabel('Línea', { exact: true }).selectOption('S1');
@@ -387,33 +457,26 @@ test('records native GPS as separate local segments and saves only the chosen de
   const capture = page.locator('.gps-recorder');
   await capture.locator('summary').click();
   await capture.getByRole('button', { name: 'Iniciar grabación GPS' }).click();
-  await expect.poll(watchers).toBe(1);
+  await expect.poll(gps.watchers).toBe(1);
+  await gps.emit(7.6);
   await expect(capture.locator('.recording-stats')).toContainText('1 puntos');
   await expect(page.locator('.editor-actions button').first()).toBeDisabled();
   // Real timestamps must pass the recorder's one-second sampling interval.
   await page.waitForTimeout(1100);
-  await context.setGeolocation({ longitude: 7.6003, latitude: 45.05, accuracy: 5 });
+  await gps.emit(7.6003);
   await expect(capture.locator('.recording-stats')).toContainText('2 puntos');
-  const observations = JSON.stringify(
-    await page.evaluate(() => Reflect.get(window, 'nativeGpsEvents')),
-  );
-  await testInfo.attach('native-gps-events', {
-    body: observations,
-    contentType: 'application/json',
-  });
-  console.log('Native GPS observations:', observations);
   await expect.poll(async () => (await pixels(page)).green).toBeGreaterThan(10);
   await capture.getByRole('button', { name: 'Pausar grabación' }).click();
-  await expect.poll(watchers).toBe(0);
-  await context.setGeolocation({ longitude: 7.602, latitude: 45.05, accuracy: 5 });
+  await expect.poll(gps.watchers).toBe(0);
   await capture.getByRole('button', { name: 'Retomar grabación' }).click();
-  await expect.poll(watchers).toBe(1);
+  await expect.poll(gps.watchers).toBe(1);
+  await gps.emit(7.602);
   await expect(capture.locator('.recording-stats')).toContainText('3 puntos');
   await page.waitForTimeout(1100);
-  await context.setGeolocation({ longitude: 7.6023, latitude: 45.05, accuracy: 5 });
+  await gps.emit(7.6023);
   await expect(capture.locator('.recording-stats')).toContainText('4 puntos');
   await capture.getByRole('button', { name: 'Pausar grabación' }).click();
-  await expect.poll(watchers).toBe(0);
+  await expect.poll(gps.watchers).toBe(0);
   await expect(capture.locator('.recording-stats')).toContainText('2 tramos utilizables');
   expect(writes).toEqual([]);
   const downloadPromise = page.waitForEvent('download');
@@ -458,7 +521,7 @@ test('records native GPS as separate local segments and saves only the chosen de
   expect(doc.source.provenance.movementId).toBe('synthetic-out-1');
   expect(doc.source.provenance.text).toBe('Road Alpha - Road Beta');
   await expect(page.locator('.editor')).toHaveCount(0);
-  await expect.poll(watchers).toBe(0);
+  await expect.poll(gps.watchers).toBe(0);
   expect(writes).toEqual(['/routes']);
   expect(errors).toEqual([]);
 });

@@ -73,9 +73,14 @@ Denegar permiso o desmontar libera el observador; un error temporal mantiene el
 observador activo y separa la siguiente posición válida.
 
 Las pruebas unitarias cubren filtros, límites, exportación/reimportación, errores,
-visibilidad, desmontaje y conservación de evidencia. Playwright verifica permisos y
-GPS nativos de Chromium, mapa WebGL verde, dos tramos, descarga y guardado explícito
-en escritorio y móvil emulado. La continuidad, precisión, permisos y consumo en un
+visibilidad, desmontaje y conservación de evidencia. Playwright verifica permisos,
+fixes/errores nativos de Chromium, pausa y exportación de observaciones aisladas.
+Una prueba con callbacks de ubicación controlados verifica movimiento continuo,
+mapa WebGL verde real, dos tramos, descarga y guardado explícito en escritorio y
+móvil emulado. La emulación de Chromium usada por CI emite un error temporal al
+cambiar su override antes del nuevo fix: la aplicación lo trata como una
+discontinuidad. Esa prueba no se usa para suponer continuidad física.
+La continuidad, precisión, permisos y consumo en un
 teléfono físico siguen requiriendo validación en campo. No se promete grabación en
 segundo plano ni continuidad durante la suspensión del navegador.
 

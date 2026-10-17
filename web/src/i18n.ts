@@ -183,9 +183,9 @@ const copy = {
     'Record route with GPS',
   ],
   gpsRecordHelp: [
-    'La captura queda en este dispositivo hasta descargarla o guardar el trazado. Mantené esta pantalla abierta y revisá la geometría antes de publicar.',
-    'La registrazione rimane sul dispositivo fino al download o al salvataggio del tracciato. Mantieni aperta questa schermata e verifica la geometria prima di pubblicare.',
-    'Capture stays on this device until you download it or save the path. Keep this screen open and review the geometry before publishing.',
+    'La captura es local y se pierde al cerrar o recargar. Mantené la app visible. Pausá y descargá el GPX, o aplicá un tramo y guardá el borrador. Revisá el trazado antes de publicar.',
+    'La registrazione è locale e si perde chiudendo o ricaricando. Mantieni visibile l’app. Metti in pausa e scarica il GPX, oppure applica un tratto e salva la bozza. Verifica il tracciato prima di pubblicare.',
+    'Capture is local and is lost on close or reload. Keep the app visible. Pause and download GPX, or apply a segment and save the draft. Review the path before publishing.',
   ],
   gpsRecordSource: ['Grabación GPS propia', 'Registrazione GPS propria', 'Own GPS recording'],
   gpsRecordStart: ['Iniciar grabación GPS', 'Avvia registrazione GPS', 'Start GPS recording'],
